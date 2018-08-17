@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<workflow id="32">
+  <name>demo - AES</name>
+  <roles>
+    <role id="_receiver">Destinataire</role>
+  </roles><last_modification user_id="1">2018-08-17 09:56:28</last_modification>
+  <possible_status>
+    <status>
+      <id>1</id>
+      <name>Envoi des infos &#224; AES</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item id="3" type="webservice_call">
+          <label>Enregistrements des occurences s&#233;lectionn&#233;es</label>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes-staging/add_registration_child</url>
+          <request_signature_key />
+          <method>POST</method>
+          <post>False</post>
+          <post_data>
+            <item>
+              <name>occurences_id</name>
+              <value>=form_var_selected_activity_details_raw</value>
+            </item><item>
+              <name>child_id</name>
+              <value>=form_var_selected_child_raw</value>
+            </item>
+          </post_data><response_type>json</response_type>
+          <varname>aes_registration_child</varname>
+          <action_on_app_error>2</action_on_app_error>
+          <action_on_4xx>:stop</action_on_4xx>
+          <action_on_5xx>:stop</action_on_5xx>
+          <action_on_bad_data>:pass</action_on_bad_data>
+          <action_on_network_errors>:stop</action_on_network_errors>
+          <notify_on_errors>True</notify_on_errors>
+          <record_errors>True</record_errors>
+        </item><item id="2" type="jump">
+          <status>3</status>
+          <condition>
+            <type>python</type>
+            <value>aes_registration_child_response is True</value>
+          </condition><set_marker_on_status>False</set_marker_on_status>
+        </item><item id="4" type="choice">
+          <label>debug snd</label>
+          <by>
+            <item role_id="08b4ba67eb2d421ea88d4bb0256a9666">Debug</item>
+          </by><status>1</status>
+          <require_confirmation>False</require_confirmation>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>2</id>
+      <name>&#233;chou&#233;</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="choice">
+          <label>debug</label>
+          <by>
+            <item role_id="08b4ba67eb2d421ea88d4bb0256a9666">Debug</item>
+          </by><status>1</status>
+          <require_confirmation>False</require_confirmation>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>3</id>
+      <name>R&#233;ussit!</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="sendmail">
+          <to>
+            <item role_id="&quot;michael.colicchia@imio.be&quot;">"michael.colicchia@imio.be"</item>
+          </to><subject>anu...s</subject>
+          <body>Succ&#232;s de l'envoi du suppositoire ! 
+
+
+BAM... DTC ! </body>
+        </item><item id="2" type="choice">
+          <label>DEBUG</label>
+          <by>
+            <item role_id="032bfed279a448d39a09dedadbc09a31">Agent ayant acces aux fabriques</item>
+          </by><status>1</status>
+          <require_confirmation>False</require_confirmation>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+  </possible_status>
+</workflow>
