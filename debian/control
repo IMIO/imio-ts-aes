@@ -1,7 +1,7 @@
 Source: imio-ts-aes
 Section: unknown
 Priority: optional
-Maintainer: cboulanger <cboulanger@unknown>
+Maintainer: cboulanger <christophe.boulanger@imio.be>
 Build-Depends: debhelper (>= 10)
 Standards-Version: 4.1.2
 Homepage: <insert the upstream URL, if relevant>
@@ -10,6 +10,6 @@ Homepage: <insert the upstream URL, if relevant>
 
 Package: imio-ts-aes
 Architecture: all
-Depends: ${misc:Depends}
+Depends: ${misc:Depends}, python-passerelle (>= 1.35), wcs (>=3.5)
 Description: <insert up to 60 chars description>
  <insert long description, indented with spaces>
