@@ -1,0 +1,6 @@
+install_imio-ts-aes.sh /usr/bin
+datasources/   /usr/share/imio-ts-aes
+forms/   /usr/share/imio-ts-aes
+workflows/   /usr/share/imio-ts-aes
+categories/   /usr/share/imio-ts-aes
+wscalls/   /usr/share/imio-ts-aes
