@@ -4,3 +4,6 @@ forms/   /usr/share/imio-ts-aes
 workflows/   /usr/share/imio-ts-aes
 categories/   /usr/share/imio-ts-aes
 wscalls/   /usr/share/imio-ts-aes
+get-wcs-tenant.py /usr/share/imio-ts-aes
+import-workflows.py /usr/share/imio-ts-aes
+import-forms.py /usr/share/imio-ts-aes
