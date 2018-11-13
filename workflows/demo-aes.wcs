@@ -3,7 +3,7 @@
   <name>demo - AES</name>
   <roles>
     <role id="_receiver">Destinataire</role>
-  </roles><last_modification user_id="1">2018-08-17 09:56:28</last_modification>
+  </roles><last_modification user_id="1">2018-11-09 15:11:48</last_modification>
   <possible_status>
     <status>
       <id>1</id>
@@ -19,11 +19,14 @@
           <post>False</post>
           <post_data>
             <item>
-              <name>occurences_id</name>
+              <name>occurences_ids</name>
               <value>=form_var_selected_activity_details_raw</value>
             </item><item>
               <name>child_id</name>
               <value>=form_var_selected_child_raw</value>
+            </item><item>
+              <name>activity_id</name>
+              <value>=form_var_selected_activity_raw</value>
             </item>
           </post_data><response_type>json</response_type>
           <varname>aes_registration_child</varname>
@@ -85,6 +88,24 @@ BAM... DTC ! </body>
           </by><status>1</status>
           <require_confirmation>False</require_confirmation>
           <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="3" type="jump">
+          <status>4</status>
+          <trigger>validate</trigger>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>4</id>
+      <name>R&#233;ponse de AES</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="sendmail">
+          <to>
+            <item role_id="&quot;michael.colicchia@imio.be&quot;">"michael.colicchia@imio.be"</item>
+          </to><subject>BRAVO !! </subject>
+          <body>BRAVO m'gamin, tu as fais &#233;voluer le WF avec une m&#233;thode POST. </body>
+          <custom_from />
         </item>
       </items>
     </status>
