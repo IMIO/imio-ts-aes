@@ -30,5 +30,5 @@ sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$wcs_tena
 sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$wcs_tenant /usr/share/imio-ts-aes/import-forms.py
 
 # COMBO : import AES portail-citoyen structure
-combo_tenant=$wcs_tenant | sed "s/-formulaires//"
+combo_tenant=$(echo "$wcs_tenant" | sed "s/-formulaires//")
 sudo -u combo combo-manage tenant_command import_site -d $combo_tenant /usr/share/imio-ts-aes/combo/portail-citoyen-aes.json
