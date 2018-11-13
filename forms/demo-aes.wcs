@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-15"?>
 <formdef id="131">
-  <name>demo - AES</name>
+  <name>AES - Inscrire mon enfant &#224; une activit&#233;</name>
   <url_name>demo-aes</url_name>
   <internal_identifier>demo-cb-aes</internal_identifier>
   <discussion>false</discussion>
@@ -13,10 +13,10 @@
   <private_status_and_history>false</private_status_and_history>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category>accueil-extra-scolaire</category>
-  <workflow>demo - AES</workflow>
-  <max_field_id>30</max_field_id>
-  <last_modification user_id="1">2018-08-17 09:55:48</last_modification>
+  <category category_id="107">Accueil extra-scolaire</category>
+  <workflow workflow_id="32">demo - AES</workflow>
+  <max_field_id>33</max_field_id>
+  <last_modification user_id="1">2018-11-09 13:25:07</last_modification>
   <fields>
     <field>
       <label>Coordonn&#233;es</label>
@@ -143,6 +143,9 @@
       <condition>
         <type>python</type>
         <value>webservice.aes_is_registered_parent is False</value>
+      </condition><condition>
+        <type>python</type>
+        <value>webservice.aes_is_registered_parent is False</value>
       </condition><id>12</id>
     </field><field>
       <label>Nous vous invitons &#224; d'abord remplir le formulaire d'inscription. Vos coordonn&#233;es doivent pr&#233;alablement appara&#238;tre dans notre logiciel de traitement avant d'entamer cette d&#233;marche.</label>
@@ -152,6 +155,9 @@
       <label>On continue</label>
       <type>page</type>
       <condition>
+        <type>python</type>
+        <value>webservice.aes_is_registered_parent is True</value>
+      </condition><condition>
         <type>python</type>
         <value>webservice.aes_is_registered_parent is True</value>
       </condition><id>14</id>
@@ -181,6 +187,9 @@
       <condition>
         <type>python</type>
         <value>form_var_selected_child is not None</value>
+      </condition><condition>
+        <type>python</type>
+        <value>form_var_selected_child is not None</value>
       </condition><id>23</id>
     </field><field>
       <label>Activit&#233;s</label>
@@ -203,16 +212,45 @@
       <type>page</type>
       <id>26</id>
     </field><field>
+      <label>Occurences de l'activit&#233; s&#233;lectionn&#233;e</label>
+      <type>items</type>
+      <required>True</required>
+      <varname>selected_activity_details</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>splitlist</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><max_choices>0</max_choices>
+      <data_source>
+        <type>formula</type>
+        <value>webservice.aes_get_activity_details.get('data')</value>
+      </data_source><in_filters>False</in_filters>
+      <anonymise>True</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>33</id>
+    </field><field>
       <label>&lt;p&gt;id de l'activit&#233; :{{ form_var_selected_activity_raw }}&lt;/p&gt;&lt;p&gt;id de l'enfant : {{ form_var_selected_child_raw }}&lt;/p&gt;</label>
       <type>comment</type>
+      <extra_css_class>newline</extra_css_class>
       <id>30</id>
+    </field><field>
+      <label>POUBELLE</label>
+      <type>page</type>
+      <condition>
+        <type>python</type>
+        <value>vars().get('form_var_BROLE') is not None</value>
+      </condition><condition>
+        <type>python</type>
+        <value>vars().get('form_var_BROLE') is not None</value>
+      </condition><id>29</id>
     </field><field>
       <label>Choisissez des occurences de l'activit&#233;  s&#233;lectionn&#233;e</label>
       <type>items</type>
-      <required>True</required>
-      <hint>template-aesagenda</hint>
-      <varname>selected_activity_details</varname>
+      <required>False</required>
+      <hint>template-aesagenda
+template-aes-agenda</hint>
       <in_listing>True</in_listing>
+      <extra_css_class>hidden</extra_css_class>
       <prefill>
         <type>none</type>
       </prefill><max_choices>0</max_choices>
@@ -224,12 +262,22 @@
       <display_disabled_items>False</display_disabled_items>
       <id>28</id>
     </field><field>
-      <label>POUBELLE</label>
-      <type>page</type>
-      <condition>
-        <type>python</type>
-        <value>form_var_BROLE is not None</value>
-      </condition><id>29</id>
+      <label>test</label>
+      <type>item</type>
+      <required>False</required>
+      <varname>selected_occurences</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>template-aes-agenda</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><show_as_radio>False</show_as_radio>
+      <data_source>
+        <type>formula</type>
+        <value>webservice.aes_get_activity_details.get('data')</value>
+      </data_source><in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>31</id>
     </field><field>
       <label>D&#233;tail de l'activit&#233; s&#233;lectionn&#233;e</label>
       <type>item</type>
@@ -246,6 +294,10 @@
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
       <id>25</id>
+    </field><field>
+      <label>{{form_var_selected_occurences}}</label>
+      <type>comment</type>
+      <id>32</id>
     </field>
   </fields><user-roles>
     <role role_id="logged-users">logged-users</role>
