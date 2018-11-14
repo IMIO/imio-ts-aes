@@ -8,6 +8,8 @@ USER="wcs"
 # WCS : Get wcs tenant
 wcs_tenant=$(python /usr/share/imio-ts-aes/get-wcs-tenant.py 2>&1)
 
+commune=$(echo "$wcs_tenant" | sed "s/-formulaires.guichet-citoyen.be//")
+
 # COMBO : Get combo tenant
 combo_tenant=$(echo "$wcs_tenant" | sed "s/-formulaires//")
 
@@ -34,7 +36,9 @@ sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$wcs_tena
 sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$wcs_tenant /usr/share/imio-ts-aes/import-forms.py
 
 # COMBO : import AES widget (settings.json)
+sed -i "s/[COMMUNE]/$commune/g" /usr/share/imio-ts-aes/combo/tenants/settings.json
 cp /usr/share/imio-ts-aes/combo/tenants/settings.json /var/lib/combo/tenants/$combo_tenant/
+sed -i "s/$commune/[COMMUNE]/g" /usr/share/imio-ts-aes/combo/tenants/settings.json
 
 # COMBO : import AES portail-citoyen structure
 sudo -u combo combo-manage tenant_command import_site -d $combo_tenant /usr/share/imio-ts-aes/combo/portail-citoyen-aes.json
