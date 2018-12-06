@@ -9,14 +9,26 @@ pipeline {
     }
     stages {
         stage('Build') {
+            environment {
+                VERSION= sh (script: "sh version.sh", returnStdout: true)
+            }
             steps {
-                sh "fpm -n imio-ts-aes -s python -t deb -v `cat version` --prefix /usr -d passerelle setup.py"
+                sh "fpm -a amd64 -n imio-ts-aes -s python -t deb -v `echo ${VERSION}` --prefix /usr -d passerelle setup.py"
+                withCredentials([string(credentialsId: 'gpg-passphrase-system@imio.be', variable:'PASSPHRASE')]){
+                    sh ('''dpkg-sig --gpg-options "--yes --batch --passphrase '$PASSPHRASE' " -s builder -k 9D4C79E197D914CF60C05332C0025EEBC59B875B imio-ts-aes_`echo ${VERSION}`_amd64.deb''')
+                }
             }
         }
         stage('Deploy') {
+            environment {
+                VERSION= sh (script: "sh version.sh", returnStdout: true)
+            }
             steps {
-                sh "scp imio-ts-aes_`cat version`_all.deb root@puppetmaster.imio.be:/tmp"
+                withCredentials([usernameColonPassword(credentialsId: 'nexus-teleservices', variable: 'CREDENTIALS'),string(credentialsId: 'nexus-url', variable:'NEXUS_URL')]) {
+                    sh ('curl -v --fail -u $CREDENTIALS -X POST -H Content-Type:multipart/form-data --data-binary @imio-ts-aes_`echo ${VERSION}`_amd64.deb $NEXUS_URL')
+                }
             }
         }
     }
 }
+
