@@ -1,0 +1,7 @@
+recursive-include imio_ts_aes/categories *
+recursive-include imio_ts_aes/combo *
+recursive-include imio_ts_aes/forms *
+include MANIFEST.in
+include VERSION
+include README
+
