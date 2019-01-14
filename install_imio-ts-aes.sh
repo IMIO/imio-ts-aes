@@ -5,6 +5,10 @@
 set -e
 USER="wcs"
 
+############### Add dependency passerelle-imio-ia-aes to install aes plugins passerelle.
+############### Add passerelle service restart to load plugins
+############### Add passerelle connector creation.
+
 # WCS : Get wcs tenant
 wcs_tenant=$(python /usr/share/imio-ts-aes/get-wcs-tenant.py 2>&1)
 

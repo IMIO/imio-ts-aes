@@ -54,7 +54,7 @@ class compile_translations(Command):
     def run(self):
         try:
             from django.core.management import call_command
-            for path, dirs, files in os.walk('passerelle_imio_ia_aes'):
+            for path, dirs, files in os.walk('imio_ts_aes'):
                 if 'locale' not in dirs:
                     continue
                 curdir = os.getcwd()
@@ -76,7 +76,7 @@ class install_lib(_install_lib):
 
 
 setup(
-    name='passerelle-imio-ia-aes',
+    name='imio-ts-aes',
     version=get_version(),
     author='Christophe Boulanger',
     author_email='christophe.boulanger@imio.be',
