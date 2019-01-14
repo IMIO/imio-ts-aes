@@ -1,0 +1,13 @@
+<wscalls id="aes_get_children">
+  <name>aes_get_children</name>
+  <slug>aes_get_children</slug>
+  <description>R&#233;cup&#232;re la liste des enfants sur base de l'adresse e-mail d'un parent.</description>
+  <request>
+    <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes-staging/get_children</url>
+    <request_signature_key />
+    <method>GET</method>
+    <qs_data>
+      <param key="email">=form_var_email</param>
+    </qs_data><post_data />
+  </request>
+</wscalls>
