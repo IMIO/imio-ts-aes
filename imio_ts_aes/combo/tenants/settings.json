@@ -1,0 +1,17 @@
+{
+  "JSON_CELL_TYPES": {
+      "wcs-aes-auth": {
+        "name": "AES - Formulaires disponibles",
+        "url":"https://demo-passerelle.guichet-citoyen.be/passerelle-imio-ia-aes/aes-staging/is_registered_parent?email={{ user_email }}",
+        "additional-data": [
+          {"key": "aes_forms",
+           "url": "https://demo-formulaires.guichet-citoyen.be/api/categories/accueil-extra-scolaire/formdefs/"
+          }
+        ]
+      },
+      "aes-known-children": {
+        "name": "AES - Enfants connus dans votre guichet",
+        "url": "https://demo-passerelle.guichet-citoyen.be/passerelle-imio-ia-aes/aes-staging/get_children?email={{ user_email }}"
+      }
+  }
+}
