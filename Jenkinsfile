@@ -13,7 +13,7 @@ pipeline {
                 VERSION= sh (script: "sh version.sh", returnStdout: true)
             }
             steps {
-                sh "fpm -a amd64 -n imio-ts-aes -s python -t deb -v `echo ${VERSION}` --prefix /usr -d passerelle --after-install install_imio-ts-aes.sh setup.py"
+                sh "fpm -a amd64 -n imio-ts-aes -s python -t deb -v `echo ${VERSION}` --prefix /usr -d passerelle --after-install /usr/lib/imio_ts_aes/install_imio-ts-aes.sh setup.py"
                 withCredentials([string(credentialsId: 'gpg-passphrase-system@imio.be', variable:'PASSPHRASE')]){
                     sh ('''dpkg-sig --gpg-options "--yes --batch --passphrase '$PASSPHRASE' " -s builder -k 9D4C79E197D914CF60C05332C0025EEBC59B875B imio-ts-aes_`echo ${VERSION}`_amd64.deb''')
                 }
