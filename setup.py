@@ -93,7 +93,6 @@ setup(
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
     ],
-    install_requires=['wcs', 'combo'],
     zip_safe=False,
     cmdclass={
         'build': build,
