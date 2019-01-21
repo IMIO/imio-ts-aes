@@ -1,3 +1,4 @@
+recursive-include imio_ts_aes *
 recursive-include imio_ts_aes/categories *
 recursive-include imio_ts_aes/combo *
 recursive-include imio_ts_aes/forms *
