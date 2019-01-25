@@ -31,7 +31,7 @@ pipeline {
         }
     }
     post {
-        alway {
+        always {
             sh "imio-ts-aes_`echo ${VERSION}`_amd64.deb"
         }
 
