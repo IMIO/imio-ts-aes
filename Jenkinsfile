@@ -30,5 +30,10 @@ pipeline {
             }
         }
     }
-}
+    post {
+        alway {
+            sh "imio-ts-aes_`echo ${VERSION}`_amd64.deb"
+        }
 
+    }
+}
