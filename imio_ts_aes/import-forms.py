@@ -7,8 +7,7 @@ conv = lambda x: int(x)
 for formdef in FormDef.select():
     lst_formdef_names.append(formdef.name)
     lst_formdef_ids.append(formdef.id)
-
-folder_path = '/usr/share/imio-ts-aes/forms/'
+folder_path = '{0}/forms/'.format(sys.argv[1])
 for fichier in os.listdir(folder_path):
     if fichier[-4:] == ".wcs":
         fd = open("{}{}".format(folder_path, fichier))
