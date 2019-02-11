@@ -3,7 +3,8 @@
   <name>demo - AES</name>
   <roles>
     <role id="_receiver">Destinataire</role>
-  </roles><last_modification user_id="1">2018-11-09 15:11:48</last_modification>
+    <role id="_debug">Debug</role>
+  </roles><last_modification user_id="1">2019-02-11 09:18:25</last_modification>
   <possible_status>
     <status>
       <id>1</id>
@@ -46,8 +47,8 @@
         </item><item id="4" type="choice">
           <label>debug snd</label>
           <by>
-            <item role_id="08b4ba67eb2d421ea88d4bb0256a9666">Debug</item>
-          </by><status>1</status>
+            <item role_id="_debug">_debug</item>
+          </by><status>3</status>
           <require_confirmation>False</require_confirmation>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -61,7 +62,7 @@
         <item id="1" type="choice">
           <label>debug</label>
           <by>
-            <item role_id="08b4ba67eb2d421ea88d4bb0256a9666">Debug</item>
+            <item role_id="_debug">_debug</item>
           </by><status>1</status>
           <require_confirmation>False</require_confirmation>
           <set_marker_on_status>False</set_marker_on_status>
@@ -73,25 +74,27 @@
       <colour>FFFFFF</colour>
       <visibility />
       <items>
-        <item id="1" type="sendmail">
-          <to>
-            <item role_id="&quot;michael.colicchia@imio.be&quot;">"michael.colicchia@imio.be"</item>
-          </to><subject>anu...s</subject>
-          <body>Succ&#232;s de l'envoi du suppositoire ! 
-
-
-BAM... DTC ! </body>
-        </item><item id="2" type="choice">
-          <label>DEBUG</label>
-          <by>
-            <item role_id="032bfed279a448d39a09dedadbc09a31">Agent ayant acces aux fabriques</item>
-          </by><status>1</status>
-          <require_confirmation>False</require_confirmation>
-          <set_marker_on_status>False</set_marker_on_status>
-        </item><item id="3" type="jump">
+        <item id="3" type="jump">
           <status>4</status>
           <trigger>validate</trigger>
           <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="2" type="choice">
+          <label>DEBUG</label>
+          <by>
+            <item role_id="_debug">_debug</item>
+          </by><status>1</status>
+          <require_confirmation>False</require_confirmation>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="4" type="sendmail">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to><subject>url pour d&#233;clencher "validate"</subject>
+          <body>L'appel au webservice c'est bien pass&#233;. Enregistrement r&#233;alis&#233; dans AES.
+
+Pour information : url de rappel pour faire avancer le WF via AES : 
+
+https://demo-formulaires.guichet-citoyen.be/accueil-extra-scolaire/demo-aes/{{form_number_raw}}/jump/trigger/validate</body>
+          <custom_from />
         </item>
       </items>
     </status><status>
@@ -102,12 +105,26 @@ BAM... DTC ! </body>
       <items>
         <item id="1" type="sendmail">
           <to>
-            <item role_id="&quot;michael.colicchia@imio.be&quot;">"michael.colicchia@imio.be"</item>
-          </to><subject>BRAVO !! </subject>
-          <body>BRAVO m'gamin, tu as fais &#233;voluer le WF avec une m&#233;thode POST. </body>
+            <item role_id="_receiver">_receiver</item>
+          </to><subject>Appel du webservice (1) r&#233;ussit. url pour facturation : </subject>
+          <body>L'appel au webservice s'est bien pass&#233;.
+
+url de rappel pour faire avancer le WF via AES vers "FACTURATION": 
+
+https://demo-formulaires.guichet-citoyen.be/accueil-extra-scolaire/demo-aes/{{form_number_raw}}/jump/trigger/get_facturation</body>
           <custom_from />
+        </item><item id="2" type="jump">
+          <status>5</status>
+          <trigger>get_facturation</trigger>
+          <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
+    </status><status>
+      <id>5</id>
+      <name>&#224; facturer.</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items />
     </status>
   </possible_status>
 </workflow>
