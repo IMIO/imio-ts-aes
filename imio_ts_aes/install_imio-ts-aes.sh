@@ -1,21 +1,25 @@
 #!/bin/sh
 
+#$1 = domain (guichet-citoyen.be,...)
+
 # WCS : Create symbolic links where storing wcs webservices calling.
 #for i in /var/lib/wcs/*/ ; do ln -s $install_path/wscalls $i/wscalls; done
 set -e
 USER="wcs"
+
+domain=$1
 
 ############### Add dependency passerelle-imio-ia-aes to install aes plugins passerelle.
 ############### Add passerelle service restart to load plugins
 ############### Add passerelle connector creation.
 
 # installation path
-install_path = "/usr/lib/imio_ts_aes"
+install_path="/usr/lib/imio_ts_aes"
 
 # WCS : Get wcs tenant
 wcs_tenant=$(python $install_path/get-wcs-tenant.py 2>&1)
 
-commune=$(echo "$wcs_tenant" | sed "s/-formulaires.guichet-citoyen.be//")
+commune=$(echo "$wcs_tenant" | sed "s/-formulaires.$domain//")
 
 # COMBO : Get combo tenant
 combo_tenant=$(echo "$wcs_tenant" | sed "s/-formulaires//")
