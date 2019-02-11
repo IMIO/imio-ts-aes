@@ -13,7 +13,7 @@
   <private_status_and_history>false</private_status_and_history>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category category_id="107">Accueil extra-scolaire</category>
+  <category category_id="accueil-extra-scolaire">Accueil extra-scolaire</category>
   <workflow workflow_id="32">demo - AES</workflow>
   <max_field_id>33</max_field_id>
   <last_modification user_id="1">2018-11-09 13:25:07</last_modification>
