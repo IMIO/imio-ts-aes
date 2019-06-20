@@ -1,0 +1,854 @@
+<?xml version="1.0" encoding="iso-8859-15"?>
+<formdef id="175">
+  <name>AES - Fiche sant&#233;</name>
+  <url_name>aes-fiche-sante</url_name>
+  <internal_identifier>fiche-sante</internal_identifier>
+  <discussion>false</discussion>
+  <detailed_emails>true</detailed_emails>
+  <disabled>false</disabled>
+  <only_allow_one>false</only_allow_one>
+  <enable_tracking_codes>true</enable_tracking_codes>
+  <confirmation>true</confirmation>
+  <always_advertise>true</always_advertise>
+  <has_captcha>false</has_captcha>
+  <skip_from_360_view>false</skip_from_360_view>
+  <category category_id="107">Accueil extra-scolaire</category>
+  <workflow workflow_id="47">AES - Fiche sant&#233;</workflow>
+  <max_field_id>405</max_field_id>
+  <last_modification user_id="1">2019-06-20 08:27:03</last_modification>
+  <fields>
+    <field>
+      <label>Cr&#233;er ou actualiser la fiche sant&#233; de mon enfant</label>
+      <type>page</type>
+      <condition>
+        <type>django</type>
+        <value>not webservice.aes_is_registered_parent is True</value>
+      </condition><id>355</id>
+    </field><field>
+      <label>Choisissez l'enfant pour lequel vous souhait&#233; cr&#233;er ou actualiser la fiche sant&#233;</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>selected_child</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><display_mode>radio</display_mode>
+      <data_source>
+        <type>formula</type>
+        <value>webservice.aes_get_children.get('data') or [('786','786'), ('1','1')]</value>
+      </data_source><in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>357</id>
+    </field><field>
+      <label>Page de test</label>
+      <type>page</type>
+      <condition>
+        <type>django</type>
+        <value>TEST == 'KAMOULOX'</value>
+      </condition><id>401</id>
+    </field><field>
+      <label>Groupe sanguin</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>blood_type_test</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.aes_get_child_health_sheet.get('blood_type','inconnu')</value>
+      </prefill><items>
+        <item>O+</item>
+        <item>A+</item>
+        <item>B+</item>
+        <item>AB+</item>
+        <item>O-</item>
+        <item>A-</item>
+        <item>B-</item>
+        <item>AB-</item>
+        <item>inconnu</item>
+      </items><display_mode>list</display_mode>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>168</id>
+    </field><field>
+      <label>Commentaire</label>
+      <type>text</type>
+      <required>False</required>
+      <varname>comment_test</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.aes_get_child_health_sheet.get('comment')</value>
+      </prefill><pre>False</pre>
+      <id>403</id>
+    </field><field>
+      <label>test</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>formula</type>
+        <value>str(webservice.aes_get_child_health_sheet.get('data')[0])</value>
+      </prefill><anonymise>True</anonymise>
+      <id>404</id>
+    </field><field>
+      <label>id enfant s&#233;lectionn&#233; = {{form_var_selected_child_raw}}</label>
+      <type>comment</type>
+      <id>405</id>
+    </field><field>
+      <label>Fiche sant&#233;</label>
+      <type>page</type>
+      <id>356</id>
+    </field><field>
+      <label>Groupe sanguin</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>blood_type</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>O+</item>
+        <item>A+</item>
+        <item>B+</item>
+        <item>AB+</item>
+        <item>O-</item>
+        <item>A-</item>
+        <item>B-</item>
+        <item>AB-</item>
+        <item>inconnu</item>
+      </items><display_mode>list</display_mode>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>402</id>
+    </field><field>
+      <label>Personnes de contact</label>
+      <type>tablerows</type>
+      <required>False</required>
+      <varname>contact_ids</varname>
+      <columns>
+        <column>Nom et pr&#233;nom des personnes de contact</column>
+      </columns><total_row>False</total_row>
+      <id>358</id>
+    </field><field>
+      <label>M&#233;decin traitant</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>doctor</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise>True</anonymise>
+      <id>166</id>
+    </field><field>
+      <label>T&#233;l&#233;phone du m&#233;decin</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>doctor_tel</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise>True</anonymise>
+      <id>167</id>
+    </field><field>
+      <label>L'enfant a-t'il &#233;t&#233; vaccin&#233; contre le t&#233;tanos?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>tetanos_oui_non</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><display_mode>radio</display_mode>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>360</id>
+    </field><field>
+      <label>Date du premier vaccin contre le t&#233;tanos</label>
+      <type>date</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_tetanos_oui_non == 'Oui'</value>
+      </condition><required>False</required>
+      <varname>first_date_tetanus</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><minimum_is_future>False</minimum_is_future>
+      <date_in_the_past>False</date_in_the_past>
+      <date_can_be_today>False</date_can_be_today>
+      <id>169</id>
+    </field><field>
+      <label>Date du dernier vaccin contre le t&#233;tanos</label>
+      <type>date</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_tetanos_oui_non  == 'Oui'</value>
+      </condition><required>False</required>
+      <varname>last_date_tetanus</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><minimum_is_future>False</minimum_is_future>
+      <date_in_the_past>False</date_in_the_past>
+      <date_can_be_today>False</date_can_be_today>
+      <id>361</id>
+    </field><field>
+      <label>L'enfant a-t'il des allergies ?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>allergies_oui_non</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><display_mode>radio</display_mode>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>170</id>
+    </field><field>
+      <label>Si oui, lesquels</label>
+      <type>text</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_allergies_oui_non  == 'Oui'</value>
+      </condition><required>False</required>
+      <varname>txt_allergies</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><pre>False</pre>
+      <id>171</id>
+    </field><field>
+      <label>Si oui, lesquels</label>
+      <type>tablerows</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_allergies_oui_non  == 'Oui'</value>
+      </condition><required>False</required>
+      <varname>allergy</varname>
+      <columns>
+        <column>Allergies</column>
+      </columns><total_row>False</total_row>
+      <id>359</id>
+    </field><field>
+      <label>L'enfant souffre t'il d'un handicap?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>handicap_oui_non</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><display_mode>radio</display_mode>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>362</id>
+    </field><field>
+      <label>Activit&#233;s non praticables</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>activity_non_available</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><display_mode>radio</display_mode>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>364</id>
+    </field><field>
+      <label>Description du type de handicap de l'enfant</label>
+      <type>text</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_handicap_oui_non == 'Oui'</value>
+      </condition><required>False</required>
+      <varname>type_handicap</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><pre>False</pre>
+      <id>363</id>
+    </field><field>
+      <label>Type d'activit&#233;s non praticables</label>
+      <type>text</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_activity_non_available  == 'Oui'</value>
+      </condition><required>False</required>
+      <varname>activity_non_available_text</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><pre>False</pre>
+      <id>365</id>
+    </field><field>
+      <label>L'enfant est-il facilement sujet aux coups de soleil?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>sun_burn_oui_non</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><display_mode>radio</display_mode>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>366</id>
+    </field><field>
+      <label>Traitement sugg&#233;r&#233; pour traiter le coups de soleil</label>
+      <type>string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_sun_burn_oui_non  == 'Oui'</value>
+      </condition><required>False</required>
+      <varname>sun_burn_text</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise>False</anonymise>
+      <id>368</id>
+    </field><field>
+      <label>L'enfant souffre t'il de diab&#232;te?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>diabetes_oui_non</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><display_mode>radio</display_mode>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>369</id>
+    </field><field>
+      <label>Traitement sugg&#233;r&#233; pour faire face &#224; une crise de diab&#232;te</label>
+      <type>string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_diabetes_oui_non  == 'Oui'</value>
+      </condition><required>False</required>
+      <varname>diabetes_text</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise>False</anonymise>
+      <id>370</id>
+    </field><field>
+      <label>L'enfant souffre t'il d'une maladie cardiaque ?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>hearth_disease_oui_non</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><display_mode>radio</display_mode>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>371</id>
+    </field><field>
+      <label>Traitement sugg&#233;r&#233; pour faire face &#224; un malaise cardiaque</label>
+      <type>string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_hearth_disease_oui_non  == 'Oui'</value>
+      </condition><required>False</required>
+      <varname>hearth_disease_text</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise>True</anonymise>
+      <id>372</id>
+    </field><field>
+      <label>L'enfant est-il sujet &#224; des crises &#233;pileptique?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>epilepsy_oui_non</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><display_mode>radio</display_mode>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>373</id>
+    </field><field>
+      <label>Traitement sugg&#233;r&#233; pour faire face &#224; une crise d'&#233;pilepsie</label>
+      <type>string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_epilepsy_oui_non  == 'Oui'</value>
+      </condition><required>False</required>
+      <varname>epilepsy_text</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise>True</anonymise>
+      <id>374</id>
+    </field><field>
+      <label>L'enfant est-il sujet &#224; des affections de la peau ?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>skin_disease_oui_non</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><display_mode>radio</display_mode>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>375</id>
+    </field><field>
+      <label>Traitement sugg&#233;r&#233; pour faire face &#224; des affections de la peau</label>
+      <type>string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_skin_disease_oui_non  == 'Oui'</value>
+      </condition><required>False</required>
+      <varname>skin_disease_text</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise>True</anonymise>
+      <id>376</id>
+    </field><field>
+      <label>L'enfant est-il sujet &#224; des saignements de nez ?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>nose_bleed_oui_non</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><display_mode>radio</display_mode>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>377</id>
+    </field><field>
+      <label>Traitement sugg&#233;r&#233; pour faire face &#224; des saignements de nez</label>
+      <type>string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_nose_bleed_oui_non  == 'Oui'</value>
+      </condition><required>False</required>
+      <varname>nose_bleed_text</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise>True</anonymise>
+      <id>378</id>
+    </field><field>
+      <label>L'enfant est-il sujet &#224; des insomnies ?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>insomnia_oui_non</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><display_mode>radio</display_mode>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>379</id>
+    </field><field>
+      <label>Traitement sugg&#233;r&#233; pour faire face aux insomnies</label>
+      <type>string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_insomnia_oui_non  == 'Oui'</value>
+      </condition><required>False</required>
+      <varname>insomnia_text</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise>True</anonymise>
+      <id>380</id>
+    </field><field>
+      <label>L'enfant est-il sujet &#224; des maux de t&#234;te ?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>headache_oui_non</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><display_mode>radio</display_mode>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>381</id>
+    </field><field>
+      <label>Traitement sugg&#233;r&#233; pour faire face aux maux de t&#234;te</label>
+      <type>string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_headache_oui_non  == 'Oui'</value>
+      </condition><required>False</required>
+      <varname>headache_text</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise>True</anonymise>
+      <id>382</id>
+    </field><field>
+      <label>L'enfant est-il sujet &#224; des crises d'asthme ?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>asthma_oui_non</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><display_mode>radio</display_mode>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>383</id>
+    </field><field>
+      <label>Traitement sugg&#233;r&#233; pour faire face aux crises d'asthme</label>
+      <type>string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_asthma_oui_non  == 'Oui'</value>
+      </condition><required>False</required>
+      <varname>asthma_text</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise>True</anonymise>
+      <id>384</id>
+    </field><field>
+      <label>L'enfant est-il sujet &#224; des maux de ventre ?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>stomach_ache_oui_non</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><display_mode>radio</display_mode>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>385</id>
+    </field><field>
+      <label>Traitement sugg&#233;r&#233; pour faire face aux maux de ventre</label>
+      <type>string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_stomach_ache_oui_non  == 'Oui'</value>
+      </condition><required>False</required>
+      <varname>stomach_ache_text</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise>True</anonymise>
+      <id>386</id>
+    </field><field>
+      <label>L'enfant est-il sujet &#224; de la constipation ?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>constipated_oui_non</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><display_mode>radio</display_mode>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>387</id>
+    </field><field>
+      <label>Traitement sugg&#233;r&#233; pour faire face aux constipations</label>
+      <type>string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_constipated_oui_non == 'Oui'</value>
+      </condition><required>False</required>
+      <varname>constipated_text</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise>True</anonymise>
+      <id>388</id>
+    </field><field>
+      <label>L'enfant est-il facilement sujet &#224; avoir de la diarrh&#233;e ?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>diarrhea_oui_non</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><display_mode>radio</display_mode>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>389</id>
+    </field><field>
+      <label>Traitement sugg&#233;r&#233; pour faire face &#224; la diarrh&#233;e</label>
+      <type>string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_diarrhea_oui_non == 'Oui'</value>
+      </condition><required>False</required>
+      <varname>diarrhea_text</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise>True</anonymise>
+      <id>390</id>
+    </field><field>
+      <label>L'enfant est-il facilement sujet &#224; avoir des vomissements ?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>puking_oui_non</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><display_mode>radio</display_mode>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>391</id>
+    </field><field>
+      <label>Traitement sugg&#233;r&#233; pour faire face aux vomissements</label>
+      <type>string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_puking_oui_non == 'Oui'</value>
+      </condition><required>False</required>
+      <varname>puking_text</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise>True</anonymise>
+      <id>392</id>
+    </field><field>
+      <label>L'enfant a-t'il le mal des transports ?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>motion_sickness_oui_non</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><display_mode>radio</display_mode>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>393</id>
+    </field><field>
+      <label>Traitement sugg&#233;r&#233; pour faire face au mal des transports</label>
+      <type>string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_motion_sickness_oui_non == 'Oui'</value>
+      </condition><required>False</required>
+      <varname>motion_sickness_text</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise>True</anonymise>
+      <id>394</id>
+    </field><field>
+      <label>L'enfant est-il facilement sujet aux sinusites</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>sinusitis_oui_non</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><display_mode>radio</display_mode>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>395</id>
+    </field><field>
+      <label>Traitement sugg&#233;r&#233; pour faire face aux sinusites</label>
+      <type>string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_sinusitis_oui_non == 'Oui'</value>
+      </condition><required>False</required>
+      <varname>sinusitis_text</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise>True</anonymise>
+      <id>396</id>
+    </field><field>
+      <label>L'enfant est-il facilement sujet aux bronchites</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>bronchitis_oui_non</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><display_mode>radio</display_mode>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>397</id>
+    </field><field>
+      <label>Traitement sugg&#233;r&#233; pour faire face aux bronchites</label>
+      <type>string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_bronchitis_oui_non == 'Oui'</value>
+      </condition><required>False</required>
+      <varname>bronchitis_text</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise>True</anonymise>
+      <id>398</id>
+    </field><field>
+      <label>L'enfant est-il actuellement porteur d'une maladie contagieuse ?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>contagiuous_illness_oui_non</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><display_mode>radio</display_mode>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>399</id>
+    </field><field>
+      <label>Traitement sugg&#233;r&#233; pour faire face &#224; la maladie contagieuse</label>
+      <type>string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_contagiuous_illness_oui_non == 'Oui'</value>
+      </condition><required>False</required>
+      <varname>contagiuous_illness_text</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise>True</anonymise>
+      <id>400</id>
+    </field><field>
+      <label>Y a-t-il des donn&#233;es m&#233;dicales sp&#233;cifiques importantes &#224; conna&#238;tre pour le bon d&#233;roulement des activit&#233;s(&#233;pilepsie,probl&#232;me cardiaque, asthme, ...)?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>donnees_medicales_oui_non</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><display_mode>radio</display_mode>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>172</id>
+    </field><field>
+      <label>Si oui, lesquels</label>
+      <type>text</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_donnees_medicales_oui_non is True</value>
+      </condition><required>False</required>
+      <varname>txt_donnees_medicales</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><pre>False</pre>
+      <id>173</id>
+    </field><field>
+      <label>Pr&#233;cisions suppl&#233;mentaires &#233;ventuelles</label>
+      <type>text</type>
+      <required>False</required>
+      <varname>precisions_supp</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><pre>False</pre>
+      <id>174</id>
+    </field><field>
+      <label>En cas d'intervention urgente, le p&#232;re et/ou la m&#232;re autorise(nt) les chefs de plaine &#224; prendre toutes les dispositions n&#233;cessaires  </label>
+      <type>bool</type>
+      <required>True</required>
+      <varname>chk_dispo_necessaires</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><id>175</id>
+    </field>
+  </fields><user-roles>
+    <role role_id="08b4ba67eb2d421ea88d4bb0256a9666">Debug</role>
+  </user-roles><roles>
+    <role role_id="08b4ba67eb2d421ea88d4bb0256a9666" role_key="_receiver">Debug</role>
+    <role role_id="08b4ba67eb2d421ea88d4bb0256a9666" role_key="_debug">Debug</role>
+  </roles><options>
+    <option varname="compte">BE80 0910 2100 5377</option>
+  </options><geolocations />
+</formdef>
