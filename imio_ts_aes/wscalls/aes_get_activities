@@ -7,7 +7,7 @@
     <request_signature_key />
     <method>GET</method>
     <qs_data>
-      <param key="child_id">=form_var_selected_child_raw</param>
+      <param key="ws_child_id">=form_var_selected_child_raw</param>
     </qs_data><post_data />
   </request>
 </wscalls>
