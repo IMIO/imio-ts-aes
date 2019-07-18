@@ -12,7 +12,6 @@ install_path="/usr/lib/imio_ts_aes"
 
 # WCS : Get wcs tenant
 wcs_tenant=$(python $install_path/get-wcs-tenant.py 2>&1)
-print $wcs_tenant
 commune=$(echo "$wcs_tenant" | sed "s/-formulaires.$domain//")
 
 # COMBO : Get combo tenant
@@ -24,15 +23,26 @@ then
 fi
 cp $install_path/wscalls/* /var/lib/wcs/$wcs_tenant/wscalls
 
+catgrep=`grep accueil-extra-scolaire /var/lib/wcs/*/categories -nri`
+if [ -z "$catgrep" ]; then
 # WCS : Create categories (Categories must be create before forms, category can't be an alphanumeric name...)
-# cp $install_path/category/accueil-extra-scolaire /var/lib/wcs/$wcs_tenant/categories/
+#mv $install_path/category/0 $install_path/category/$(($category_registration_number + 1))
 category_registration_number=$(ls /var/lib/wcs/$wcs_tenant/categories |  sort -n | tail -1)
 sed -i 's/id="0"/id="'$(($category_registration_number + 1))'"/g' $install_path/category/0
-mv $install_path/category/0 $install_path/category/$(($category_registration_number + 1))
-cp $install_path/category/$(($category_registration_number + 1)) /var/lib/wcs/$wcs_tenant/categories/$(($category_registration_number + 1))
+cp $install_path/category/0 /var/lib/wcs/$wcs_tenant/categories/$(($category_registration_number + 1))
+sed -i 's/id="'$(($category_registration_number + 1))'"/id="0"/g' $install_path/category/0
 chown -R ${USER}:${USER} /var/lib/wcs/$wcs_tenant/categories/$(($category_registration_number + 1))
+fi
 
-chown -R ${USER}:${USER} /var/lib/wcs/$wcs_tenant/categories/$(($category_registration_number + 1))
+dsgrep=`grep demo_aes_repas /var/lib/wcs/$wcs_tenant/datasources -nri`
+if [ -z "$dsgrep" ]; then
+datasource_registration_number=$(ls /var/lib/wcs/$wcs_tenant/datasources |  sort -n | tail -1)
+sed -i 's/id="0"/id="'$(($datasource_registration_number + 1))'"/g' $install_path/datasources/0
+cp $install_path/datasources/0 /var/lib/wcs/$wcs_tenant/datasources/$(($datasource_registration_number + 1))
+sed -i 's/id="'$(($datasource_registration_number + 1))'"/id="0"/g' $install_path/datasources/0
+chown -R ${USER}:${USER} /var/lib/wcs/$wcs_tenant/datasources/$(($datasource_registration_number + 1))
+fi
+
 chown -R ${USER}:${USER} /var/lib/wcs/$wcs_tenant/wscalls/aes* 
 # chown -R ${USER}:${USER} $install_path/datasources 
 
