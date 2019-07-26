@@ -34,6 +34,9 @@ sed -i 's/id="'$(($category_registration_number + 1))'"/id="0"/g' $install_path/
 chown -R ${USER}:${USER} /var/lib/wcs/$wcs_tenant/categories/$(($category_registration_number + 1))
 fi
 
+# Deploy passerelle plugins.
+sudo -u passerelle /usr/bin/passerelle-manage tenant_command import_site -d $commune-passerelle.$domain $install_path/passerelle/iimioiaaes.json
+
 dsgrep=`grep demo_aes_repas /var/lib/wcs/$wcs_tenant/datasources -nri`
 if [ -z "$dsgrep" ]; then
 datasource_registration_number=$(ls /var/lib/wcs/$wcs_tenant/datasources |  sort -n | tail -1)
