@@ -23,27 +23,30 @@ then
 fi
 cp $install_path/wscalls/* /var/lib/wcs/$wcs_tenant/wscalls
 
-catgrep=`grep accueil-extra-scolaire /var/lib/wcs/*/categories -nri`
-if [ -z "$catgrep" ]; then
 # WCS : Create categories (Categories must be create before forms, category can't be an alphanumeric name...)
-#mv $install_path/category/0 $install_path/category/$(($category_registration_number + 1))
-category_registration_number=$(ls /var/lib/wcs/$wcs_tenant/categories |  sort -n | tail -1)
-sed -i 's/id="0"/id="'$(($category_registration_number + 1))'"/g' $install_path/category/0
-cp $install_path/category/0 /var/lib/wcs/$wcs_tenant/categories/$(($category_registration_number + 1))
-sed -i 's/id="'$(($category_registration_number + 1))'"/id="0"/g' $install_path/category/0
-chown -R ${USER}:${USER} /var/lib/wcs/$wcs_tenant/categories/$(($category_registration_number + 1))
+if [ -z `grep accueil-extra-scolaire /var/lib/wcs/*/categories -nri` ]; then
+    echo 'install category'
+    category_registration_number=$(ls /var/lib/wcs/$wcs_tenant/categories |  sort -n | tail -1)
+    sed -i 's/id="0"/id="'$(($category_registration_number + 1))'"/g' $install_path/category/0
+    cp $install_path/category/0 /var/lib/wcs/$wcs_tenant/categories/$(($category_registration_number + 1))
+    sed -i 's/id="'$(($category_registration_number + 1))'"/id="0"/g' $install_path/category/0
+    chown -R ${USER}:${USER} /var/lib/wcs/$wcs_tenant/categories/$(($category_registration_number + 1))
+else
+    echo 'category already exist'
 fi
 
 # Deploy passerelle plugins.
 sudo -u passerelle /usr/bin/passerelle-manage tenant_command import_site -d $commune-passerelle.$domain $install_path/passerelle/iimioiaaes.json
 
-dsgrep=`grep demo_aes_repas /var/lib/wcs/$wcs_tenant/datasources -nri`
-if [ -z "$dsgrep" ]; then
-datasource_registration_number=$(ls /var/lib/wcs/$wcs_tenant/datasources |  sort -n | tail -1)
-sed -i 's/id="0"/id="'$(($datasource_registration_number + 1))'"/g' $install_path/datasources/0
-cp $install_path/datasources/0 /var/lib/wcs/$wcs_tenant/datasources/$(($datasource_registration_number + 1))
-sed -i 's/id="'$(($datasource_registration_number + 1))'"/id="0"/g' $install_path/datasources/0
-chown -R ${USER}:${USER} /var/lib/wcs/$wcs_tenant/datasources/$(($datasource_registration_number + 1))
+if [ -z `grep demo_aes_repas /var/lib/wcs/$wcs_tenant/datasources -nri` ]; then
+    echo 'install datasources'
+    datasource_registration_number=$(ls /var/lib/wcs/$wcs_tenant/datasources |  sort -n | tail -1)
+    sed -i 's/id="0"/id="'$(($datasource_registration_number + 1))'"/g' $install_path/datasources/0
+    cp $install_path/datasources/0 /var/lib/wcs/$wcs_tenant/datasources/$(($datasource_registration_number + 1))
+    sed -i 's/id="'$(($datasource_registration_number + 1))'"/id="0"/g' $install_path/datasources/0
+    chown -R ${USER}:${USER} /var/lib/wcs/$wcs_tenant/datasources/$(($datasource_registration_number + 1))
+else
+    echo 'datasources already exists'
 fi
 
 chown -R ${USER}:${USER} /var/lib/wcs/$wcs_tenant/wscalls/aes* 
