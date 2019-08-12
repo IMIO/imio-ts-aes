@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<workflow id="8">
+  <name>aes rectificatifs du matin</name>
+  <roles>
+    <role id="_receiver">Agents traitants</role>
+  </roles><last_modification user_id="1">2019-08-12 16:15:37</last_modification>
+  <possible_status>
+    <status>
+      <id>1</id>
+      <name>Envoy&#233; &#224; API</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="sendmail">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+            <item role_id="nicolas.hislaire@imio.be">nicolas.hislaire@imio.be</item>
+          </to><subject>{{ form_name }} de {{ form_var_implantation }}</subject>
+          <body>{{ form_var_rectificatifs}}
+{{ form_details }}
+
+{% action_button "accepter" label="Valider" delay=1 %}
+{% action_button "refuser" label="Refuser" delay=1 %}</body>
+        </item><item id="2" type="choice">
+          <label>Refuser les modifications</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>2</status>
+          <require_confirmation>False</require_confirmation>
+          <set_marker_on_status>False</set_marker_on_status>
+          <identifier>refuser</identifier>
+        </item><item id="3" type="choice">
+          <label>Accepter les modifications</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>3</status>
+          <require_confirmation>False</require_confirmation>
+          <set_marker_on_status>False</set_marker_on_status>
+          <identifier>accepter</identifier>
+        </item><item id="4" type="choice">
+          <label>Rejouer</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+            <item role_id="_submitter">_submitter</item>
+          </by><status>1</status>
+          <require_confirmation>False</require_confirmation>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>2</id>
+      <name>Refus&#233; par API</name>
+      <colour>FF0000</colour>
+      <visibility />
+      <items>
+        <item id="1" type="sendmail">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>{{ form_name }} de {{ form_var_implantation }}</subject>
+          <body>Les modifications suivantes :
+{{ form_var_rectificatifs }}
+ont &#233;t&#233; {{ form_status }}</body>
+        </item>
+      </items>
+    </status><status>
+      <id>3</id>
+      <name>Accept&#233; par API</name>
+      <colour>00FF00</colour>
+      <visibility />
+      <items>
+        <item id="1" type="sendmail">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>{{ form_name }} de {{ form_var_implantation }}</subject>
+          <body>Les modifications suivantes :
+{{ form_var_rectificatifs }}
+ont &#233;t&#233; {{ form_status }}</body>
+        </item>
+      </items>
+    </status>
+  </possible_status>
+</workflow>
