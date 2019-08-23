@@ -1,0 +1,10 @@
+<datasources id="1">
+  <name>Implantations scolaires</name>
+  <slug>implantations_scolaires</slug>
+  <description>Source de donn&#233;s qui expose les implantations scolaires de la commune.</description>
+  <data_source>
+    <type>formula</type>
+    <value>[{'id':'0', 'text':'Ecole1','courriel':'ecole1@courriel.be'},{'id':'1', 'text':'Ecole 2','courriel':'ecole2@courriel.be'},{'id':'2', 'text':'Ecole 3','courriel':'ecole3@courriel.be'}]</value>
+  </data_source>
+</datasources>
+
