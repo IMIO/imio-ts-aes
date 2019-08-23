@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="iso-8859-15"?>
+<formdef id="18">
+  <name>Rectificatifs du matin</name>
+  <url_name>rectificatifs-du-matin</url_name>
+  <internal_identifier>rectificatifs-du-matin</internal_identifier>
+  <discussion>false</discussion>
+  <detailed_emails>true</detailed_emails>
+  <disabled>false</disabled>
+  <only_allow_one>false</only_allow_one>
+  <enable_tracking_codes>false</enable_tracking_codes>
+  <confirmation>true</confirmation>
+  <always_advertise>false</always_advertise>
+  <has_captcha>false</has_captcha>
+  <skip_from_360_view>false</skip_from_360_view>
+  <category category_id="97">TS-AES Gestion des repas</category>
+  <workflow workflow_id="8">Formulaires rectificatifs</workflow>
+  <max_field_id>8</max_field_id>
+  <last_modification user_id="1">2019-07-05 12:23:46</last_modification>
+  <fields>
+    <field>
+      <label>Choix de l'implantation</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>implantation</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-1</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><display_mode>list</display_mode>
+      <data_source>
+        <type>implantations_scolaires</type>
+      </data_source><in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>1</id>
+    </field><field>
+      <label>Rectificatifs</label>
+      <type>table</type>
+      <required>True</required>
+      <varname>rectificatifs</varname>
+      <rows>
+        <row>Maternelles</row>
+        <row>Petit primaires</row>
+        <row>Grand primaires</row>
+        <row>Adultes</row>
+        <row>Potages</row>
+      </rows><columns>
+        <column>Nombre de repas</column>
+      </columns><id>8</id>
+    </field>
+  </fields><roles>
+    <role role_id="eeedc49d938142bd9270ecb5b1089784" role_key="_receiver">Agents API</role>
+  </roles><options />
+  <geolocations />
+</formdef>
