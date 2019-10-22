@@ -8,7 +8,7 @@ False si le parent n'existe pas</description>
     <request_signature_key />
     <method>GET</method>
     <qs_data>
-      <param key="email">=form_var_email</param>
+      <param key="email">=session_user_email</param>
     </qs_data><post_data />
   </request>
 </wscalls>
