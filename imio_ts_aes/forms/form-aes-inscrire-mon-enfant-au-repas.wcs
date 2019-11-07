@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-15"?>
 <formdef id="165">
-  <name>AES - Inscrire mon enfant au repas</name>
+  <name>AES - Inscrire mon enfant aux repas</name>
   <url_name>aes-inscrire-mon-enfant-au-repas</url_name>
   <internal_identifier>aes-inscrire-mon-enfant-au-repas</internal_identifier>
   <discussion>false</discussion>
@@ -14,8 +14,8 @@
   <skip_from_360_view>false</skip_from_360_view>
   <category category_id="107">Accueil extra-scolaire</category>
   <workflow workflow_id="48">AES - repas</workflow>
-  <max_field_id>37</max_field_id>
-  <last_modification user_id="1">2019-06-19 15:28:08</last_modification>
+  <max_field_id>42</max_field_id>
+  <last_modification user_id="1">2019-11-07 09:46:35</last_modification>
   <fields>
     <field>
       <label>Coordonn&#233;es</label>
@@ -88,7 +88,14 @@
       <condition>
         <type>python</type>
         <value>webservice.aes_is_registered_parent is False</value>
-      </condition><id>12</id>
+      </condition><post_conditions>
+        <post_condition>
+          <condition>
+            <type>django</type>
+            <value>webservice.aes_is_registered_parent is True</value>
+          </condition><error_message>Enregistrement n&#233;cessaire.</error_message>
+        </post_condition>
+      </post_conditions><id>12</id>
     </field><field>
       <label>Nous vous invitons &#224; d'abord remplir le formulaire d'inscription. Vos coordonn&#233;es doivent pr&#233;alablement appara&#238;tre dans notre logiciel de traitement avant d'entamer cette d&#233;marche.</label>
       <type>comment</type>
@@ -98,7 +105,7 @@
       <type>page</type>
       <condition>
         <type>python</type>
-        <value>webservice.aes_is_registered_parent is True</value>
+        <value>webservice.aes_is_registered_parent is True and vars().get('form_number_raw') is None</value>
       </condition><id>14</id>
     </field><field>
       <label>Choisissez l'enfant &#224; inscrire aux repas</label>
@@ -121,8 +128,15 @@
       <type>page</type>
       <condition>
         <type>python</type>
-        <value>form_var_selected_child is not None</value>
-      </condition><id>23</id>
+        <value>form_var_selected_child is not None or form_var_wf_child is not None</value>
+      </condition><post_conditions>
+        <post_condition>
+          <condition>
+            <type>python</type>
+            <value>webservice.aes_all_meals_selected == 0</value>
+          </condition><error_message>Il semble que vous n'ayez apport&#233; aucune r&#233;ponse concernant un repas pour un ou plusieurs jour(s)</error_message>
+        </post_condition>
+      </post_conditions><id>23</id>
     </field><field>
       <label>Menu</label>
       <type>items</type>
@@ -138,11 +152,13 @@
       </data_source><in_filters>False</in_filters>
       <anonymise>True</anonymise>
       <display_disabled_items>False</display_disabled_items>
-      <id>36</id>
+      <id>39</id>
     </field>
   </fields><user-roles>
     <role role_id="logged-users">logged-users</role>
-  </user-roles><roles>
+  </user-roles><backoffice-submission-roles>
+    <role role_id="08b4ba67eb2d421ea88d4bb0256a9666">Debug</role>
+  </backoffice-submission-roles><roles>
     <role role_id="a9aec1e5235f4b109bf3cb0c6a6a1aaa" role_key="_receiver">demo aes</role>
     <role role_id="08b4ba67eb2d421ea88d4bb0256a9666" role_key="_debug">Debug</role>
   </roles><options />
