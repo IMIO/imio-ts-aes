@@ -3,7 +3,7 @@
   <slug>aes_get_activity_details</slug>
   <description>R&#233;cup&#232;re le d&#233;tail d'une activit&#233; s&#233;lectionn&#233;e sur base de l'id de l'activit&#233;.</description>
   <request>
-    <url>[passerelle_url]passerelle-imio-ia-aes/aes-staging/get_activity_details</url>
+    <url>[passerelle_url]passerelle-imio-ia-aes/aes/get_activity_details</url>
     <request_signature_key />
     <method>GET</method>
     <qs_data>

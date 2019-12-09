@@ -3,7 +3,7 @@
   <slug>aes_get_activities</slug>
   <description>r&#233;cup&#232;re les activit&#233;s disponibles pour un enfant</description>
   <request>
-    <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes-staging/get_activities</url>
+    <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/get_activities</url>
     <request_signature_key />
     <method>GET</method>
     <qs_data>

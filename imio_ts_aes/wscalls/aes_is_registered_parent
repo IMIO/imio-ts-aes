@@ -4,7 +4,7 @@
   <description>True si le parent existe
 False si le parent n'existe pas</description>
   <request>
-    <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes-staging/is_registered_parent</url>
+    <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/is_registered_parent</url>
     <request_signature_key />
     <method>GET</method>
     <qs_data>
