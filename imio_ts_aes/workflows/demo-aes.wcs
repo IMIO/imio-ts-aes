@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<workflow id="32">
+<?xml version="1.0"?>
+<workflow id="8">
   <name>demo - AES</name>
   <roles>
-    <role id="_receiver">Destinataire</role>
     <role id="_debug">Debug</role>
-  </roles><last_modification user_id="1">2019-02-11 09:18:25</last_modification>
+    <role id="_receiver">Destinataire</role>
+  </roles><last_modification user_id="1">2020-02-03 14:06:20</last_modification>
   <possible_status>
     <status>
       <id>1</id>
@@ -12,10 +12,16 @@
       <colour>FFFFFF</colour>
       <visibility />
       <items>
-        <item id="3" type="webservice_call">
+        <item id="4" type="set-backoffice-fields">
+          <fields>
+            <field>
+              <field_id>bo12327eb7-292e-4599-8770-f59b17b60c69</field_id>
+              <value>{{ form_user_email }}</value>
+            </field>
+          </fields>
+        </item><item id="1" type="webservice_call">
           <label>Enregistrements des occurences s&#233;lectionn&#233;es</label>
           <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/add_registration_child</url>
-          <request_signature_key />
           <method>POST</method>
           <post>False</post>
           <post_data>
@@ -44,12 +50,13 @@
             <type>python</type>
             <value>aes_registration_child_response is True</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item id="4" type="choice">
+        </item><item id="3" type="choice">
           <label>debug snd</label>
           <by>
             <item role_id="_debug">_debug</item>
           </by><status>3</status>
           <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
@@ -65,6 +72,7 @@
             <item role_id="_debug">_debug</item>
           </by><status>1</status>
           <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
@@ -74,7 +82,7 @@
       <colour>FFFFFF</colour>
       <visibility />
       <items>
-        <item id="3" type="jump">
+        <item id="1" type="jump">
           <status>4</status>
           <trigger>validate</trigger>
           <set_marker_on_status>False</set_marker_on_status>
@@ -84,8 +92,9 @@
             <item role_id="_debug">_debug</item>
           </by><status>1</status>
           <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item id="4" type="sendmail">
+        </item><item id="3" type="sendmail">
           <to>
             <item role_id="_receiver">_receiver</item>
           </to><subject>url pour d&#233;clencher "validate"</subject>
@@ -94,7 +103,14 @@
 Pour information : url de rappel pour faire avancer le WF via AES : 
 
 https://demo-formulaires.guichet-citoyen.be/accueil-extra-scolaire/demo-aes/{{form_number_raw}}/jump/trigger/validate</body>
-          <custom_from />
+        </item><item id="4" type="choice">
+          <label>Retour</label>
+          <by>
+            <item role_id="_debug">_debug</item>
+          </by><status>1</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
     </status><status>
@@ -112,7 +128,6 @@ https://demo-formulaires.guichet-citoyen.be/accueil-extra-scolaire/demo-aes/{{fo
 url de rappel pour faire avancer le WF via AES vers "FACTURATION": 
 
 https://demo-formulaires.guichet-citoyen.be/accueil-extra-scolaire/demo-aes/{{form_number_raw}}/jump/trigger/get_facturation</body>
-          <custom_from />
         </item><item id="2" type="jump">
           <status>5</status>
           <trigger>get_facturation</trigger>
@@ -126,5 +141,21 @@ https://demo-formulaires.guichet-citoyen.be/accueil-extra-scolaire/demo-aes/{{fo
       <visibility />
       <items />
     </status>
-  </possible_status>
+  </possible_status><backoffice-fields>
+    <formdef>
+      <name>-</name>
+      <fields>
+        <field>
+          <label>email</label>
+          <type>string</type>
+          <required>True</required>
+          <varname>email</varname>
+          <display_locations>
+            <display_location>summary</display_location>
+          </display_locations><anonymise>True</anonymise>
+          <id>bo12327eb7-292e-4599-8770-f59b17b60c69</id>
+        </field>
+      </fields>
+    </formdef>
+  </backoffice-fields>
 </workflow>
