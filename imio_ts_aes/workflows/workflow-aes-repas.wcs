@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<workflow id="48">
+  <name>AES - repas</name>
+  <roles>
+    <role id="_receiver">Destinataire</role>
+    <role id="_debug">Debug</role>
+  </roles><last_modification user_id="1">2019-08-21 14:49:59</last_modification>
+  <possible_status>
+    <status>
+      <id>6</id>
+      <name>data_treatment</name>
+      <colour>000000</colour>
+      <visibility>
+        <role>_receiver</role>
+        <role>_debug</role>
+      </visibility><items>
+        <item id="2" type="set-backoffice-fields">
+          <fields>
+            <field>
+              <field_id>bo09285a9b-7903-4a13-a20d-9df0433c1ded</field_id>
+              <value>{{form_var_selected_child}}</value>
+            </field>
+          </fields>
+        </item><item id="1" type="jump">
+          <status>1</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>1</id>
+      <name>Enregistrement des repas</name>
+      <colour>FFFF00</colour>
+      <visibility />
+      <items>
+        <item id="3" type="webservice_call">
+          <label>Enregistrements des occurences s&#233;lectionn&#233;es</label>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes-staging/post_child_meal</url>
+          <request_signature_key />
+          <method>POST</method>
+          <post>False</post>
+          <post_data>
+            <item>
+              <name>child_id</name>
+              <value>=form_var_selected_child_raw</value>
+            </item><item>
+              <name>meals</name>
+              <value>=form_var_menu_raw</value>
+            </item><item>
+              <name>form_id</name>
+              <value>=form_number_raw</value>
+            </item>
+          </post_data><response_type>json</response_type>
+          <varname>post_child_meal</varname>
+          <action_on_app_error>2</action_on_app_error>
+          <action_on_4xx>2</action_on_4xx>
+          <action_on_5xx>2</action_on_5xx>
+          <action_on_bad_data>2</action_on_bad_data>
+          <action_on_network_errors>2</action_on_network_errors>
+          <notify_on_errors>True</notify_on_errors>
+          <record_errors>True</record_errors>
+        </item><item id="2" type="jump">
+          <status>3</status>
+          <condition>
+            <type>python</type>
+            <value>post_child_meal_response is True</value>
+          </condition><set_marker_on_status>False</set_marker_on_status>
+        </item><item id="4" type="choice">
+          <label>debug snd</label>
+          <by>
+            <item role_id="_debug">_debug</item>
+          </by><status>1</status>
+          <require_confirmation>False</require_confirmation>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>2</id>
+      <name>&#233;chou&#233;</name>
+      <colour>FF0000</colour>
+      <visibility />
+      <items>
+        <item id="1" type="choice">
+          <label>debug</label>
+          <by>
+            <item role_id="_debug">_debug</item>
+          </by><status>1</status>
+          <require_confirmation>False</require_confirmation>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>3</id>
+      <name>Repas correctement enregistr&#233;s</name>
+      <colour>00FF00</colour>
+      <visibility />
+      <items>
+        <item id="7" type="set-backoffice-fields">
+          <fields>
+            <field>
+              <field_id>boc71f69bb-a78e-4693-bc6a-f7f6f83dd6ed</field_id>
+              <value>False</value>
+            </field>
+          </fields>
+        </item><item id="3" type="jump">
+          <status>4</status>
+          <trigger>validate</trigger>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="2" type="choice">
+          <label>DEBUG</label>
+          <by>
+            <item role_id="_debug">_debug</item>
+          </by><status>1</status>
+          <require_confirmation>False</require_confirmation>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="4" type="sendmail">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to><subject>url pour d&#233;clencher "validate"</subject>
+          <body>L'appel au webservice s'est bien pass&#233;. Enregistrement r&#233;alis&#233; dans AES.
+
+Pour information : url de rappel pour faire avancer le WF via AES : 
+
+https://demo-formulaires.guichet-citoyen.be/accueil-extra-scolaire/demo-aes/{{form_number_raw}}/jump/trigger/validate</body>
+          <custom_from />
+        </item><item id="5" type="editable">
+          <by>
+            <item role_id="_submitter">_submitter</item>
+          </by><status>1</status>
+          <label>Modifier la commande</label>
+          <backoffice_info_text>&lt;p&gt;Attention, la modification de la commande ne peut se faire que si la facture n'a pas encore &amp;eacute;t&amp;eacute; g&amp;eacute;n&amp;eacute;r&amp;eacute;e.&lt;/p&gt;</backoffice_info_text>
+        </item>
+      </items>
+    </status><status>
+      <id>4</id>
+      <name>R&#233;ponse de AES</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="sendmail">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to><subject>Appel du webservice (1) r&#233;ussi. url pour facturation : </subject>
+          <body>L'appel au webservice s'est bien pass&#233;.</body>
+          <custom_from />
+        </item><item id="2" type="jump">
+          <status>5</status>
+          <trigger>get_facturation</trigger>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>5</id>
+      <name>&#224; facturer.</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items />
+    </status>
+  </possible_status><backoffice-fields>
+    <formdef>
+      <name>-</name>
+      <fields>
+        <field>
+          <label>Enfant concern&#233;</label>
+          <type>string</type>
+          <required>False</required>
+          <varname>wf_child</varname>
+          <in_listing>False</in_listing>
+          <anonymise>True</anonymise>
+          <id>bo09285a9b-7903-4a13-a20d-9df0433c1ded</id>
+        </field>
+      </fields>
+    </formdef>
+  </backoffice-fields>
+</workflow>
