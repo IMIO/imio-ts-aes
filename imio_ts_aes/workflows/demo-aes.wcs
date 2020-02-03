@@ -14,7 +14,7 @@
       <items>
         <item id="3" type="webservice_call">
           <label>Enregistrements des occurences s&#233;lectionn&#233;es</label>
-          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes-staging/add_registration_child</url>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/add_registration_child</url>
           <request_signature_key />
           <method>POST</method>
           <post>False</post>
