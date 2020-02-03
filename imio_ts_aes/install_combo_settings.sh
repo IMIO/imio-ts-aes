@@ -23,3 +23,5 @@ sed -i "s/[DOMAIN]/$domain/g" $install_path/combo/tenants/settings.json
 cp $install_path/combo/tenants/settings.json /var/lib/combo/tenants/$combo_tenant/
 sed -i "s/$commune/[COMMUNE]/g" $install_path/combo/tenants/settings.json
 sed -i "s/$domain/[DOMAIN]/g" $install_path/combo/tenants/settings.json
+
+service combo restart
