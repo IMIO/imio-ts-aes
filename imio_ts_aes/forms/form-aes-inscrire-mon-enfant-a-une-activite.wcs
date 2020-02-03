@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="iso-8859-15"?>
-<formdef id="131">
+<?xml version="1.0"?>
+<formdef id="21">
   <name>AES - Inscrire mon enfant &#224; une activit&#233;</name>
   <url_name>aes-inscrire-mon-enfant-a-une-activite</url_name>
-  <internal_identifier>demo-cb-aes</internal_identifier>
+  <internal_identifier>aes-inscrire-mon-enfant-a-une-activite</internal_identifier>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
   <disabled>false</disabled>
@@ -12,10 +12,10 @@
   <always_advertise>false</always_advertise>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category category_id="107">Accueil extra-scolaire</category>
-  <workflow workflow_id="32">AES - Activit&#233;s</workflow>
-  <max_field_id>34</max_field_id>
-  <last_modification user_id="1">2019-06-20 08:26:30</last_modification>
+  <category category_id="99">Accueil extra-scolaire</category>
+  <workflow workflow_id="8">demo - AES</workflow>
+  <max_field_id>35</max_field_id>
+  <last_modification user_id="1">2020-02-03 14:08:04</last_modification>
   <fields>
     <field>
       <label>Coordonn&#233;es</label>
@@ -26,8 +26,10 @@
       <type>string</type>
       <required>True</required>
       <varname>prenom</varname>
-      <in_listing>True</in_listing>
-      <extra_css_class>grid-1-2</extra_css_class>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class>grid-1-2</extra_css_class>
       <prefill>
         <type>user</type>
         <value>_first_name</value>
@@ -38,8 +40,10 @@
       <type>string</type>
       <required>True</required>
       <varname>nom</varname>
-      <in_listing>True</in_listing>
-      <extra_css_class>grid-1-2</extra_css_class>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class>grid-1-2</extra_css_class>
       <prefill>
         <type>user</type>
         <value>_last_name</value>
@@ -50,8 +54,10 @@
       <type>string</type>
       <required>True</required>
       <varname>rue</varname>
-      <in_listing>False</in_listing>
-      <extra_css_class>grid-1-3</extra_css_class>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class>grid-1-3</extra_css_class>
       <prefill>
         <type>user</type>
         <value>_street</value>
@@ -62,21 +68,27 @@
       <type>string</type>
       <required>True</required>
       <varname>numero_porte</varname>
-      <in_listing>False</in_listing>
-      <extra_css_class>grid-1-3</extra_css_class>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class>grid-1-3</extra_css_class>
       <prefill>
         <type>user</type>
         <value>_num_house</value>
-      </prefill><validation>^[0-9]*</validation>
-      <anonymise>True</anonymise>
+      </prefill><validation>
+        <type>regex</type>
+        <value>^[0-9]*</value>
+      </validation><anonymise>True</anonymise>
       <id>4</id>
     </field><field>
       <label>Bo&#238;te</label>
       <type>string</type>
       <required>False</required>
       <varname>boite</varname>
-      <in_listing>False</in_listing>
-      <extra_css_class>grid-1-3</extra_css_class>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class>grid-1-3</extra_css_class>
       <prefill>
         <type>user</type>
         <value>_num_box</value>
@@ -87,21 +99,27 @@
       <type>string</type>
       <required>True</required>
       <varname>code_postal</varname>
-      <in_listing>False</in_listing>
-      <extra_css_class>grid-1-2</extra_css_class>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class>grid-1-2</extra_css_class>
       <prefill>
         <type>user</type>
         <value>_zipcode</value>
-      </prefill><validation>^[0-9]*</validation>
-      <anonymise>True</anonymise>
+      </prefill><validation>
+        <type>regex</type>
+        <value>^[0-9]*</value>
+      </validation><anonymise>True</anonymise>
       <id>6</id>
     </field><field>
       <label>Ville</label>
       <type>string</type>
       <required>True</required>
       <varname>ville</varname>
-      <in_listing>False</in_listing>
-      <extra_css_class>grid-1-2</extra_css_class>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class>grid-1-2</extra_css_class>
       <prefill>
         <type>user</type>
         <value>_city</value>
@@ -112,8 +130,10 @@
       <type>string</type>
       <required>False</required>
       <varname>telephone</varname>
-      <in_listing>True</in_listing>
-      <extra_css_class>grid-1-2</extra_css_class>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class>grid-1-2</extra_css_class>
       <prefill>
         <type>user</type>
         <value>_phone</value>
@@ -124,26 +144,26 @@
       <type>string</type>
       <required>False</required>
       <varname>gsm</varname>
-      <in_listing>True</in_listing>
-      <extra_css_class>grid-1-2</extra_css_class>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class>grid-1-2</extra_css_class>
       <prefill>
         <type>user</type>
         <value>_mobile</value>
       </prefill><anonymise>True</anonymise>
       <id>9</id>
     </field><field>
-      <label>Adresse e-mail</label>
-      <type>email</type>
-      <required>False</required>
-      <varname>email</varname>
-      <in_listing>False</in_listing>
-      <prefill>
-        <type>user</type>
-        <value>_email</value>
-      </prefill><id>10</id>
+      <label>&lt;p&gt;Adresse e-mail :&lt;/p&gt;
+
+&lt;p&gt;{{form_user_email}}&lt;/p&gt;</label>
+      <type>comment</type>
+      <display_locations />
+      <id>35</id>
     </field><field>
       <label>&lt;p&gt;Si vos informations personnelles ont chang&amp;eacute;, vous devez changer votre signal&amp;eacute;tique dans vos pr&amp;eacute;f&amp;eacute;rences personnelles (&lt;a href="[idp_account_url]edit/"&gt;page de profil&lt;/a&gt;) avant de r&amp;eacute;aliser votre demande. Merci.&lt;/p&gt;</label>
       <type>comment</type>
+      <display_locations />
       <id>11</id>
     </field><field>
       <label>Inscription pr&#233;alable</label>
@@ -155,6 +175,7 @@
     </field><field>
       <label>Nous vous invitons &#224; d'abord remplir le formulaire d'inscription. Vos coordonn&#233;es doivent pr&#233;alablement appara&#238;tre dans notre logiciel de traitement avant d'entamer cette d&#233;marche.</label>
       <type>comment</type>
+      <display_locations />
       <id>15</id>
     </field><field>
       <label>Qui faut-il inscrire?</label>
@@ -163,16 +184,18 @@
         <type>python</type>
         <value>webservice.aes_is_registered_parent is True</value>
       </condition><id>14</id>
-    </field>
-    <field>
+    </field><field>
       <label>Choisissez l'enfant &#224; inscrire aux activit&#233;s</label>
       <type>item</type>
       <required>True</required>
       <varname>selected_child</varname>
-      <in_listing>True</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
-      </prefill><display_mode>radio</display_mode>
+      </prefill><items />
+      <display_mode>radio</display_mode>
       <data_source>
         <type>formula</type>
         <value>webservice.aes_get_children.get('data')</value>
@@ -192,10 +215,13 @@
       <type>item</type>
       <required>True</required>
       <varname>selected_activity</varname>
-      <in_listing>True</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
-      </prefill><display_mode>list</display_mode>
+      </prefill><items />
+      <display_mode>list</display_mode>
       <data_source>
         <type>formula</type>
         <value>webservice.aes_get_activities.get('data')</value>
@@ -210,17 +236,21 @@
     </field><field>
       <label>&lt;h1&gt;Activit&amp;eacute; choisie : {{form_var_selected_activity}}&lt;/h1&gt;</label>
       <type>comment</type>
+      <display_locations />
       <id>34</id>
     </field><field>
       <label>Dates encore disponibles</label>
       <type>items</type>
       <required>True</required>
       <varname>selected_activity_details</varname>
-      <in_listing>False</in_listing>
-      <extra_css_class>splitlist</extra_css_class>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class>splitlist</extra_css_class>
       <prefill>
         <type>none</type>
-      </prefill><max_choices>0</max_choices>
+      </prefill><items />
+      <max_choices>0</max_choices>
       <data_source>
         <type>formula</type>
         <value>webservice.aes_get_activity_details.get('data')</value>
@@ -234,9 +264,10 @@
 &lt;p&gt;id de l'enfant : {{ form_var_selected_child_raw }}&lt;/p&gt;</label>
       <type>comment</type>
       <extra_css_class>newline hidden</extra_css_class>
+      <display_locations />
       <id>30</id>
     </field><field>
-      <label>Tests</label>
+      <label>POUBELLE</label>
       <type>page</type>
       <condition>
         <type>python</type>
@@ -248,11 +279,14 @@
       <required>False</required>
       <hint>template-aesagenda
 template-aes-agenda</hint>
-      <in_listing>True</in_listing>
-      <extra_css_class>hidden</extra_css_class>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class>hidden</extra_css_class>
       <prefill>
         <type>none</type>
-      </prefill><max_choices>0</max_choices>
+      </prefill><items />
+      <max_choices>0</max_choices>
       <data_source>
         <type>formula</type>
         <value>webservice.aes_get_activity_details.get('data')</value>
@@ -265,11 +299,14 @@ template-aes-agenda</hint>
       <type>item</type>
       <required>False</required>
       <varname>selected_occurences</varname>
-      <in_listing>True</in_listing>
-      <extra_css_class>template-aes-agenda</extra_css_class>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class>template-aes-agenda</extra_css_class>
       <prefill>
         <type>none</type>
-      </prefill><display_mode>list</display_mode>
+      </prefill><items />
+      <display_mode>list</display_mode>
       <data_source>
         <type>formula</type>
         <value>webservice.aes_get_activity_details.get('data')</value>
@@ -281,11 +318,14 @@ template-aes-agenda</hint>
       <label>D&#233;tail de l'activit&#233; s&#233;lectionn&#233;e</label>
       <type>item</type>
       <required>True</required>
-      <in_listing>True</in_listing>
-      <extra_css_class>hidden</extra_css_class>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class>hidden</extra_css_class>
       <prefill>
         <type>none</type>
-      </prefill><display_mode>list</display_mode>
+      </prefill><items />
+      <display_mode>list</display_mode>
       <data_source>
         <type>formula</type>
         <value>webservice.aes_get_activity_details.get('data')</value>
@@ -296,13 +336,13 @@ template-aes-agenda</hint>
     </field><field>
       <label>{{form_var_selected_occurences}}</label>
       <type>comment</type>
+      <display_locations />
       <id>32</id>
     </field>
   </fields><user-roles>
     <role role_id="logged-users">logged-users</role>
   </user-roles><roles>
-    <role role_id="a9aec1e5235f4b109bf3cb0c6a6a1aaa" role_key="_receiver">demo aes</role>
-    <role role_id="08b4ba67eb2d421ea88d4bb0256a9666" role_key="_debug">Debug</role>
+    <role role_id="117eea72732e4f90a768f5380d79b1a4" role_key="_debug">Debug</role>
   </roles><options />
   <geolocations />
 </formdef>
