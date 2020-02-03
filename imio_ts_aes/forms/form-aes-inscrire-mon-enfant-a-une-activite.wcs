@@ -157,19 +157,14 @@
       <type>comment</type>
       <id>15</id>
     </field><field>
-      <label>On continue</label>
+      <label>Qui faut-il inscrire?</label>
       <type>page</type>
       <condition>
         <type>python</type>
         <value>webservice.aes_is_registered_parent is True</value>
       </condition><id>14</id>
-    </field><field>
-      <label>&lt;p&gt;F&amp;eacute;licitations, vous &amp;ecirc;tes d&amp;eacute;j&amp;agrave; enregistr&amp;eacute; dans notre base de donn&amp;eacute;es. Nous savons tout sur vous mais ne vous tracassez pas, vos donn&amp;eacute;es sont en de bonnes mains.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Vous ne pouvez inscrire qu'un enfant &amp;agrave; la fois aux activit&amp;eacute;s. En fin de formulaire, il vous sera demand&amp;eacute; si vous d&amp;eacute;sirez inscrire un autre enfant. &lt;/strong&gt;&lt;/p&gt;</label>
-      <type>comment</type>
-      <id>16</id>
-    </field><field>
+    </field>
+    <field>
       <label>Choisissez l'enfant &#224; inscrire aux activit&#233;s</label>
       <type>item</type>
       <required>True</required>
@@ -241,11 +236,11 @@
       <extra_css_class>newline hidden</extra_css_class>
       <id>30</id>
     </field><field>
-      <label>POUBELLE</label>
+      <label>Tests</label>
       <type>page</type>
       <condition>
         <type>python</type>
-        <value>vars().get('form_var_BROLE') is not None</value>
+        <value>False</value>
       </condition><id>29</id>
     </field><field>
       <label>Choisissez des occurences de l'activit&#233;  s&#233;lectionn&#233;e</label>
