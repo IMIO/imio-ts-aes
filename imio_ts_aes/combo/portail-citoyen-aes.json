@@ -4,10 +4,10 @@
       "fields": {
         "sub_slug": "", 
         "picture": "", 
-        "slug": "test", 
+        "slug": "portail_parent", 
         "description": "", 
         "parent": null, 
-        "title": "AES", 
+        "title": "Portail parent", 
         "last_update_timestamp": "2018-11-05T13:59:21.550Z", 
         "template_name": "two-columns", 
         "public": true, 
