@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="iso-8859-15"?>
 <formdef id="18">
   <name>Rectificatifs du matin</name>
-  <url_name>rectificatifs-du-matin</url_name>
-  <internal_identifier>rectificatifs-du-matin</internal_identifier>
+  <url_name>aes-rectificatifs-du-matin</url_name>
+  <internal_identifier>aes-rectificatifs-du-matin</internal_identifier>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
   <disabled>false</disabled>

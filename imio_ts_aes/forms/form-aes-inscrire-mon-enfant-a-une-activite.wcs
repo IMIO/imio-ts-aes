@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <formdef id="21">
-  <name>AES - Inscrire mon enfant &#224; une activit&#233;</name>
+  <name>Inscrire mon enfant &#224; une activit&#233;</name>
   <url_name>aes-inscrire-mon-enfant-a-une-activite</url_name>
   <internal_identifier>aes-inscrire-mon-enfant-a-une-activite</internal_identifier>
   <discussion>false</discussion>

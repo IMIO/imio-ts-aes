@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-15"?>
 <formdef id="165">
-  <name>AES - Inscrire mon enfant aux repas</name>
+  <name>Inscrire mon enfant aux repas</name>
   <url_name>aes-inscrire-mon-enfant-au-repas</url_name>
   <internal_identifier>aes-inscrire-mon-enfant-au-repas</internal_identifier>
   <discussion>false</discussion>

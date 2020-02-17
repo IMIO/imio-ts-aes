@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-15"?>
 <formdef id="175">
-  <name>AES - Fiche sant&#233;</name>
+  <name>Fiche sant&#233;</name>
   <url_name>aes-fiche-sante</url_name>
   <internal_identifier>fiche-sante</internal_identifier>
   <discussion>false</discussion>
