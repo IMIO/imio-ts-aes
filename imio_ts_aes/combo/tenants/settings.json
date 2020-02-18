@@ -1,26 +1,26 @@
 {
-  "JSON_CELL_TYPES": {
-      "wcs-aes-auth": {
-        "name": "AES - Formulaires disponibles",
-	"url":"https://[COMMUNE]-passerelle.[DOMAIN]/passerelle-imio-ia-aes/aes/is_registered_parent?email={{ user_email }}",
-        "additional-data": [
-          {"key": "aes_forms",
-           "url": "https://[COMMUNE]-formulaires.[DOMAIN]/api/categories/portail-parent/formdefs/"
-          },
-          {"key": "user",
-	   "url": "{{ idp_url}}api/users/{{ user_nameid }}/"}
-        ]
-      },
-     "aes-known-children": {
-        "name": "AES - Enfants connus dans votre guichet",
-	"url": "https://[COMMUNE]-passerelle.[DOMAIN]/passerelle-imio-ia-aes/aes/get_chidren_with_activities?mail={{ user_email }}",
-	"form": [
-	  {
-	    "varname":"print_activities",
-	    "type":"bool",
-	    "label":"Affichage des activités?"
-	  }
-	]
-      }
-  }
+    "JSON_CELL_TYPES": {
+        "wcs-aes-auth": {
+            "name": "AES - Formulaires disponibles",
+            "url": "https://[COMMUNE]-passerelle.[DOMAIN]/passerelle-imio-ia-aes/aes/is_registered_parent?email={{ user_email }}",
+            "additional-data": [{
+                    "key": "aes_forms",
+                    "url": "https://[COMMUNE]-formulaires.[DOMAIN]/api/categories/portail-parent/formdefs/"
+                },
+                {
+                    "key": "user",
+                    "url": "{{ idp_url}}api/users/{{ user_nameid }}/"
+                }
+            ]
+        },
+        "aes-known-children": {
+            "name": "AES - Enfants connus dans votre guichet",
+            "url": "https://[COMMUNE]-passerelle.[DOMAIN]/passerelle-imio-ia-aes/aes/get_chidren_with_activities?mail={{ user_email }}",
+            "form": [{
+                "varname": "print_activities",
+                "type": "bool",
+                "label": "Affichage des activités?"
+            }]
+        }
+    }
 }
