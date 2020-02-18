@@ -5,7 +5,7 @@
 	"url":"https://[COMMUNE]-passerelle.[DOMAIN]/passerelle-imio-ia-aes/aes/is_registered_parent?email={{ user_email }}",
         "additional-data": [
           {"key": "aes_forms",
-           "url": "https://[COMMUNE]-formulaires.[DOMAIN]/api/categories/accueil-extra-scolaire/formdefs/"
+           "url": "https://[COMMUNE]-formulaires.[DOMAIN]/api/categories/portail-parent/formdefs/"
           },
           {"key": "user",
 	   "url": "{{ idp_url}}api/users/{{ user_nameid }}/"}
