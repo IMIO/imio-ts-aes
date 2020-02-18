@@ -3,10 +3,19 @@
 Package qui regroupe les différentes briques du portail parent.
 
 La catégorie du portail parent
+    - Configuration / points d'attentions : 
+    Nom = Portail parent
+    url = portail-parent
+    l'url de la catégorie doit être figé car on s'en sert notemmment pour retrouver les formulaires dans la widget combo.
+    L'enregistrement des formulaires lors de l'installation de ce module s'en retrouverait également impacté si le nom de la catégorie change.
+
 
 La structure du portail parent
 
 Les widgets dédiées au portail parent
+    - Configuration / points d'attentions : 
+    La widget qui affiche les formulaires est basée sur l'identifiant/url de la catégorie (portail-parent). 
+
 
 Les datasources de base
 
