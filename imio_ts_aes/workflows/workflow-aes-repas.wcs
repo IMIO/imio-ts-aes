@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <workflow id="48">
-  <name>AES - repas</name>
+  <name>AES - Inscription aux repas</name>
   <roles>
     <role id="_receiver">Destinataire</role>
     <role id="_debug">Debug</role>
