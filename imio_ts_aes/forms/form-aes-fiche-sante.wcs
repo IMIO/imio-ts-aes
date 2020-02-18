@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="iso-8859-15"?>
-<formdef id="175">
+<?xml version="1.0"?>
+<formdef id="22">
   <name>Fiche sant&#233;</name>
   <url_name>aes-fiche-sante</url_name>
-  <internal_identifier>fiche-sante</internal_identifier>
+  <internal_identifier>aes-fiche-sante</internal_identifier>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
   <disabled>false</disabled>
@@ -12,10 +12,10 @@
   <always_advertise>true</always_advertise>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category category_id="107">Accueil extra-scolaire</category>
-  <workflow workflow_id="47">AES - Fiche sant&#233;</workflow>
-  <max_field_id>405</max_field_id>
-  <last_modification user_id="1">2019-06-20 08:27:03</last_modification>
+  <category category_id="99">Accueil extra-scolaire</category>
+  <workflow workflow_id="8">aes - Inscription &#224; une activit&#233;</workflow>
+  <max_field_id>418</max_field_id>
+  <last_modification user_id="11">2020-02-17 13:43:22</last_modification>
   <fields>
     <field>
       <label>Cr&#233;er ou actualiser la fiche sant&#233; de mon enfant</label>
@@ -29,10 +29,13 @@
       <type>item</type>
       <required>True</required>
       <varname>selected_child</varname>
-      <in_listing>False</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
-      </prefill><display_mode>radio</display_mode>
+      </prefill><items />
+      <display_mode>radio</display_mode>
       <data_source>
         <type>formula</type>
         <value>webservice.aes_get_children.get('data') or [('786','786'), ('1','1')]</value>
@@ -48,12 +51,26 @@
         <value>TEST == 'KAMOULOX'</value>
       </condition><id>401</id>
     </field><field>
+      <label>Personnes de contact</label>
+      <type>tablerows</type>
+      <required>False</required>
+      <varname>contact_ids</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><columns>
+        <column>Nom et pr&#233;nom des personnes de contact</column>
+      </columns><total_row>False</total_row>
+      <id>358</id>
+    </field><field>
       <label>Groupe sanguin</label>
       <type>item</type>
       <required>True</required>
       <varname>blood_type_test</varname>
-      <in_listing>False</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>formula</type>
         <value>webservice.aes_get_child_health_sheet.get('blood_type','inconnu')</value>
       </prefill><items>
@@ -76,8 +93,10 @@
       <type>text</type>
       <required>False</required>
       <varname>comment_test</varname>
-      <in_listing>False</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>formula</type>
         <value>webservice.aes_get_child_health_sheet.get('comment')</value>
       </prefill><pre>False</pre>
@@ -86,8 +105,10 @@
       <label>test</label>
       <type>string</type>
       <required>True</required>
-      <in_listing>False</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>formula</type>
         <value>str(webservice.aes_get_child_health_sheet.get('data')[0])</value>
       </prefill><anonymise>True</anonymise>
@@ -95,6 +116,7 @@
     </field><field>
       <label>id enfant s&#233;lectionn&#233; = {{form_var_selected_child_raw}}</label>
       <type>comment</type>
+      <display_locations />
       <id>405</id>
     </field><field>
       <label>Fiche sant&#233;</label>
@@ -105,8 +127,10 @@
       <type>item</type>
       <required>True</required>
       <varname>blood_type</varname>
-      <in_listing>False</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><items>
         <item>O+</item>
@@ -124,41 +148,14 @@
       <display_disabled_items>False</display_disabled_items>
       <id>402</id>
     </field><field>
-      <label>Personnes de contact</label>
-      <type>tablerows</type>
-      <required>False</required>
-      <varname>contact_ids</varname>
-      <columns>
-        <column>Nom et pr&#233;nom des personnes de contact</column>
-      </columns><total_row>False</total_row>
-      <id>358</id>
-    </field><field>
-      <label>M&#233;decin traitant</label>
-      <type>string</type>
-      <required>True</required>
-      <varname>doctor</varname>
-      <in_listing>False</in_listing>
-      <prefill>
-        <type>none</type>
-      </prefill><anonymise>True</anonymise>
-      <id>166</id>
-    </field><field>
-      <label>T&#233;l&#233;phone du m&#233;decin</label>
-      <type>string</type>
-      <required>True</required>
-      <varname>doctor_tel</varname>
-      <in_listing>False</in_listing>
-      <prefill>
-        <type>none</type>
-      </prefill><anonymise>True</anonymise>
-      <id>167</id>
-    </field><field>
       <label>L'enfant a-t'il &#233;t&#233; vaccin&#233; contre le t&#233;tanos?</label>
       <type>item</type>
       <required>True</required>
       <varname>tetanos_oui_non</varname>
-      <in_listing>True</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><items>
         <item>Oui</item>
@@ -176,8 +173,10 @@
         <value>form_var_tetanos_oui_non == 'Oui'</value>
       </condition><required>False</required>
       <varname>first_date_tetanus</varname>
-      <in_listing>False</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><minimum_is_future>False</minimum_is_future>
       <date_in_the_past>False</date_in_the_past>
@@ -191,8 +190,10 @@
         <value>form_var_tetanos_oui_non  == 'Oui'</value>
       </condition><required>False</required>
       <varname>last_date_tetanus</varname>
-      <in_listing>False</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><minimum_is_future>False</minimum_is_future>
       <date_in_the_past>False</date_in_the_past>
@@ -203,8 +204,10 @@
       <type>item</type>
       <required>True</required>
       <varname>allergies_oui_non</varname>
-      <in_listing>True</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><items>
         <item>Oui</item>
@@ -222,8 +225,10 @@
         <value>form_var_allergies_oui_non  == 'Oui'</value>
       </condition><required>False</required>
       <varname>txt_allergies</varname>
-      <in_listing>True</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><pre>False</pre>
       <id>171</id>
@@ -235,7 +240,10 @@
         <value>form_var_allergies_oui_non  == 'Oui'</value>
       </condition><required>False</required>
       <varname>allergy</varname>
-      <columns>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><columns>
         <column>Allergies</column>
       </columns><total_row>False</total_row>
       <id>359</id>
@@ -244,9 +252,10 @@
       <type>item</type>
       <required>True</required>
       <varname>handicap_oui_non</varname>
-      <in_listing>True</in_listing>
-      <extra_css_class>grid-1-2</extra_css_class>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><items>
         <item>Oui</item>
@@ -261,9 +270,10 @@
       <type>item</type>
       <required>True</required>
       <varname>activity_non_available</varname>
-      <in_listing>False</in_listing>
-      <extra_css_class>grid-1-2</extra_css_class>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><items>
         <item>Oui</item>
@@ -281,8 +291,10 @@
         <value>form_var_handicap_oui_non == 'Oui'</value>
       </condition><required>False</required>
       <varname>type_handicap</varname>
-      <in_listing>False</in_listing>
-      <extra_css_class>grid-1-2</extra_css_class>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class>grid-1-2</extra_css_class>
       <prefill>
         <type>none</type>
       </prefill><pre>False</pre>
@@ -295,8 +307,10 @@
         <value>form_var_activity_non_available  == 'Oui'</value>
       </condition><required>False</required>
       <varname>activity_non_available_text</varname>
-      <in_listing>False</in_listing>
-      <extra_css_class>grid-1-2</extra_css_class>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class>grid-1-2</extra_css_class>
       <prefill>
         <type>none</type>
       </prefill><pre>False</pre>
@@ -306,8 +320,10 @@
       <type>item</type>
       <required>True</required>
       <varname>sun_burn_oui_non</varname>
-      <in_listing>True</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><items>
         <item>Oui</item>
@@ -325,8 +341,10 @@
         <value>form_var_sun_burn_oui_non  == 'Oui'</value>
       </condition><required>False</required>
       <varname>sun_burn_text</varname>
-      <in_listing>False</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><anonymise>False</anonymise>
       <id>368</id>
@@ -335,8 +353,10 @@
       <type>item</type>
       <required>True</required>
       <varname>diabetes_oui_non</varname>
-      <in_listing>True</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><items>
         <item>Oui</item>
@@ -354,8 +374,10 @@
         <value>form_var_diabetes_oui_non  == 'Oui'</value>
       </condition><required>False</required>
       <varname>diabetes_text</varname>
-      <in_listing>False</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><anonymise>False</anonymise>
       <id>370</id>
@@ -364,8 +386,10 @@
       <type>item</type>
       <required>True</required>
       <varname>hearth_disease_oui_non</varname>
-      <in_listing>True</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><items>
         <item>Oui</item>
@@ -383,8 +407,10 @@
         <value>form_var_hearth_disease_oui_non  == 'Oui'</value>
       </condition><required>False</required>
       <varname>hearth_disease_text</varname>
-      <in_listing>False</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><anonymise>True</anonymise>
       <id>372</id>
@@ -393,8 +419,10 @@
       <type>item</type>
       <required>True</required>
       <varname>epilepsy_oui_non</varname>
-      <in_listing>True</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><items>
         <item>Oui</item>
@@ -412,8 +440,10 @@
         <value>form_var_epilepsy_oui_non  == 'Oui'</value>
       </condition><required>False</required>
       <varname>epilepsy_text</varname>
-      <in_listing>False</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><anonymise>True</anonymise>
       <id>374</id>
@@ -422,8 +452,10 @@
       <type>item</type>
       <required>True</required>
       <varname>skin_disease_oui_non</varname>
-      <in_listing>True</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><items>
         <item>Oui</item>
@@ -441,8 +473,10 @@
         <value>form_var_skin_disease_oui_non  == 'Oui'</value>
       </condition><required>False</required>
       <varname>skin_disease_text</varname>
-      <in_listing>False</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><anonymise>True</anonymise>
       <id>376</id>
@@ -451,8 +485,10 @@
       <type>item</type>
       <required>True</required>
       <varname>nose_bleed_oui_non</varname>
-      <in_listing>True</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><items>
         <item>Oui</item>
@@ -470,8 +506,10 @@
         <value>form_var_nose_bleed_oui_non  == 'Oui'</value>
       </condition><required>False</required>
       <varname>nose_bleed_text</varname>
-      <in_listing>False</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><anonymise>True</anonymise>
       <id>378</id>
@@ -480,8 +518,10 @@
       <type>item</type>
       <required>True</required>
       <varname>insomnia_oui_non</varname>
-      <in_listing>True</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><items>
         <item>Oui</item>
@@ -499,8 +539,10 @@
         <value>form_var_insomnia_oui_non  == 'Oui'</value>
       </condition><required>False</required>
       <varname>insomnia_text</varname>
-      <in_listing>False</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><anonymise>True</anonymise>
       <id>380</id>
@@ -509,8 +551,10 @@
       <type>item</type>
       <required>True</required>
       <varname>headache_oui_non</varname>
-      <in_listing>True</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><items>
         <item>Oui</item>
@@ -528,8 +572,10 @@
         <value>form_var_headache_oui_non  == 'Oui'</value>
       </condition><required>False</required>
       <varname>headache_text</varname>
-      <in_listing>False</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><anonymise>True</anonymise>
       <id>382</id>
@@ -538,8 +584,10 @@
       <type>item</type>
       <required>True</required>
       <varname>asthma_oui_non</varname>
-      <in_listing>True</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><items>
         <item>Oui</item>
@@ -557,8 +605,10 @@
         <value>form_var_asthma_oui_non  == 'Oui'</value>
       </condition><required>False</required>
       <varname>asthma_text</varname>
-      <in_listing>False</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><anonymise>True</anonymise>
       <id>384</id>
@@ -567,8 +617,10 @@
       <type>item</type>
       <required>True</required>
       <varname>stomach_ache_oui_non</varname>
-      <in_listing>True</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><items>
         <item>Oui</item>
@@ -586,8 +638,10 @@
         <value>form_var_stomach_ache_oui_non  == 'Oui'</value>
       </condition><required>False</required>
       <varname>stomach_ache_text</varname>
-      <in_listing>False</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><anonymise>True</anonymise>
       <id>386</id>
@@ -596,8 +650,10 @@
       <type>item</type>
       <required>True</required>
       <varname>constipated_oui_non</varname>
-      <in_listing>True</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><items>
         <item>Oui</item>
@@ -615,8 +671,10 @@
         <value>form_var_constipated_oui_non == 'Oui'</value>
       </condition><required>False</required>
       <varname>constipated_text</varname>
-      <in_listing>False</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><anonymise>True</anonymise>
       <id>388</id>
@@ -625,8 +683,10 @@
       <type>item</type>
       <required>True</required>
       <varname>diarrhea_oui_non</varname>
-      <in_listing>True</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><items>
         <item>Oui</item>
@@ -644,8 +704,10 @@
         <value>form_var_diarrhea_oui_non == 'Oui'</value>
       </condition><required>False</required>
       <varname>diarrhea_text</varname>
-      <in_listing>False</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><anonymise>True</anonymise>
       <id>390</id>
@@ -654,8 +716,10 @@
       <type>item</type>
       <required>True</required>
       <varname>puking_oui_non</varname>
-      <in_listing>True</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><items>
         <item>Oui</item>
@@ -673,8 +737,10 @@
         <value>form_var_puking_oui_non == 'Oui'</value>
       </condition><required>False</required>
       <varname>puking_text</varname>
-      <in_listing>False</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><anonymise>True</anonymise>
       <id>392</id>
@@ -683,8 +749,10 @@
       <type>item</type>
       <required>True</required>
       <varname>motion_sickness_oui_non</varname>
-      <in_listing>True</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><items>
         <item>Oui</item>
@@ -702,8 +770,10 @@
         <value>form_var_motion_sickness_oui_non == 'Oui'</value>
       </condition><required>False</required>
       <varname>motion_sickness_text</varname>
-      <in_listing>False</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><anonymise>True</anonymise>
       <id>394</id>
@@ -712,8 +782,10 @@
       <type>item</type>
       <required>True</required>
       <varname>sinusitis_oui_non</varname>
-      <in_listing>True</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><items>
         <item>Oui</item>
@@ -731,8 +803,10 @@
         <value>form_var_sinusitis_oui_non == 'Oui'</value>
       </condition><required>False</required>
       <varname>sinusitis_text</varname>
-      <in_listing>False</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><anonymise>True</anonymise>
       <id>396</id>
@@ -741,8 +815,10 @@
       <type>item</type>
       <required>True</required>
       <varname>bronchitis_oui_non</varname>
-      <in_listing>True</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><items>
         <item>Oui</item>
@@ -760,8 +836,10 @@
         <value>form_var_bronchitis_oui_non == 'Oui'</value>
       </condition><required>False</required>
       <varname>bronchitis_text</varname>
-      <in_listing>False</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><anonymise>True</anonymise>
       <id>398</id>
@@ -770,8 +848,10 @@
       <type>item</type>
       <required>True</required>
       <varname>contagiuous_illness_oui_non</varname>
-      <in_listing>True</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><items>
         <item>Oui</item>
@@ -789,8 +869,10 @@
         <value>form_var_contagiuous_illness_oui_non == 'Oui'</value>
       </condition><required>False</required>
       <varname>contagiuous_illness_text</varname>
-      <in_listing>False</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><anonymise>True</anonymise>
       <id>400</id>
@@ -799,8 +881,10 @@
       <type>item</type>
       <required>True</required>
       <varname>donnees_medicales_oui_non</varname>
-      <in_listing>False</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><items>
         <item>Oui</item>
@@ -818,8 +902,10 @@
         <value>form_var_donnees_medicales_oui_non is True</value>
       </condition><required>False</required>
       <varname>txt_donnees_medicales</varname>
-      <in_listing>False</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><pre>False</pre>
       <id>173</id>
@@ -828,8 +914,10 @@
       <type>text</type>
       <required>False</required>
       <varname>precisions_supp</varname>
-      <in_listing>False</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><pre>False</pre>
       <id>174</id>
@@ -838,16 +926,180 @@
       <type>bool</type>
       <required>True</required>
       <varname>chk_dispo_necessaires</varname>
-      <in_listing>False</in_listing>
-      <prefill>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
         <type>none</type>
       </prefill><id>175</id>
+    </field><field>
+      <label>Personnes de contact</label>
+      <type>page</type>
+      <id>406</id>
+    </field><field>
+      <label>Autres contacts</label>
+      <type>title</type>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><id>418</id>
+    </field><field>
+      <label>Premier contact</label>
+      <type>subtitle</type>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><id>415</id>
+    </field><field>
+      <label>Nom</label>
+      <type>string</type>
+      <required>False</required>
+      <varname>contact_1_name</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise>True</anonymise>
+      <id>407</id>
+    </field><field>
+      <label>Pr&#233;nom</label>
+      <type>string</type>
+      <required>False</required>
+      <varname>contact_1_firstname</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise>True</anonymise>
+      <id>408</id>
+    </field><field>
+      <label>Lien de parent&#233;</label>
+      <type>string</type>
+      <required>False</required>
+      <varname>contact_1_link</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise>True</anonymise>
+      <id>409</id>
+    </field><field>
+      <label>T&#233;l / GSM</label>
+      <type>string</type>
+      <required>False</required>
+      <varname>contact_1_phone</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise>True</anonymise>
+      <id>410</id>
+    </field><field>
+      <label>Deuxi&#232;me contact</label>
+      <type>subtitle</type>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><id>416</id>
+    </field><field>
+      <label>Nom</label>
+      <type>string</type>
+      <required>False</required>
+      <varname>contact_2_name</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise>True</anonymise>
+      <id>411</id>
+    </field><field>
+      <label>Pr&#233;nom</label>
+      <type>string</type>
+      <required>False</required>
+      <varname>contact_2_firstname</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise>True</anonymise>
+      <id>412</id>
+    </field><field>
+      <label>Lien de parent&#233;</label>
+      <type>string</type>
+      <required>False</required>
+      <varname>contact_2_link</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise>True</anonymise>
+      <id>413</id>
+    </field><field>
+      <label>T&#233;l / GSM</label>
+      <type>string</type>
+      <required>False</required>
+      <varname>contact_2_phone</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise>True</anonymise>
+      <id>414</id>
+    </field><field>
+      <label>M&#233;decin traitant</label>
+      <type>subtitle</type>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><id>417</id>
+    </field><field>
+      <label>M&#233;decin traitant</label>
+      <type>string</type>
+      <required>False</required>
+      <varname>doctor</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise>True</anonymise>
+      <id>166</id>
+    </field><field>
+      <label>T&#233;l&#233;phone du m&#233;decin</label>
+      <type>string</type>
+      <required>False</required>
+      <varname>doctor_tel</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise>True</anonymise>
+      <id>167</id>
     </field>
   </fields><user-roles>
-    <role role_id="08b4ba67eb2d421ea88d4bb0256a9666">Debug</role>
+    <role role_id="117eea72732e4f90a768f5380d79b1a4">Debug</role>
   </user-roles><roles>
-    <role role_id="08b4ba67eb2d421ea88d4bb0256a9666" role_key="_receiver">Debug</role>
-    <role role_id="08b4ba67eb2d421ea88d4bb0256a9666" role_key="_debug">Debug</role>
+    <role role_id="117eea72732e4f90a768f5380d79b1a4" role_key="_receiver">Debug</role>
+    <role role_id="117eea72732e4f90a768f5380d79b1a4" role_key="_debug">Debug</role>
   </roles><options>
     <option varname="compte">BE80 0910 2100 5377</option>
   </options><geolocations />

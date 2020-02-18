@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="iso-8859-15"?>
-<formdef id="165">
+<?xml version="1.0"?>
+<formdef id="20">
   <name>Inscrire mon enfant aux repas</name>
   <url_name>aes-inscrire-mon-enfant-au-repas</url_name>
-  <internal_identifier>aes-inscrire-mon-enfant-au-repas</internal_identifier>
+  <internal_identifier>aes-inscrire-mon-enfant-aux-repas</internal_identifier>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
   <disabled>false</disabled>
@@ -12,10 +12,10 @@
   <always_advertise>false</always_advertise>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category category_id="107">Accueil extra-scolaire</category>
-  <workflow workflow_id="48">AES - repas</workflow>
-  <max_field_id>45</max_field_id>
-  <last_modification user_id="1">2019-12-05 15:48:37</last_modification>
+  <category category_id="99">Accueil extra-scolaire</category>
+  <workflow workflow_id="12">aes - Inscription aux repas</workflow>
+  <max_field_id>46</max_field_id>
+  <last_modification user_id="1">2020-02-18 08:49:55</last_modification>
   <fields>
     <field>
       <label>erreur</label>
@@ -37,8 +37,7 @@
       <condition>
         <type>django</type>
         <value>webservice.aes_are_meals_up_to_date is False</value>
-      </condition><display_locations />
-      <id>44</id>
+      </condition><id>44</id>
     </field><field>
       <label>Coordonn&#233;es</label>
       <type>page</type>
@@ -103,21 +102,13 @@
       </prefill><anonymise>True</anonymise>
       <id>9</id>
     </field><field>
-      <label>Adresse e-mail</label>
-      <type>email</type>
-      <required>False</required>
-      <varname>email</varname>
-      <display_locations>
-        <display_location>validation</display_location>
-        <display_location>summary</display_location>
-      </display_locations><prefill>
-        <type>user</type>
-        <value>_email</value>
-      </prefill><id>10</id>
+      <label>&lt;p&gt;Adresse e-mail : {{ form_user_email }}&lt;/p&gt;</label>
+      <type>comment</type>
+      <display_locations />
+      <id>46</id>
     </field><field>
       <label>&lt;p&gt;Si vos informations personnelles ont chang&amp;eacute;, vous devez changer votre signal&amp;eacute;tique dans vos pr&amp;eacute;f&amp;eacute;rences personnelles (&lt;a href="[idp_account_url]edit/"&gt;page de profil&lt;/a&gt;) avant de r&amp;eacute;aliser votre demande. Merci.&lt;/p&gt;</label>
       <type>comment</type>
-      <display_locations />
       <id>11</id>
     </field><field>
       <label>Inscription pr&#233;alable</label>
@@ -136,7 +127,6 @@
     </field><field>
       <label>Nous vous invitons &#224; d'abord remplir le formulaire d'inscription. Vos coordonn&#233;es doivent pr&#233;alablement appara&#238;tre dans notre logiciel de traitement avant d'entamer cette d&#233;marche.</label>
       <type>comment</type>
-      <display_locations />
       <id>15</id>
     </field><field>
       <label>Enfant(s)</label>
@@ -156,7 +146,8 @@
         <display_location>listings</display_location>
       </display_locations><prefill>
         <type>none</type>
-      </prefill><display_mode>radio</display_mode>
+      </prefill><items />
+      <display_mode>radio</display_mode>
       <data_source>
         <type>formula</type>
         <value>webservice.aes_get_children.get('data')</value>
@@ -189,7 +180,8 @@
       </display_locations><extra_css_class>calendrier</extra_css_class>
       <prefill>
         <type>none</type>
-      </prefill><max_choices>0</max_choices>
+      </prefill><items />
+      <max_choices>0</max_choices>
       <data_source>
         <type>demo_aes_repas</type>
       </data_source><in_filters>False</in_filters>
@@ -200,10 +192,9 @@
   </fields><user-roles>
     <role role_id="logged-users">logged-users</role>
   </user-roles><backoffice-submission-roles>
-    <role role_id="08b4ba67eb2d421ea88d4bb0256a9666">Debug</role>
+    <role role_id="117eea72732e4f90a768f5380d79b1a4">Debug</role>
   </backoffice-submission-roles><roles>
-    <role role_id="a9aec1e5235f4b109bf3cb0c6a6a1aaa" role_key="_receiver">demo aes</role>
-    <role role_id="08b4ba67eb2d421ea88d4bb0256a9666" role_key="_debug">Debug</role>
+    <role role_id="117eea72732e4f90a768f5380d79b1a4" role_key="_debug">Debug</role>
   </roles><options>
     <option varname="test" />
   </options><geolocations />
