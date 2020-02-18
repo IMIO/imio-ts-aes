@@ -12,7 +12,7 @@
   <always_advertise>false</always_advertise>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category category_id="99">Accueil extra-scolaire</category>
+  <category category_id="99">Portail parent</category>
   <workflow workflow_id="12">aes - Inscription aux repas</workflow>
   <max_field_id>46</max_field_id>
   <last_modification user_id="1">2020-02-18 08:49:55</last_modification>
