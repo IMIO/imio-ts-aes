@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<workflow id="13">
+  <name>aes - Enregistrement parent</name>
+  <roles>
+    <role id="_debug">Debug</role>
+    <role id="_receiver">Destinataire</role>
+  </roles><last_modification user_id="1">2020-02-18 09:07:16</last_modification>
+  <possible_status>
+    <status>
+      <id>1</id>
+      <name>Nouvelle demande d'enregistrement</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item id="4" type="set-backoffice-fields">
+          <fields>
+            <field>
+              <field_id>boc34d871a-52e8-42be-b591-d24c5997eb88</field_id>
+              <value>{{ form_user_var_email }}</value>
+            </field>
+          </fields>
+        </item><item id="3" type="sendmail">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to><subject>Portail parent : Nouvelle demande d'enregistrement.</subject>
+          <body>Bonjour, 
+
+Ce mail afin de vous avertir qu'un parent ( {{ form_var_nom }} {{ form_var_prenom }}  ) souhaite &#234;tre enregistr&#233; dans AES afin d'utiliser le portail parent. 
+
+Voici l'adresse e-mail du parent ainsi que  le lien vers demande initiale : 
+
+{{ form_user_email }}
+
+{{ form_url_backoffice }}
+
+Ci-dessous,  le r&#233;capitulatif de la demande : 
+
+{{ form_details }}
+
+
+Bien cordialement,</body>
+        </item><item id="2" type="jump">
+          <status>3</status>
+          <condition>
+            <type>python</type>
+            <value>True or aes_registration_child_response is True</value>
+          </condition><set_marker_on_status>False</set_marker_on_status>
+        </item><item id="1" type="webservice_call">
+          <label>Enregistrements des occurences s&#233;lectionn&#233;es</label>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/add_registration_child</url>
+          <method>POST</method>
+          <post>False</post>
+          <response_type>json</response_type>
+          <varname>aes_register_parent</varname>
+          <action_on_app_error>2</action_on_app_error>
+          <action_on_4xx>:stop</action_on_4xx>
+          <action_on_5xx>:stop</action_on_5xx>
+          <action_on_bad_data>:pass</action_on_bad_data>
+          <action_on_network_errors>:stop</action_on_network_errors>
+          <notify_on_errors>True</notify_on_errors>
+          <record_errors>True</record_errors>
+          <condition>
+            <type>python</type>
+            <value>False</value>
+          </condition>
+        </item>
+      </items>
+    </status><status>
+      <id>2</id>
+      <name>&#233;chec lors de votre enregistrement</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="choice">
+          <label>debug</label>
+          <by>
+            <item role_id="_debug">_debug</item>
+          </by><status>1</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="2" type="register-comment">
+          <comment>Quelque-chose ne s'est pas bien pass&#233;!
+Un e-mail a d&#233;j&#224; &#233;t&#233; envoy&#233; &#224; un agent afin de v&#233;rifier ce qu'il s'est pass&#233;. 
+Nous vous tiendrons inform&#233; de la r&#233;solution du probl&#232;me.
+
+Bien &#224; vous,</comment>
+        </item><item id="3" type="sendmail">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+            <item role_id="_debug">_debug</item>
+          </to><subject>Portail parent Erreur : Probl&#232;me d'enregistrement d'un parent ({{ site_name }})</subject>
+          <body>Voici le formulaire qui a pos&#233; un probl&#232;me : 
+
+{{ form_url_backoffice }}</body>
+        </item>
+      </items>
+    </status><status>
+      <id>3</id>
+      <name>Vous &#234;tes bien enregistr&#233;</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item id="3" type="sendmail">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>url pour d&#233;clencher "validate"</subject>
+          <body>{{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }}, 
+
+Votre inscription dans notre syst&#232;me de gestion d'activit&#233;s, de plaines,... pour votre (vos) enfant(s) a &#233;t&#233; correctement r&#233;alis&#233;e. 
+
+Vos prochaines connexions devront toujours s'effectuer avec l'adresse e-mail suivante : {{ form_user_var_email }}.
+
+Pour rappel, le lien vers votre portail parent est le suivant : 
+
+{{ site_url }}
+
+</body>
+        </item><item id="2" type="choice">
+          <label>DEBUG</label>
+          <by>
+            <item role_id="_debug">_debug</item>
+          </by><status>1</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+  </possible_status><backoffice-fields>
+    <formdef>
+      <name>-</name>
+      <fields>
+        <field>
+          <label>Adresse e-mail</label>
+          <type>string</type>
+          <required>True</required>
+          <varname>email</varname>
+          <display_locations>
+            <display_location>summary</display_location>
+            <display_location>listings</display_location>
+          </display_locations><anonymise>True</anonymise>
+          <id>boc34d871a-52e8-42be-b591-d24c5997eb88</id>
+        </field>
+      </fields>
+    </formdef>
+  </backoffice-fields>
+</workflow>
