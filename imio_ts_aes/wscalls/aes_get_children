@@ -7,7 +7,7 @@
     <request_signature_key />
     <method>GET</method>
     <qs_data>
-      <param key="mail">=session_user_email</param>
+      <param key="email">=session_user_email</param>
     </qs_data><post_data />
   </request>
 </wscalls>
