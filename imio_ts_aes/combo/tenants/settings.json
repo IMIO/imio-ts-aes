@@ -15,7 +15,7 @@
         },
         "aes-known-children": {
             "name": "AES - Enfants connus dans votre guichet",
-            "url": "https://[COMMUNE]-passerelle.[DOMAIN]/passerelle-imio-ia-aes/aes/get_chidren_with_activities?mail={{ user_email }}",
+            "url": "https://[COMMUNE]-passerelle.[DOMAIN]/passerelle-imio-ia-aes/aes/get_chidren_with_activities?email={{ user_email }}",
             "form": [{
                 "varname": "print_activities",
                 "type": "bool",
