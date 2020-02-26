@@ -1,0 +1,15 @@
+<wscalls id="aes_get_plaines">
+  <name>aes_get_plaines</name>
+  <slug>aes_get_plaines</slug>
+  <description>r&#233;cup&#233;ration des plaines</description>
+  <request>
+    <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/get_plaines</url>
+    <request_signature_key />
+    <method>GET</method>
+    <qs_data>
+      <param key="ending_date_search">31/12/2020</param>
+      <param key="child_id">{{form_var_selected_child}}</param>
+      <param key="begining_date_search">01/01/2020</param>
+    </qs_data><post_data />
+  </request>
+</wscalls>
