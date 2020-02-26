@@ -2,7 +2,7 @@
     "JSON_CELL_TYPES": {
         "wcs-aes-auth": {
             "name": "AES - Formulaires disponibles",
-            "url": "https://[COMMUNE]-passerelle.[DOMAIN]/passerelle-imio-ia-aes/aes/is_registered_parent?email={{ user_email }}",
+            "url": "https://[COMMUNE]-passerelle.[DOMAIN]/passerelle-imio-ia-aes/aes/is_registered_parent?email={{ user_email }}&nrn={{ user_var_niss }}",
             "additional-data": [{
                     "key": "aes_forms",
                     "url": "https://[COMMUNE]-formulaires.[DOMAIN]/api/categories/portail-parent/formdefs/"
