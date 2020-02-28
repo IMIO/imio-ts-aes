@@ -3,8 +3,8 @@
   <name>aes - Inscription &#224; une plaine</name>
   <roles>
     <role id="_debug">Debug</role>
-    <role id="_receiver">Destinataire</role>
-  </roles><last_modification user_id="11">2020-02-26 13:46:18</last_modification>
+    <role id="_receiver">Agent traitant</role>
+  </roles><last_modification user_id="1">2020-02-28 14:32:03</last_modification>
   <possible_status>
     <status>
       <id>1</id>
@@ -23,7 +23,7 @@
           </fields>
         </item><item id="1" type="webservice_call">
           <label>Enregistrements des occurences s&#233;lectionn&#233;es</label>
-          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/add_registration_child</url>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/add_registration_child_plaine</url>
           <method>POST</method>
           <post>False</post>
           <post_data>
@@ -31,11 +31,14 @@
               <name>child_id</name>
               <value>=form_var_selected_child_raw</value>
             </item><item>
-              <name>activity_id</name>
+              <name>data</name>
               <value>=form_var_selected_plaines_raw</value>
+            </item><item>
+              <name>form_id</name>
+              <value>=form_number_raw</value>
             </item>
           </post_data><response_type>json</response_type>
-          <varname>aes_registration_child</varname>
+          <varname>aes_registration_child_plaine</varname>
           <action_on_app_error>2</action_on_app_error>
           <action_on_4xx>:stop</action_on_4xx>
           <action_on_5xx>:stop</action_on_5xx>
@@ -49,6 +52,14 @@
             <type>python</type>
             <value>aes_registration_child_response is True</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
+        </item><item id="5" type="choice">
+          <label>DEBUG</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>1</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
     </status><status>
@@ -56,14 +67,29 @@
       <name>Inscription &#233;chou&#233;e</name>
       <colour>FF0000</colour>
       <visibility />
-      <items />
+      <items>
+        <item id="1" type="choice">
+          <label>DEBUG</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>1</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
     </status><status>
       <id>3</id>
       <name>Inscription enregistr&#233;e</name>
       <colour>0099FF</colour>
       <visibility />
       <items>
-        <item id="1" type="jump">
+        <item id="6" type="register-comment">
+          <comment>&lt;p&gt;
+Votre demande  est en attente d'une validation par un agent traitant.&lt;br /&gt;
+Bien cordialement, 
+&lt;/p&gt;</comment>
+        </item><item id="1" type="jump">
           <status>4</status>
           <trigger>validate</trigger>
           <set_marker_on_status>False</set_marker_on_status>
@@ -81,7 +107,7 @@
           <set_marker_on_status>False</set_marker_on_status>
         </item><item id="3" type="sendmail">
           <to>
-            <item role_id="_receiver">_receiver</item>
+            <item role_id="_submitter">_submitter</item>
           </to><subject>Portail parent : Inscription &#224; une plaine</subject>
           <body>{{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }}, 
 
@@ -101,7 +127,7 @@ Bien cordialement, </body>
       <items>
         <item id="1" type="sendmail">
           <to>
-            <item role_id="_receiver">_receiver</item>
+            <item role_id="_submitter">_submitter</item>
           </to><subject>Portail parent : Inscription &#224; la plaine accept&#233;e</subject>
           <body>{{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }}, 
 
@@ -170,6 +196,15 @@ Bien cordialement, </body>
             <display_location>summary</display_location>
           </display_locations><anonymise>True</anonymise>
           <id>bo12327eb7-292e-4599-8770-f59b17b60c69</id>
+        </field><field>
+          <label>Donn&#233;es de la plaine</label>
+          <type>string</type>
+          <required>True</required>
+          <display_locations>
+            <display_location>validation</display_location>
+            <display_location>summary</display_location>
+          </display_locations><anonymise>True</anonymise>
+          <id>boe38e8ffb-9eea-4ca5-8433-562d88c254bf</id>
         </field>
       </fields>
     </formdef>
