@@ -4,16 +4,14 @@
   <roles>
     <role id="_debug">Debug</role>
     <role id="_receiver">Agent traitant</role>
-  </roles><last_modification user_id="1">2020-02-28 14:32:03</last_modification>
+  </roles><last_modification user_id="1">2020-03-02 10:09:38</last_modification>
   <possible_status>
     <status>
       <id>1</id>
       <name>Inscription envoy&#233;e</name>
-      <colour>000000</colour>
-      <visibility>
-        <role>_receiver</role>
-        <role>_debug</role>
-      </visibility><items>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
         <item id="4" type="set-backoffice-fields">
           <fields>
             <field>
@@ -50,7 +48,7 @@
           <status>3</status>
           <condition>
             <type>python</type>
-            <value>aes_registration_child_response is True</value>
+            <value>aes_registration_child_plaine_response is True</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
         </item><item id="5" type="choice">
           <label>DEBUG</label>
@@ -80,7 +78,7 @@
       </items>
     </status><status>
       <id>3</id>
-      <name>Inscription enregistr&#233;e</name>
+      <name>Inscription en attente de validation</name>
       <colour>0099FF</colour>
       <visibility />
       <items>
