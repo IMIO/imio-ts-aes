@@ -16,10 +16,10 @@
   <category category_id="99">Portail parent</category>
   <workflow workflow_id="13">aes - Enregistrement parent</workflow>
   <max_field_id>14</max_field_id>
-  <last_modification user_id="11">2020-02-26 12:06:46</last_modification>
+  <last_modification user_id="1">2020-03-02 13:42:12</last_modification>
   <fields>
     <field>
-      <label>&lt;p&gt;Si vos informations personnelles ont chang&amp;eacute;, vous devez changer votre signal&amp;eacute;tique dans vos pr&amp;eacute;f&amp;eacute;rences personnelles (&lt;a href="[idp_account_url]edit/"&gt;page de profil&lt;/a&gt;) avant de r&amp;eacute;aliser votre demande. Merci.&lt;/p&gt;</label>
+      <label>&lt;p&gt;&lt;a class="pk-button" href="{{idp_account_url}}edit/"&gt;Mes informations ont chang&amp;eacute; ou sont incompl&amp;egrave;tes&lt;/a&gt;&lt;/p&gt;</label>
       <type>comment</type>
       <display_locations />
       <id>11</id>
@@ -143,7 +143,7 @@
     </field><field>
       <label>Num&#233;ro de t&#233;l&#233;phone / gsm</label>
       <type>string</type>
-      <required>False</required>
+      <required>True</required>
       <varname>telephone</varname>
       <display_locations>
         <display_location>validation</display_location>
