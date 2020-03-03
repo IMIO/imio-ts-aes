@@ -4,7 +4,7 @@
   <roles>
     <role id="_debug">Debug</role>
     <role id="_receiver">Agent traitant</role>
-  </roles><last_modification user_id="1">2020-03-02 10:09:38</last_modification>
+  </roles><last_modification user_id="1">2020-03-03 11:57:40</last_modification>
   <possible_status>
     <status>
       <id>1</id>
@@ -17,6 +17,12 @@
             <field>
               <field_id>bo12327eb7-292e-4599-8770-f59b17b60c69</field_id>
               <value>{{ form_user_email }}</value>
+            </field><field>
+              <field_id>boe38e8ffb-9eea-4ca5-8433-562d88c254bf</field_id>
+              <value>=" , ".join(sorted(set("{}/{}/{}".format(jour.split('_')[2].split('-')[2],jour.split('_')[2].split('-')[1],jour.split('_')[2].split('-')[0]) for jour in form_var_selected_plaines_raw)))</value>
+            </field><field>
+              <field_id>bo0f67dbe9-82df-467a-adec-eb6e944f97af</field_id>
+              <value>=" , ".join(sorted(set(jour.split('_')[1] for jour in form_var_selected_plaines_raw)))</value>
             </field>
           </fields>
         </item><item id="1" type="webservice_call">
@@ -53,7 +59,7 @@
         </item><item id="5" type="choice">
           <label>DEBUG</label>
           <by>
-            <item role_id="_receiver">_receiver</item>
+            <item role_id="_debug">_debug</item>
           </by><status>1</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
@@ -69,11 +75,23 @@
         <item id="1" type="choice">
           <label>DEBUG</label>
           <by>
-            <item role_id="_receiver">_receiver</item>
+            <item role_id="_debug">_debug</item>
           </by><status>1</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="2" type="register-comment">
+          <comment>&lt;p&gt;Quelque chose c'est mal pass&#233; dans votre demande. Rassurez-vous un e-mal a &#233;t&#233; envoy&#233; &#224; un agent traitant pour lui en faire part. On revient vers vous d&#232;s que possible.&lt;br /&gt; Bien cordialement,&lt;/p&gt;</comment>
+        </item><item id="3" type="sendmail">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+            <item role_id="_debug">_debug</item>
+          </to><subject>Mont-Saint-Guibert : Erreur</subject>
+          <body>D&#233;marches en &#233;chec : 
+
+{{ form_url_backoffice }}
+
+Bien cordialement, </body>
         </item>
       </items>
     </status><status>
@@ -87,22 +105,6 @@
 Votre demande  est en attente d'une validation par un agent traitant.&lt;br /&gt;
 Bien cordialement, 
 &lt;/p&gt;</comment>
-        </item><item id="1" type="jump">
-          <status>4</status>
-          <trigger>validate</trigger>
-          <set_marker_on_status>False</set_marker_on_status>
-        </item><item id="5" type="jump">
-          <status>6</status>
-          <trigger>refuse</trigger>
-          <set_marker_on_status>False</set_marker_on_status>
-        </item><item id="2" type="choice">
-          <label>DEBUG</label>
-          <by>
-            <item role_id="_debug">_debug</item>
-          </by><status>1</status>
-          <require_confirmation>False</require_confirmation>
-          <ignore_form_errors>False</ignore_form_errors>
-          <set_marker_on_status>False</set_marker_on_status>
         </item><item id="3" type="sendmail">
           <to>
             <item role_id="_submitter">_submitter</item>
@@ -115,6 +117,74 @@ Notre service va v&#233;rifier votre demande et reviendra vers vous dans les plu
 Vous pouvez revenir sur votre demande &#224; tout moment en suivant ce lien : {{ form_url }} 
  
 Bien cordialement, </body>
+        </item><item id="9" type="sendmail">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to><subject>Nouvelle demande d'inscription &#224; une plaine. ({{ form_receipt_date }})</subject>
+          <body>Bonjour, 
+
+Veuillez vous rendre dans votre logiciel AES pour consulter la nouvelle demande d'inscription &#224; une plaine de la part de : 
+
+{{ form_user_var_title }} {{ form_user_var_first_name }} {{ form_user_var_last_name }}.
+
+
+L'enfant qui participera &#224; cette plaine s'appel : 
+
+{{ form_var_selected_child_firstname }} {{ form_var_selected_child_lastname }}
+
+
+Ci-dessous, la/les semaine(s) calendrier s&#233;lectionn&#233;e(s) :
+
+{{form_var_semaines_de_plaine}}
+
+
+Ci-dessous, la/les jours de plaines s&#233;lectionn&#233;(s)  : 
+
+{{form_var_jours_de_plaine}}
+
+
+
+Vous pouvez &#233;galement retrouver la demande en suivant ce lien : 
+
+{{ form_url_backoffice }}
+
+
+Bien cordialement, 
+</body>
+        </item><item id="1" type="jump">
+          <status>4</status>
+          <trigger>validate</trigger>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="5" type="jump">
+          <status>6</status>
+          <trigger>refuse</trigger>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="7" type="choice">
+          <label>Accepter manuellement l'inscription</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>4</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;&lt;strong&gt;Cette action doit normalement se r&amp;eacute;aliser automatiquement via le logiciel AES.&lt;/strong&gt;&lt;/p&gt;</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="8" type="choice">
+          <label>Refuser manuellement l'inscription</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>6</status>
+          <require_confirmation>True</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;&lt;strong&gt;Cette action doit normalement se r&amp;eacute;aliser automatiquement via le logiciel AES&lt;/strong&gt;&lt;/p&gt;</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="2" type="choice">
+          <label>DEBUG</label>
+          <by>
+            <item role_id="_debug">_debug</item>
+          </by><status>1</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
     </status><status>
@@ -129,7 +199,12 @@ Bien cordialement, </body>
           </to><subject>Portail parent : Inscription &#224; la plaine accept&#233;e</subject>
           <body>{{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }}, 
 
-Nous avons le plaisir de vous confirmer l'inscription de votre enfant &#224; notre plaine.
+Nous avons le plaisir de vous confirmer l'inscription de votre enfant &#224; notre/nos plaine(s).
+
+Ci-dessous, veuillez retrouver les diff&#233;rents jours pour lesquels {{ form_var_selected_child_firstname }} sera pr&#233;sent :
+
+{{form_var_jours_de_plaine}}
+
 
 Bien cordialement, </body>
         </item><item id="2" type="jump">
@@ -195,14 +270,25 @@ Bien cordialement, </body>
           </display_locations><anonymise>True</anonymise>
           <id>bo12327eb7-292e-4599-8770-f59b17b60c69</id>
         </field><field>
-          <label>Donn&#233;es de la plaine</label>
+          <label>Jours de plaine</label>
           <type>string</type>
-          <required>True</required>
+          <required>False</required>
+          <varname>jours_de_plaine</varname>
           <display_locations>
-            <display_location>validation</display_location>
             <display_location>summary</display_location>
-          </display_locations><anonymise>True</anonymise>
+          </display_locations><anonymise>False</anonymise>
           <id>boe38e8ffb-9eea-4ca5-8433-562d88c254bf</id>
+        </field><field>
+          <label>Semaines (calendrier) de plaine</label>
+          <type>string</type>
+          <required>False</required>
+          <hint>Semaines "calendrier".</hint>
+          <varname>semaines_de_plaine</varname>
+          <display_locations>
+            <display_location>summary</display_location>
+            <display_location>listings</display_location>
+          </display_locations><anonymise>False</anonymise>
+          <id>bo0f67dbe9-82df-467a-adec-eb6e944f97af</id>
         </field>
       </fields>
     </formdef>
