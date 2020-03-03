@@ -4,7 +4,7 @@
   <roles>
     <role id="_debug">Debug</role>
     <role id="_receiver">Agent traitant</role>
-  </roles><last_modification user_id="1">2020-03-03 11:57:40</last_modification>
+  </roles><last_modification user_id="1">2020-03-03 12:03:59</last_modification>
   <possible_status>
     <status>
       <id>1</id>
@@ -193,7 +193,12 @@ Bien cordialement,
       <colour>00FF00</colour>
       <visibility />
       <items>
-        <item id="1" type="sendmail">
+        <item id="3" type="register-comment">
+          <comment>&lt;p&gt;
+Nous avons le plaisir de vous confirmer l'inscription de {{ form_var_selected_child_firstname }} &#224; notre/nos plaine(s) pour le(s) jour(s) suivant :&lt;br/&gt;
+{{form_var_jours_de_plaine}}
+&lt;/p&gt;</comment>
+        </item><item id="1" type="sendmail">
           <to>
             <item role_id="_submitter">_submitter</item>
           </to><subject>Portail parent : Inscription &#224; la plaine accept&#233;e</subject>
