@@ -7,9 +7,9 @@
     <request_signature_key />
     <method>GET</method>
     <qs_data>
-      <param key="ending_date_search">31/12/2020</param>
+      <param key="ending_date_search">{{ form_option_last_date_plain }}</param>
       <param key="child_id">{{ form_var_selected_child_raw }}</param>
-      <param key="begining_date_search">01/01/2020</param>
+      <param key="begining_date_search">{{ form_option_first_date_plain }}</param>
     </qs_data><post_data />
   </request>
 </wscalls>
