@@ -1,0 +1,11 @@
+<wscalls id="aes_get_implantation">
+  <name>aes_get_implantation</name>
+  <slug>aes_get_implantation</slug>
+  <request>
+    <url>{{ passerelle_url }}/passerelle-imio-ia-aes/aes/get_schoolimplantation</url>
+    <request_signature_key />
+    <method>GET</method>
+    <qs_data />
+    <post_data />
+  </request>
+</wscalls>
