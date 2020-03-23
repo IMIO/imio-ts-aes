@@ -16,15 +16,6 @@
         "aes-known-children": {
             "name": "AES - Enfants connus dans votre guichet",
             "url": "https://montsaintguibert-passerelle.guichet-citoyen.be/passerelle-imio-ia-aes/aes/get_children?email={{ user_email }}"
-        },
-        "aes-children-activites": {
-            "name": "AES - Enfants connus dans votre guichet",
-            "url": "https://[COMMUNE]-passerelle.[DOMAIN]/passerelle-imio-ia-aes/aes/get_children_with_activities?email={{ user_email }}",
-            "form": [{
-                "varname": "print_activities",
-                "type": "bool",
-                "label": "Affichage des activités?"
-            }]
         }
     }
 }
