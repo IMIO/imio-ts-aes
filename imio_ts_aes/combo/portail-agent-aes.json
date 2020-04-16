@@ -1,0 +1,160 @@
+{
+  "assets": [],
+  "pages": [
+    {
+      "cells": [
+        {
+          "fields": {
+            "slug": "services",
+            "groups": [],
+            "last_update_timestamp": "2019-11-15T11:14:35.224Z",
+            "placeholder": "content",
+            "order": 1,
+            "text": "<h2>Bienvenue sur le portail agent de montsaintguibert</h2>\r\n",
+            "restricted_to_unlogged": false,
+            "extra_css_class": "",
+            "public": true
+          },
+          "model": "data.textcell"
+        },
+        {
+          "fields": {
+            "slug": "",
+            "groups": [
+              "Agents traitants - Portail parent"
+            ],
+            "last_update_timestamp": "2020-03-13T13:59:17.177Z",
+            "placeholder": "content",
+            "order": 2,
+            "text": "<h2>Recherche d&rsquo;usagers&nbsp;: (nom, pr&eacute;nom, email)</h2>",
+            "restricted_to_unlogged": false,
+            "extra_css_class": "",
+            "public": false
+          },
+          "model": "data.textcell"
+        },
+        {
+          "fields": {
+            "autofocus": false,
+            "slug": "",
+            "groups": [],
+            "_search_services": {
+              "data": [
+                "users"
+              ]
+            },
+            "last_update_timestamp": "2020-03-13T07:58:13.398Z",
+            "placeholder": "content",
+            "order": 3,
+            "restricted_to_unlogged": false,
+            "extra_css_class": "",
+            "public": true
+          },
+          "model": "search.searchcell"
+        },
+        {
+          "fields": {
+            "anchor": "",
+            "slug": "",
+            "public": true,
+            "url": "{{idp_url}}manage/users/add/?next={{portal_agent_url}}",
+            "extra_css_class": "",
+            "title": "Cr\u00e9er l'usager",
+            "groups": [],
+            "link_page": null,
+            "placeholder": "sidebar",
+            "order": 4,
+            "last_update_timestamp": "2020-03-13T08:39:54.806Z",
+            "restricted_to_unlogged": false
+          },
+          "model": "data.linkcell"
+        }
+      ],
+      "fields": {
+        "template_name": "standard-sidebar",
+        "sub_slug": "",
+        "redirect_url": "",
+        "exclude_from_navigation": false,
+        "snapshot": null,
+        "title": "Accueil",
+        "parent": null,
+        "slug": "index",
+        "groups": [],
+        "picture": "",
+        "description": "",
+        "order": 1,
+        "last_update_timestamp": "2020-03-13T08:39:39.389Z",
+        "public": true
+      }
+    },
+    {
+      "cells": [
+        {
+          "fields": {
+            "slug": "",
+            "groups": [],
+            "last_update_timestamp": "2020-03-13T07:56:50.754Z",
+            "placeholder": "content",
+            "order": 1,
+            "restricted_to_unlogged": false,
+            "extra_css_class": "",
+            "public": true
+          },
+          "model": "profile.profilecell"
+        },
+        {
+          "fields": {
+            "anchor": "",
+            "slug": "",
+            "public": true,
+            "url": "{{idp_url}}manage/users/uuid:{{name_id}}/edit/?next={{ absolute_uri }}",
+            "extra_css_class": "",
+            "title": "\u00c9diter le profil",
+            "groups": [],
+            "link_page": null,
+            "placeholder": "content",
+            "order": 2,
+            "last_update_timestamp": "2020-03-13T07:57:13.431Z",
+            "restricted_to_unlogged": false
+          },
+          "model": "data.linkcell"
+        },
+        {
+          "fields": {
+            "slug": "",
+            "groups": [],
+            "last_update_timestamp": "2020-03-13T07:57:29.677Z",
+            "placeholder": "content",
+            "order": 3,
+            "restricted_to_unlogged": false,
+            "wcs_site": "",
+            "extra_css_class": "",
+            "public": true
+          },
+          "model": "wcs.backofficesubmissioncell"
+        }
+      ],
+      "fields": {
+        "template_name": "standard",
+        "sub_slug": "(?P<name_id>[a-z0-9]+)",
+        "redirect_url": "",
+        "exclude_from_navigation": false,
+        "snapshot": null,
+        "title": "Fiche usager",
+        "parent": null,
+        "slug": "fiche-usager",
+        "groups": [],
+        "picture": "",
+        "description": "",
+        "order": 2,
+        "last_update_timestamp": "2020-03-13T07:57:29.747Z",
+        "public": true
+      }
+    }
+  ],
+  "map-layers": [],
+  "pwa": {
+    "settings": {},
+    "navigation": []
+  }
+}
