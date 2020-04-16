@@ -1,0 +1,12 @@
+<wscalls id="get_health_attribute">
+  <name>get_health_attribute</name>
+  <slug>get_health_attribute</slug>
+  <request>
+    <url>https://montsaintguibert-passerelle.guichet-citoyen.be/passerelle-imio-aes-health/aes_health/get_health_attribute</url>
+    <request_signature_key />
+    <method>GET</method>
+    <qs_data>
+      <param key="id">{{ form_var_selected_child_raw }}</param>
+    </qs_data><post_data />
+  </request>
+</wscalls>

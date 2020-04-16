@@ -1,0 +1,13 @@
+<wscalls id="aes_get_healthsheet">
+  <name>aes_get_healthsheet</name>
+  <slug>aes_get_healthsheet</slug>
+  <description>R&#233;cup&#232;re la fiche sant&#233; compl&#232;te pour un enfant dont l'ID est pass&#233; en param&#232;tre</description>
+  <request>
+    <url>{{ passerelle_url }}passerelle-imio-aes-health/aes_health/get_child_health_sheet</url>
+    <request_signature_key />
+    <method>GET</method>
+    <qs_data>
+      <param key="id">=form_var_selected_child_raw</param>
+    </qs_data><post_data />
+  </request>
+</wscalls>

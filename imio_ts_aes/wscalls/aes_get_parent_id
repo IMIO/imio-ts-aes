@@ -1,0 +1,14 @@
+<wscalls id="aes_get_parent_id">
+  <name>aes_get_parent_id</name>
+  <slug>aes_get_parent_id</slug>
+  <description>R&#233;cup&#232;re l'id d'un parent dans AES sur base de son registre national et de son adresse email</description>
+  <request>
+    <url>{{ passerelle_url }}/passerelle-imio-ia-aes/aes/get_parent_id</url>
+    <request_signature_key />
+    <method>GET</method>
+    <qs_data>
+      <param key="nrn">=form_user_var_niss</param>
+      <param key="email">=form_user_var_email</param>
+    </qs_data><post_data />
+  </request>
+</wscalls>

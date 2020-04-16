@@ -2,7 +2,7 @@
   <name>aes_get_childtypes</name>
   <slug>aes_get_childtypes</slug>
   <request>
-    <url>{{ passerelle_url }}/passerelle-imio-ia-aes/aes/get_childtypes</url>
+    <url>{{ passerelle_url }}/passerelle-imio-ia-aes/aes/get_child_types</url>
     <request_signature_key />
     <method>GET</method>
     <qs_data />

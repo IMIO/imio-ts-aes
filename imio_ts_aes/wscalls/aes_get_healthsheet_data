@@ -1,0 +1,12 @@
+<wscalls id="aes_get_healthsheet_data">
+  <name>aes_get_healthsheet_data</name>
+  <slug>aes_get_healthsheet_data</slug>
+  <request>
+    <url>{{ passerelle_url }}passerelle-imio-aes-health/aes_health/get_healthsheet_data</url>
+    <request_signature_key />
+    <method>GET</method>
+    <qs_data>
+      <param key="asked_data">=form_option_questions_raw[0]</param>
+    </qs_data><post_data />
+  </request>
+</wscalls>

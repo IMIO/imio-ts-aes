@@ -1,7 +1,9 @@
 <wscalls id="aes_get_plaines">
   <name>aes_get_plaines</name>
   <slug>aes_get_plaines</slug>
-  <description>r&#233;cup&#233;ration des plaines</description>
+  <description>r&#233;cup&#233;ration des plaines
+{{ form_option_first_date_plain }}
+{{ form_option_last_date_plain }}</description>
   <request>
     <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/get_plaines</url>
     <request_signature_key />
