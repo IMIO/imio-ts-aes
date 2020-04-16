@@ -16,7 +16,7 @@ for fichier in os.listdir(folder_path):
         try:
             formdef = FormDef.import_from_xml(fd, charset="utf-8", include_id=False)
         except Exception:
-            print "!!! ECHEC IMPORT FILE : {}".format(fichier)
+            print("!!! ECHEC IMPORT FILE : {}".format(fichier))
             formdef = None
         if formdef is not None:
             if formdef.name not in lst_formdef_names:
@@ -30,4 +30,4 @@ for fichier in os.listdir(folder_path):
                     formdef.id = new_id
                     formdef.store()
                 except Exception:
-                    print "import error : {}".format(formdef.id)
+                    print("import error : {}".format(formdef.id))
