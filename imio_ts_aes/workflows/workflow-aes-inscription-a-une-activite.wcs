@@ -4,14 +4,16 @@
   <roles>
     <role id="_debug">Debug</role>
     <role id="_receiver">Destinataire</role>
-  </roles><last_modification user_id="1">2020-02-18 09:12:03</last_modification>
+  </roles><last_modification user_id="11">2020-02-19 10:11:22</last_modification>
   <possible_status>
     <status>
       <id>1</id>
-      <name>Envoi des infos &#224; AES</name>
-      <colour>FFFFFF</colour>
-      <visibility />
-      <items>
+      <name>Inscription envoy&#233;e</name>
+      <colour>000000</colour>
+      <visibility>
+        <role>_receiver</role>
+        <role>_debug</role>
+      </visibility><items>
         <item id="4" type="set-backoffice-fields">
           <fields>
             <field>
@@ -50,20 +52,12 @@
             <type>python</type>
             <value>aes_registration_child_response is True</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item id="3" type="choice">
-          <label>debug snd</label>
-          <by>
-            <item role_id="_debug">_debug</item>
-          </by><status>3</status>
-          <require_confirmation>False</require_confirmation>
-          <ignore_form_errors>False</ignore_form_errors>
-          <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
     </status><status>
       <id>2</id>
-      <name>&#233;chou&#233;</name>
-      <colour>FFFFFF</colour>
+      <name>Inscription &#233;chou&#233;e</name>
+      <colour>FF0000</colour>
       <visibility />
       <items>
         <item id="1" type="choice">
@@ -78,13 +72,17 @@
       </items>
     </status><status>
       <id>3</id>
-      <name>R&#233;ussit!</name>
-      <colour>FFFFFF</colour>
+      <name>Inscription enregistr&#233;e</name>
+      <colour>0099FF</colour>
       <visibility />
       <items>
         <item id="1" type="jump">
           <status>4</status>
           <trigger>validate</trigger>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="5" type="jump">
+          <status>6</status>
+          <trigger>refuse</trigger>
           <set_marker_on_status>False</set_marker_on_status>
         </item><item id="2" type="choice">
           <label>DEBUG</label>
@@ -103,20 +101,12 @@
 Pour information : url de rappel pour faire avancer le WF via AES : 
 
 https://demo-formulaires.guichet-citoyen.be/accueil-extra-scolaire/demo-aes/{{form_number_raw}}/jump/trigger/validate</body>
-        </item><item id="4" type="choice">
-          <label>Retour</label>
-          <by>
-            <item role_id="_debug">_debug</item>
-          </by><status>1</status>
-          <require_confirmation>False</require_confirmation>
-          <ignore_form_errors>False</ignore_form_errors>
-          <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
     </status><status>
       <id>4</id>
-      <name>R&#233;ponse de AES</name>
-      <colour>FFFFFF</colour>
+      <name>Accepter l'inscription</name>
+      <colour>00FF00</colour>
       <visibility />
       <items>
         <item id="1" type="sendmail">
@@ -137,7 +127,15 @@ https://demo-formulaires.guichet-citoyen.be/accueil-extra-scolaire/demo-aes/{{fo
     </status><status>
       <id>5</id>
       <name>&#224; facturer.</name>
-      <colour>FFFFFF</colour>
+      <colour>FFFF99</colour>
+      <visibility>
+        <role>_receiver</role>
+        <role>_debug</role>
+      </visibility><items />
+    </status><status>
+      <id>6</id>
+      <name>Refuser l'inscription</name>
+      <colour>FF0000</colour>
       <visibility />
       <items />
     </status>

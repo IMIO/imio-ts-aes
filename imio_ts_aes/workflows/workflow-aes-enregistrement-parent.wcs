@@ -4,7 +4,7 @@
   <roles>
     <role id="_debug">Debug</role>
     <role id="_receiver">Agent traitant</role>
-  </roles><last_modification user_id="11">2020-02-26 11:55:58</last_modification>
+  </roles><last_modification user_id="1">2020-04-09 09:32:41</last_modification>
   <possible_status>
     <status>
       <id>1</id>
@@ -19,10 +19,18 @@
               <value>{{ form_user_var_email }}</value>
             </field>
           </fields>
+        </item><item id="6" type="register-comment">
+          <comment>&lt;p&gt;
+{{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }}, 
+&lt;br /&gt;
+Merci de votre demande d'enregistrement dans notre portail parent.&lt;br /&gt;
+Nous vous tiendrons inform&#233; de la suite dans les plus brefs d&#233;lais.&lt;br /&gt;
+Bien cordialement, 
+&lt;/p&gt;</comment>
         </item><item id="3" type="sendmail">
           <to>
             <item role_id="_receiver">_receiver</item>
-          </to><subject>Portail parent : Nouvelle demande d'enregistrement.</subject>
+          </to><subject>Portail parent : Nouvelle demande d'enregistrement d'un parent.</subject>
           <body>Bonjour, 
 
 Ce mail afin de vous avertir qu'un parent ( {{ form_var_nom }} {{ form_var_prenom }}  ) souhaite &#234;tre enregistr&#233; dans AES afin d'utiliser le portail parent. 
@@ -39,9 +47,6 @@ Ci-dessous,  le r&#233;capitulatif de la demande :
 
 
 Bien cordialement,</body>
-        </item><item id="5" type="jump">
-          <status>4</status>
-          <set_marker_on_status>False</set_marker_on_status>
         </item><item id="1" type="webservice_call">
           <label>Enregistrements des occurences s&#233;lectionn&#233;es</label>
           <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/parent_registration</url>
@@ -73,32 +78,51 @@ Bien cordialement,</body>
           </post_data><response_type>json</response_type>
           <varname>aes_parent_registration</varname>
           <action_on_app_error>2</action_on_app_error>
-          <action_on_4xx>:stop</action_on_4xx>
-          <action_on_5xx>:stop</action_on_5xx>
-          <action_on_bad_data>:pass</action_on_bad_data>
-          <action_on_network_errors>:stop</action_on_network_errors>
+          <action_on_4xx>2</action_on_4xx>
+          <action_on_5xx>2</action_on_5xx>
+          <action_on_bad_data>2</action_on_bad_data>
+          <action_on_network_errors>2</action_on_network_errors>
           <notify_on_errors>True</notify_on_errors>
           <record_errors>True</record_errors>
+          <condition>
+            <type>python</type>
+            <value>form_option_autosave is True</value>
+          </condition>
+        </item><item id="8" type="add_role">
+          <role_id role_id="901824fb4e0741b7967025ed05360aeb">Parent</role_id>
         </item><item id="2" type="jump">
           <status>3</status>
           <condition>
             <type>python</type>
-            <value>True or aes_registration_child_response is True</value>
+            <value>form_option_autosave is True and aes_parent_registration_response &gt; 0</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
+        </item><item id="5" type="jump">
+          <status>4</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="7" type="choice">
+          <label>debug</label>
+          <by>
+            <item role_id="117eea72732e4f90a768f5380d79b1a4">Debug</item>
+          </by><status>1</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
     </status><status>
       <id>2</id>
       <name>&#233;chec lors de votre enregistrement</name>
-      <colour>FFFFFF</colour>
+      <colour>FF0000</colour>
       <visibility />
       <items>
         <item id="2" type="register-comment">
-          <comment>Quelque-chose ne s'est pas bien pass&#233;!
-Un e-mail a d&#233;j&#224; &#233;t&#233; envoy&#233; &#224; un agent afin de v&#233;rifier ce qu'il s'est pass&#233;. 
+          <comment>&lt;p&gt;
+Quelque-chose ne s'est pas bien pass&#233; lors de l'enregistrement.&lt;br /&gt;
+Un e-mail a d&#233;j&#224; &#233;t&#233; envoy&#233; &#224; un agent afin d'analyser le probl&#232;me.&lt;br /&gt;
 Nous vous tiendrons inform&#233; de la r&#233;solution du probl&#232;me.
-
-Bien &#224; vous,</comment>
+&lt;br /&gt;
+Bien &#224; vous,
+&lt;/p&gt;</comment>
         </item><item id="3" type="sendmail">
           <to>
             <item role_id="_receiver">_receiver</item>
@@ -107,40 +131,71 @@ Bien &#224; vous,</comment>
           <body>Voici le formulaire qui a pos&#233; un probl&#232;me : 
 
 {{ form_url_backoffice }}</body>
+        </item><item id="4" type="choice">
+          <label>debug</label>
+          <by>
+            <item role_id="_debug">_debug</item>
+          </by><status>1</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
     </status><status>
       <id>3</id>
       <name>Vous &#234;tes bien enregistr&#233;</name>
-      <colour>FFFFFF</colour>
+      <colour>00FF00</colour>
       <visibility />
       <items>
         <item id="3" type="sendmail">
           <to>
             <item role_id="_submitter">_submitter</item>
           </to><subject>Portail parent : Confirmation de votre enregistrement.</subject>
-          <body>{{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }}, 
+          <body>&lt;div&gt;
+{{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }}, 
 
 Votre inscription dans notre syst&#232;me de gestion d'activit&#233;s, de plaines,... pour votre (vos) enfant(s) a &#233;t&#233; correctement r&#233;alis&#233;e. 
 
 Vos prochaines connexions devront toujours s'effectuer avec l'adresse e-mail suivante : {{ form_user_var_email }}.
 
-Pour rappel, le lien vers votre portail parent est le suivant : 
+Pour rappel : &lt;a class="pk-button" href="https://montsaintguibert.guichet-citoyen.be/portail_parent/"&gt;Lien vers votre portail parents &lt;/a&gt;
 
-{{ site_url }}/portail_parent/
+
 
 Bien cordialement, 
-</body>
+&lt;/div&gt;</body>
         </item><item id="4" type="register-comment">
-          <comment>&lt;p&gt;
-Votre inscription dans notre syst&#232;me de gestion d'activit&#233;s, de plaines,... pour votre (vos) enfant(s) a &#233;t&#233; correctement r&#233;alis&#233;e. 
-&lt;/p&gt;</comment>
+          <comment>&lt;div&gt;
+{% if form_submission_backoffice %}
+&lt;p&gt;
+L'inscription du parent dans le portail parent a &#233;t&#233; correctement r&#233;alis&#233;.
+&lt;/p&gt;
+&lt;p&gt;
+Retourner sur &lt;a href="https://montsaintguibert-portail-agent.guichet-citoyen.be/fiche-usager/{{ form_user_name_identifier_0}}/"&gt;La fiche du parent&lt;/a&gt;
+&lt;/p&gt;
+{% else%}
+&lt;p&gt;
+Votre inscription dans notre portail parent a &#233;t&#233; correctement r&#233;alis&#233;.
+&lt;/p&gt;
+&lt;p&gt;
+Vous pouvez &#224; pr&#233;sent &lt;a href="https://montsaintguibert-formulaires.guichet-citoyen.be/aes-enregistrer-un-nouvel-enfant/"&gt;enregistrer votre/vos enfant(s)&lt;/a&gt;
+&lt;/p&gt;
+{% endif %}
+&lt;/div</comment>
+        </item><item id="5" type="choice">
+          <label>debug</label>
+          <by>
+            <item role_id="_debug">_debug</item>
+          </by><status>3</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
     </status><status>
       <id>4</id>
       <name>En cours de traitement</name>
-      <colour>FFFFFF</colour>
+      <colour>0099FF</colour>
       <visibility />
       <items>
         <item id="1" type="choice">
@@ -151,18 +206,41 @@ Votre inscription dans notre syst&#232;me de gestion d'activit&#233;s, de plaine
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item id="2" type="register-comment">
-          <comment>&lt;p&gt;
-{{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }}, 
-&lt;br /&gt;
-Merci de votre demande d'enregistrement dans notre portail parent.&lt;br /&gt;
-Nous vous tiendrons inform&#233; de la suite dans les plus brefs d&#233;lais.&lt;br /&gt;
-Bien cordialement, 
-&lt;/p&gt;</comment>
         </item>
       </items>
     </status>
-  </possible_status><backoffice-fields>
+  </possible_status><global_actions>
+    <action>
+      <id>1</id>
+      <name>DEL</name>
+      <items>
+        <item id="1" type="remove" />
+      </items><triggers>
+        <trigger id="6c84ede6-d6f5-4695-b157-acfe49fdb987" type="manual">
+          <roles>
+            <item role_id="_debug">_debug</item>
+          </roles>
+        </trigger>
+      </triggers>
+    </action>
+  </global_actions><variables>
+    <formdef>
+      <name>-</name>
+      <fields>
+        <field>
+          <label>Enregistrement automatique dans AES?</label>
+          <type>bool</type>
+          <required>False</required>
+          <varname>autosave</varname>
+          <display_locations>
+            <display_location>summary</display_location>
+          </display_locations><prefill>
+            <type>none</type>
+          </prefill><id>1</id>
+        </field>
+      </fields>
+    </formdef>
+  </variables><backoffice-fields>
     <formdef>
       <name>-</name>
       <fields>

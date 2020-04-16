@@ -1,0 +1,493 @@
+<?xml version="1.0"?>
+<workflow id="15">
+  <name>aes - Inscription &#224; une plaine (validation semaine manuelle)</name>
+  <roles>
+    <role id="_debug">Debug</role>
+    <role id="_receiver">Agent traitant</role>
+  </roles><last_modification user_id="1">2020-03-11 15:51:11</last_modification>
+  <possible_status>
+    <status>
+      <id>1</id>
+      <name>Inscription envoy&#233;e</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item id="4" type="set-backoffice-fields">
+          <fields>
+            <field>
+              <field_id>bo12327eb7-292e-4599-8770-f59b17b60c69</field_id>
+              <value>{{ form_user_email }}</value>
+            </field><field>
+              <field_id>boe38e8ffb-9eea-4ca5-8433-562d88c254bf</field_id>
+              <value>=" , ".join(sorted(set("{}/{}/{}".format(jour.split('_')[2].split('-')[2],jour.split('_')[2].split('-')[1],jour.split('_')[2].split('-')[0]) for jour in form_var_selected_plaines_raw)))</value>
+            </field><field>
+              <field_id>bo0f67dbe9-82df-467a-adec-eb6e944f97af</field_id>
+              <value>=" , ".join(sorted(set(jour.split('_')[1] for jour in form_var_selected_plaines_raw)))</value>
+            </field><field>
+              <field_id>bob9991026-8b9a-4aa8-8161-bd6d26ac0b42</field_id>
+              <value>=0</value>
+            </field><field>
+              <field_id>bo536eed66-8e9a-4c58-b4d5-c54c84f0ccc8</field_id>
+              <value>=len(form_var_semaines_de_plaine.split(","))</value>
+            </field><field>
+              <field_id>bo17043065-244b-43fb-9911-148cfd2e2a96</field_id>
+              <value>=[["{}_{}".format(tuple(s)[0][0], tuple(s)[0][1]) for s in set(frozenset(d.items()) for d in [{jour.split("_")[1]:"{}/{}/{}".format(jour.split("_")[2].split("-")[2],jour.split("_")[2].split("-")[1],jour.split("_")[2].split("-")[0])} for jour in form_var_selected_plaines_raw])]]</value>
+            </field><field>
+              <field_id>bo87ac6923-e30f-4862-9d91-d6a3f06f96bb</field_id>
+              <value>=""</value>
+            </field><field>
+              <field_id>boc3c7d66b-d3b2-4135-92d3-5ff76aa16f52</field_id>
+              <value>{{ form_option_first_date_plain }}</value>
+            </field><field>
+              <field_id>bo872cb4f5-fe04-4823-b58b-8ca9b3662673</field_id>
+              <value>{{ form_option_last_date_plain }}</value>
+            </field>
+          </fields>
+        </item><item id="1" type="webservice_call">
+          <label>Enregistrements des occurences s&#233;lectionn&#233;es</label>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/add_registration_child_plaine</url>
+          <method>POST</method>
+          <post>False</post>
+          <post_data>
+            <item>
+              <name>child_id</name>
+              <value>=form_var_selected_child_raw</value>
+            </item><item>
+              <name>data</name>
+              <value>=form_var_selected_plaines_raw</value>
+            </item><item>
+              <name>form_id</name>
+              <value>=form_number_raw</value>
+            </item>
+          </post_data><response_type>json</response_type>
+          <varname>aes_registration_child_plaine</varname>
+          <action_on_app_error>2</action_on_app_error>
+          <action_on_4xx>:stop</action_on_4xx>
+          <action_on_5xx>:stop</action_on_5xx>
+          <action_on_bad_data>:pass</action_on_bad_data>
+          <action_on_network_errors>:stop</action_on_network_errors>
+          <notify_on_errors>True</notify_on_errors>
+          <record_errors>True</record_errors>
+        </item><item id="2" type="jump">
+          <status>3</status>
+          <condition>
+            <type>python</type>
+            <value>aes_registration_child_plaine_response is True</value>
+          </condition><set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>2</id>
+      <name>Inscription &#233;chou&#233;e</name>
+      <colour>FF0000</colour>
+      <visibility />
+      <items>
+        <item id="2" type="register-comment">
+          <comment>&lt;div&gt;
+{{ pp_wfplaine_histo_error }}
+&lt;/div&gt;</comment>
+        </item><item id="3" type="sendmail">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+            <item role_id="_debug">_debug</item>
+          </to><subject>Mont-Saint-Guibert : Erreur</subject>
+          <body>D&#233;marches en &#233;chec : 
+
+{{ form_url_backoffice }}
+
+Bien cordialement, </body>
+        </item>
+      </items>
+    </status><status>
+      <id>3</id>
+      <name>Inscription en attente de validation</name>
+      <colour>0099FF</colour>
+      <visibility />
+      <items>
+        <item id="6" type="register-comment">
+          <comment>&lt;p&gt;
+Votre demande  est en attente d'une validation par un agent traitant.&lt;br /&gt;
+Bien cordialement, 
+&lt;/p&gt;</comment>
+        </item><item id="3" type="sendmail">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>Portail parent : Inscription &#224; une plaine</subject>
+          <body>{{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }}, 
+
+Nous prenons bien connaissance de l'enregistrement de votre enfant &#224; une plaine.
+
+Notre service va v&#233;rifier votre demande et reviendra vers vous dans les plus bref d&#233;lais.
+
+`Consulter ma demande &lt;{{ form_url }}&gt;`_
+
+ 
+Bien cordialement, </body>
+        </item><item id="9" type="sendmail">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to><subject>{{ pp_wplaine_sujet_mail_agent_demande_inscr }}</subject>
+          <body>{{ pp_wplaine_corps_mail_agent_demande_inscr }}</body>
+        </item><item id="11" type="resubmit">
+          <by>
+            <item role_id="_submitter">_submitter</item>
+          </by><label>Inscrire un autre enfant</label>
+          <formdef_slug>_same</formdef_slug>
+        </item><item id="12" type="jumponsubmit">
+          <status>9</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="10" type="jump">
+          <status>7</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="7" type="choice">
+          <label>Accepter manuellement l'inscription</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>4</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;&lt;strong&gt;Cette action doit normalement se r&amp;eacute;aliser automatiquement via le logiciel AES.&lt;/strong&gt;&lt;/p&gt;</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="8" type="choice">
+          <label>Refuser manuellement l'inscription</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>6</status>
+          <require_confirmation>True</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;&lt;strong&gt;Cette action doit normalement se r&amp;eacute;aliser automatiquement via le logiciel AES&lt;/strong&gt;&lt;/p&gt;</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>4</id>
+      <name>Semaine accept&#233;e</name>
+      <colour>00FF00</colour>
+      <visibility />
+      <items>
+        <item id="5" type="set-backoffice-fields">
+          <fields>
+            <field>
+              <field_id>bob9991026-8b9a-4aa8-8161-bd6d26ac0b42</field_id>
+              <value>=int(form_var_cpt_aes_response) + 1</value>
+            </field><field>
+              <field_id>bo87ac6923-e30f-4862-9d91-d6a3f06f96bb</field_id>
+              <value>=form_var_finalmail + "&lt;li&gt;Accept&#233; pour la semaine du lundi {} au vendredi {}&lt;/li&gt;".format(script.commune("get_dates_of_week_number", {"numweek":aes_week_validate,"year":form_receipt_datetime.year})[0], script.commune("get_dates_of_week_number", {"numweek":aes_week_validate,"year":form_receipt_datetime.year})[1])</value>
+            </field><field>
+              <field_id>bo489d9a74-3e88-46f2-b98f-c815b2033927</field_id>
+              <value>="Accept&#233; pour la semaine du lundi {} au vendredi {} ".format(script.commune("get_dates_of_week_number", {"numweek":aes_week_validate,"year":form_receipt_datetime.year})[0], script.commune("get_dates_of_week_number", {"numweek":aes_week_validate,"year":form_receipt_datetime.year})[1])</value>
+            </field>
+          </fields>
+        </item><item id="3" type="register-comment">
+          <comment>&lt;div&gt;
+Nous avons le plaisir de vous confirmer l'inscription de {{ form_var_selected_child_firstname }} &#224; notre/nos plaine(s) pour le(s) jour(s) suivant :&lt;br/&gt;
+{{ form_var_msg_status_histo }}
+&lt;/div&gt;</comment>
+        </item><item id="1" type="sendmail">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>Portail parent : Inscription &#224; la plaine accept&#233;e</subject>
+          <body>{{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }}, 
+
+Nous avons le plaisir de vous confirmer l'inscription de votre enfant &#224; notre/nos plaine(s).
+
+Ci-dessous, veuillez retrouver les diff&#233;rents jours pour lesquels {{ form_var_selected_child_firstname }} sera pr&#233;sent :
+
+{{form_var_jours_de_plaine}}
+
+
+Bien cordialement, </body>
+          <condition>
+            <type>python</type>
+            <value>False</value>
+          </condition>
+        </item><item id="6" type="jump">
+          <status>8</status>
+          <condition>
+            <type>python</type>
+            <value>int(form_var_cpt_aes_response) &gt;= int(form_var_nb_weeks)</value>
+          </condition><set_marker_on_status>False</set_marker_on_status>
+        </item><item id="4" type="jump">
+          <status>7</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>5</id>
+      <name>&#192; payer</name>
+      <colour>FFFF99</colour>
+      <visibility>
+        <role>_receiver</role>
+        <role>_debug</role>
+      </visibility><items />
+    </status><status>
+      <id>6</id>
+      <name>Semaine refus&#233;e</name>
+      <colour>FF0000</colour>
+      <visibility />
+      <items>
+        <item id="3" type="set-backoffice-fields">
+          <fields>
+            <field>
+              <field_id>bob9991026-8b9a-4aa8-8161-bd6d26ac0b42</field_id>
+              <value>=int(form_var_cpt_aes_response) + 1</value>
+            </field><field>
+              <field_id>bo87ac6923-e30f-4862-9d91-d6a3f06f96bb</field_id>
+              <value>=form_var_finalmail + "&lt;li&gt;Refus pour la semaine du lundi {} au vendredi {}&lt;/li&gt;".format(script.commune("get_dates_of_week_number", {"numweek":aes_week_refused,"year":form_receipt_datetime.year})[0], script.commune("get_dates_of_week_number", {"numweek":aes_week_refused,"year":form_receipt_datetime.year})[1])</value>
+            </field><field>
+              <field_id>bo489d9a74-3e88-46f2-b98f-c815b2033927</field_id>
+              <value>="Refus pour la semaine du lundi {} au vendredi {} ".format(script.commune("get_dates_of_week_number", {"numweek":aes_week_refused,"year":form_receipt_datetime.year})[0], script.commune("get_dates_of_week_number", {"numweek":aes_week_refused,"year":form_receipt_datetime.year})[1])</value>
+            </field>
+          </fields>
+        </item><item id="5" type="register-comment">
+          <comment>&lt;div&gt;
+Nous sommes au regret de vous annoncer que l'inscription de {{ form_var_selected_child_firstname }} &#224; notre/nos plaine(s) pour le(s) jour(s) suivant :&lt;br/&gt;
+{{ form_var_msg_status_histo }}&lt;/br&gt;
+n'est pas possible.
+&lt;/div&gt;</comment>
+        </item><item id="1" type="sendmail">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>Portail parent : Inscription &#224; la plaine refus&#233;e</subject>
+          <body>{{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }}, 
+
+Nous sommes au regret de vous annoncer le refus de l'inscription de votre enfant &#224; notre plaine.
+
+Bien cordialement, </body>
+          <condition>
+            <type>python</type>
+            <value>False</value>
+          </condition>
+        </item><item id="4" type="jump">
+          <status>8</status>
+          <condition>
+            <type>python</type>
+            <value>int(form_var_cpt_aes_response) &gt;= int(form_var_nb_weeks)</value>
+          </condition><set_marker_on_status>False</set_marker_on_status>
+        </item><item id="2" type="jump">
+          <status>7</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>7</id>
+      <name>ack AES</name>
+      <colour>000000</colour>
+      <visibility>
+        <role>_receiver</role>
+        <role>_debug</role>
+      </visibility><items>
+        <item id="6" type="resubmit">
+          <by>
+            <item role_id="_submitter">_submitter</item>
+          </by><label>Inscrire un autre enfant</label>
+          <formdef_slug>_same</formdef_slug>
+        </item><item id="7" type="jumponsubmit">
+          <status>9</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="1" type="jump">
+          <status>4</status>
+          <trigger>validate</trigger>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="2" type="jump">
+          <status>6</status>
+          <trigger>refused</trigger>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>8</id>
+      <name>Demande trait&#233;e</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="jump">
+          <status>5</status>
+          <trigger>get_facturation</trigger>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="2" type="sendmail">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>Plaines : Votre demande {{ form_number }} du portail parent.</subject>
+          <body>&lt;div&gt;
+{{ form_user_var_title }} {{ form_user_var_first_name }} {{ form_user_var_last_name }},
+&lt;br /&gt;
+Nous avons finalis&#233; le traitement de votre demande soumise le {{ form_receipt_date }}.
+&lt;br /&gt;
+Ci-dessous, veuillez retrouver les semaines accept&#233;es ou refus&#233;es pour votre demande : 
+
+&lt;ul&gt;
+{{ form_var_finalmail|safe }}
+&lt;/ul&gt;
+
+&lt;a href="{{ form_url }}"&gt;Consulter l'historique de votre demande&lt;/a&gt;
+&lt;p&gt;
+Bien cordialement, 
+&lt;/p&gt;
+&lt;/div&gt;</body>
+        </item><item id="5" type="choice">
+          <label>DEBUG mail</label>
+          <by>
+            <item role_id="_debug">_debug</item>
+          </by><status>8</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>9</id>
+      <name>Inscrire un nouvel enfant</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="redirect_to_url">
+          <url>{{ resubmit_formdata_draft_url }}</url>
+        </item><item id="2" type="jump">
+          <status>3</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+  </possible_status><variables>
+    <formdef>
+      <name>-</name>
+      <fields>
+        <field>
+          <label>Date d'ouverture des plaines de l'ann&#233;e.</label>
+          <type>string</type>
+          <required>True</required>
+          <hint>Le premier jour de la premi&#232;re plaine de l'ann&#233;e.
+Au format jj/mm/aaaa</hint>
+          <varname>first_date_plain</varname>
+          <display_locations>
+            <display_location>summary</display_location>
+          </display_locations><prefill>
+            <type>none</type>
+          </prefill><anonymise>False</anonymise>
+          <id>4</id>
+        </field><field>
+          <label>Derni&#232;re date de plaines de l'ann&#233;e.</label>
+          <type>string</type>
+          <required>True</required>
+          <hint>Le dernier jour de la derni&#232;re plaine de l'ann&#233;e.
+Au format jj/mm/aaaa</hint>
+          <varname>last_date_plain</varname>
+          <display_locations>
+            <display_location>summary</display_location>
+          </display_locations><prefill>
+            <type>none</type>
+          </prefill><anonymise>True</anonymise>
+          <id>5</id>
+        </field><field>
+          <label>Est-ce que le formulaire est en test?</label>
+          <type>bool</type>
+          <required>False</required>
+          <hint>Si coch&#233;e, alors, un certain nombre de "check" sont outrepass&#233;s. 
+A d&#233;sactiv&#233; absolument pour la production ! </hint>
+          <varname>test</varname>
+          <display_locations>
+            <display_location>summary</display_location>
+          </display_locations><prefill>
+            <type>none</type>
+          </prefill><id>1</id>
+        </field>
+      </fields>
+    </formdef>
+  </variables><backoffice-fields>
+    <formdef>
+      <name>-</name>
+      <fields>
+        <field>
+          <label>Adresse e-mail</label>
+          <type>string</type>
+          <required>True</required>
+          <varname>email</varname>
+          <display_locations>
+            <display_location>summary</display_location>
+          </display_locations><anonymise>True</anonymise>
+          <id>bo12327eb7-292e-4599-8770-f59b17b60c69</id>
+        </field><field>
+          <label>Tous les jours de plaine s&#233;lectionn&#233;s par le parent</label>
+          <type>string</type>
+          <required>False</required>
+          <varname>jours_de_plaine</varname>
+          <display_locations>
+            <display_location>summary</display_location>
+          </display_locations><anonymise>False</anonymise>
+          <id>boe38e8ffb-9eea-4ca5-8433-562d88c254bf</id>
+        </field><field>
+          <label>Semaines (calendrier) de plaine</label>
+          <type>string</type>
+          <required>False</required>
+          <hint>Semaines "calendrier".</hint>
+          <varname>semaines_de_plaine</varname>
+          <display_locations>
+            <display_location>summary</display_location>
+            <display_location>listings</display_location>
+          </display_locations><anonymise>False</anonymise>
+          <id>bo0f67dbe9-82df-467a-adec-eb6e944f97af</id>
+        </field><field>
+          <label>(utils) compteur de r&#233;ponses aes</label>
+          <type>string</type>
+          <required>False</required>
+          <varname>cpt_aes_response</varname>
+          <display_locations />
+          <anonymise>False</anonymise>
+          <id>bob9991026-8b9a-4aa8-8161-bd6d26ac0b42</id>
+        </field><field>
+          <label>(utils) Nombre de semaines s&#233;lectionn&#233;es par le parent</label>
+          <type>string</type>
+          <required>True</required>
+          <varname>nb_weeks</varname>
+          <display_locations />
+          <anonymise>False</anonymise>
+          <id>bo536eed66-8e9a-4c58-b4d5-c54c84f0ccc8</id>
+        </field><field>
+          <label>(utils) Jours de plaine &#224; filtrer (refuse / validate)</label>
+          <type>table</type>
+          <required>False</required>
+          <varname>days_will_be_filtering</varname>
+          <display_locations />
+          <rows>
+            <row>day</row>
+          </rows><columns>
+            <column>days</column>
+          </columns><id>bo17043065-244b-43fb-9911-148cfd2e2a96</id>
+        </field><field>
+          <label>(utils) Refus ou acceptation dans l'historique (message spontan&#233;)</label>
+          <type>string</type>
+          <required>False</required>
+          <varname>msg_status_histo</varname>
+          <display_locations />
+          <anonymise>False</anonymise>
+          <id>bo489d9a74-3e88-46f2-b98f-c815b2033927</id>
+        </field><field>
+          <label>Refus et acceptations pour mail final (messages concat&#233;n&#233;s)</label>
+          <type>string</type>
+          <required>False</required>
+          <varname>finalmail</varname>
+          <display_locations />
+          <anonymise>False</anonymise>
+          <id>bo87ac6923-e30f-4862-9d91-d6a3f06f96bb</id>
+        </field><field>
+          <label>register_first_date_plaine</label>
+          <type>string</type>
+          <required>False</required>
+          <varname>reg_first_date_plaine</varname>
+          <display_locations />
+          <anonymise>False</anonymise>
+          <id>boc3c7d66b-d3b2-4135-92d3-5ff76aa16f52</id>
+        </field><field>
+          <label>register_last_date_plaine</label>
+          <type>string</type>
+          <required>False</required>
+          <varname>reg_last_date_plaine</varname>
+          <display_locations />
+          <anonymise>False</anonymise>
+          <id>bo872cb4f5-fe04-4823-b58b-8ca9b3662673</id>
+        </field>
+      </fields>
+    </formdef>
+  </backoffice-fields>
+</workflow>

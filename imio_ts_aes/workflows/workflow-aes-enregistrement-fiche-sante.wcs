@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<workflow id="16">
+  <name>aes - Enregistrement fiche sant&#233;</name>
+  <roles>
+    <role id="_receiver">Destinataire</role>
+  </roles><last_modification user_id="1">2020-04-16 09:43:56</last_modification>
+  <possible_status>
+    <status>
+      <id>1</id>
+      <name>Nouvelle fiche sant&#233;</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="choice">
+          <label>Tenter l'enregistrement dans AES</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>2</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>2</id>
+      <name>Enregistrement dans AES</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="webservice_call">
+          <label>Enregistrement dans AES</label>
+          <url>https://montsaintguibert-passerelle.guichet-citoyen.be/passerelle-imio-aes-health/aes_health/post_child_health_sheet</url>
+          <method>POST</method>
+          <post>True</post>
+          <response_type>json</response_type>
+          <varname>healthsheet</varname>
+          <action_on_app_error>:stop</action_on_app_error>
+          <action_on_4xx>:stop</action_on_4xx>
+          <action_on_5xx>:stop</action_on_5xx>
+          <action_on_bad_data>:stop</action_on_bad_data>
+          <action_on_network_errors>:stop</action_on_network_errors>
+          <notify_on_errors>True</notify_on_errors>
+          <record_errors>True</record_errors>
+        </item><item id="4" type="webservice_call">
+          <label>TOUT ! QU'AES DEGUSTE !</label>
+          <url>https://montsaintguibert-passerelle.guichet-citoyen.be/passerelle-imio-aes-health/aes_health/post_child_health_sheet</url>
+          <method>POST</method>
+          <post>False</post>
+          <response_type>json</response_type>
+          <varname>healthsheet</varname>
+          <action_on_app_error>:pass</action_on_app_error>
+          <action_on_4xx>:stop</action_on_4xx>
+          <action_on_5xx>:stop</action_on_5xx>
+          <action_on_bad_data>:pass</action_on_bad_data>
+          <action_on_network_errors>:stop</action_on_network_errors>
+          <notify_on_errors>True</notify_on_errors>
+          <record_errors>True</record_errors>
+          <condition>
+            <type>django</type>
+            <value>False</value>
+          </condition>
+        </item><item id="2" type="jump">
+          <status>4</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="3" type="choice">
+          <label>Retenter l'enregistrement dans AES</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>2</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>3</id>
+      <name>Echec</name>
+      <colour>FF0000</colour>
+      <visibility />
+      <items>
+        <item id="1" type="choice">
+          <label>Retenter l'enregistrement dans AES</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>2</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>4</id>
+      <name>R&#233;ussi</name>
+      <colour>00FF00</colour>
+      <visibility />
+      <items>
+        <item id="1" type="choice">
+          <label>Relancer la requ&#234;te</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>2</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+  </possible_status><variables>
+    <formdef>
+      <name>-</name>
+      <fields>
+        <field>
+          <label>Questions &#224; poser aux parents</label>
+          <type>items</type>
+          <required>False</required>
+          <varname>questions</varname>
+          <display_locations>
+            <display_location>summary</display_location>
+          </display_locations><prefill>
+            <type>none</type>
+          </prefill><max_choices>0</max_choices>
+          <data_source>
+            <type>questions</type>
+          </data_source><in_filters>False</in_filters>
+          <anonymise>True</anonymise>
+          <display_disabled_items>False</display_disabled_items>
+          <id>1</id>
+        </field>
+      </fields>
+    </formdef>
+  </variables>
+</workflow>
