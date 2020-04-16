@@ -2,22 +2,65 @@
 <formdef id="21">
   <name>Inscrire mon enfant &#224; une plaine</name>
   <url_name>aes-inscrire-mon-enfant-a-une-plaine</url_name>
-  <internal_identifier>aes-inscrire-mon-enfant-a-une-plaine</internal_identifier>
+  <publication_date>01/03/2020 00:00</publication_date>
+  <expiration_date>01/09/2020 00:00</expiration_date>
+  <internal_identifier>inscrire-mon-enfant-a-une-plaine</internal_identifier>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
   <disabled>false</disabled>
   <only_allow_one>false</only_allow_one>
-  <enable_tracking_codes>false</enable_tracking_codes>
+  <enable_tracking_codes>true</enable_tracking_codes>
   <confirmation>true</confirmation>
   <always_advertise>false</always_advertise>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
   <category category_id="99">Portail parent</category>
-  <workflow workflow_id="8">aes - Inscription &#224; une plaine</workflow>
-  <max_field_id>38</max_field_id>
-  <last_modification user_id="1">2020-02-26 09:11:05</last_modification>
+  <workflow workflow_id="18">aes - Inscription &#224; une plaine (validation semaine automatique)</workflow>
+  <max_field_id>48</max_field_id>
+  <last_modification user_id="1">2020-04-08 11:36:55</last_modification>
   <fields>
     <field>
+      <label>Connexion non autoris&#233;e</label>
+      <type>page</type>
+      <condition>
+        <type>python</type>
+        <value>(script.montsaintguibert("get_roles",{}) is False and script.commune("is_strong_authentication",{}) is False) and vars().get("session_user").can_go_in_backoffice() is False</value>
+      </condition><post_conditions>
+        <post_condition>
+          <condition>
+            <type>python</type>
+            <value>script.montsaintguibert("get_roles",{}) is True or script.commune("is_strong_authentication",{}) is True</value>
+          </condition><error_message>pas les droits...</error_message>
+        </post_condition>
+      </post_conditions><id>46</id>
+    </field><field>
+      <label>&lt;p&gt;pas les droits....&lt;/p&gt;</label>
+      <type>comment</type>
+      <display_locations />
+      <id>47</id>
+    </field><field>
+      <label>Pas d'enfant enregistr&#233;</label>
+      <type>page</type>
+      <condition>
+        <type>python</type>
+        <value>len(webservice.aes_get_children.get("data")) == 0</value>
+      </condition><post_conditions>
+        <post_condition>
+          <condition>
+            <type>python</type>
+            <value>len(webservice.aes_get_children.get("data")) &gt; 0</value>
+          </condition><error_message>Aucun enfant trouv&#233; dans notre portail parent</error_message>
+        </post_condition>
+      </post_conditions><id>40</id>
+    </field><field>
+      <label>&lt;p&gt;Nous n'avons trouv&amp;eacute; aucun enfant vous concernant dans notre base de donn&amp;eacute;es.&lt;/p&gt;
+
+&lt;p&gt;&lt;a class="pk-button" href="https://montsaintguibert-formulaires.guichet-citoyen.be/aes-enregistrer-un-nouvel-enfant/"&gt;Enregistrer un nouvel enfant&lt;/a&gt;&lt;/p&gt;</label>
+      <type>comment</type>
+      <extra_css_class>no_permission_page</extra_css_class>
+      <display_locations />
+      <id>41</id>
+    </field><field>
       <label>Coordonn&#233;es</label>
       <type>page</type>
       <condition>
@@ -32,7 +75,13 @@
         <display_location>summary</display_location>
       </display_locations><id>36</id>
     </field><field>
-      <label>&lt;p&gt;Si vos informations personnelles ont chang&amp;eacute;, vous devez changer votre signal&amp;eacute;tique dans vos pr&amp;eacute;f&amp;eacute;rences personnelles (&lt;a href="[idp_account_url]edit/"&gt;page de profil&lt;/a&gt;) avant de r&amp;eacute;aliser votre demande. Merci.&lt;/p&gt;</label>
+      <label>&lt;p&gt;Si vos informations personnelles ont chang&amp;eacute;, vous devez changer votre signal&amp;eacute;tique dans vos pr&amp;eacute;f&amp;eacute;rences personnelles (&lt;a href="[idp_account_url]edit/"&gt;page de profil&lt;/a&gt;) avant de r&amp;eacute;aliser votre demande. Merci.&lt;/p&gt;
+
+&lt;p&gt;&lt;a class="pk-button" href="[idp_account_url]edit/"&gt;Mes informations ont chang&amp;eacute;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;* = champs obligatoire&lt;/p&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;</label>
       <type>comment</type>
       <display_locations />
       <id>11</id>
@@ -141,12 +190,12 @@
     </field><field>
       <label>Num&#233;ro de t&#233;l&#233;phone / gsm</label>
       <type>string</type>
-      <required>False</required>
+      <required>True</required>
       <varname>telephone</varname>
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
-      </display_locations><extra_css_class>grid-1-2 readonly</extra_css_class>
+      </display_locations><extra_css_class>grid-1-2</extra_css_class>
       <prefill>
         <type>user</type>
         <value>_phone</value>
@@ -187,10 +236,10 @@
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
+        <display_location>listings</display_location>
       </display_locations><prefill>
         <type>none</type>
-      </prefill><items />
-      <display_mode>radio</display_mode>
+      </prefill><display_mode>radio</display_mode>
       <data_source>
         <type>formula</type>
         <value>webservice.aes_get_children.get('data')</value>
@@ -223,7 +272,7 @@
       </data_source><in_filters>False</in_filters>
       <anonymise>True</anonymise>
       <display_disabled_items>False</display_disabled_items>
-      <id>38</id>
+      <id>39</id>
     </field><field>
       <label>&lt;p&gt;Plaines disponnibles&lt;/p&gt;</label>
       <type>comment</type>
@@ -231,10 +280,18 @@
       <display_locations />
       <id>37</id>
     </field>
-  </fields><roles>
-    <role role_id="117eea72732e4f90a768f5380d79b1a4" role_key="_receiver">Debug</role>
+  </fields><user-roles>
+    <role role_id="logged-users">logged-users</role>
+    <role role_id="901824fb4e0741b7967025ed05360aeb">Parent</role>
+  </user-roles><backoffice-submission-roles>
+    <role role_id="98f4561aa38e43c299cee37cb19bfa10">Agents traitants - Portail parent</role>
+  </backoffice-submission-roles><roles>
+    <role role_id="98f4561aa38e43c299cee37cb19bfa10" role_key="_receiver">Agents traitants - Portail parent</role>
     <role role_id="117eea72732e4f90a768f5380d79b1a4" role_key="_debug">Debug</role>
   </roles><options>
+    <option varname="first_date_plain">01/07/2020</option>
+    <option varname="last_date_plain">31/08/2020</option>
+    <option varname="nb_days_before_free_places">3</option>
     <option varname="test" />
   </options><geolocations />
 </formdef>

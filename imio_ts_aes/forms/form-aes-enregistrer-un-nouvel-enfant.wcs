@@ -13,16 +13,18 @@
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
   <category category_id="99">Portail parent</category>
-  <workflow workflow_id="14">aes - Enregistrement enfant</workflow>
-  <max_field_id>23</max_field_id>
-  <last_modification user_id="1">2020-02-18 09:50:31</last_modification>
+  <workflow workflow_id="17">aes - Enregistrement enfant</workflow>
+  <max_field_id>25</max_field_id>
+  <last_modification user_id="1">2020-03-13 09:28:05</last_modification>
   <fields>
     <field>
       <label>Mes informations</label>
       <type>page</type>
       <id>15</id>
     </field><field>
-      <label>&lt;p&gt;Si vos informations personnelles ont chang&amp;eacute;, vous devez changer votre signal&amp;eacute;tique dans vos pr&amp;eacute;f&amp;eacute;rences personnelles (&lt;a href="[idp_account_url]edit/"&gt;page de profil&lt;/a&gt;) avant de r&amp;eacute;aliser votre demande. Merci.&lt;/p&gt;</label>
+      <label>&lt;p&gt;Si vos informations personnelles ont chang&amp;eacute;, vous devez changer votre signal&amp;eacute;tique dans vos pr&amp;eacute;f&amp;eacute;rences personnelles (&lt;a href="[idp_account_url]edit/"&gt;page de profil&lt;/a&gt;) avant de r&amp;eacute;aliser votre demande. Merci.&lt;/p&gt;
+
+&lt;p&gt;* = champs obligatoire&lt;/p&gt;</label>
       <type>comment</type>
       <display_locations />
       <id>11</id>
@@ -162,17 +164,6 @@
       <display_locations />
       <id>21</id>
     </field><field>
-      <label>Je b&#233;n&#233;ficie d'aides sociales</label>
-      <type>bool</type>
-      <required>False</required>
-      <varname>aides_sociels</varname>
-      <display_locations>
-        <display_location>validation</display_location>
-        <display_location>summary</display_location>
-      </display_locations><prefill>
-        <type>none</type>
-      </prefill><id>13</id>
-    </field><field>
       <label>Nouvel enfant &#224; enregistrer</label>
       <type>page</type>
       <id>14</id>
@@ -230,7 +221,7 @@
     </field><field>
       <label>Num&#233;ro de kid eID</label>
       <type>string</type>
-      <required>True</required>
+      <required>False</required>
       <hint>Si votre enfant poss&#232;de d&#233;j&#224; une carte d'identit&#233; &#233;lectronique</hint>
       <varname>enfant_eid</varname>
       <display_locations>
@@ -241,11 +232,53 @@
         <type>none</type>
       </prefill><anonymise>True</anonymise>
       <id>20</id>
+    </field><field>
+      <label>Implantation scolaire</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>implantation_scolaire</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><display_mode>list</display_mode>
+      <data_source>
+        <type>formula</type>
+        <value>webservice.aes_get_implantation.get("data")</value>
+      </data_source><in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>24</id>
+    </field><field>
+      <label>Ann&#233;e scolaire</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>annee_scolaire</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><display_mode>list</display_mode>
+      <data_source>
+        <type>formula</type>
+        <value>webservice.aes_get_levels.get("data")</value>
+      </data_source><in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>25</id>
     </field>
   </fields><user-roles>
     <role role_id="logged-users">logged-users</role>
-  </user-roles><roles>
+  </user-roles><backoffice-submission-roles>
+    <role role_id="98f4561aa38e43c299cee37cb19bfa10">Agents traitants - Portail parent</role>
+  </backoffice-submission-roles><roles>
     <role role_id="98f4561aa38e43c299cee37cb19bfa10" role_key="_receiver">Agents traitants - Portail parent</role>
-  </roles><options />
-  <geolocations />
+    <role role_id="117eea72732e4f90a768f5380d79b1a4" role_key="_debug">Debug</role>
+  </roles><options>
+    <option varname="autosave" />
+  </options><geolocations />
 </formdef>

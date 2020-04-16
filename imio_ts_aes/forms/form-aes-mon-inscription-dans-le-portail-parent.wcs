@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <formdef id="27">
-  <name>M'enregistrer dans le portail parent</name>
+  <name>M'enregistrer en tant que parent</name>
   <url_name>aes-mon-inscription-dans-le-portail-parent</url_name>
   <description>&lt;p&gt;S'enregistrer dans le portail parent permet ensuite d'y inscrire ses enfants, de compl&amp;eacute;ter leur fiche sant&amp;eacute; et de les inscrire &amp;agrave; des activit&amp;eacute;s.&lt;/p&gt;</description>
   <internal_identifier>m-enregistrer-dans-le-portail-parent</internal_identifier>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
   <disabled>false</disabled>
-  <only_allow_one>false</only_allow_one>
+  <only_allow_one>true</only_allow_one>
   <enable_tracking_codes>false</enable_tracking_codes>
   <confirmation>true</confirmation>
   <always_advertise>false</always_advertise>
@@ -15,11 +15,19 @@
   <skip_from_360_view>false</skip_from_360_view>
   <category category_id="99">Portail parent</category>
   <workflow workflow_id="13">aes - Enregistrement parent</workflow>
-  <max_field_id>14</max_field_id>
-  <last_modification user_id="1">2020-03-02 13:42:12</last_modification>
+  <max_field_id>15</max_field_id>
+  <last_modification user_id="1">2020-03-25 13:11:23</last_modification>
   <fields>
     <field>
-      <label>&lt;p&gt;&lt;a class="pk-button" href="{{idp_account_url}}edit/"&gt;Mes informations ont chang&amp;eacute; ou sont incompl&amp;egrave;tes&lt;/a&gt;&lt;/p&gt;</label>
+      <label>Editer</label>
+      <type>page</type>
+      <id>15</id>
+    </field><field>
+      <label>&lt;p&gt;&lt;a class="pk-button" href="{{idp_account_url}}edit/"&gt;Mes informations ont chang&amp;eacute; ou sont incompl&amp;egrave;tes&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;* = champs obligatoire&lt;/p&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;</label>
       <type>comment</type>
       <display_locations />
       <id>11</id>
@@ -162,9 +170,12 @@
     </field>
   </fields><user-roles>
     <role role_id="logged-users">logged-users</role>
-  </user-roles><roles>
+  </user-roles><backoffice-submission-roles>
+    <role role_id="98f4561aa38e43c299cee37cb19bfa10">Agents traitants - Portail parent</role>
+  </backoffice-submission-roles><roles>
     <role role_id="98f4561aa38e43c299cee37cb19bfa10" role_key="_receiver">Agents traitants - Portail parent</role>
     <role role_id="117eea72732e4f90a768f5380d79b1a4" role_key="_debug">Debug</role>
-  </roles><options />
-  <geolocations />
+  </roles><options>
+    <option varname="autosave" />
+  </options><geolocations />
 </formdef>
