@@ -16,6 +16,10 @@
         "aes-known-children": {
             "name": "AES - Enfants connus dans votre guichet",
             "url": "https://montsaintguibert-passerelle.guichet-citoyen.be/passerelle-imio-ia-aes/aes/get_children?email={{ user_email }}"
+        },
+        "aes-plaines": {
+            "name": "AES - Semaines de plaines",
+            "url": "https://montsaintguibert-formulaires.guichet-citoyen.be/api/user/forms?email={{ user_email }}&full=on"
         }
     }
 }
