@@ -68,3 +68,4 @@ sed -i "s/$domain/[DOMAIN]/g" $install_path/combo/tenants/settings.json
 
 # COMBO : import AES portail-citoyen structure
 sudo -u combo combo-manage tenant_command import_site -d $combo_tenant $install_path/combo/portail-citoyen-aes.json
+sudo -u combo combo-manage tenant_command import_site -d $combo_tenant $install_path/combo/portail-agent-aes.json
