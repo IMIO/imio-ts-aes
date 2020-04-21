@@ -16,25 +16,25 @@
   <skip_from_360_view>false</skip_from_360_view>
   <category category_id="99">Portail parent</category>
   <workflow workflow_id="18">aes - Inscription &#224; une plaine (validation semaine automatique)</workflow>
-  <max_field_id>48</max_field_id>
-  <last_modification user_id="1">2020-04-08 11:36:55</last_modification>
+  <max_field_id>49</max_field_id>
+  <last_modification user_id="1">2020-04-21 15:46:25</last_modification>
   <fields>
     <field>
       <label>Connexion non autoris&#233;e</label>
       <type>page</type>
       <condition>
         <type>python</type>
-        <value>(script.montsaintguibert("get_roles",{}) is False and script.commune("is_strong_authentication",{}) is False) and vars().get("session_user").can_go_in_backoffice() is False</value>
+        <value>(script.commune("get_roles",{}) is False and script.commune("is_strong_authentication",{}) is False) and vars().get("session_user").can_go_in_backoffice() is False</value>
       </condition><post_conditions>
         <post_condition>
           <condition>
             <type>python</type>
-            <value>script.montsaintguibert("get_roles",{}) is True or script.commune("is_strong_authentication",{}) is True</value>
-          </condition><error_message>pas les droits...</error_message>
+            <value>script.commune("get_roles",{}) is True or script.commune("is_strong_authentication",{}) is True</value>
+          </condition><error_message>L'utilisation du portail parent n&#233;cessite une authentification par carte d'identit&#233;.</error_message>
         </post_condition>
       </post_conditions><id>46</id>
     </field><field>
-      <label>&lt;p&gt;pas les droits....&lt;/p&gt;</label>
+      <label>&lt;p&gt;L'utilisation du portail parent n&amp;eacute;cessite une authentification par carte d'identit&amp;eacute;.&lt;/p&gt;</label>
       <type>comment</type>
       <display_locations />
       <id>47</id>
@@ -67,6 +67,11 @@
         <type>python</type>
         <value>webservice.aes_is_registered_parent is True or form_option_test is True</value>
       </condition><id>13</id>
+    </field><field>
+      <label>&lt;p&gt;{{ form_option_commentaire }}&lt;/p&gt;</label>
+      <type>comment</type>
+      <display_locations />
+      <id>49</id>
     </field><field>
       <label>Vos informations</label>
       <type>title</type>
@@ -289,6 +294,7 @@
     <role role_id="98f4561aa38e43c299cee37cb19bfa10" role_key="_receiver">Agents traitants - Portail parent</role>
     <role role_id="117eea72732e4f90a768f5380d79b1a4" role_key="_debug">Debug</role>
   </roles><options>
+    <option varname="commentaire">Pour toute personne de Mont-Saint-Guibert, &#233;manant du CPAS, merci de bien vouloir d&#8217;abord contacter ce dernier en premier lieu.</option>
     <option varname="first_date_plain">01/07/2020</option>
     <option varname="last_date_plain">31/08/2020</option>
     <option varname="nb_days_before_free_places">3</option>
