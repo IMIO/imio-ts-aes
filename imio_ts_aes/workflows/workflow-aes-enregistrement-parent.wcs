@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<workflow id="13">
+<workflow id="21">
   <name>aes - Enregistrement parent</name>
   <roles>
     <role id="_debug">Debug</role>
     <role id="_receiver">Agent traitant</role>
-  </roles><last_modification user_id="1">2020-04-09 09:32:41</last_modification>
+  </roles><last_modification user_id="1">2020-04-27 08:52:40</last_modification>
   <possible_status>
     <status>
       <id>1</id>
@@ -12,14 +12,14 @@
       <colour>FFFFFF</colour>
       <visibility />
       <items>
-        <item id="4" type="set-backoffice-fields">
+        <item id="1" type="set-backoffice-fields">
           <fields>
             <field>
               <field_id>boc34d871a-52e8-42be-b591-d24c5997eb88</field_id>
               <value>{{ form_user_var_email }}</value>
             </field>
           </fields>
-        </item><item id="6" type="register-comment">
+        </item><item id="2" type="register-comment">
           <comment>&lt;p&gt;
 {{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }}, 
 &lt;br /&gt;
@@ -47,33 +47,33 @@ Ci-dessous,  le r&#233;capitulatif de la demande :
 
 
 Bien cordialement,</body>
-        </item><item id="1" type="webservice_call">
+        </item><item id="4" type="webservice_call">
           <label>Enregistrements des occurences s&#233;lectionn&#233;es</label>
           <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/parent_registration</url>
           <method>POST</method>
           <post>False</post>
           <post_data>
             <item>
+              <name>rn</name>
+              <value>{{ form_user_var_niss }}</value>
+            </item><item>
               <name>city</name>
               <value>{{ form_user_var_city }}</value>
-            </item><item>
-              <name>firstname</name>
-              <value>{{ form_user_var_first_name }}</value>
-            </item><item>
-              <name>lastname</name>
-              <value>{{ form_user_var_last_name }}</value>
             </item><item>
               <name>zipcode</name>
               <value>{{ form_user_var_zipcode }}</value>
             </item><item>
-              <name>street</name>
-              <value>{{ form_user_var_street }}, {{ form_user_var_num_house }} {{ form_user_var_num_box }}</value>
-            </item><item>
-              <name>rn</name>
-              <value>{{ form_user_var_niss }}</value>
+              <name>firstname</name>
+              <value>{{ form_user_var_first_name }}</value>
             </item><item>
               <name>email</name>
               <value>{{ form_user_var_email }}</value>
+            </item><item>
+              <name>lastname</name>
+              <value>{{ form_user_var_last_name }}</value>
+            </item><item>
+              <name>street</name>
+              <value>{{ form_user_var_street }}, {{ form_user_var_num_house }} {{ form_user_var_num_box }}</value>
             </item>
           </post_data><response_type>json</response_type>
           <varname>aes_parent_registration</varname>
@@ -88,21 +88,21 @@ Bien cordialement,</body>
             <type>python</type>
             <value>form_option_autosave is True</value>
           </condition>
-        </item><item id="8" type="add_role">
-          <role_id role_id="901824fb4e0741b7967025ed05360aeb">Parent</role_id>
-        </item><item id="2" type="jump">
+        </item><item id="5" type="add_role">
+          <role_id role_id="d70bc74c6f7346adb5f06d784899c5ac">Parent</role_id>
+        </item><item id="6" type="jump">
           <status>3</status>
           <condition>
             <type>python</type>
             <value>form_option_autosave is True and aes_parent_registration_response &gt; 0</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item id="5" type="jump">
+        </item><item id="7" type="jump">
           <status>4</status>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item id="7" type="choice">
+        </item><item id="8" type="choice">
           <label>debug</label>
           <by>
-            <item role_id="117eea72732e4f90a768f5380d79b1a4">Debug</item>
+            <item role_id="56966d2739e14d6fa8459067955d0531">Debug</item>
           </by><status>1</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
@@ -115,7 +115,7 @@ Bien cordialement,</body>
       <colour>FF0000</colour>
       <visibility />
       <items>
-        <item id="2" type="register-comment">
+        <item id="1" type="register-comment">
           <comment>&lt;p&gt;
 Quelque-chose ne s'est pas bien pass&#233; lors de l'enregistrement.&lt;br /&gt;
 Un e-mail a d&#233;j&#224; &#233;t&#233; envoy&#233; &#224; un agent afin d'analyser le probl&#232;me.&lt;br /&gt;
@@ -123,7 +123,7 @@ Nous vous tiendrons inform&#233; de la r&#233;solution du probl&#232;me.
 &lt;br /&gt;
 Bien &#224; vous,
 &lt;/p&gt;</comment>
-        </item><item id="3" type="sendmail">
+        </item><item id="2" type="sendmail">
           <to>
             <item role_id="_receiver">_receiver</item>
             <item role_id="_debug">_debug</item>
@@ -131,7 +131,7 @@ Bien &#224; vous,
           <body>Voici le formulaire qui a pos&#233; un probl&#232;me : 
 
 {{ form_url_backoffice }}</body>
-        </item><item id="4" type="choice">
+        </item><item id="3" type="choice">
           <label>debug</label>
           <by>
             <item role_id="_debug">_debug</item>
@@ -147,7 +147,7 @@ Bien &#224; vous,
       <colour>00FF00</colour>
       <visibility />
       <items>
-        <item id="3" type="sendmail">
+        <item id="1" type="sendmail">
           <to>
             <item role_id="_submitter">_submitter</item>
           </to><subject>Portail parent : Confirmation de votre enregistrement.</subject>
@@ -158,36 +158,45 @@ Votre inscription dans notre syst&#232;me de gestion d'activit&#233;s, de plaine
 
 Vos prochaines connexions devront toujours s'effectuer avec l'adresse e-mail suivante : {{ form_user_var_email }}.
 
-Pour rappel : &lt;a class="pk-button" href="https://montsaintguibert.guichet-citoyen.be/portail_parent/"&gt;Lien vers votre portail parents &lt;/a&gt;
+Pour rappel : &lt;a class="pk-button" href="{{ portal_user_url }}portail_parent/"&gt;Lien vers votre portail parents &lt;/a&gt;
 
 
 
 Bien cordialement, 
 &lt;/div&gt;</body>
-        </item><item id="4" type="register-comment">
+        </item><item id="2" type="register-comment">
           <comment>&lt;div&gt;
 {% if form_submission_backoffice %}
 &lt;p&gt;
 L'inscription du parent dans le portail parent a &#233;t&#233; correctement r&#233;alis&#233;.
 &lt;/p&gt;
 &lt;p&gt;
-Retourner sur &lt;a href="https://montsaintguibert-portail-agent.guichet-citoyen.be/fiche-usager/{{ form_user_name_identifier_0}}/"&gt;La fiche du parent&lt;/a&gt;
+Retourner sur &lt;a href="{{ portal_agent_url }}fiche-usager/{{ form_user_name_identifier_0}}/"&gt;La fiche du parent&lt;/a&gt;
 &lt;/p&gt;
 {% else%}
 &lt;p&gt;
 Votre inscription dans notre portail parent a &#233;t&#233; correctement r&#233;alis&#233;.
 &lt;/p&gt;
 &lt;p&gt;
-Vous pouvez &#224; pr&#233;sent &lt;a href="https://montsaintguibert-formulaires.guichet-citoyen.be/aes-enregistrer-un-nouvel-enfant/"&gt;enregistrer votre/vos enfant(s)&lt;/a&gt;
+Vous pouvez &#224; pr&#233;sent &lt;a href="{{ eservices_url }}aes-enregistrer-un-nouvel-enfant/"&gt;enregistrer votre/vos enfant(s)&lt;/a&gt;
 &lt;/p&gt;
 {% endif %}
 &lt;/div</comment>
-        </item><item id="5" type="choice">
+        </item><item id="3" type="choice">
           <label>debug</label>
           <by>
             <item role_id="_debug">_debug</item>
           </by><status>3</status>
           <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="4" type="choice">
+          <label>Replay ALL</label>
+          <by>
+            <item role_id="56966d2739e14d6fa8459067955d0531">Debug</item>
+          </by><status>1</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Nouvelle demande d'enregistrement!&lt;/p&gt;</backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -216,7 +225,7 @@ Vous pouvez &#224; pr&#233;sent &lt;a href="https://montsaintguibert-formulaires
       <items>
         <item id="1" type="remove" />
       </items><triggers>
-        <trigger id="6c84ede6-d6f5-4695-b157-acfe49fdb987" type="manual">
+        <trigger id="21e5e2ef-3f33-47d1-bd37-59de938fa959" type="manual">
           <roles>
             <item role_id="_debug">_debug</item>
           </roles>
