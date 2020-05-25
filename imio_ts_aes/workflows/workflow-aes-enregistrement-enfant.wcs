@@ -76,7 +76,7 @@ Bien cordialement,</body>
               <value>{{ form_var_implantation_scolaire_raw }}</value>
             </item><item>
               <name>childtypeid</name>
-              <value>=[t.get("id") for t in webservice.aes_get_childtypes.get("data") if "hors" in t.get("text").lower()][0] if form_user_var_zipcode != commune_cp else [t.get("id") for t in webservice.aes_get_childtypes.get("data") if "hors" not in t.get("text").lower() and "commune" in t.get("text").lower()][0]</value>
+              <value>=[t.get("id") for t in webservice.aes_get_childtypes.get("data") if "hors" in t.get("text").lower()][0] if form_user_var_zipcode not in commune_cp else [t.get("id") for t in webservice.aes_get_childtypes.get("data") if "hors" not in t.get("text").lower() and "commune" in t.get("text").lower()][0]</value>
             </item><item>
               <name>email</name>
               <value>{{ form_user_var_email }}</value>
