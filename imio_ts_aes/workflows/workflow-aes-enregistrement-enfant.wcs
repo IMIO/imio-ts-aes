@@ -21,43 +21,43 @@
           </fields>
         </item><item id="2" type="register-comment">
           <comment>&lt;p&gt;
-{{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }}, 
+{{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }},
 &lt;br /&gt;
 Merci pour votre demande d'enregistrement de {{form_var_enfant_prenom}} dans notre portail parent.&lt;br /&gt;
 &lt;br /&gt;
 Nous vous tiendrons inform&#233; de la suite dans les plus brefs d&#233;lais.&lt;br /&gt;
 
-Bien cordialement, 
+Bien cordialement,
 &lt;/p&gt;</comment>
         </item><item id="3" type="sendmail">
           <to>
             <item role_id="_receiver">_receiver</item>
           </to><subject>Portail parent : Nouvelle demande d'enregistrement d'un enfant.</subject>
-          <body>Bonjour, 
+          <body>Bonjour,
 
-Ce mail afin de vous avertir qu'un parent ( {{ form_var_nom }} {{ form_var_prenom }}  ) souhaite enregistrer un nouvel enfant dans AES afin d'utiliser le portail parent. 
+Ce mail afin de vous avertir qu'un parent ( {{ form_var_nom }} {{ form_var_prenom }}  ) souhaite enregistrer un nouvel enfant dans AES afin d'utiliser le portail parent.
 
 
-Pr&#233;nom, nom et date de naissance de l'enfant : 
+Pr&#233;nom, nom et date de naissance de l'enfant :
 
 {{form_var_enfant_prenom}} {{form_var_enfant_nom}} n&#233; le {{form_var_enfant_date_naissance}}.
 
 
 
-Voici l'adresse e-mail du parent ainsi que  le lien vers demande initiale : 
+Voici l'adresse e-mail du parent ainsi que  le lien vers demande initiale :
 
 {{ form_user_email }}
 
 {{ form_url_backoffice }}
 
-Ci-dessous,  le r&#233;capitulatif de la demande : 
+Ci-dessous,  le r&#233;capitulatif de la demande :
 
 {{ form_details }}
 
 
 Bien cordialement,</body>
         </item><item id="4" type="webservice_call">
-          <label>Enregistrements des occurences s&#233;lectionn&#233;es</label>
+          <label>Enregistrements des enfants</label>
           <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/child_registration</url>
           <method>POST</method>
           <post>False</post>
@@ -76,7 +76,7 @@ Bien cordialement,</body>
               <value>{{ form_var_implantation_scolaire_raw }}</value>
             </item><item>
               <name>childtypeid</name>
-              <value>="1" if [childtype.get("id") for childtype in webservice.aes_get_childtypes.get("data") if childtype.get("text").upper() == "AUCUN"] == [] else [childtype.get("id") for childtype in webservice.aes_get_childtypes.get("data") if childtype.get("text").upper() == "AUCUN"][0]</value>
+              <value>=[t.get("id") for t in webservice.aes_get_childtypes.get("data") if "hors" in t.get("text").lower()][0] if form_user_var_zipcode != commune_cp else [t.get("id") for t in webservice.aes_get_childtypes.get("data") if "hors" not in t.get("text").lower() and "commune" in t.get("text").lower()][0]</value>
             </item><item>
               <name>email</name>
               <value>{{ form_user_var_email }}</value>
@@ -135,7 +135,7 @@ Bien &#224; vous,
             <item role_id="_receiver">_receiver</item>
             <item role_id="_debug">_debug</item>
           </to><subject>Portail parent Erreur : Probl&#232;me d'enregistrement d'un enfant ({{ site_name }})</subject>
-          <body>Voici le formulaire qui a pos&#233; un probl&#232;me : 
+          <body>Voici le formulaire qui a pos&#233; un probl&#232;me :
 
 {{ form_url_backoffice }}</body>
         </item><item id="3" type="choice">
@@ -159,9 +159,9 @@ Bien &#224; vous,
           <to>
             <item role_id="_submitter">_submitter</item>
           </to><subject>Portail parent : Confirmation de votre enregistrement.</subject>
-          <body>{{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }}, 
+          <body>{{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }},
 
-L'inscription de {{form_var_enfant_prenom}} dans notre portail parent a &#233;t&#233; correctement r&#233;alis&#233;e. 
+L'inscription de {{form_var_enfant_prenom}} dans notre portail parent a &#233;t&#233; correctement r&#233;alis&#233;e.
 
 Vos prochaines connexions devront toujours s'effectuer avec l'adresse e-mail suivante : {{ form_user_var_email }}.
 
@@ -169,7 +169,7 @@ Pour rappel : &lt;a class="pk-button" href="{{ portal_user_url }}portail_parent/
 
 
 
-Bien cordialement, 
+Bien cordialement,
 </body>
         </item><item id="2" type="register-comment">
           <comment>&lt;div&gt;
