@@ -90,7 +90,7 @@
           <to>
             <item role_id="_submitter">_submitter</item>
           </to><subject>Portail parent : R&#233;servation &#224; des semaines de plaine.</subject>
-          <body>{{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }}, 
+          <body>{{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }},
 
 Nous prenons bien connaissance de votre r&#233;servation de semaine(s) de plaine.
 
@@ -100,7 +100,7 @@ A d&#233;faut, les places que vous aurez r&#233;serv&#233; seront lib&#233;r&#23
 
 `Consulter ma demande &lt;{{ form_url }}&gt;`_
 
- 
+
 Bien cordialement, </body>
         </item><item id="7" type="sendmail">
           <to>
@@ -124,7 +124,7 @@ Bien cordialement, </body>
             <item role_id="_receiver">_receiver</item>
             <item role_id="_debug">_debug</item>
           </to><subject>{{ commune_name }} : Erreur {{ form_name }} :  {{ form_number }}</subject>
-          <body>D&#233;marches en &#233;chec : 
+          <body>D&#233;marches en &#233;chec :
 
 {{ form_url_backoffice }}
 
@@ -159,7 +159,7 @@ Nous avons le plaisir de vous confirmer l'inscription de {{ form_var_selected_ch
           <to>
             <item role_id="_submitter">_submitter</item>
           </to><subject>Portail parent : Inscription &#224; la plaine accept&#233;e</subject>
-          <body>{{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }}, 
+          <body>{{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }},
 
 Nous avons le plaisir de vous confirmer l'inscription de votre enfant &#224; notre/nos plaine(s).
 
@@ -268,7 +268,7 @@ n'est pas possible.
           <to>
             <item role_id="_submitter">_submitter</item>
           </to><subject>Portail parent : Inscription &#224; la plaine refus&#233;e</subject>
-          <body>{{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }}, 
+          <body>{{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }},
 
 Nous sommes au regret de vous annoncer le refus de l'inscription de votre enfant &#224; notre plaine.
 
@@ -341,7 +341,7 @@ Bien cordialement, </body>
       <items>
         <item id="7" type="register-comment">
           <comment>&lt;div&gt;
-&lt;p&gt;Si vous cl&#244;turer, vous nous indiquez que vous avez inscrit vos diff&#233;rents enfants (1 demande par enfant).&lt;/p&gt; 
+&lt;p&gt;Si vous cl&#244;turer, vous nous indiquez que vous avez inscrit vos diff&#233;rents enfants (1 demande par enfant).&lt;/p&gt;
 &lt;p&gt;Vous acceptez que le calcul du tarif se fasse sur base des enfants inscris jusqu'&#224; cette cl&#244;ture.&lt;/p&gt;
 &lt;/div&gt;</comment>
         </item><item id="5" type="resubmit">
@@ -371,7 +371,7 @@ Bien cordialement, </body>
 &lt;br /&gt;
 Nous avons finalis&#233; le traitement de votre demande soumise le {{ form_receipt_date }}.
 &lt;br /&gt;
-Ci-dessous, veuillez retrouver les semaines accept&#233;es ou refus&#233;es pour votre demande : 
+Ci-dessous, veuillez retrouver les semaines accept&#233;es ou refus&#233;es pour votre demande :
 
 &lt;ul&gt;
 {{ form_var_finalmail|safe }}
@@ -379,7 +379,7 @@ Ci-dessous, veuillez retrouver les semaines accept&#233;es ou refus&#233;es pour
 
 &lt;a href="{{ form_url }}"&gt;Consulter l'historique de votre demande&lt;/a&gt;
 &lt;p&gt;
-Bien cordialement, 
+Bien cordialement,
 &lt;/p&gt;
 &lt;/div&gt;</body>
         </item><item id="6" type="jump">
@@ -491,7 +491,7 @@ Bien cordialement,
         </item><item id="8" type="register-comment">
           <comment>&lt;div&gt;
 &lt;p&gt;{{ form_var_label_basket_item }}&lt;/p&gt;
-&lt;p&gt;&lt;a href="{{ portal_url}}/panier"&gt;R&#233;gler mon panier&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;h1 class="pp_panier"&gt;&lt;a href="{{ portal_url}}/panier"&gt;R&#233;gler mon panier&lt;/a&gt;&lt;/h1&gt;&lt;/p&gt;
 &lt;/div&gt;</comment>
         </item><item id="2" type="jump">
           <status>11</status>
@@ -706,7 +706,7 @@ Bien cordialement,
       <items>
         <item id="1" type="register-comment">
           <comment>&lt;div&gt;
-Nous sommes d&#233;sol&#233; mais il semble que &lt;b&gt;toutes les places&lt;/b&gt; que vous aviez choisis dans votre formulaire &lt;b&gt;ont &#233;t&#233; r&#233;serv&#233;e entre temps !&lt;/b&gt; 
+Nous sommes d&#233;sol&#233; mais il semble que &lt;b&gt;toutes les places&lt;/b&gt; que vous aviez choisis dans votre formulaire &lt;b&gt;ont &#233;t&#233; r&#233;serv&#233;e entre temps !&lt;/b&gt;
 &lt;/div&gt;</comment>
         </item>
       </items>
@@ -745,7 +745,7 @@ Nous sommes d&#233;sol&#233; mais il semble que &lt;b&gt;toutes les places&lt;/b
           </to><subject>{{ commune_name }} : Erreur {{ form_name }} :  {{ form_number }}</subject>
           <body>&lt;div&gt;
 
-Une d&#233;marche est en &#233;chec lors de la cl&#244;ture ou de la finalisation de la demande (cl&#244;tur&#233; et pay&#233;) : 
+Une d&#233;marche est en &#233;chec lors de la cl&#244;ture ou de la finalisation de la demande (cl&#244;tur&#233; et pay&#233;) :
 
 &lt;a href="{{ form_url_backoffice }}"&gt;Veuillez suivre ce lien pour voir la d&#233;marche dont la cl&#244;ture a &#233;chou&#233;e&lt;/a&gt;
 
@@ -814,7 +814,7 @@ exemple : Si les plaines d'&#233;t&#233; vont du 01/07/XXXX au 31/08/XXXX alors 
           <label>Est-ce que le formulaire est en test?</label>
           <type>bool</type>
           <required>False</required>
-          <hint>Si coch&#233;e, alors, un certain nombre de "check" sont outrepass&#233;s. 
+          <hint>Si coch&#233;e, alors, un certain nombre de "check" sont outrepass&#233;s.
 A d&#233;sactiv&#233; absolument pour la production ! </hint>
           <varname>test</varname>
           <display_locations>
