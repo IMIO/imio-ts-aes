@@ -4,7 +4,7 @@
   <roles>
     <role id="_debug">Debug</role>
     <role id="_receiver">Agent traitant</role>
-  </roles><last_modification user_id="1">2020-04-10 10:28:44</last_modification>
+  </roles><last_modification user_id="1">2020-06-16 09:53:13</last_modification>
   <possible_status>
     <status>
       <id>1</id>
@@ -62,14 +62,14 @@
           <post>False</post>
           <post_data>
             <item>
-              <name>child_id</name>
-              <value>=form_var_selected_child_raw</value>
+              <name>form_id</name>
+              <value>=form_number_raw</value>
             </item><item>
               <name>data</name>
               <value>=form_var_selected_plaines_raw</value>
             </item><item>
-              <name>form_id</name>
-              <value>=form_number_raw</value>
+              <name>child_id</name>
+              <value>=form_var_selected_child_raw</value>
             </item>
           </post_data><response_type>json</response_type>
           <varname>aes_registration_child_plaine</varname>
@@ -90,7 +90,7 @@
           <to>
             <item role_id="_submitter">_submitter</item>
           </to><subject>Portail parent : R&#233;servation &#224; des semaines de plaine.</subject>
-          <body>{{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }},
+          <body>{{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }}, 
 
 Nous prenons bien connaissance de votre r&#233;servation de semaine(s) de plaine.
 
@@ -100,13 +100,21 @@ A d&#233;faut, les places que vous aurez r&#233;serv&#233; seront lib&#233;r&#23
 
 `Consulter ma demande &lt;{{ form_url }}&gt;`_
 
-
+ 
 Bien cordialement, </body>
         </item><item id="7" type="sendmail">
           <to>
             <item role_id="_receiver">_receiver</item>
           </to><subject>{{ pp_wplaine_sujet_mail_agent_demande_inscr }}</subject>
           <body>{{ pp_wplaine_corps_mail_agent_demande_inscr }}</body>
+        </item><item id="8" type="choice">
+          <label>debug</label>
+          <by>
+            <item role_id="_debug">_debug</item>
+          </by><status>1</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
     </status><status>
@@ -124,11 +132,19 @@ Bien cordialement, </body>
             <item role_id="_receiver">_receiver</item>
             <item role_id="_debug">_debug</item>
           </to><subject>{{ commune_name }} : Erreur {{ form_name }} :  {{ form_number }}</subject>
-          <body>D&#233;marches en &#233;chec :
+          <body>D&#233;marches en &#233;chec : 
 
 {{ form_url_backoffice }}
 
 Bien cordialement,</body>
+        </item><item id="4" type="choice">
+          <label>DEBUG</label>
+          <by>
+            <item role_id="117eea72732e4f90a768f5380d79b1a4">Debug</item>
+          </by><status>1</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
     </status><status>
@@ -159,7 +175,7 @@ Nous avons le plaisir de vous confirmer l'inscription de {{ form_var_selected_ch
           <to>
             <item role_id="_submitter">_submitter</item>
           </to><subject>Portail parent : Inscription &#224; la plaine accept&#233;e</subject>
-          <body>{{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }},
+          <body>{{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }}, 
 
 Nous avons le plaisir de vous confirmer l'inscription de votre enfant &#224; notre/nos plaine(s).
 
@@ -234,6 +250,14 @@ Bien cordialement, </body>
             <value>form_var_is_closing_request_raw is False</value>
           </condition><trigger>closed_and_paid</trigger>
           <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="9" type="choice">
+          <label>Debug : lib&#233;ration des places</label>
+          <by>
+            <item role_id="_debug">_debug</item>
+          </by><status>15</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
     </status><status>
@@ -268,7 +292,7 @@ n'est pas possible.
           <to>
             <item role_id="_submitter">_submitter</item>
           </to><subject>Portail parent : Inscription &#224; la plaine refus&#233;e</subject>
-          <body>{{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }},
+          <body>{{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }}, 
 
 Nous sommes au regret de vous annoncer le refus de l'inscription de votre enfant &#224; notre plaine.
 
@@ -341,7 +365,7 @@ Bien cordialement, </body>
       <items>
         <item id="7" type="register-comment">
           <comment>&lt;div&gt;
-&lt;p&gt;Si vous cl&#244;turer, vous nous indiquez que vous avez inscrit vos diff&#233;rents enfants (1 demande par enfant).&lt;/p&gt;
+&lt;p&gt;Si vous cl&#244;turer, vous nous indiquez que vous avez inscrit vos diff&#233;rents enfants (1 demande par enfant).&lt;/p&gt; 
 &lt;p&gt;Vous acceptez que le calcul du tarif se fasse sur base des enfants inscris jusqu'&#224; cette cl&#244;ture.&lt;/p&gt;
 &lt;/div&gt;</comment>
         </item><item id="5" type="resubmit">
@@ -371,7 +395,7 @@ Bien cordialement, </body>
 &lt;br /&gt;
 Nous avons finalis&#233; le traitement de votre demande soumise le {{ form_receipt_date }}.
 &lt;br /&gt;
-Ci-dessous, veuillez retrouver les semaines accept&#233;es ou refus&#233;es pour votre demande :
+Ci-dessous, veuillez retrouver les semaines accept&#233;es ou refus&#233;es pour votre demande : 
 
 &lt;ul&gt;
 {{ form_var_finalmail|safe }}
@@ -379,7 +403,7 @@ Ci-dessous, veuillez retrouver les semaines accept&#233;es ou refus&#233;es pour
 
 &lt;a href="{{ form_url }}"&gt;Consulter l'historique de votre demande&lt;/a&gt;
 &lt;p&gt;
-Bien cordialement,
+Bien cordialement, 
 &lt;/p&gt;
 &lt;/div&gt;</body>
         </item><item id="6" type="jump">
@@ -454,12 +478,15 @@ Bien cordialement,
           <qs_data>
             <item>
               <name>regie_id</name>
-              <value>atos_test</value>
+              <value>atos_prod</value>
             </item>
           </qs_data><method>POST</method>
           <post>False</post>
           <post_data>
             <item>
+              <name>display_name</name>
+              <value>{{ form_var_label_basket_item }}</value>
+            </item><item>
               <name>url</name>
               <value>{{ form_url }}</value>
             </item><item>
@@ -468,9 +495,6 @@ Bien cordialement,
             </item><item>
               <name>nb_documents</name>
               <value>1</value>
-            </item><item>
-              <name>display_name</name>
-              <value>{{ form_var_label_basket_item }}</value>
             </item>
           </post_data><response_type>json</response_type>
           <varname>panier</varname>
@@ -528,6 +552,14 @@ Bien cordialement,
           <require_confirmation>True</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="13" type="choice">
+          <label>debug panier</label>
+          <by>
+            <item role_id="_debug">_debug</item>
+          </by><status>10</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
     </status><status>
@@ -554,11 +586,11 @@ Bien cordialement,
               <name>parent_id</name>
               <value>{{ form_var_aes_parent_id }}</value>
             </item><item>
-              <name>amount</name>
-              <value>{{ aes_closed_and_pay_response_data_amount }}</value>
-            </item><item>
               <name>form_id</name>
               <value>{{ form_number_raw }}</value>
+            </item><item>
+              <name>amount</name>
+              <value>{{ aes_closed_and_pay_response_data_amount }}</value>
             </item>
           </post_data><response_type>json</response_type>
           <varname>aes_prepaid_done</varname>
@@ -573,6 +605,14 @@ Bien cordialement,
             <type>python</type>
             <value>form_var_is_closing_request_raw is True</value>
           </condition>
+        </item><item id="4" type="choice">
+          <label>Debug : lib&#233;ration des places</label>
+          <by>
+            <item role_id="_debug">_debug</item>
+          </by><status>15</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
     </status><status>
@@ -706,7 +746,7 @@ Bien cordialement,
       <items>
         <item id="1" type="register-comment">
           <comment>&lt;div&gt;
-Nous sommes d&#233;sol&#233; mais il semble que &lt;b&gt;toutes les places&lt;/b&gt; que vous aviez choisis dans votre formulaire &lt;b&gt;ont &#233;t&#233; r&#233;serv&#233;e entre temps !&lt;/b&gt;
+Nous sommes d&#233;sol&#233; mais il semble que &lt;b&gt;toutes les places&lt;/b&gt; que vous aviez choisis dans votre formulaire &lt;b&gt;ont &#233;t&#233; r&#233;serv&#233;e entre temps !&lt;/b&gt; 
 &lt;/div&gt;</comment>
         </item>
       </items>
@@ -720,7 +760,7 @@ Nous sommes d&#233;sol&#233; mais il semble que &lt;b&gt;toutes les places&lt;/b
           <label>debug cloture</label>
           <by>
             <item role_id="_debug">_debug</item>
-          </by><status>5</status>
+          </by><status>19</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
@@ -745,7 +785,7 @@ Nous sommes d&#233;sol&#233; mais il semble que &lt;b&gt;toutes les places&lt;/b
           </to><subject>{{ commune_name }} : Erreur {{ form_name }} :  {{ form_number }}</subject>
           <body>&lt;div&gt;
 
-Une d&#233;marche est en &#233;chec lors de la cl&#244;ture ou de la finalisation de la demande (cl&#244;tur&#233; et pay&#233;) :
+Une d&#233;marche est en &#233;chec lors de la cl&#244;ture ou de la finalisation de la demande (cl&#244;tur&#233; et pay&#233;) : 
 
 &lt;a href="{{ form_url_backoffice }}"&gt;Veuillez suivre ce lien pour voir la d&#233;marche dont la cl&#244;ture a &#233;chou&#233;e&lt;/a&gt;
 
@@ -754,6 +794,111 @@ Bien cordialement,
 &lt;/div&gt;</body>
         </item>
       </items>
+    </status><status>
+      <id>19</id>
+      <name>is_close_false</name>
+      <colour>000000</colour>
+      <visibility>
+        <role>_debug</role>
+        <role>_receiver</role>
+      </visibility><items>
+        <item id="2" type="set-backoffice-fields">
+          <fields>
+            <field>
+              <field_id>bo3b7197e9-7b19-4e8e-9fb4-f9b3b9a7c89c</field_id>
+              <value>=False</value>
+            </field>
+          </fields>
+        </item><item id="1" type="jump">
+          <status>5</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>20</id>
+      <name>_Panier</name>
+      <colour>FFFF00</colour>
+      <visibility />
+      <items>
+        <item id="1" type="webservice_call">
+          <label>Panier</label>
+          <url>{{portal_url}}api/lingo/add-basket-item?NameId={{form_user_name_identifier_0}}&amp;cancellable=no</url>
+          <qs_data>
+            <item>
+              <name>regie_id</name>
+              <value>atos_prod</value>
+            </item>
+          </qs_data><method>POST</method>
+          <post>False</post>
+          <post_data>
+            <item>
+              <name>display_name</name>
+              <value>{{ form_var_label_basket_item }}</value>
+            </item><item>
+              <name>url</name>
+              <value>{{ form_url }}</value>
+            </item><item>
+              <name>amount</name>
+              <value>{{manual_var_amount}}</value>
+            </item><item>
+              <name>nb_documents</name>
+              <value>1</value>
+            </item>
+          </post_data><response_type>json</response_type>
+          <varname>manual_basket</varname>
+          <action_on_app_error>18</action_on_app_error>
+          <action_on_4xx>:stop</action_on_4xx>
+          <action_on_5xx>:stop</action_on_5xx>
+          <action_on_bad_data>:pass</action_on_bad_data>
+          <action_on_network_errors>:stop</action_on_network_errors>
+          <notify_on_errors>True</notify_on_errors>
+          <record_errors>True</record_errors>
+        </item><item id="2" type="jump">
+          <status>22</status>
+          <trigger>paid</trigger>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>21</id>
+      <name>manual_amount</name>
+      <colour>000000</colour>
+      <visibility>
+        <role>_receiver</role>
+        <role>_debug</role>
+      </visibility><items>
+        <item id="1" type="jumponsubmit">
+          <status>20</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="2" type="form">
+          <by>
+            <item role_id="_debug">_debug</item>
+          </by><varname>manual</varname>
+          <formdef>
+            <name>-</name>
+            <fields>
+              <field>
+                <label>Montant &#224; payer</label>
+                <type>string</type>
+                <required>True</required>
+                <varname>amount</varname>
+                <display_locations />
+                <prefill>
+                  <locked>False</locked>
+                  <type>none</type>
+                </prefill><anonymise>False</anonymise>
+                <id>1</id>
+              </field>
+            </fields>
+          </formdef>
+        </item>
+      </items>
+    </status><status>
+      <id>22</id>
+      <name>_Cl&#244;tur&#233; et pay&#233;</name>
+      <colour>00FF00</colour>
+      <visibility />
+      <items />
     </status>
   </possible_status><global_actions>
     <action>
@@ -773,12 +918,49 @@ Bien cordialement,
           </roles>
         </trigger>
       </triggers>
+    </action><action>
+      <id>3</id>
+      <name>edit</name>
+      <items />
+      <triggers>
+        <trigger id="7c5a85ce-e521-421b-8efe-309682a471ae" type="manual">
+          <roles>
+            <item role_id="_debug">_debug</item>
+          </roles>
+        </trigger>
+      </triggers>
+    </action><action>
+      <id>4</id>
+      <name>Remplir le panier manuellement</name>
+      <items>
+        <item id="1" type="jump">
+          <status>21</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items><triggers>
+        <trigger id="63dae698-8167-4880-bd3b-a41662370a3b" type="manual">
+          <roles>
+            <item role_id="_debug">_debug</item>
+          </roles>
+        </trigger>
+      </triggers>
     </action>
   </global_actions><variables>
     <formdef>
       <name>-</name>
       <fields>
         <field>
+          <label>Commentaire personnalis&#233; en d&#233;but de formulaire</label>
+          <type>text</type>
+          <required>False</required>
+          <hint>Ce message s'affichera au tout d&#233;but de ce formulaire.</hint>
+          <varname>commentaire</varname>
+          <display_locations />
+          <prefill>
+            <type>none</type>
+          </prefill><pre>False</pre>
+          <id>7</id>
+        </field><field>
           <label>Date d'ouverture des plaines. (pour la p&#233;riode vis&#233;e)</label>
           <type>string</type>
           <required>True</required>
@@ -814,7 +996,7 @@ exemple : Si les plaines d'&#233;t&#233; vont du 01/07/XXXX au 31/08/XXXX alors 
           <label>Est-ce que le formulaire est en test?</label>
           <type>bool</type>
           <required>False</required>
-          <hint>Si coch&#233;e, alors, un certain nombre de "check" sont outrepass&#233;s.
+          <hint>Si coch&#233;e, alors, un certain nombre de "check" sont outrepass&#233;s. 
 A d&#233;sactiv&#233; absolument pour la production ! </hint>
           <varname>test</varname>
           <display_locations>
