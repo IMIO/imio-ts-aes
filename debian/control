@@ -10,6 +10,5 @@ Homepage: <insert the upstream URL, if relevant>
 
 Package: imio-ts-aes
 Architecture: all
-Depends: ${misc:Depends}, python-passerelle (>= 1.35), wcs (>=3.5)
-Description: <insert up to 60 chars description>
- <insert long description, indented with spaces>
+Depends: ${misc:Depends}, python3-passerelle, wcs (>=3.5)
+Description: Package qui regroupe les différentes briques du portail parent.
