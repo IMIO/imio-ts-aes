@@ -2,24 +2,24 @@
     "JSON_CELL_TYPES": {
         "wcs-aes-auth": {
             "name": "AES - Formulaires disponibles",
-            "url": "https://montsaintguibert-passerelle.guichet-citoyen.be/passerelle-imio-ia-aes/aes/is_registered_parent?email={{ user_email }}",
+            "url": "https://[COMMUNE]-passerelle.[DOMAIN]/passerelle-imio-ia-aes/aes/is_registered_parent?email={{ user_email }}",
             "additional-data": [{
                     "key": "aes_forms",
-                    "url": "https://montsaintguibert-formulaires.guichet-citoyen.be/api/categories/portail-parent/formdefs/"
+                    "url": "https://[COMMUNE]-formulaires.[DOMAIN]/api/categories/portail-parent/formdefs/"
                 },
 		{
                     "key": "aes_children",
-                    "url": "https://montsaintguibert-passerelle.guichet-citoyen.be/passerelle-imio-ia-aes/aes/get_children?email={{ user_email }}"
+                    "url": "https://[COMMUNE]-passerelle.[DOMAIN]/passerelle-imio-ia-aes/aes/get_children?email={{ user_email }}"
                 }
             ]
         },
         "aes-known-children": {
             "name": "AES - Enfants connus dans votre guichet",
-            "url": "https://montsaintguibert-passerelle.guichet-citoyen.be/passerelle-imio-ia-aes/aes/get_children?email={{ user_email }}"
+            "url": "https://[COMMUNE]-passerelle.[DOMAIN]/passerelle-imio-ia-aes/aes/get_children?email={{ user_email }}"
         },
         "aes-plaines": {
             "name": "AES - Semaines de plaines",
-            "url": "https://montsaintguibert-formulaires.guichet-citoyen.be/api/user/forms?email={{ user_email }}&full=on"
+            "url": "https://[COMMUNE]-formulaires.[DOMAIN]/api/user/forms?email={{ user_email }}&full=on"
         }
     }
 }
