@@ -1,0 +1,8 @@
+<datasources id="6">
+  <name>AES Countries</name>
+  <slug>aes_countries</slug>
+  <data_source>
+    <type>json</type>
+    <value>{{ passerelle_url }}/passerelle-imio-aes-health/aes_health/get_countries</value>
+  </data_source>
+</datasources>

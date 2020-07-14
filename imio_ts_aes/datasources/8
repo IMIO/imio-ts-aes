@@ -1,0 +1,8 @@
+<datasources id="8">
+  <name>AES Swim levels</name>
+  <slug>aes_swim_levels</slug>
+  <data_source>
+    <type>json</type>
+    <value>{{ passerelle_url }}/passerelle-imio-aes-health/aes_health/get_swim_levels</value>
+  </data_source>
+</datasources>

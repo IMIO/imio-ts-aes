@@ -1,0 +1,8 @@
+<datasources id="7">
+  <name>AES Handicap levels</name>
+  <slug>aes_handicap_levels</slug>
+  <data_source>
+    <type>json</type>
+    <value>{{ passerelle_url }}/passerelle-imio-aes-health/aes_health/get_handicap_levels</value>
+  </data_source>
+</datasources>
