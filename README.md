@@ -49,3 +49,7 @@ Les appels aux webservices à partir des formulaires
 ---------------------------------------------------
 
 
+Les rôles nécessaires au bon fonctionnement du portail parent
+-------------------------------------------------------------
+Agents traitants - Portail parent : Autorisation d'utiliser la partie backoffice du portail pour enregister la personne en tant que parent, ses enfants,... à la place du citoyen
+Parent : Lorsqu'un agent enregistre une personne via le backoffice, on associe à cette personne le rôle "parent" qui fait office "d'authentification forte". Un utilisateur "parent" est peut donc utiliser les formulaires au même titre qu'un utilisateur authentifié avec sa carte eID.
