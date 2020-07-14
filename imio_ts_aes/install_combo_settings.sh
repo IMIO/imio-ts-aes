@@ -7,7 +7,7 @@ USER="wcs"
 install_path="/usr/lib/imio_ts_aes"
 
 # WCS : Get wcs tenant
-wcs_tenant=$(python $install_path/get-wcs-tenant.py 2>&1)
+wcs_tenant=$(python3 $install_path/get-wcs-tenant.py 2>&1)
 IFS='.' read -ra my_array <<< $wcs_tenant
 domain="${my_array[1]}".be
 commune=$(echo "$wcs_tenant" | sed "s/-formulaires.$domain//")
