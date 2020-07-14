@@ -1,6 +1,9 @@
 # imio-ts-aes
 
 Package qui regroupe les différentes briques du portail parent.
+Il est constitué de scripts bash qui font appel à des scripts Python pour installer diverses choses dans une instance Publik (formulaires, workflows, sources de données, rôles,...).
+
+C'est en quelque sorte ce qui va "préparer" un e-guichet pour le rendre opérationnel afin que les connexion entre Publik et le produit AES puisse se faire. Il est nécessaire à la mise en place du Portail parent
 
 Installation
 ------------
