@@ -13,9 +13,9 @@
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
   <category category_id="99">Portail parent</category>
-  <workflow workflow_id="16">aes - Enrgistrement fiche sant&#233;</workflow>
-  <max_field_id>549</max_field_id>
-  <last_modification user_id="1">2020-04-15 15:38:53</last_modification>
+  <workflow workflow_id="16">aes - Enregistrement fiche sant&#233;</workflow>
+  <max_field_id>564</max_field_id>
+  <last_modification user_id="1">2020-06-09 12:54:28</last_modification>
   <fields>
     <field>
       <label>Choisissez l'enfant concern&#233;</label>
@@ -103,7 +103,7 @@
         <item>Non</item>
       </items><display_mode>radio</display_mode>
       <data_source>
-        <type>oui_non</type>
+        <type>aes_oui_non</type>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
@@ -163,7 +163,7 @@
         <value>webservice.get_health_attribute.get("has_intervention")</value>
       </prefill><display_mode>radio</display_mode>
       <data_source>
-        <type>oui_non</type>
+        <type>aes_oui_non</type>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
@@ -202,7 +202,7 @@
         <value>webservice.get_health_attribute.get("swim")</value>
       </prefill><display_mode>radio</display_mode>
       <data_source>
-        <type>oui_non</type>
+        <type>aes_oui_non</type>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
@@ -220,12 +220,13 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class>newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>formula</type>
         <value>webservice.get_health_attribute.get("swim_level")</value>
       </prefill><display_mode>radio</display_mode>
       <data_source>
-        <type>json</type>
-        <value>{{passerelle_url}}/passerelle-imio-aes-health/aes_health/get_swim_levels?data=swimlevel</value>
+        <type>aes_swim_levels</type>
+        <value>{{passerelle_url}}/passerelle-imio-aes-health/aes_health/get_swim_levels</value>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
@@ -247,11 +248,32 @@
         <value>webservice.get_health_attribute.get("has_handicap")</value>
       </prefill><display_mode>radio</display_mode>
       <data_source>
-        <type>oui_non</type>
+        <type>aes_oui_non</type>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
       <id>362</id>
+    </field><field>
+      <label>Niveau du handicap</label>
+      <type>item</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_handicap_raw == 'oui'</value>
+      </condition><required>True</required>
+      <varname>level_handicap</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("level_handicap")</value>
+      </prefill><display_mode>radio</display_mode>
+      <data_source>
+        <type>aes_handicap_levels</type>
+      </data_source><in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>559</id>
     </field><field>
       <label>Description du type de handicap de l'enfant</label>
       <type>text</type>
@@ -266,7 +288,7 @@
       </display_locations><extra_css_class>newline grid-1-2</extra_css_class>
       <prefill>
         <type>formula</type>
-        <value>webservice.get_health_attribute.get("text")</value>
+        <value>webservice.get_health_attribute.get("handicap")</value>
       </prefill><pre>False</pre>
       <id>363</id>
     </field><field>
@@ -280,12 +302,13 @@
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
-      </display_locations><prefill>
+      </display_locations><extra_css_class>newline grid-1-2</extra_css_class>
+      <prefill>
         <type>formula</type>
         <value>webservice.get_health_attribute.get("activity_no_available")</value>
       </prefill><display_mode>radio</display_mode>
       <data_source>
-        <type>oui_non</type>
+        <type>aes_oui_non</type>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
@@ -340,7 +363,7 @@
         <value>webservice.get_health_attribute.get("has_specific_regime")</value>
       </prefill><display_mode>radio</display_mode>
       <data_source>
-        <type>oui_non</type>
+        <type>aes_oui_non</type>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
@@ -379,7 +402,7 @@
         <value>webservice.get_health_attribute.get("arnica")</value>
       </prefill><display_mode>radio</display_mode>
       <data_source>
-        <type>oui_non</type>
+        <type>aes_oui_non</type>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
@@ -389,20 +412,18 @@
       <type>page</type>
       <condition>
         <type>python</type>
-        <value>'allergies' in form_option_questions</value>
+        <value>'allergies' in form_option_questions_raw</value>
       </condition><id>447</id>
     </field><field>
       <label>L'enfant a-t'il des allergies ?</label>
       <type>item</type>
-      <condition>
-        <type>django</type>
-        <value>'allergies' in form_option_questions_raw</value>
-      </condition><required>True</required>
+      <required>True</required>
       <varname>allergie</varname>
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
       </display_locations><prefill>
+        <locked>False</locked>
         <type>formula</type>
         <value>webservice.get_health_attribute.get("allergies").get("has_allergies")</value>
       </prefill><items>
@@ -410,7 +431,7 @@
         <item>Non</item>
       </items><display_mode>radio</display_mode>
       <data_source>
-        <type>oui_non</type>
+        <type>aes_oui_non</type>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
@@ -427,11 +448,12 @@
         <display_location>validation</display_location>
         <display_location>summary</display_location>
       </display_locations><prefill>
+        <locked>False</locked>
         <type>formula</type>
         <value>[str(allergy.get('id')) for allergy in webservice.get_health_attribute.get("allergies").get('list')]</value>
       </prefill><max_choices>0</max_choices>
       <data_source>
-        <type>allergies</type>
+        <type>aes_allergies</type>
       </data_source><in_filters>False</in_filters>
       <anonymise>True</anonymise>
       <display_disabled_items>False</display_disabled_items>
@@ -441,7 +463,7 @@
       <type>tablerows</type>
       <condition>
         <type>django</type>
-        <value>form_var_allergie_raw  == 'oui'</value>
+        <value>form_var_allergie_raw  == 'oui' and 'new_allergies' in form_option_questions_raw</value>
       </condition><required>False</required>
       <varname>autres_allergies</varname>
       <display_locations>
@@ -486,11 +508,12 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class>grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>formula</type>
         <value>[str(disease.get('id')) for disease in webservice.get_health_attribute.get("diseases")]</value>
       </prefill><max_choices>0</max_choices>
       <data_source>
-        <type>aes_maladies</type>
+        <type>aes_diseases</type>
       </data_source><in_filters>False</in_filters>
       <anonymise>True</anonymise>
       <display_disabled_items>False</display_disabled_items>
@@ -498,7 +521,10 @@
     </field><field>
       <label>Votre enfant souffre-t-il d'une maladie qui ne se trouve pas dans la liste ?</label>
       <type>tablerows</type>
-      <required>False</required>
+      <condition>
+        <type>django</type>
+        <value>'new_diseases' in form_option_questions</value>
+      </condition><required>False</required>
       <varname>other_diseases</varname>
       <display_locations>
         <display_location>validation</display_location>
@@ -770,7 +796,7 @@
         <value>'oui' if len(webservice.get_health_attribute.get("medication")) &gt; 0 else False</value>
       </prefill><display_mode>radio</display_mode>
       <data_source>
-        <type>oui_non</type>
+        <type>aes_oui_non</type>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
@@ -853,7 +879,7 @@
         <value>webservice.get_health_attribute.get("medication")[0].get("self_medication")</value>
       </prefill><display_mode>radio</display_mode>
       <data_source>
-        <type>oui_non</type>
+        <type>aes_oui_non</type>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
@@ -926,7 +952,7 @@
         <value>webservice.get_health_attribute.get("medication")[1].get("self_medication")</value>
       </prefill><display_mode>radio</display_mode>
       <data_source>
-        <type>oui_non</type>
+        <type>aes_oui_non</type>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
@@ -999,7 +1025,7 @@
         <value>webservice.get_health_attribute.get("medication")[2].get("self_medication")</value>
       </prefill><display_mode>radio</display_mode>
       <data_source>
-        <type>oui_non</type>
+        <type>aes_oui_non</type>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
@@ -1072,7 +1098,7 @@
         <value>webservice.get_health_attribute.get("medication")[3].get("self_medication")</value>
       </prefill><display_mode>radio</display_mode>
       <data_source>
-        <type>oui_non</type>
+        <type>aes_oui_non</type>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
@@ -1145,7 +1171,7 @@
         <value>webservice.get_health_attribute.get("medication")[4].get("self_medication")</value>
       </prefill><display_mode>radio</display_mode>
       <data_source>
-        <type>oui_non</type>
+        <type>aes_oui_non</type>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
@@ -1218,7 +1244,7 @@
         <value>webservice.get_health_attribute.get("medication")[5].get("self_medication")</value>
       </prefill><display_mode>radio</display_mode>
       <data_source>
-        <type>oui_non</type>
+        <type>aes_oui_non</type>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
@@ -1291,7 +1317,7 @@
         <value>webservice.get_health_attribute.get("medication")[6].get("self_medication")</value>
       </prefill><display_mode>radio</display_mode>
       <data_source>
-        <type>oui_non</type>
+        <type>aes_oui_non</type>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
@@ -1364,7 +1390,7 @@
         <value>webservice.get_health_attribute.get("medication")[7].get("self_medication")</value>
       </prefill><display_mode>radio</display_mode>
       <data_source>
-        <type>oui_non</type>
+        <type>aes_oui_non</type>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
@@ -1437,7 +1463,7 @@
         <value>webservice.get_health_attribute.get("medication")[8].get("self_medication")</value>
       </prefill><display_mode>radio</display_mode>
       <data_source>
-        <type>oui_non</type>
+        <type>aes_oui_non</type>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
@@ -1510,7 +1536,7 @@
         <value>True if webservice.get_health_attribute.get("medication")[9].get("self_medication") == 'oui' else False</value>
       </prefill><display_mode>radio</display_mode>
       <data_source>
-        <type>oui_non</type>
+        <type>aes_oui_non</type>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
@@ -1523,17 +1549,17 @@
       <label>L'enfant peut-il rentrer seul ?</label>
       <type>item</type>
       <required>True</required>
-      <varname>alone</varname>
+      <varname>to_go_alone</varname>
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
       </display_locations><extra_css_class>newline grid-1-2</extra_css_class>
       <prefill>
         <type>formula</type>
-        <value>webservice.get_health_attribute.get("alone")</value>
+        <value>webservice.get_health_attribute.get("to_go_alone")</value>
       </prefill><display_mode>radio</display_mode>
       <data_source>
-        <type>oui_non</type>
+        <type>aes_oui_non</type>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
@@ -1553,7 +1579,7 @@
         <type>none</type>
       </prefill><display_mode>radio</display_mode>
       <data_source>
-        <type>oui_non</type>
+        <type>aes_oui_non</type>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
@@ -1591,25 +1617,22 @@
     </field><field>
       <label>En cas d'intervention urgente, le p&#232;re et/ou la m&#232;re autorise(nt) les chefs de plaine &#224; prendre toutes les dispositions n&#233;cessaires  </label>
       <type>bool</type>
-      <required>True</required>
+      <condition>
+        <type>django</type>
+        <value>False</value>
+      </condition><required>True</required>
       <varname>chk_dispo_necessaires</varname>
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
       </display_locations><prefill>
+        <locked>False</locked>
         <type>none</type>
       </prefill><id>175</id>
     </field><field>
       <label>M&#233;decin traitant</label>
       <type>page</type>
-      <post_conditions>
-        <post_condition>
-          <condition>
-            <type>python</type>
-            <value>form_var_contact_0_tel is None or (re.match("^(0|\\+|00)(\d{8,})$", form_var_contact_0_tel))</value>
-          </condition><error_message>Le num&#233;ro de t&#233;l&#233;phone du premier contact n'est pas correctement encod&#233;.</error_message>
-        </post_condition>
-      </post_conditions><id>406</id>
+      <id>406</id>
     </field><field>
       <label>M&#233;decin traitant</label>
       <type>subtitle</type>
@@ -1627,70 +1650,148 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class>newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>formula</type>
         <value>webservice.get_health_attribute.get("doctor").get('id')</value>
-      </prefill><display_mode>list</display_mode>
+      </prefill><display_mode>autocomplete</display_mode>
       <data_source>
-        <type>json</type>
+        <type>formula</type>
+        <value>data_source.aes_doctors + [{'id':'autre','text':'Autre'}]</value>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
       <id>548</id>
     </field><field>
-      <label>M&#233;decin traitant</label>
+      <label>&lt;p class="data"&gt;{% if form_var_doctor_tel %}T&amp;eacute;l&amp;eacute;phone : {{ form_var_doctor_tel }}{% endif %}&lt;/p&gt;
+
+&lt;p class="data"&gt;{% if form_var_doctor_gsm %}GSM : {{ form_var_doctor_gsm }} {% endif %}&lt;/p&gt;
+
+&lt;p class="data"&gt;{% if form_var_doctor_street or form_var_doctor_zipcode or form_var_doctor_city %}Adresse : {% endif %}{% if form_var_doctor_street %}{{ form_var_doctor_street }}{% endif %} {% if form_var_doctor_zipcode %}{{ form_var_doctor_zipcode }}{% endif %} {% if form_var_doctor_city %}{{ form_var_doctor_city }}{% endif %}&lt;/p&gt;</label>
+      <type>comment</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_doctor is not None and form_var_doctor_raw != 'autre'</value>
+      </condition><display_locations />
+      <id>556</id>
+    </field><field>
+      <label>Docteur</label>
       <type>string</type>
-      <required>False</required>
-      <varname>doctor</varname>
+      <condition>
+        <type>django</type>
+        <value>form_var_doctor_raw == 'autre'</value>
+      </condition><required>True</required>
+      <hint>Pr&#233;nom et nom du m&#233;decin traitant</hint>
+      <varname>other_doctor_name</varname>
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
-      </display_locations><extra_css_class>grid-1-2</extra_css_class>
+      </display_locations><extra_css_class>newline grid-1-2</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("doctor").get("text")</value>
+        <type>none</type>
       </prefill><anonymise>True</anonymise>
-      <id>166</id>
+      <id>557</id>
     </field><field>
       <label>T&#233;l&#233;phone du m&#233;decin</label>
       <type>string</type>
-      <required>False</required>
-      <varname>doctor_tel</varname>
+      <condition>
+        <type>django</type>
+        <value>form_var_doctor_raw == 'autre'</value>
+      </condition><required>False</required>
+      <varname>other_doctor_tel</varname>
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
       </display_locations><extra_css_class>newline grid-1-4</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("doctor").get("tel")</value>
+        <type>none</type>
       </prefill><anonymise>True</anonymise>
       <id>167</id>
     </field><field>
       <label>GSM du m&#233;decin</label>
       <type>string</type>
-      <required>False</required>
-      <varname>doctor_gsm</varname>
+      <condition>
+        <type>django</type>
+        <value>form_var_doctor_raw == 'autre'</value>
+      </condition><required>False</required>
+      <varname>other_doctor_gsm</varname>
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
       </display_locations><extra_css_class>grid-1-4</extra_css_class>
       <prefill>
         <type>formula</type>
-        <value>webservice.get_health_attribute.get("doctor").get("gsm")</value>
       </prefill><anonymise>True</anonymise>
       <id>430</id>
     </field><field>
-      <label>&lt;pre class="data"&gt;
-{% if form_var_doctor_id and form_var_doctor_id != 'autre' %}
-    {{ form_var_doctor_city }}
-    {{ form_var_doctor_tel }}
-    {{ form_var_doctor_zipcode }}
-    {{ form_var_doctor_street }}
-    {{ form_var_doctor_gsm }}
-{% endif %}
-&lt;/pre&gt;</label>
-      <type>comment</type>
-      <display_locations />
-      <id>549</id>
+      <label>Rue et num&#233;ro</label>
+      <type>string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_doctor_raw == 'autre'</value>
+      </condition><required>True</required>
+      <varname>other_doctor_street</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class>newline grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+      </prefill><anonymise>True</anonymise>
+      <id>550</id>
+    </field><field>
+      <label>Code postal</label>
+      <type>string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_doctor_raw == 'autre'</value>
+      </condition><required>True</required>
+      <varname>other_doctor_zipcode</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class>newline grid-2-12</extra_css_class>
+      <prefill>
+        <type>formula</type>
+      </prefill><anonymise>True</anonymise>
+      <id>552</id>
+    </field><field>
+      <label>Localit&#233;</label>
+      <type>string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_doctor_raw == 'autre'</value>
+      </condition><required>True</required>
+      <varname>other_doctor_city</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class>grid-4-12</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise>True</anonymise>
+      <id>553</id>
+    </field><field>
+      <label>Pays</label>
+      <type>item</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_doctor_raw == 'autre'</value>
+      </condition><required>True</required>
+      <varname>other_doctor_country</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class>newline grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("doctor").get('country_id') or 21</value>
+      </prefill><display_mode>autocomplete</display_mode>
+      <data_source>
+        <type>aes_countries</type>
+      </data_source><in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>560</id>
     </field><field>
       <label>Personnes de contact</label>
       <type>page</type>
@@ -1705,6 +1806,16 @@
             <type>python</type>
             <value>form_var_contact_1_tel is None or (re.match("^(0|\\+|00)(\d{8,})$", form_var_contact_1_tel))</value>
           </condition><error_message>Le num&#233;ro de t&#233;l&#233;phone du deuxi&#232;me contact n'est pas correctement encod&#233;.</error_message>
+        </post_condition><post_condition>
+          <condition>
+            <type>python</type>
+            <value>(form_var_contact_0_name is None and form_var_contact_0_relation is None) or (form_var_contact_0_name is not None and form_var_contact_0_relation is not None)</value>
+          </condition><error_message>Veuillez compl&#233;ter le premier contact ou le laisser vide.</error_message>
+        </post_condition><post_condition>
+          <condition>
+            <type>python</type>
+            <value>(form_var_contact_1_name is None and form_var_contact_1_relation is None) or (form_var_contact_1_name is not None and form_var_contact_1_relation is not None)</value>
+          </condition><error_message>Veuillez compl&#233;ter le deuxi&#232;me contact ou le laisser vide.</error_message>
         </post_condition>
       </post_conditions><id>547</id>
     </field><field>
@@ -1869,21 +1980,27 @@
       <id>445</id>
     </field><field>
       <label>Pays</label>
-      <type>string</type>
+      <type>item</type>
       <condition>
         <type>django</type>
         <value>'other_contact_address' in form_option_questions_raw</value>
-      </condition><required>False</required>
+      </condition><required>True</required>
       <varname>contact_0_country</varname>
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
       </display_locations><extra_css_class>grid-1-3</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>formula</type>
-        <value>webservice.get_health_attribute.get("contact")[0].get("country") or 'Belgique'</value>
-      </prefill><anonymise>True</anonymise>
-      <id>438</id>
+        <value>webservice.get_health_attribute.get("contact")[0].get("country_id") or 21</value>
+      </prefill><display_mode>autocomplete</display_mode>
+      <data_source>
+        <type>aes_countries</type>
+      </data_source><in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>561</id>
     </field><field>
       <label>Deuxi&#232;me contact</label>
       <type>subtitle</type>
@@ -2039,11 +2156,11 @@
       <id>537</id>
     </field><field>
       <label>Pays</label>
-      <type>string</type>
+      <type>item</type>
       <condition>
         <type>django</type>
         <value>'other_contact_address' in form_option_questions_raw</value>
-      </condition><required>False</required>
+      </condition><required>True</required>
       <varname>contact_1_country</varname>
       <display_locations>
         <display_location>validation</display_location>
@@ -2051,9 +2168,14 @@
       </display_locations><extra_css_class>grid-1-3</extra_css_class>
       <prefill>
         <type>formula</type>
-        <value>webservice.get_health_attribute.get("contact")[1].get("country") or 'Belgique'</value>
-      </prefill><anonymise>True</anonymise>
-      <id>538</id>
+        <value>webservice.get_health_attribute.get("contact")[0].get("country_id") or 21</value>
+      </prefill><display_mode>autocomplete</display_mode>
+      <data_source>
+        <type>aes_countries</type>
+      </data_source><in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>562</id>
     </field><field>
       <label>Droit &#224; l'image</label>
       <type>page</type>
@@ -2075,7 +2197,7 @@
         <value>webservice.get_health_attribute.get("photo")</value>
       </prefill><display_mode>radio</display_mode>
       <data_source>
-        <type>oui_non</type>
+        <type>aes_oui_non</type>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
@@ -2097,7 +2219,7 @@
         <value>webservice.get_health_attribute.get("photo_general")</value>
       </prefill><display_mode>radio</display_mode>
       <data_source>
-        <type>oui_non</type>
+        <type>aes_oui_non</type>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
@@ -2119,14 +2241,14 @@
         <value>webservice.get_health_attribute.get("facebook")</value>
       </prefill><display_mode>radio</display_mode>
       <data_source>
-        <type>oui_non</type>
+        <type>aes_oui_non</type>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
       <id>541</id>
     </field>
   </fields><user-roles>
-    <role role_id="logged-users">logged-users</role>
+    <role role_id="901824fb4e0741b7967025ed05360aeb">Parent</role>
   </user-roles><roles>
     <role role_id="98f4561aa38e43c299cee37cb19bfa10" role_key="_receiver">Agents traitants - Portail parent</role>
     <role role_id="117eea72732e4f90a768f5380d79b1a4" role_key="_debug">Debug</role>
