@@ -15,6 +15,11 @@ def create_roles():
         except ObjectDoesNotExist:
             role_agent_fabriques = Role(name='Parent', ou=organisation_unit)
             role_agent_fabriques.save()
+        try:
+            role_agent_fabriques = Role.objects.get(name='Agents traitants - Portail parent')
+        except ObjectDoesNotExist:
+            role_agent_fabriques = Role(name='Agents traitants - Portail parent', ou=organisation_unit)
+            role_agent_fabriques.save()
 
 
 create_roles()
