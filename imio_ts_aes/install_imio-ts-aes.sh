@@ -63,11 +63,11 @@ sed -i -E 's|category_id=.*>(.*)</category>|category_id="'$(($category_registrat
 sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$wcs_tenant $install_path/import-forms.py $install_path
 
 echo "---  COMBO : import AES widget (settings.json)"
-sed -i "s/[COMMUNE]/$commune/g" $install_path/combo/tenants/settings.json
-sed -i "s/[DOMAIN]/$domain/g" $install_path/combo/tenants/settings.json
+sed -i "s/\[COMMUNE\]/$commune/g" $install_path/combo/tenants/settings.json
+sed -i "s/\[DOMAIN\]/$domain/g" $install_path/combo/tenants/settings.json
 cp $install_path/combo/tenants/settings.json /var/lib/combo/tenants/$combo_tenant/
-sed -i "s/$commune/[COMMUNE]/g" $install_path/combo/tenants/settings.json
-sed -i "s/$domain/[DOMAIN]/g" $install_path/combo/tenants/settings.json
+sed -i "s/$commune/\[COMMUNE\]/g" $install_path/combo/tenants/settings.json
+sed -i "s/$domain/\[DOMAIN\]/g" $install_path/combo/tenants/settings.json
 
 echo "--- COMBO : import AES portail-citoyen structure"
 sudo -u combo combo-manage tenant_command import_site -d $combo_tenant $install_path/combo/portail-citoyen-aes.json
