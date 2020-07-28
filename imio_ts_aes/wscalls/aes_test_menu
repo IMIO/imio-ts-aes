@@ -1,0 +1,12 @@
+<wscalls id="aes_test_menu">
+  <name>aes_test_menu</name>
+  <slug>aes_test_menu</slug>
+  <description>Test : G&#233;n&#232;re un menu.</description>
+  <request>
+    <url>https://staging2-passerelle.guichet-citoyen.be/passerelle-imio-aes-meal/repas/test</url>
+    <request_signature_key />
+    <method>GET</method>
+    <qs_data />
+    <post_data />
+  </request>
+</wscalls>
