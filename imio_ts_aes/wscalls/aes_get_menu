@@ -6,7 +6,8 @@
     <url>https://staging2-passerelle.guichet-citoyen.be/passerelle-imio-aes-meal/repas/get</url>
     <request_signature_key />
     <method>GET</method>
-    <qs_data />
-    <post_data />
+    <qs_data>
+      <param key="test">{{ form_option_test }}</param>
+    </qs_data><post_data />
   </request>
 </wscalls>
