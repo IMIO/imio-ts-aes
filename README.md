@@ -7,9 +7,9 @@ C'est en quelque sorte ce qui va "préparer" un e-guichet pour le rendre opérat
 
 Installation
 ------------
-   1. `apt update && apt install imio-town-street && apt install wcs-scripts-teleservices`
+   1. `apt update && apt install imio-ts-aes && apt install wcs-scripts-teleservices`
    2. `cd /usr/lib/imio_town_street`
-   3. `./install_imio-town-street.sh DOMAIN (guichet-citoyen.be, lescommunes.be,example.Net,...)`
+   3. `./install_imio-ts-aes.sh DOMAIN (guichet-citoyen.be, lescommunes.be,example.Net,...)`
 
 La catégorie du portail parent
 ------------------------------
