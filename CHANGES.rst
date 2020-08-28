@@ -1,6 +1,14 @@
 Changelog
 =========
 
+0.1.5p
+------------------
+
+- Replace imio-town-street by imio-ts-aes in menu
+  [nhislaire]
+- Remove existing alphanumeric IDs for roles in WF
+  [nhislaire]
+
 0.1.5n
 ------------------
 

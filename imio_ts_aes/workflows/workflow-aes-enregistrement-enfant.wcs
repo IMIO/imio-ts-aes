@@ -104,7 +104,7 @@ Bien cordialement,</body>
             <value>form_option_autosave is True</value>
           </condition>
         </item><item id="5" type="add_role">
-          <role_id role_id="d70bc74c6f7346adb5f06d784899c5ac">Parent</role_id>
+          <role_id role_id="">Parent</role_id>
         </item><item id="6" type="jump">
           <status>3</status>
           <condition>
@@ -216,7 +216,7 @@ Retourner sur le &lt;a href="{{ portal_user_url }}portail_parent/"&gt;portail pa
         </item><item id="2" type="choice">
           <label>Replay ALL</label>
           <by>
-            <item role_id="56966d2739e14d6fa8459067955d0531">Debug</item>
+            <item role_id="">Debug</item>
           </by><status>1</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
