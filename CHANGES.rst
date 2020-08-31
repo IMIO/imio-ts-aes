@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.1.5r
+------------------
+
+- Remove character used to comment an line
+  [nhislaire]
+
 0.1.5q
 ------------------
 

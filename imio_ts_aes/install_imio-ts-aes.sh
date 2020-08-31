@@ -53,7 +53,7 @@ do
     sed -i 's/id="'$datasource'"/id="'$(($datasource_registration_number + 1))'"/g' $install_path/datasources/$datasource
     cp $install_path/datasources/$datasource /var/lib/wcs/$wcs_tenant/datasources/$(($datasource_registration_number + 1))
     sed -i 's/id="'$(($datasource_registration_number + 1))'"/id="'$datasource'"/g' $install_path/datasources/$datasource
-    #chown -R ${USER}:${USER} /var/lib/wcs/$wcs_tenant/datasources/$(($datasource_registration_number + 1))
+    chown -R ${USER}:${USER} /var/lib/wcs/$wcs_tenant/datasources/$(($datasource_registration_number + 1))
   else
     echo '    ' $datasource_slug' already installed'
   fi
