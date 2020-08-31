@@ -38,16 +38,26 @@ fi
 echo "--- Deploy passerelle plugins."
 sudo -u passerelle /usr/bin/passerelle-manage tenant_command import_site -d $commune-passerelle.$domain $install_path/passerelle/iimioiaaes.json
 
-if [ -z `grep demo_aes_repas /var/lib/wcs/$wcs_tenant/datasources -nri` ]; then
-    echo 'install datasources'
+echo "--- Deploy datasources"
+echo 'Get AES datasources'
+datasources=$(ls datasources/)
+echo 'Start install'
+for datasource in $datasources
+do
+  echo 'Get datasource slug'
+  datasource_slug=$(grep "<slug>.*</slug>" datasources/$datasource | sed 's#<slug>##g' | sed 's#</slug>##g')
+  echo '  Is' $datasource_slug installed' yet ?'
+  if [ -z "`grep -rim 1 $datasource_slug /var/lib/wcs/$wcs_tenant/datasources/`" ]; then
+    echo '    Installing datasource n°'$datasource $datasource_slug
     datasource_registration_number=$(ls /var/lib/wcs/$wcs_tenant/datasources |  sort -n | tail -1)
-    sed -i 's/id="0"/id="'$(($datasource_registration_number + 1))'"/g' $install_path/datasources/0
-    cp $install_path/datasources/0 /var/lib/wcs/$wcs_tenant/datasources/$(($datasource_registration_number + 1))
-    sed -i 's/id="'$(($datasource_registration_number + 1))'"/id="0"/g' $install_path/datasources/0
-    chown -R ${USER}:${USER} /var/lib/wcs/$wcs_tenant/datasources/$(($datasource_registration_number + 1))
-else
-    echo 'datasources already exists'
-fi
+    sed -i 's/id="'$datasource'"/id="'$(($datasource_registration_number + 1))'"/g' $install_path/datasources/$datasource
+    cp $install_path/datasources/$datasource /var/lib/wcs/$wcs_tenant/datasources/$(($datasource_registration_number + 1))
+    sed -i 's/id="'$(($datasource_registration_number + 1))'"/id="'$datasource'"/g' $install_path/datasources/$datasource
+    #chown -R ${USER}:${USER} /var/lib/wcs/$wcs_tenant/datasources/$(($datasource_registration_number + 1))
+  else
+    echo '    ' $datasource_slug' already installed'
+  fi
+done
 
 chown -R ${USER}:${USER} /var/lib/wcs/$wcs_tenant/wscalls/aes*
 # chown -R ${USER}:${USER} $install_path/datasources
