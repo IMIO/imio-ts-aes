@@ -186,7 +186,7 @@
       </prefill><max_choices>0</max_choices>
       <data_source>
         <type>formula</type>
-        <value>webservice.aes_test_menu if form_option_test is True else webservice.aes_get_menu</value>
+        <value>webservice.aes_test_menu if form_option_test is True else webservice.aes_get_menu.get('data')</value>
       </data_source><in_filters>False</in_filters>
       <anonymise>True</anonymise>
       <display_disabled_items>False</display_disabled_items>

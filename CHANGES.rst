@@ -1,6 +1,14 @@
 Changelog
 =========
 
+0.1.5s
+------------------
+
+- do not use a webservice if we are in the form factory for "Inscrire mon enfant aux repas"
+  [nhislaire]
+- fix python datasource in field Menu "Inscrire mon enfant aux repas"
+  [nhislaire]
+
 0.1.5r
 ------------------
 
