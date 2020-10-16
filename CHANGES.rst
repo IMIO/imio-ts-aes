@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.1.6
+------------------
+
+- init buster branch that will become master later and adapt Jenkinsfile for Debian Buster (nexus)
+  [dmuyshond]
+
 0.1.5s
 ------------------
 
