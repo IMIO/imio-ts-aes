@@ -1,9 +1,7 @@
 <?xml version="1.0"?>
-<formdef id="21">
+<formdef id="52">
   <name>Inscrire mon enfant &#224; une plaine</name>
   <url_name>aes-inscrire-mon-enfant-a-une-plaine</url_name>
-  <publication_date>01/03/2020 00:00</publication_date>
-  <expiration_date>01/09/2020 00:00</expiration_date>
   <internal_identifier>inscrire-mon-enfant-a-une-plaine</internal_identifier>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
@@ -12,12 +10,12 @@
   <enable_tracking_codes>true</enable_tracking_codes>
   <confirmation>true</confirmation>
   <always_advertise>false</always_advertise>
+  <include_download_all_button>false</include_download_all_button>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
   <category category_id="99">Portail parent</category>
   <workflow workflow_id="18">aes - Inscription &#224; une plaine (validation semaine automatique)</workflow>
-  <max_field_id>49</max_field_id>
-  <last_modification user_id="1">2020-04-21 15:46:25</last_modification>
+  <max_field_id>52</max_field_id>
   <fields>
     <field>
       <label>Connexion non autoris&#233;e</label>
@@ -36,19 +34,18 @@
     </field><field>
       <label>&lt;p&gt;L'utilisation du portail parent n&amp;eacute;cessite une authentification par carte d'identit&amp;eacute;.&lt;/p&gt;</label>
       <type>comment</type>
-      <display_locations />
       <id>47</id>
     </field><field>
       <label>Pas d'enfant enregistr&#233;</label>
       <type>page</type>
       <condition>
         <type>python</type>
-        <value>len(webservice.aes_get_children.get("data")) == 0</value>
+        <value>len(webservice.aes_get_children_by_parent_nrn.get("data")) == 0</value>
       </condition><post_conditions>
         <post_condition>
           <condition>
             <type>python</type>
-            <value>len(webservice.aes_get_children.get("data")) &gt; 0</value>
+            <value>len(webservice.aes_get_children_by_parent_nrn.get("data")) &gt; 0</value>
           </condition><error_message>Aucun enfant trouv&#233; dans notre portail parent</error_message>
         </post_condition>
       </post_conditions><id>40</id>
@@ -58,7 +55,6 @@
 &lt;p&gt;&lt;a class="pk-button" href="https://montsaintguibert-formulaires.guichet-citoyen.be/aes-enregistrer-un-nouvel-enfant/"&gt;Enregistrer un nouvel enfant&lt;/a&gt;&lt;/p&gt;</label>
       <type>comment</type>
       <extra_css_class>no_permission_page</extra_css_class>
-      <display_locations />
       <id>41</id>
     </field><field>
       <label>Coordonn&#233;es</label>
@@ -70,7 +66,6 @@
     </field><field>
       <label>&lt;p&gt;{{ form_option_commentaire }}&lt;/p&gt;</label>
       <type>comment</type>
-      <display_locations />
       <id>49</id>
     </field><field>
       <label>Vos informations</label>
@@ -88,7 +83,6 @@
 
 &lt;p&gt;&amp;nbsp;&lt;/p&gt;</label>
       <type>comment</type>
-      <display_locations />
       <id>11</id>
     </field><field>
       <label>Pr&#233;nom</label>
@@ -211,7 +205,6 @@
 
 &lt;p&gt;{{form_user_email}}&lt;/p&gt;</label>
       <type>comment</type>
-      <display_locations />
       <id>35</id>
     </field><field>
       <label>Inscription pr&#233;alable</label>
@@ -224,10 +217,9 @@
       <label>&lt;p&gt;Nous vous invitons &amp;agrave; d'abord remplir le formulaire d'inscription. Vos coordonn&amp;eacute;es doivent pr&amp;eacute;alablement appara&amp;icirc;tre dans notre logiciel de traitement avant d'entamer cette d&amp;eacute;marche.&lt;/p&gt;</label>
       <type>comment</type>
       <extra_css_class>no_permission_page</extra_css_class>
-      <display_locations />
       <id>15</id>
     </field><field>
-      <label>Qui faut-il inscrire?</label>
+      <label>Qui faut-il inscrire ?</label>
       <type>page</type>
       <condition>
         <type>python</type>
@@ -243,15 +235,42 @@
         <display_location>summary</display_location>
         <display_location>listings</display_location>
       </display_locations><prefill>
+        <locked>False</locked>
         <type>none</type>
       </prefill><display_mode>radio</display_mode>
       <data_source>
         <type>formula</type>
-        <value>webservice.aes_get_children.get('data')</value>
+        <value>webservice.aes_get_children_by_parent_nrn.get('data')</value>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
       <id>22</id>
+    </field><field>
+      <label>Fiche sant&#233;</label>
+      <type>page</type>
+      <condition>
+        <type>python</type>
+        <value>len(webservice.aes_get_healthsheet.get('data')) &lt;= 1</value>
+      </condition><post_conditions>
+        <post_condition>
+          <condition>
+            <type>python</type>
+            <value>len(webservice.aes_get_healthsheet.get('data')) &gt; 1</value>
+          </condition><error_message>Cet enfant n'a pas encore de fiche sant&#233;</error_message>
+        </post_condition>
+      </post_conditions><id>51</id>
+    </field><field>
+      <label>&lt;div class="pk-attention"&gt;Cet enfant n'a pas encore de fiche sant&amp;eacute;. Veuillez compl&amp;eacute;ter sa fiche sant&amp;eacute; avant de poursuivre en cliquant sur le bouton ci-dessous.&lt;/div&gt;
+
+&lt;p&gt;&lt;a class="pk-button" href="{{site_url}}/portail-parent/fiche-sante/" target="_blank"&gt;Compl&amp;eacute;ter la Fiche Sant&amp;eacute;&lt;/a&gt;&lt;/p&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+</label>
+      <type>comment</type>
+      <display_locations />
+      <id>52</id>
     </field><field>
       <label>Semaines de plaines</label>
       <type>page</type>
@@ -269,6 +288,7 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class>pp_plaines</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>none</type>
       </prefill><max_choices>0</max_choices>
       <data_source>
@@ -282,22 +302,21 @@
       <label>&lt;p&gt;Plaines disponnibles&lt;/p&gt;</label>
       <type>comment</type>
       <extra_css_class>template-pp_plaines</extra_css_class>
-      <display_locations />
       <id>37</id>
     </field>
   </fields><user-roles>
-    <role role_id="logged-users">logged-users</role>
-    <role role_id="901824fb4e0741b7967025ed05360aeb">Parent</role>
+    <role role_id="97fd62031c1f4b35a219ca964396a445">Parent</role>
   </user-roles><backoffice-submission-roles>
-    <role role_id="98f4561aa38e43c299cee37cb19bfa10">Agents traitants - Portail parent</role>
+    <role role_id="9f94095fe2564f17b88ca929bf3149fc">Agents traitants - Portail parent</role>
   </backoffice-submission-roles><roles>
-    <role role_id="98f4561aa38e43c299cee37cb19bfa10" role_key="_receiver">Agents traitants - Portail parent</role>
-    <role role_id="117eea72732e4f90a768f5380d79b1a4" role_key="_debug">Debug</role>
+    <role role_id="9f94095fe2564f17b88ca929bf3149fc" role_key="_receiver">Agents traitants - Portail parent</role>
+    <role role_id="43190215712647a89376713be142a4f5" role_key="_debug">Debug</role>
   </roles><options>
-    <option varname="commentaire">Pour toute personne de Mont-Saint-Guibert, &#233;manant du CPAS, merci de bien vouloir d&#8217;abord contacter ce dernier en premier lieu.</option>
+    <option varname="commentaire"></option>
     <option varname="first_date_plain">01/07/2020</option>
     <option varname="last_date_plain">31/08/2020</option>
     <option varname="nb_days_before_free_places">3</option>
     <option varname="test" />
-  </options><geolocations />
+  </options><custom_views />
+  <geolocations />
 </formdef>
