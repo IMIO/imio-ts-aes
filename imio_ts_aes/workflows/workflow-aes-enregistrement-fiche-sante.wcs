@@ -2,8 +2,8 @@
 <workflow id="16">
   <name>aes - Enregistrement fiche sant&#233;</name>
   <roles>
-    <role id="_receiver">Destinataire</role>
-  </roles><last_modification user_id="1">2020-04-16 09:43:56</last_modification>
+    <role id="_receiver">Agent traitent</role>
+  </roles><last_modification user_id="1">2020-06-29 15:42:26</last_modification>
   <possible_status>
     <status>
       <id>1</id>
@@ -11,28 +11,104 @@
       <colour>FFFFFF</colour>
       <visibility />
       <items>
-        <item id="1" type="choice">
-          <label>Tenter l'enregistrement dans AES</label>
+        <item id="2" type="jump">
+          <status>2</status>
+          <condition>
+            <value>form_var_doctor_raw != 'autre'</value>
+            <type>django</type>
+          </condition><set_marker_on_status>False</set_marker_on_status>
+        </item><item id="3" type="sendmail">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to><subject>Demande d'un nouveau m&#233;decin</subject>
+          <body>Bonjour,
+
+Un nouveau m&#233;decin a &#233;t&#233; enregistr&#233; par {{ session_user_var_first_name }} {{ session_user_var_last_name }}. 
+
+Pourriez-vous v&#233;rifier si ce m&#233;decin a &#233;t&#233; correctement encod&#233; et s'il n'existe pas d&#233;j&#224; dans AES.
+
+Nom du m&#233;decin : {{ form_var_other_doctor_name }}
+
+T&#233;l&#233;phone : {{ form_var_other_doctor_tel }}
+
+GSM : {{ form_var_other_doctor_gsm }}
+
+Adresse : {{ form_var_other_doctor_street }} {{ form_var_other_doctor_zipcode }} {{ form_var_other_doctor_city }}
+
+Pour enregistrer ce nouveau m&#233;decin et le proposer &#224; tous les parents, cliquez sur le bouton ci-dessous :
+
+{% action_button "validate" label="Valider" delay=7 %}
+
+Pour corriger les donn&#233;es encod&#233;es ou signaler que le m&#233;decin existe d&#233;j&#224;, veuillez vous suivre ce lien et vous connecter &#224; la plateforme t&#233;l&#233;service : {{ form_url_backoffice }}</body>
+          <condition>
+            <value>form_var_doctor_raw == 'autre'</value>
+            <type>django</type>
+          </condition>
+        </item><item id="1" type="choice">
+          <label>Il y a une erreur dans l'encodage du parent</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>3</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="4" type="choice">
+          <label>Ce m&#233;decin est correctement encod&#233; par le parent</label>
           <by>
             <item role_id="_receiver">_receiver</item>
           </by><status>2</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <identifier>validate</identifier>
         </item>
       </items>
     </status><status>
       <id>2</id>
-      <name>Enregistrement dans AES</name>
+      <name>Enregistrement de la fiche sant&#233;</name>
       <colour>FFFFFF</colour>
       <visibility />
       <items>
-        <item id="1" type="webservice_call">
+        <item id="5" type="set-backoffice-fields">
+          <label>Centralisation des donn&#233;es du m&#233;decin</label>
+          <fields>
+            <field>
+              <field_id>bo95136f0e-2b2e-4e1f-b45b-6618128adafa</field_id>
+              <value>=locals().get('verified_doctor_var_doctor_raw') if locals().get('verified_doctor_var_is_new_doctor') == "Existe d&#233;j&#224;" else form_var_doctor_raw</value>
+            </field><field>
+              <field_id>bo9b4a4171-d9d8-4e93-991a-8a4745bc9c21</field_id>
+              <value>=locals().get('verified_doctor_var_name') or locals().get('verified_doctor_var_doctor') or form_var_other_doctor_name</value>
+            </field><field>
+              <field_id>boc2dd14c8-365e-487b-b627-a1326756a7fe</field_id>
+              <value>=locals().get('verified_doctor_var_tel') or locals().get('verified_doctor_var_doctor_tel') or form_var_other_doctor_tel</value>
+            </field><field>
+              <field_id>bo66352ab1-8b0e-453a-a3fe-ab81a2160d40</field_id>
+              <value>=locals().get('verified_doctor_var_gsm') or locals().get('verified_doctor_var_doctor_gsm') or form_var_other_doctor_gsm</value>
+            </field><field>
+              <field_id>bo7e4e681e-39d0-4248-ba09-76a674111374</field_id>
+              <value>=locals().get('verified_doctor_var_street') or locals().get('verified_doctor_var_doctor_street') or form_var_other_doctor_street</value>
+            </field><field>
+              <field_id>bo97709d07-7fcd-43c0-b71b-5b3dd14c0224</field_id>
+              <value>=locals().get('verified_doctor_var_zipcode') or locals().get('verified_doctor_var_doctor_zipcode') or form_var_other_doctor_zipcode</value>
+            </field><field>
+              <field_id>bo27dfc8e7-2701-4978-8cb7-62cfd689725f</field_id>
+              <value>=locals().get('verified_doctor_var_city') or locals().get('verified_doctor_var_doctor_city') or form_var_other_doctor_city</value>
+            </field><field>
+              <field_id>bo424a354b-177a-40a7-a959-1f5edba81fad</field_id>
+              <value>=locals().get('verified_doctor_var_country_raw') or locals().get('verified_doctor_var_doctor_country_id') or form_var_other_doctor_country_raw</value>
+            </field>
+          </fields>
+        </item><item id="1" type="webservice_call">
           <label>Enregistrement dans AES</label>
-          <url>https://montsaintguibert-passerelle.guichet-citoyen.be/passerelle-imio-aes-health/aes_health/post_child_health_sheet</url>
+          <url>{{ passerelle_url }}/passerelle-imio-aes-health/aes_health/post_child_health_sheet</url>
           <method>POST</method>
           <post>True</post>
-          <response_type>json</response_type>
+          <post_data>
+            <item>
+              <name>screugneugneu</name>
+              <value>=form_var_verified_doctor_name</value>
+            </item>
+          </post_data><response_type>json</response_type>
           <varname>healthsheet</varname>
           <action_on_app_error>:stop</action_on_app_error>
           <action_on_4xx>:stop</action_on_4xx>
@@ -40,69 +116,205 @@
           <action_on_bad_data>:stop</action_on_bad_data>
           <action_on_network_errors>:stop</action_on_network_errors>
           <notify_on_errors>True</notify_on_errors>
-          <record_errors>True</record_errors>
-        </item><item id="4" type="webservice_call">
-          <label>TOUT ! QU'AES DEGUSTE !</label>
-          <url>https://montsaintguibert-passerelle.guichet-citoyen.be/passerelle-imio-aes-health/aes_health/post_child_health_sheet</url>
-          <method>POST</method>
-          <post>False</post>
-          <response_type>json</response_type>
-          <varname>healthsheet</varname>
-          <action_on_app_error>:pass</action_on_app_error>
-          <action_on_4xx>:stop</action_on_4xx>
-          <action_on_5xx>:stop</action_on_5xx>
-          <action_on_bad_data>:pass</action_on_bad_data>
-          <action_on_network_errors>:stop</action_on_network_errors>
-          <notify_on_errors>True</notify_on_errors>
-          <record_errors>True</record_errors>
-          <condition>
-            <type>django</type>
-            <value>False</value>
-          </condition>
+          <record_on_errors>True</record_on_errors>
+          <record_errors>False</record_errors>
         </item><item id="2" type="jump">
           <status>4</status>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item id="3" type="choice">
+        </item><item id="6" type="choice">
           <label>Retenter l'enregistrement dans AES</label>
           <by>
-            <item role_id="_receiver">_receiver</item>
+            <item role_id="117eea72732e4f90a768f5380d79b1a4">Debug</item>
           </by><status>2</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="7" type="editable">
+          <by>
+            <item role_id="117eea72732e4f90a768f5380d79b1a4">Debug</item>
+          </by><status>2</status>
+          <label>&#201;diter la demande (D&#233;bug iMio)</label>
+          <backoffice_info_text>&lt;p&gt;&amp;Eacute;diter la demande (D&amp;eacute;bug iMio)&lt;/p&gt;</backoffice_info_text>
         </item>
       </items>
     </status><status>
       <id>3</id>
-      <name>Echec</name>
-      <colour>FF0000</colour>
+      <name>Demande d'ajout d'un m&#233;decin</name>
+      <colour>0099FF</colour>
       <visibility />
       <items>
-        <item id="1" type="choice">
-          <label>Retenter l'enregistrement dans AES</label>
+        <item id="4" type="form">
           <by>
             <item role_id="_receiver">_receiver</item>
-          </by><status>2</status>
-          <require_confirmation>False</require_confirmation>
-          <ignore_form_errors>False</ignore_form_errors>
+          </by><varname>verified_doctor</varname>
+          <formdef>
+            <name>-</name>
+            <fields>
+              <field>
+                <label>Ce m&#233;decin</label>
+                <type>item</type>
+                <required>True</required>
+                <varname>is_new_doctor</varname>
+                <display_locations />
+                <extra_css_class>newline grid-1-2</extra_css_class>
+                <prefill>
+                  <type>none</type>
+                </prefill><items>
+                  <item>Est bien un nouveau m&#233;decin</item>
+                  <item>Existe d&#233;j&#224;</item>
+                </items><display_mode>radio</display_mode>
+                <in_filters>False</in_filters>
+                <anonymise>False</anonymise>
+                <display_disabled_items>False</display_disabled_items>
+                <id>7</id>
+              </field><field>
+                <label>Il s'agit de</label>
+                <type>item</type>
+                <condition>
+                  <type>django</type>
+                  <value>verified_doctor_var_is_new_doctor == "Existe d&#233;j&#224;"</value>
+                </condition><required>True</required>
+                <varname>doctor</varname>
+                <display_locations />
+                <extra_css_class>newline grid-1-2</extra_css_class>
+                <prefill>
+                  <type>none</type>
+                </prefill><display_mode>autocomplete</display_mode>
+                <data_source>
+                  <type>aes_doctors</type>
+                </data_source><in_filters>False</in_filters>
+                <anonymise>False</anonymise>
+                <display_disabled_items>False</display_disabled_items>
+                <id>8</id>
+              </field><field>
+                <label>Docteur</label>
+                <type>string</type>
+                <condition>
+                  <type>django</type>
+                  <value>verified_doctor_var_is_new_doctor == "Est bien un nouveau m&#233;decin"</value>
+                </condition><required>True</required>
+                <hint>Pr&#233;nom et nom du m&#233;decin traitant</hint>
+                <varname>name</varname>
+                <display_locations />
+                <extra_css_class>newline grid-1-2</extra_css_class>
+                <prefill>
+                  <type>formula</type>
+                  <value>form_var_other_doctor_name</value>
+                </prefill><anonymise>True</anonymise>
+                <id>6</id>
+              </field><field>
+                <label>T&#233;l&#233;phone</label>
+                <type>string</type>
+                <condition>
+                  <type>django</type>
+                  <value>verified_doctor_var_is_new_doctor == "Est bien un nouveau m&#233;decin"</value>
+                </condition><required>False</required>
+                <varname>tel</varname>
+                <display_locations />
+                <extra_css_class>newline grid-1-4</extra_css_class>
+                <prefill>
+                  <type>formula</type>
+                  <value>form_var_other_doctor_tel</value>
+                </prefill><anonymise>True</anonymise>
+                <id>4</id>
+              </field><field>
+                <label>GSM</label>
+                <type>string</type>
+                <condition>
+                  <type>django</type>
+                  <value>verified_doctor_var_is_new_doctor == "Est bien un nouveau m&#233;decin"</value>
+                </condition><required>False</required>
+                <varname>gsm</varname>
+                <display_locations />
+                <extra_css_class>grid-1-4</extra_css_class>
+                <prefill>
+                  <type>formula</type>
+                  <value>form_var_other_doctor_gsm</value>
+                </prefill><anonymise>True</anonymise>
+                <id>5</id>
+              </field><field>
+                <label>Rue et num&#233;ro</label>
+                <type>string</type>
+                <condition>
+                  <type>django</type>
+                  <value>verified_doctor_var_is_new_doctor == "Est bien un nouveau m&#233;decin"</value>
+                </condition><required>False</required>
+                <varname>street</varname>
+                <display_locations />
+                <extra_css_class>newline grid-1-2</extra_css_class>
+                <prefill>
+                  <type>formula</type>
+                  <value>form_var_other_doctor_street</value>
+                </prefill><anonymise>True</anonymise>
+                <id>1</id>
+              </field><field>
+                <label>Code postal</label>
+                <type>string</type>
+                <condition>
+                  <type>django</type>
+                  <value>verified_doctor_var_is_new_doctor == "Est bien un nouveau m&#233;decin"</value>
+                </condition><required>False</required>
+                <varname>zipcode</varname>
+                <display_locations />
+                <extra_css_class>newline grid-2-12</extra_css_class>
+                <prefill>
+                  <type>formula</type>
+                  <value>form_var_other_doctor_zipcode</value>
+                </prefill><anonymise>True</anonymise>
+                <id>2</id>
+              </field><field>
+                <label>Localit&#233;</label>
+                <type>string</type>
+                <condition>
+                  <type>django</type>
+                  <value>verified_doctor_var_is_new_doctor == "Est bien un nouveau m&#233;decin"</value>
+                </condition><required>False</required>
+                <varname>city</varname>
+                <display_locations />
+                <extra_css_class>grid-4-12</extra_css_class>
+                <prefill>
+                  <type>formula</type>
+                  <value>form_var_other_doctor_city</value>
+                </prefill><anonymise>True</anonymise>
+                <id>3</id>
+              </field><field>
+                <label>Pays</label>
+                <type>item</type>
+                <required>True</required>
+                <varname>country</varname>
+                <display_locations />
+                <extra_css_class>newline grid-1-2</extra_css_class>
+                <prefill>
+                  <type>formula</type>
+                  <value>form_var_other_doctor_country_raw</value>
+                </prefill><display_mode>list</display_mode>
+                <data_source>
+                  <type>aes_countries</type>
+                </data_source><in_filters>False</in_filters>
+                <anonymise>False</anonymise>
+                <display_disabled_items>False</display_disabled_items>
+                <id>9</id>
+              </field>
+            </fields>
+          </formdef>
+        </item><item id="2" type="jumponsubmit">
+          <status>2</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
     </status><status>
       <id>4</id>
-      <name>R&#233;ussi</name>
+      <name>Fiche sant&#233; est enregistr&#233;e</name>
       <colour>00FF00</colour>
       <visibility />
+      <items />
+    </status><status>
+      <id>5</id>
+      <name>Debug custom id</name>
+      <colour>FFFFFF</colour>
+      <visibility />
       <items>
-        <item id="1" type="choice">
-          <label>Relancer la requ&#234;te</label>
-          <by>
-            <item role_id="_receiver">_receiver</item>
-          </by><status>2</status>
-          <require_confirmation>False</require_confirmation>
-          <ignore_form_errors>False</ignore_form_errors>
-          <set_marker_on_status>False</set_marker_on_status>
-        </item>
+        <item id="1" type="set-backoffice-fields" />
       </items>
     </status>
   </possible_status><variables>
@@ -120,7 +332,7 @@
             <type>none</type>
           </prefill><max_choices>0</max_choices>
           <data_source>
-            <type>aes_questions_fiche_sante</type>
+            <type>questions</type>
           </data_source><in_filters>False</in_filters>
           <anonymise>True</anonymise>
           <display_disabled_items>False</display_disabled_items>
@@ -128,5 +340,84 @@
         </field>
       </fields>
     </formdef>
-  </variables>
+  </variables><backoffice-fields>
+    <formdef>
+      <name>-</name>
+      <fields>
+        <field>
+          <label>Identifiant du m&#233;decin</label>
+          <type>string</type>
+          <required>True</required>
+          <varname>verified_doctor_id</varname>
+          <display_locations>
+            <display_location>summary</display_location>
+          </display_locations><anonymise>True</anonymise>
+          <id>bo95136f0e-2b2e-4e1f-b45b-6618128adafa</id>
+        </field><field>
+          <label>Nom du m&#233;decin</label>
+          <type>string</type>
+          <required>True</required>
+          <varname>verified_doctor_name</varname>
+          <display_locations>
+            <display_location>summary</display_location>
+          </display_locations><anonymise>True</anonymise>
+          <id>bo9b4a4171-d9d8-4e93-991a-8a4745bc9c21</id>
+        </field><field>
+          <label>Num&#233;ro de t&#233;l&#233;phone du m&#233;decin</label>
+          <type>string</type>
+          <required>True</required>
+          <varname>verified_doctor_tel</varname>
+          <display_locations>
+            <display_location>summary</display_location>
+          </display_locations><anonymise>True</anonymise>
+          <id>boc2dd14c8-365e-487b-b627-a1326756a7fe</id>
+        </field><field>
+          <label>Num&#233;ro de GSM du m&#233;decin</label>
+          <type>string</type>
+          <required>True</required>
+          <varname>verified_doctor_gsm</varname>
+          <display_locations>
+            <display_location>summary</display_location>
+          </display_locations><anonymise>True</anonymise>
+          <id>bo66352ab1-8b0e-453a-a3fe-ab81a2160d40</id>
+        </field><field>
+          <label>Rue et num&#233;ro de porte du m&#233;decin</label>
+          <type>string</type>
+          <required>True</required>
+          <varname>verified_doctor_street</varname>
+          <display_locations>
+            <display_location>summary</display_location>
+          </display_locations><anonymise>True</anonymise>
+          <id>bo7e4e681e-39d0-4248-ba09-76a674111374</id>
+        </field><field>
+          <label>Code postal du m&#233;decin</label>
+          <type>string</type>
+          <required>True</required>
+          <varname>verified_doctor_zipcode</varname>
+          <display_locations>
+            <display_location>summary</display_location>
+          </display_locations><anonymise>True</anonymise>
+          <id>bo97709d07-7fcd-43c0-b71b-5b3dd14c0224</id>
+        </field><field>
+          <label>Localit&#233; du m&#233;decin</label>
+          <type>string</type>
+          <required>True</required>
+          <varname>verified_doctor_city</varname>
+          <display_locations>
+            <display_location>summary</display_location>
+          </display_locations><anonymise>True</anonymise>
+          <id>bo27dfc8e7-2701-4978-8cb7-62cfd689725f</id>
+        </field><field>
+          <label>Identifiant du pays du m&#233;decin</label>
+          <type>string</type>
+          <required>True</required>
+          <varname>verified_doctor_country</varname>
+          <display_locations>
+            <display_location>summary</display_location>
+          </display_locations><anonymise>True</anonymise>
+          <id>bo424a354b-177a-40a7-a959-1f5edba81fad</id>
+        </field>
+      </fields>
+    </formdef>
+  </backoffice-fields>
 </workflow>

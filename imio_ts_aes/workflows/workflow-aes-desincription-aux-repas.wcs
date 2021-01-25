@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<workflow id="70">
+  <name>aes - d&#233;sincription aux repas</name>
+  <roles>
+    <role id="_receiver">Agent traitant</role>
+  </roles><last_modification user_id="1">2020-10-29 11:34:30</last_modification>
+  <possible_status>
+    <status>
+      <id>1</id>
+      <name>Nouvelle demande</name>
+      <colour>FFFFFF</colour>
+      <visibility>
+        <role>_receiver</role>
+      </visibility><items>
+        <item id="1" type="jump">
+          <status>2</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>2</id>
+      <name>D&#233;sinscription en cours</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="webservice_call">
+          <label>Enregistrements des occurences s&#233;lectionn&#233;es</label>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/post_child_meal</url>
+          <method>POST</method>
+          <post>False</post>
+          <post_data>
+            <item>
+              <name>meals</name>
+              <value>=[meal.replace('potage', 'nothing').replace('repas', 'nothing') for meal in form_var_jours_a_desinscrire_raw if (datetime.datetime.strptime("{}{}".format(meal[1:11],"-11") ,'%d-%m-%Y-%H') - datetime.timedelta(days=1) &gt; datetime.datetime.now())]</value>
+            </item><item>
+              <name>child_id</name>
+              <value>=form_var_selected_child_raw</value>
+            </item><item>
+              <name>form_id</name>
+              <value>=form_number_raw</value>
+            </item>
+          </post_data><response_type>json</response_type>
+          <varname>post_child_meal</varname>
+          <action_on_app_error>4</action_on_app_error>
+          <action_on_4xx>4</action_on_4xx>
+          <action_on_5xx>4</action_on_5xx>
+          <action_on_bad_data>4</action_on_bad_data>
+          <action_on_network_errors>4</action_on_network_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <record_on_errors>False</record_on_errors>
+          <record_errors>False</record_errors>
+        </item><item id="2" type="jump">
+          <status>3</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>3</id>
+      <name>Confirmation</name>
+      <colour>00FF00</colour>
+      <visibility />
+      <items>
+        <item id="1" type="sendmail">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>{{ form_name }}{{ form_number }}</subject>
+          <body>La d&#233;sinscription de {{ form_var_selected_child_name }} de certains repas a &#233;t&#233; enregistr&#233;e.
+
+Nous vous remercions d'utiliser nos services.</body>
+        </item>
+      </items>
+    </status><status>
+      <id>4</id>
+      <name>Erreur</name>
+      <colour>FF0000</colour>
+      <visibility>
+        <role>_receiver</role>
+      </visibility><items>
+        <item id="1" type="sendmail">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to><subject>{{ form_name }}{{ form_number }}</subject>
+          <body>{{ form_user_display_name }} a demand&#233; &#224; ce qu'on d&#233;sinscrive {{ form_var_selected_child_name }} de certains repas, mais une erreur a &#233;t&#233; rencontr&#233;e.
+
+Veuillez r&#233;aliser la d&#233;sinscription manuellement
+
+`Prendre en charge cette demande sur le portail parent &lt;{{ form_url_backoffice }}/&gt;`_</body>
+        </item><item id="2" type="choice">
+          <label>L'enfant a &#233;t&#233; d&#233;sinscrit manuellement</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>3</status>
+          <require_confirmation>True</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Une fois que l'enfant a &amp;eacute;t&amp;eacute; d&amp;eacute;sinscrit manuellement dans AES, confirmer la d&amp;eacute;sincription au parent en cliquant sur ce bouton.&lt;/p&gt;</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+  </possible_status>
+</workflow>

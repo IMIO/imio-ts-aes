@@ -4,15 +4,84 @@
   <roles>
     <role id="_debug">Debug</role>
     <role id="_receiver">Agent traitant</role>
-  </roles><last_modification user_id="1">2020-04-27 08:57:15</last_modification>
-  <possible_status>
+  </roles><possible_status>
     <status>
+      <id>6</id>
+      <name>V&#233;rification de l'existance de l'enfant</name>
+      <colour>FFFFFF</colour>
+      <visibility>
+        <role>_receiver</role>
+        <role>_debug</role>
+      </visibility><items>
+        <item id="1" type="webservice_call">
+          <label>V&#233;rification de l'existence de l'enfant</label>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/is_child_registered</url>
+          <qs_data>
+            <item>
+              <name>nrn</name>
+              <value>{{ form_var_enfant_nrn|default:"" }}</value>
+            </item>
+          </qs_data><method>GET</method>
+          <post>False</post>
+          <response_type>json</response_type>
+          <varname>is_child_registered</varname>
+          <action_on_app_error>:pass</action_on_app_error>
+          <action_on_4xx>:stop</action_on_4xx>
+          <action_on_5xx>:stop</action_on_5xx>
+          <action_on_bad_data>:pass</action_on_bad_data>
+          <action_on_network_errors>:stop</action_on_network_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <record_on_errors>False</record_on_errors>
+          <record_errors>False</record_errors>
+          <condition>
+            <type>django</type>
+            <value>form_var_enfant_nrn</value>
+          </condition>
+        </item><item id="3" type="jump">
+          <status>7</status>
+          <condition>
+            <type>django</type>
+            <value>is_child_registered_response</value>
+          </condition><set_marker_on_status>False</set_marker_on_status>
+        </item><item id="2" type="jump">
+          <status>1</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>7</id>
+      <name>L'enfant existe d&#233;j&#224;</name>
+      <colour>FF9900</colour>
+      <visibility />
+      <items>
+        <item id="1" type="register-comment">
+          <comment>L'enfant que vous avez renseign&#233; existe d&#233;j&#224; dans notre base de donn&#233;es. Veuillez prendre contact avec votre administration communale.</comment>
+        </item><item id="2" type="displaymsg">
+          <message>L'enfant que vous avez renseign&#233; existe d&#233;j&#224; dans notre base de donn&#233;es. Veuillez prendre contact avec votre administration communale.</message>
+          <level>warning</level>
+          <position>top</position>
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
+        </item><item id="3" type="choice">
+          <label>Un m&#234;me enfant pour deux parents</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>1</status>
+          <require_confirmation>True</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Il s'agit d'un bouton destin&amp;eacute; &amp;agrave; l'agent traitant, lui permettant d'inscrire un doublon d'enfant depuis T&amp;eacute;l&amp;eacute;service plut&amp;ocirc;t que le r&amp;eacute;encoder via AES.&lt;/p&gt;</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
       <id>1</id>
       <name>Nouvelle demande d'enregistrement d'un enfant</name>
       <colour>FFFFFF</colour>
       <visibility />
       <items>
         <item id="1" type="set-backoffice-fields">
+          <label>R&#233;cup&#233;ration de l'email du demandeur</label>
           <fields>
             <field>
               <field_id>boc34d871a-52e8-42be-b591-d24c5997eb88</field_id>
@@ -63,32 +132,32 @@ Bien cordialement,</body>
           <post>False</post>
           <post_data>
             <item>
-              <name>birthdate</name>
-              <value>=script.commune("struct_time_to_str", {"struct_time":form_var_enfant_date_naissance_raw, "dt_format":"%Y-%m-%d"})</value>
-            </item><item>
-              <name>nrn</name>
-              <value>{{ form_user_var_niss }}</value>
-            </item><item>
-              <name>firstname</name>
-              <value>{{ form_var_enfant_prenom }}</value>
-            </item><item>
               <name>schoolimplantation</name>
               <value>{{ form_var_implantation_scolaire_raw }}</value>
             </item><item>
-              <name>childtypeid</name>
-              <value>=[t.get("id") for t in webservice.aes_get_childtypes.get("data") if "hors" in t.get("text").lower()][0] if form_user_var_zipcode not in commune_cp else [t.get("id") for t in webservice.aes_get_childtypes.get("data") if "hors" not in t.get("text").lower() and "commune" in t.get("text").lower()][0]</value>
-            </item><item>
-              <name>email</name>
-              <value>{{ form_user_var_email }}</value>
-            </item><item>
-              <name>lastname</name>
-              <value>{{ form_var_enfant_nom }}</value>
+              <name>rn</name>
+              <value>{{ form_var_enfant_nrn|default:"" }}</value>
             </item><item>
               <name>levelid</name>
               <value>{{ form_var_annee_scolaire_raw }}</value>
             </item><item>
-              <name>rn</name>
-              <value>=form_var_enfant_eid or ""</value>
+              <name>nrn</name>
+              <value>{{ form_user_var_niss }}</value>
+            </item><item>
+              <name>childtypeid</name>
+              <value>=form_option_child_type_id_default_value if form_option_child_type_id_default_value is not None else [t.get("id") for t in webservice.aes_get_childtypes.get("data") if "hors" in t.get("text").lower()][0] if form_user_var_zipcode not in commune_cp else [t.get("id") for t in webservice.aes_get_childtypes.get("data") if "hors" not in t.get("text").lower() and "commune" in t.get("text").lower()][0]</value>
+            </item><item>
+              <name>firstname</name>
+              <value>{{ form_var_enfant_prenom }}</value>
+            </item><item>
+              <name>birthdate</name>
+              <value>=script.commune("struct_time_to_str", {"struct_time":form_var_enfant_date_naissance_raw, "dt_format":"%Y-%m-%d"})</value>
+            </item><item>
+              <name>lastname</name>
+              <value>{{ form_var_enfant_nom }}</value>
+            </item><item>
+              <name>email</name>
+              <value>{{ form_user_var_email }}</value>
             </item>
           </post_data><response_type>json</response_type>
           <varname>aes_registration_child</varname>
@@ -98,13 +167,14 @@ Bien cordialement,</body>
           <action_on_bad_data>:pass</action_on_bad_data>
           <action_on_network_errors>:stop</action_on_network_errors>
           <notify_on_errors>True</notify_on_errors>
+          <record_on_errors>True</record_on_errors>
           <record_errors>True</record_errors>
           <condition>
             <type>python</type>
             <value>form_option_autosave is True</value>
           </condition>
         </item><item id="5" type="add_role">
-          <role_id role_id="">Parent</role_id>
+          <role_id role_id="97fd62031c1f4b35a219ca964396a445">Parent</role_id>
         </item><item id="6" type="jump">
           <status>3</status>
           <condition>
@@ -146,6 +216,14 @@ Bien &#224; vous,
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="4" type="choice">
+          <label>Noter la demande comme r&#233;gularis&#233;e</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>8</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
     </status><status>
@@ -165,12 +243,11 @@ L'inscription de {{form_var_enfant_prenom}} dans notre portail parent a &#233;t&
 
 Vos prochaines connexions devront toujours s'effectuer avec l'adresse e-mail suivante : {{ form_user_var_email }}.
 
-Pour rappel : &lt;a class="pk-button" href="{{ portal_user_url }}portail_parent/"&gt;Ceci est le lien vers votre portail parents &lt;/a&gt;
+Pour rappel vous pouvez acc&#233;der au portail parent via ce lien : 
 
+`Acc&#233;der au portail parent &lt;{{ portal_user_url }}portail_parent/&gt;`_
 
-
-Bien cordialement,
-</body>
+Bien cordialement,</body>
         </item><item id="2" type="register-comment">
           <comment>&lt;div&gt;
 {% if form_submission_backoffice %}
@@ -189,13 +266,13 @@ Retourner sur le &lt;a href="{{ portal_user_url }}portail_parent/"&gt;portail pa
 &lt;/p&gt;
 {% endif %}
 &lt;/div&gt;</comment>
-        </item><item id="3" type="resubmit">
+        </item><item id="3" type="choice">
+          <label>Enregistrer un nouvel enfant</label>
           <by>
             <item role_id="_submitter">_submitter</item>
-          </by><label>Enregistrer un autre enfant</label>
-          <formdef_slug>_same</formdef_slug>
-        </item><item id="4" type="jumponsubmit">
-          <status>5</status>
+          </by><status>5</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
@@ -216,7 +293,7 @@ Retourner sur le &lt;a href="{{ portal_user_url }}portail_parent/"&gt;portail pa
         </item><item id="2" type="choice">
           <label>Replay ALL</label>
           <by>
-            <item role_id="">Debug</item>
+            <item role_id="43190215712647a89376713be142a4f5">Debug</item>
           </by><status>1</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
@@ -230,9 +307,15 @@ Retourner sur le &lt;a href="{{ portal_user_url }}portail_parent/"&gt;portail pa
       <visibility />
       <items>
         <item id="1" type="redirect_to_url">
-          <url>{{ resubmit_formdata_draft_url }}</url>
+          <url>{{ site_url }}/aes-enregistrer-un-nouvel-enfant/</url>
         </item>
       </items>
+    </status><status>
+      <id>8</id>
+      <name>La situation est r&#233;gularis&#233;e</name>
+      <colour>99FF00</colour>
+      <visibility />
+      <items />
     </status>
   </possible_status><variables>
     <formdef>
@@ -248,6 +331,20 @@ Retourner sur le &lt;a href="{{ portal_user_url }}portail_parent/"&gt;portail pa
           </display_locations><prefill>
             <type>none</type>
           </prefill><id>1</id>
+        </field><field>
+          <label>Child type ID (default value)</label>
+          <type>string</type>
+          <required>True</required>
+          <hint>Champs obligatoire (et configurable) dans AES MAIS non exposable au parent. Il faut donc lui d&#233;signer la valeur par d&#233;faut pour l'instance AES.
+Ici, on attend donc l'ID par d&#233;faut.</hint>
+          <varname>child_type_id_default_value</varname>
+          <display_locations>
+            <display_location>summary</display_location>
+          </display_locations><prefill>
+            <locked>False</locked>
+            <type>none</type>
+          </prefill><anonymise>True</anonymise>
+          <id>2</id>
         </field>
       </fields>
     </formdef>
