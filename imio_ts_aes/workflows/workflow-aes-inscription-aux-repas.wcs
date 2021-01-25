@@ -4,8 +4,7 @@
   <roles>
     <role id="_debug">Debug</role>
     <role id="_receiver">Agents traitants</role>
-  </roles><last_modification user_id="1">2020-11-17 10:19:55</last_modification>
-  <possible_status>
+  </roles><possible_status>
     <status>
       <id>6</id>
       <name>data_treatment</name>
@@ -43,11 +42,11 @@
               <name>form_id</name>
               <value>=form_number_raw</value>
             </item><item>
-              <name>meals</name>
-              <value>=[meal for meal in form_var_menu_raw if (datetime.datetime.strptime("{}{}".format(meal[1:11],"-11") ,'%d-%m-%Y-%H') - datetime.timedelta(days=1) &gt; datetime.datetime.now())]</value>
-            </item><item>
               <name>child_id</name>
               <value>=form_var_selected_child_raw</value>
+            </item><item>
+              <name>meals</name>
+              <value>=[meal for meal in form_var_menu_raw if (datetime.datetime.strptime("{}{}".format(meal[1:11],"-11") ,'%d-%m-%Y-%H') - datetime.timedelta(days=1) &gt; datetime.datetime.now())]</value>
             </item>
           </post_data><response_type>json</response_type>
           <varname>post_child_meal</varname>
@@ -56,9 +55,9 @@
           <action_on_5xx>2</action_on_5xx>
           <action_on_bad_data>2</action_on_bad_data>
           <action_on_network_errors>2</action_on_network_errors>
-          <notify_on_errors>True</notify_on_errors>
+          <notify_on_errors>False</notify_on_errors>
           <record_on_errors>True</record_on_errors>
-          <record_errors>True</record_errors>
+          <record_errors>False</record_errors>
         </item><item id="2" type="jump">
           <status>3</status>
           <condition>
@@ -73,11 +72,19 @@
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="4" type="choice">
+          <label>Signaler la situation comme r&#233;gularis&#233;e sans notifier l'usager</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>7</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
     </status><status>
       <id>2</id>
-      <name>&#201;chou&#233;</name>
+      <name>&#201;chec de l'enregistrement</name>
       <colour>FF0000</colour>
       <visibility />
       <items>
@@ -92,10 +99,9 @@
         </item><item id="2" type="choice">
           <label>Signaler la situation comme r&#233;gularis&#233;e sans notifier l'usager</label>
           <by>
-            <item role_id="_receiver">_receiver</item>
+            <item role_id="_debug">_debug</item>
           </by><status>7</status>
           <require_confirmation>False</require_confirmation>
-          <backoffice_info_text>&lt;p&gt;Si l'enfant a pu &amp;ecirc;tre inscrit aux repas via une autre demande.&lt;/p&gt;</backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -104,10 +110,9 @@
       <id>3</id>
       <name>Repas correctement enregistr&#233;s</name>
       <colour>00FF00</colour>
-      <forced_endpoint>true</forced_endpoint>
       <visibility />
       <items>
-        <item id="7" type="register-comment">
+        <item id="6" type="register-comment">
           <comment>Nous avons bien re&#231;u votre commande de repas pour : {{ form_var_wf_child }}
 
 Voici votre commande :
@@ -116,7 +121,7 @@ Voici votre commande :
     {{ repas.id|slice:"1:10" }} - {{ repas.text }}
 
 {% endfor %}</comment>
-        </item><item id="6" type="sendmail">
+        </item><item id="7" type="sendmail">
           <to>
             <item role_id="_submitter">_submitter</item>
           </to><subject>Commande de repas pour {{ form_var_selected_child }}</subject>
@@ -137,14 +142,10 @@ Voici votre commande :
           </by><status>1</status>
           <label>Modifier la commande</label>
           <backoffice_info_text>&lt;p&gt;Attention, la modification de la commande ne peut se faire que si la facture n'a pas encore &amp;eacute;t&amp;eacute; g&amp;eacute;n&amp;eacute;r&amp;eacute;e.&lt;/p&gt;</backoffice_info_text>
-        </item><item id="8" type="choice">
-          <label>Renvoyer les informations &#224; l'usager</label>
-          <by>
-            <item role_id="_receiver">_receiver</item>
-          </by><status>3</status>
-          <require_confirmation>False</require_confirmation>
-          <ignore_form_errors>False</ignore_form_errors>
-          <set_marker_on_status>False</set_marker_on_status>
+          <condition>
+            <type>python</type>
+            <value>form_receipt_datetime.month == today.month and form_receipt_datetime.year == today.year and today.day &lt; 22</value>
+          </condition>
         </item>
       </items>
     </status><status>
@@ -153,16 +154,7 @@ Voici votre commande :
       <colour>FFFFFF</colour>
       <visibility />
       <items>
-        <item id="1" type="sendmail">
-          <to>
-            <item role_id="_receiver">_receiver</item>
-          </to><subject>Appel du webservice (1) r&#233;ussi. url pour facturation :</subject>
-          <body>L'appel au webservice s'est bien pass&#233;.</body>
-          <condition>
-            <value>False</value>
-            <type>django</type>
-          </condition>
-        </item><item id="2" type="jump">
+        <item id="2" type="jump">
           <status>5</status>
           <trigger>get_facturation</trigger>
           <set_marker_on_status>False</set_marker_on_status>
@@ -194,6 +186,7 @@ Voici votre commande :
           <display_locations>
             <display_location>summary</display_location>
           </display_locations><prefill>
+            <locked>False</locked>
             <type>none</type>
           </prefill><id>1</id>
         </field>
