@@ -3,7 +3,7 @@
   <name>M'enregistrer en tant que parent</name>
   <url_name>aes-mon-inscription-dans-le-portail-parent</url_name>
   <description>&lt;p&gt;S'enregistrer dans le portail parent permet ensuite d'y inscrire ses enfants, de compl&amp;eacute;ter leur fiche sant&amp;eacute; et de les inscrire &amp;agrave; des activit&amp;eacute;s.&lt;/p&gt;</description>
-  <internal_identifier>m-enregistrer-dans-le-portail-parent</internal_identifier>
+  <internal_identifier>m-enregistrer-en-tant-que-parent</internal_identifier>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
   <disabled>false</disabled>
@@ -11,12 +11,12 @@
   <enable_tracking_codes>false</enable_tracking_codes>
   <confirmation>true</confirmation>
   <always_advertise>false</always_advertise>
+  <include_download_all_button>false</include_download_all_button>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
   <category category_id="99">Portail parent</category>
   <workflow workflow_id="13">aes - Enregistrement parent</workflow>
   <max_field_id>17</max_field_id>
-  <last_modification user_id="1">2020-04-21 15:56:46</last_modification>
   <fields>
     <field>
       <label>Connexion non autoris&#233;e</label>
@@ -35,7 +35,6 @@
     </field><field>
       <label>&lt;p&gt;L'utilisation du portail parent n&#233;cessite une authentification par carte d'identit&#233;.&lt;/p&gt;</label>
       <type>comment</type>
-      <display_locations />
       <id>17</id>
     </field><field>
       <label>Editer</label>
@@ -48,7 +47,6 @@
 
 &lt;p&gt;&amp;nbsp;&lt;/p&gt;</label>
       <type>comment</type>
-      <display_locations />
       <id>11</id>
     </field><field>
       <label>Nom</label>
@@ -177,6 +175,7 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class>grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>user</type>
         <value>_phone</value>
       </prefill><anonymise>True</anonymise>
@@ -184,7 +183,6 @@
     </field><field>
       <label>&lt;p&gt;Adresse e-mail : {{ form_user_email }}&lt;/p&gt;</label>
       <type>comment</type>
-      <display_locations />
       <id>14</id>
     </field>
   </fields><user-roles>
@@ -197,5 +195,6 @@
     <role role_id="117eea72732e4f90a768f5380d79b1a4" role_key="_debug">Debug</role>
   </roles><options>
     <option varname="autosave" />
-  </options><geolocations />
+  </options><custom_views />
+  <geolocations />
 </formdef>
