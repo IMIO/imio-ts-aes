@@ -1,6 +1,15 @@
 Changelog
 =========
 
+0.1.7
+------------------
+
+- use parent national number instead of mail
+- check if parent or child are existing with their national number
+- let the agent notifying a demand as regularized
+- overall updates from Chaudfontaine and staging2
+  [nhislaire]
+
 0.1.6
 ------------------
 
