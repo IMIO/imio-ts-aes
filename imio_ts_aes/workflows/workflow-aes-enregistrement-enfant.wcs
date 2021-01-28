@@ -31,7 +31,7 @@
           <action_on_bad_data>:pass</action_on_bad_data>
           <action_on_network_errors>:stop</action_on_network_errors>
           <notify_on_errors>False</notify_on_errors>
-          <record_on_errors>False</record_on_errors>
+          <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
           <condition>
             <type>django</type>
@@ -52,8 +52,10 @@
       <id>7</id>
       <name>L'enfant existe d&#233;j&#224;</name>
       <colour>FF9900</colour>
-      <visibility />
-      <items>
+      <visibility>
+        <role>_receiver</role>
+        <role>_debug</role>
+      </visibility><items>
         <item id="1" type="register-comment">
           <comment>L'enfant que vous avez renseign&#233; existe d&#233;j&#224; dans notre base de donn&#233;es. Veuillez prendre contact avec votre administration communale.</comment>
         </item><item id="2" type="displaymsg">
@@ -188,7 +190,7 @@ Bien cordialement,</body>
       </items>
     </status><status>
       <id>2</id>
-      <name>&#233;chec lors de votre enregistrement</name>
+      <name>&#201;chec lors de l'enregistrement</name>
       <colour>FF0000</colour>
       <visibility />
       <items>
@@ -233,21 +235,8 @@ Bien &#224; vous,
       <forced_endpoint>true</forced_endpoint>
       <visibility />
       <items>
-        <item id="1" type="sendmail">
-          <to>
-            <item role_id="_submitter">_submitter</item>
-          </to><subject>Portail parent : Confirmation de votre enregistrement.</subject>
-          <body>{{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }},
-
-L'inscription de {{form_var_enfant_prenom}} dans notre portail parent a &#233;t&#233; correctement r&#233;alis&#233;e.
-
-Vos prochaines connexions devront toujours s'effectuer avec l'adresse e-mail suivante : {{ form_user_var_email }}.
-
-Pour rappel vous pouvez acc&#233;der au portail parent via ce lien : 
-
-`Acc&#233;der au portail parent &lt;{{ portal_user_url }}portail_parent/&gt;`_
-
-Bien cordialement,</body>
+        <item id="4" type="redirect_to_url">
+          <url>{{ site_url }}/fiche-sante/</url>
         </item><item id="2" type="register-comment">
           <comment>&lt;div&gt;
 {% if form_submission_backoffice %}
@@ -266,6 +255,21 @@ Retourner sur le &lt;a href="{{ portal_user_url }}portail_parent/"&gt;portail pa
 &lt;/p&gt;
 {% endif %}
 &lt;/div&gt;</comment>
+        </item><item id="1" type="sendmail">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>Portail parent : Confirmation de votre enregistrement.</subject>
+          <body>{{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }},
+
+L'inscription de {{form_var_enfant_prenom}} dans notre portail parent a &#233;t&#233; correctement r&#233;alis&#233;e.
+
+Vos prochaines connexions devront toujours s'effectuer avec l'adresse e-mail suivante : {{ form_user_var_email }}.
+
+Pour rappel vous pouvez acc&#233;der au portail parent via ce lien :
+
+`Acc&#233;der au portail parent &lt;{{ portal_user_url }}portail_parent/&gt;`_
+
+Bien cordialement,</body>
         </item><item id="3" type="choice">
           <label>Enregistrer un nouvel enfant</label>
           <by>
