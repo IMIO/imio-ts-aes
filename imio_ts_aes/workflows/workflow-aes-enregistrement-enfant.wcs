@@ -236,7 +236,7 @@ Bien &#224; vous,
       <visibility />
       <items>
         <item id="4" type="redirect_to_url">
-          <url>{{ site_url }}/fiche-sante/</url>
+          <url>{{ site_url }}/aes-fiche-sante/</url>
         </item><item id="2" type="register-comment">
           <comment>&lt;div&gt;
 {% if form_submission_backoffice %}
