@@ -21,42 +21,17 @@
               <value>{{ form_user_email }}</value>
             </field>
           </fields>
-        </item><item id="1" type="webservice_call">
-          <label>Tester l'existence du parent</label>
-          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/is_registered_parent</url>
-          <qs_data>
-            <item>
-              <name>email</name>
-              <value>{{ form_var_email }}</value>
-            </item><item>
-              <name>nrn</name>
-              <value>{{ form_var_nrn }}</value>
-            </item>
-          </qs_data><method>GET</method>
-          <post>False</post>
-          <response_type>json</response_type>
-          <varname>is_registered_aes_parent</varname>
-          <action_on_app_error>:pass</action_on_app_error>
-          <action_on_4xx>:stop</action_on_4xx>
-          <action_on_5xx>:stop</action_on_5xx>
-          <action_on_bad_data>:pass</action_on_bad_data>
-          <action_on_network_errors>:stop</action_on_network_errors>
-          <notify_on_errors>False</notify_on_errors>
-          <record_on_errors>True</record_on_errors>
-          <record_errors>False</record_errors>
-        </item><item id="5" type="add_role">
-          <role_id role_id="97fd62031c1f4b35a219ca964396a445">Parent</role_id>
         </item><item id="6" type="jump">
           <status>3</status>
           <condition>
             <type>django</type>
-            <value>aes_is_registered_parent_response</value>
+            <value>webservice.aes_is_registered_parent</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
         </item><item id="7" type="jump">
           <status>1</status>
           <condition>
             <type>django</type>
-            <value>aes_is_registered_parent_response == False</value>
+            <value>webservice.aes_is_registered_parent == False</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
@@ -66,15 +41,7 @@
       <colour>FFFFFF</colour>
       <visibility />
       <items>
-        <item id="1" type="set-backoffice-fields">
-          <label>D&#233;finition de l'adresse mail</label>
-          <fields>
-            <field>
-              <field_id>boc34d871a-52e8-42be-b591-d24c5997eb88</field_id>
-              <value>{{ form_user_var_email }}</value>
-            </field>
-          </fields>
-        </item><item id="2" type="register-comment">
+        <item id="2" type="register-comment">
           <comment>&lt;p&gt;Merci de votre demande d'enregistrement dans notre portail parent.&lt;/p&gt;</comment>
         </item><item id="4" type="webservice_call">
           <label>Enregistrements des occurences s&#233;lectionn&#233;es</label>
@@ -118,8 +85,6 @@
             <type>python</type>
             <value>form_option_autosave is True</value>
           </condition>
-        </item><item id="5" type="add_role">
-          <role_id role_id="97fd62031c1f4b35a219ca964396a445">Parent</role_id>
         </item><item id="6" type="jump">
           <status>3</status>
           <condition>
@@ -128,14 +93,6 @@
           </condition><set_marker_on_status>False</set_marker_on_status>
         </item><item id="7" type="jump">
           <status>4</status>
-          <set_marker_on_status>False</set_marker_on_status>
-        </item><item id="8" type="choice">
-          <label>debug</label>
-          <by>
-            <item role_id="43190215712647a89376713be142a4f5">Debug</item>
-          </by><status>1</status>
-          <require_confirmation>False</require_confirmation>
-          <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
@@ -194,6 +151,8 @@ Vous pouvez &#224; pr&#233;sent &lt;a href="{{ eservices_url }}aes-enregistrer-u
 &lt;/p&gt;
 {% endif %}
 &lt;/div</comment>
+        </item><item id="3" type="add_role">
+          <role_id role_id="97fd62031c1f4b35a219ca964396a445">Parent</role_id>
         </item>
       </items>
     </status><status>
@@ -218,20 +177,12 @@ Bien &#224; vous,
           <body>Voici le formulaire qui a pos&#233; un probl&#232;me :
 
 {{ form_url_backoffice }}</body>
-        </item><item id="3" type="choice">
-          <label>debug</label>
-          <by>
-            <item role_id="_debug">_debug</item>
-          </by><status>1</status>
-          <require_confirmation>False</require_confirmation>
-          <ignore_form_errors>False</ignore_form_errors>
-          <set_marker_on_status>False</set_marker_on_status>
         </item><item id="4" type="choice">
           <label>Signaler la situation comme r&#233;gularis&#233;e sans notifier l'usager</label>
           <by>
             <item role_id="_receiver">_receiver</item>
           </by><status>6</status>
-          <require_confirmation>False</require_confirmation>
+          <require_confirmation>True</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item><item id="5" type="choice">
@@ -239,7 +190,7 @@ Bien &#224; vous,
           <by>
             <item role_id="_receiver">_receiver</item>
           </by><status>3</status>
-          <require_confirmation>False</require_confirmation>
+          <require_confirmation>True</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -249,7 +200,11 @@ Bien &#224; vous,
       <name>La situation est r&#233;gularis&#233;e</name>
       <colour>99FF00</colour>
       <visibility />
-      <items />
+      <items>
+        <item id="1" type="add_role">
+          <role_id role_id="97fd62031c1f4b35a219ca964396a445">Parent</role_id>
+        </item>
+      </items>
     </status>
   </possible_status><global_actions>
     <action>
