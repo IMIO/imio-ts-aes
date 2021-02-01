@@ -52,7 +52,7 @@
     </field><field>
       <label>&lt;p&gt;Nous n'avons trouv&amp;eacute; aucun enfant vous concernant dans notre base de donn&amp;eacute;es.&lt;/p&gt;
 
-&lt;p&gt;&lt;a class="pk-button" href="https://montsaintguibert-formulaires.guichet-citoyen.be/aes-enregistrer-un-nouvel-enfant/"&gt;Enregistrer un nouvel enfant&lt;/a&gt;&lt;/p&gt;</label>
+&lt;p&gt;&lt;a class="pk-button" href="{{ site_url }}aes-enregistrer-un-nouvel-enfant/"&gt;Enregistrer un nouvel enfant&lt;/a&gt;&lt;/p&gt;</label>
       <type>comment</type>
       <extra_css_class>no_permission_page</extra_css_class>
       <id>41</id>

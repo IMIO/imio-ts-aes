@@ -3,7 +3,7 @@
   <slug>aes_get_menu</slug>
   <description>R&#233;cup&#232;re les repas</description>
   <request>
-    <url>https://staging2-passerelle.guichet-citoyen.be/passerelle-imio-aes-meal/repas/get</url>
+    <url>{{ passerelle_url }}passerelle-imio-aes-meal/repas/get</url>
     <request_signature_key />
     <method>GET</method>
     <qs_data>

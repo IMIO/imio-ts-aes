@@ -100,7 +100,7 @@
 
 Pour information : url de rappel pour faire avancer le WF via AES : 
 
-https://demo-formulaires.guichet-citoyen.be/accueil-extra-scolaire/demo-aes/{{form_number_raw}}/jump/trigger/validate</body>
+{{ site_url }}accueil-extra-scolaire/demo-aes/{{form_number_raw}}/jump/trigger/validate</body>
         </item>
       </items>
     </status><status>
@@ -117,7 +117,7 @@ https://demo-formulaires.guichet-citoyen.be/accueil-extra-scolaire/demo-aes/{{fo
 
 url de rappel pour faire avancer le WF via AES vers "FACTURATION": 
 
-https://demo-formulaires.guichet-citoyen.be/accueil-extra-scolaire/demo-aes/{{form_number_raw}}/jump/trigger/get_facturation</body>
+{{ site_url }}/accueil-extra-scolaire/demo-aes/{{form_number_raw}}/jump/trigger/get_facturation</body>
         </item><item id="2" type="jump">
           <status>5</status>
           <trigger>get_facturation</trigger>
