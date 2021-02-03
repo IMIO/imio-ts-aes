@@ -1,0 +1,9 @@
+<datasources id="9">
+  <name>AES Doctors</name>
+  <slug>aes_doctors</slug>
+  <cache_duration>3600</cache_duration>
+  <data_source>
+    <type>json</type>
+    <value>{{ passerelle_url }}/passerelle-imio-aes-health/aes_health/get_doctors</value>
+  </data_source>
+</datasources>
