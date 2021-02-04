@@ -9,13 +9,13 @@
                 },
 		{
                     "key": "aes_children",
-                    "url": "https://[COMMUNE]-passerelle.[DOMAIN]/passerelle-imio-ia-aes/aes/get_children?email={{ user_email }}"
+                    "url": "https://[COMMUNE]-passerelle.[DOMAIN]/passerelle-imio-ia-aes/aes/get_children_by_parent_nrn?email={{ user_email }}&nrn={{ request.session.mellon_session.niss.0 }}"
                 }
             ]
         },
         "aes-known-children": {
             "name": "AES - Enfants connus dans votre guichet",
-            "url": "https://[COMMUNE]-passerelle.[DOMAIN]/passerelle-imio-ia-aes/aes/get_children?email={{ user_email }}"
+            "url": "https://[COMMUNE]-passerelle.[DOMAIN]/passerelle-imio-ia-aes/aes/get_children_by_parent_nrn?email={{ user_email }}&nrn={{ request.session.mellon_session.niss.0 }}"
         },
         "aes-plaines": {
             "name": "AES - Semaines de plaines",
