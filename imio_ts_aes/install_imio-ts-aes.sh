@@ -35,6 +35,13 @@ else
     echo 'category already exist'
 fi
 
+echo "--- Set passerelle config"
+if [ -f "/etc/passerelle/settings.d/aes.py" ]
+then
+  cp $install_path/passerelle/aes.py /etc/passerelle/settings.d/
+  service passerelle restart
+fi
+
 echo "--- Deploy passerelle plugins."
 sudo -u passerelle /usr/bin/passerelle-manage tenant_command import_site -d $commune-passerelle.$domain $install_path/passerelle/iimioiaaes.json
 
