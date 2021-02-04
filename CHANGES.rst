@@ -1,6 +1,14 @@
 Changelog
 =========
 
+0.1.9
+------------------
+
+- use parent's RN instead of his mail in combo settings
+- rename healthsheet's questions datasource reference in healthsheet workflow
+- add passerelles if missing
+  [nhislaire]
+
 0.1.8
 ------------------
 
