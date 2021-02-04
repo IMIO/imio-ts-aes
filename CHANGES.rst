@@ -1,6 +1,15 @@
 Changelog
 =========
 
+0.1.8
+------------------
+
+- Add aes_doctors datasource
+- Use dynamic urls
+- Use wscall instead of action webservice 
+- Redirect user to healthsheet after child registration
+  [nhislaire]
+
 0.1.7
 ------------------
 
