@@ -332,7 +332,7 @@ Pour corriger les donn&#233;es encod&#233;es ou signaler que le m&#233;decin exi
             <type>none</type>
           </prefill><max_choices>0</max_choices>
           <data_source>
-            <type>questions</type>
+            <type>aes_questions_fiche_sante</type>
           </data_source><in_filters>False</in_filters>
           <anonymise>True</anonymise>
           <display_disabled_items>False</display_disabled_items>
