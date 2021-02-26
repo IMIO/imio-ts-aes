@@ -1,1 +1,163 @@
-portail-agent-aes.json
+{
+  "pwa": {
+    "settings": {},
+    "navigation": []
+  },
+  "pages": [
+    {
+      "cells": [
+        {
+          "model": "data.textcell",
+          "fields": {
+            "last_update_timestamp": "2019-11-15T11:14:35.224Z",
+            "text": "<h2>Bienvenue sur le portail agent de montsaintguibert</h2>\r\n",
+            "public": true,
+            "slug": "services",
+            "groups": [],
+            "restricted_to_unlogged": false,
+            "order": 1,
+            "extra_css_class": "",
+            "placeholder": "content"
+          }
+        },
+        {
+          "model": "data.textcell",
+          "fields": {
+            "last_update_timestamp": "2020-03-13T13:59:17.177Z",
+            "text": "<h2>Recherche d&rsquo;usagers&nbsp;: (nom, pr&eacute;nom, email)</h2>",
+            "public": false,
+            "slug": "",
+            "groups": [
+              "Agents traitants - Portail parent"
+            ],
+            "restricted_to_unlogged": false,
+            "order": 2,
+            "extra_css_class": "",
+            "placeholder": "content"
+          }
+        },
+        {
+          "model": "search.searchcell",
+          "fields": {
+            "slug": "",
+            "groups": [],
+            "autofocus": false,
+            "extra_css_class": "",
+            "_search_services": {
+              "data": [
+                "users"
+              ]
+            },
+            "last_update_timestamp": "2020-03-13T07:58:13.398Z",
+            "public": true,
+            "input_placeholder": "",
+            "order": 3,
+            "restricted_to_unlogged": false,
+            "placeholder": "content"
+          }
+        },
+        {
+          "model": "data.linkcell",
+          "fields": {
+            "anchor": "",
+            "title": "Cr\u00e9er l'usager",
+            "slug": "",
+            "groups": [],
+            "extra_css_class": "",
+            "url": "{{idp_url}}manage/users/add/?next={{portal_agent_url}}",
+            "link_page": null,
+            "last_update_timestamp": "2020-03-13T08:39:54.806Z",
+            "public": true,
+            "order": 4,
+            "restricted_to_unlogged": false,
+            "placeholder": "sidebar"
+          }
+        }
+      ],
+      "fields": {
+        "template_name": "standard-sidebar",
+        "parent": null,
+        "title": "Accueil",
+        "slug": "index",
+        "last_update_timestamp": "2020-03-13T08:39:39.389Z",
+        "groups": [],
+        "description": "",
+        "redirect_url": "",
+        "public": true,
+        "snapshot": null,
+        "exclude_from_navigation": false,
+        "picture": "",
+        "sub_slug": "",
+        "order": 1,
+        "creation_timestamp": "2020-04-22T07:09:05.713Z"
+      }
+    },
+    {
+      "cells": [
+        {
+          "model": "profile.profilecell",
+          "fields": {
+            "last_update_timestamp": "2020-03-13T07:56:50.754Z",
+            "public": true,
+            "slug": "",
+            "groups": [],
+            "restricted_to_unlogged": false,
+            "order": 1,
+            "extra_css_class": "",
+            "placeholder": "content"
+          }
+        },
+        {
+          "model": "data.linkcell",
+          "fields": {
+            "anchor": "",
+            "title": "\u00c9diter le profil",
+            "slug": "",
+            "groups": [],
+            "extra_css_class": "",
+            "url": "{{idp_url}}manage/users/uuid:{{name_id}}/edit/?next={{ absolute_uri }}",
+            "link_page": null,
+            "last_update_timestamp": "2020-03-13T07:57:13.431Z",
+            "public": true,
+            "order": 2,
+            "restricted_to_unlogged": false,
+            "placeholder": "content"
+          }
+        },
+        {
+          "model": "wcs.backofficesubmissioncell",
+          "fields": {
+            "last_update_timestamp": "2020-03-13T07:57:29.677Z",
+            "wcs_site": "",
+            "public": true,
+            "slug": "",
+            "groups": [],
+            "restricted_to_unlogged": false,
+            "order": 3,
+            "extra_css_class": "",
+            "placeholder": "content"
+          }
+        }
+      ],
+      "fields": {
+        "template_name": "standard",
+        "parent": null,
+        "title": "Fiche usager",
+        "slug": "fiche-usager",
+        "last_update_timestamp": "2020-03-13T07:57:29.747Z",
+        "groups": [],
+        "description": "",
+        "redirect_url": "",
+        "public": true,
+        "snapshot": null,
+        "exclude_from_navigation": false,
+        "picture": "",
+        "sub_slug": "(?P<name_id>[a-z0-9]+)",
+        "order": 2,
+        "creation_timestamp": "2020-04-22T07:09:05.713Z"
+      }
+    }
+  ],
+  "map-layers": [],
+  "assets": []
+}
