@@ -10,5 +10,5 @@ Homepage: <insert the upstream URL, if relevant>
 
 Package: imio-ts-aes
 Architecture: all
-Depends: ${misc:Depends}, python3-passerelle, wcs (>=3.5)
+Depends: ${misc:Depends}, python3-passerelle, wcs (>=3.5), publik-imio-industrialisation
 Description: Package qui regroupe les différentes briques du portail parent.
