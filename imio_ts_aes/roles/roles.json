@@ -1,0 +1,14 @@
+{
+  "roles": [
+    {
+      "name": "Parent",
+      "slug": "parent",
+      "ou": {"slug": "default"}
+    },
+    {
+      "name": "Agents traitants - Portail parent",
+      "slug": "agents-traitants-portail-parent",
+      "ou": {"slug": "default"}
+    }
+  ]
+}
