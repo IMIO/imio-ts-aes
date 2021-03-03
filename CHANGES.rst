@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.2.0
+------------------
+
+- add adapted package to publik's industrialisation
+  [nhislaire]
+
 0.1.9
 ------------------
 
