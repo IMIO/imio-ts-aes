@@ -36,7 +36,7 @@ else
 fi
 
 echo "--- Set passerelle config"
-if [ -f "/etc/passerelle/settings.d/aes.py" ]
+if [ ! -f "/etc/passerelle/settings.d/aes.py" ]
 then
   cp $install_path/passerelle/aes.py /etc/passerelle/settings.d/
   service passerelle restart
