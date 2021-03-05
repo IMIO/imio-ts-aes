@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    triggers {
-        pollSCM('*/3 * * * *')
-    }
     options {
         // Keep the 50 most recent builds
         buildDiscarder(logRotator(numToKeepStr:'50'))
@@ -32,7 +29,7 @@ pipeline {
                 }
             }
         }
-      stage('Push deb to buster-test apt repo') {
+        stage('Push deb to buster-test apt repo') {
             when {
                 not {
                     branch 'master'
@@ -47,7 +44,6 @@ pipeline {
                 }
             }
         }
-
     }
     post {
         always {
