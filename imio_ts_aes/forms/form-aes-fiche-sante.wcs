@@ -44,7 +44,7 @@
       </prefill><display_mode>radio</display_mode>
       <data_source>
         <type>formula</type>
-        <value>webservice.aes_get_children.get('data')</value>
+        <value>webservice.aes_get_children_by_parent_nrn.get('data')</value>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>

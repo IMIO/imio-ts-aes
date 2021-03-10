@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.2.2
+------------------
+
+- use parent's nrn to get his children in forms healthsheet and register my child to an activity
+  [nhislaire]
+
 0.2.1
 ------------------
 
