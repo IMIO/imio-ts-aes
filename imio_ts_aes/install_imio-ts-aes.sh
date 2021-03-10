@@ -18,4 +18,4 @@ then
 fi
 
 
-sudo -u hobo hobo-manage imio_indus_deploy ---directory $install_path
+sudo -u hobo hobo-manage imio_indus_deploy --directory $install_path

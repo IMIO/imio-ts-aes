@@ -1,6 +1,13 @@
 Changelog
 =========
 
+0.2.1
+------------------
+
+- add wscall get available plaines to use passerelle method get plaine v2
+- fix : remove extra dash in imio indus deploy option
+  [nhislaire]
+
 0.2.0
 ------------------
 

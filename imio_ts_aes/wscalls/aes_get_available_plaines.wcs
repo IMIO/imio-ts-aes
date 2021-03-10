@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<wscall id="aes_get_available_plaines">
+  <name>AES Plaines possibles</name>
+  <slug>aes_get_available_plaines</slug>
+  <description>R&#233;cup&#232;re les plaines d'une cat&#233;gorie pr&#233;cis&#233;e, pour un enfant donn&#233;, dans un intervalle de date sous format JJ/MM/AAAA</description>
+  <request>
+    <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/get_plaines_v2</url>
+    <request_signature_key />
+    <method>GET</method>
+    <qs_data>
+      <param key="child_id">{{ form_var_selected_child_raw }}</param>
+      <param key="begining_date_search">{{ form_option_first_date_plain }}</param>
+      <param key="ending_date_search">{{ form_option_last_date_plain }}</param>
+      <param key="category_name">{{ form_option_categorie_activitie }}</param>
+    </qs_data><post_data />
+  </request>
+</wscall>
