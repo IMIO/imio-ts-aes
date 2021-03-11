@@ -1,18 +1,17 @@
 <?xml version="1.0"?>
-<workflow id="18">
+<workflow id="13">
   <name>aes - Inscription &#224; une plaine (validation semaine automatique)</name>
   <roles>
     <role id="_debug">Debug</role>
     <role id="_receiver">Agent traitant</role>
-  </roles><last_modification user_id="1">2020-06-16 09:53:13</last_modification>
-  <possible_status>
+  </roles><possible_status>
     <status>
       <id>1</id>
       <name>Demande de r&#233;servation de semaines de plaine.</name>
       <colour>FFFFFF</colour>
       <visibility />
       <items>
-        <item id="4" type="set-backoffice-fields">
+        <item id="1" type="set-backoffice-fields">
           <fields>
             <field>
               <field_id>bo12327eb7-292e-4599-8770-f59b17b60c69</field_id>
@@ -55,7 +54,7 @@
               <value>=False</value>
             </field>
           </fields>
-        </item><item id="1" type="webservice_call">
+        </item><item id="2" type="webservice_call">
           <label>Enregistrements des occurences s&#233;lectionn&#233;es</label>
           <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/add_registration_child_plaine</url>
           <method>POST</method>
@@ -79,14 +78,15 @@
           <action_on_bad_data>:pass</action_on_bad_data>
           <action_on_network_errors>:stop</action_on_network_errors>
           <notify_on_errors>True</notify_on_errors>
+          <record_on_errors>True</record_on_errors>
           <record_errors>True</record_errors>
-        </item><item id="2" type="jump">
+        </item><item id="3" type="jump">
           <status>7</status>
           <condition>
             <type>python</type>
             <value>aes_registration_child_plaine_response is True</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item id="6" type="sendmail">
+        </item><item id="4" type="sendmail">
           <to>
             <item role_id="_submitter">_submitter</item>
           </to><subject>Portail parent : R&#233;servation &#224; des semaines de plaine.</subject>
@@ -102,12 +102,12 @@ A d&#233;faut, les places que vous aurez r&#233;serv&#233; seront lib&#233;r&#23
 
  
 Bien cordialement, </body>
-        </item><item id="7" type="sendmail">
+        </item><item id="5" type="sendmail">
           <to>
             <item role_id="_receiver">_receiver</item>
           </to><subject>{{ pp_wplaine_sujet_mail_agent_demande_inscr }}</subject>
           <body>{{ pp_wplaine_corps_mail_agent_demande_inscr }}</body>
-        </item><item id="8" type="choice">
+        </item><item id="6" type="choice">
           <label>debug</label>
           <by>
             <item role_id="_debug">_debug</item>
@@ -123,11 +123,11 @@ Bien cordialement, </body>
       <colour>FF0000</colour>
       <visibility />
       <items>
-        <item id="2" type="register-comment">
+        <item id="1" type="register-comment">
           <comment>&lt;div&gt;
 {{ pp_wfplaine_histo_error }}
 &lt;/div&gt;</comment>
-        </item><item id="3" type="sendmail">
+        </item><item id="2" type="sendmail">
           <to>
             <item role_id="_receiver">_receiver</item>
             <item role_id="_debug">_debug</item>
@@ -137,10 +137,10 @@ Bien cordialement, </body>
 {{ form_url_backoffice }}
 
 Bien cordialement,</body>
-        </item><item id="4" type="choice">
+        </item><item id="3" type="choice">
           <label>DEBUG</label>
           <by>
-            <item role_id="117eea72732e4f90a768f5380d79b1a4">Debug</item>
+            <item role_id="52c6b8da2da745efb074ea2c30fa6741">Debug</item>
           </by><status>1</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
@@ -153,7 +153,7 @@ Bien cordialement,</body>
       <colour>0066FF</colour>
       <visibility />
       <items>
-        <item id="5" type="set-backoffice-fields">
+        <item id="1" type="set-backoffice-fields">
           <fields>
             <field>
               <field_id>bo87ac6923-e30f-4862-9d91-d6a3f06f96bb</field_id>
@@ -166,12 +166,12 @@ Bien cordialement,</body>
               <value>=int(form_var_cpt_aes_response) + 1</value>
             </field>
           </fields>
-        </item><item id="3" type="register-comment">
+        </item><item id="2" type="register-comment">
           <comment>&lt;div&gt;
 Nous avons le plaisir de vous confirmer l'inscription de {{ form_var_selected_child_firstname }} &#224; notre/nos plaine(s) pour le(s) jour(s) suivant :&lt;br/&gt;
 {{ form_var_msg_status_histo }}
 &lt;/div&gt;</comment>
-        </item><item id="1" type="sendmail">
+        </item><item id="3" type="sendmail">
           <to>
             <item role_id="_submitter">_submitter</item>
           </to><subject>Portail parent : Inscription &#224; la plaine accept&#233;e</subject>
@@ -189,13 +189,13 @@ Bien cordialement, </body>
             <type>python</type>
             <value>False</value>
           </condition>
-        </item><item id="6" type="jump">
+        </item><item id="4" type="jump">
           <status>8</status>
           <condition>
             <type>python</type>
             <value>int(form_var_cpt_aes_response) &gt;= int(form_var_nb_weeks)</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item id="4" type="jump">
+        </item><item id="5" type="jump">
           <status>16</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -207,7 +207,7 @@ Bien cordialement, </body>
       <forced_endpoint>true</forced_endpoint>
       <visibility />
       <items>
-        <item id="5" type="set-backoffice-fields">
+        <item id="1" type="set-backoffice-fields">
           <fields>
             <field>
               <field_id>bo3d9cb807-a5af-44db-b4f8-abc5bb9c0adf</field_id>
@@ -220,20 +220,20 @@ Bien cordialement, </body>
               <value>=True</value>
             </field>
           </fields>
-        </item><item id="1" type="jump">
+        </item><item id="2" type="jump">
           <status>10</status>
           <condition>
             <type>python</type>
             <value>form_var_is_closing_request_raw is True</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item id="6" type="jump">
+        </item><item id="3" type="jump">
           <status>15</status>
           <condition>
             <type>python</type>
             <value>utils.age_in_days(form_var_in_basket_date) &gt;= int(form_option_nb_days_before_free_places)</value>
           </condition><timeout>82800</timeout>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item id="7" type="choice">
+        </item><item id="4" type="choice">
           <label>debug inscrire un autre enfant</label>
           <by>
             <item role_id="_debug">_debug</item>
@@ -243,14 +243,14 @@ Bien cordialement, </body>
           <backoffice_info_text>&lt;p&gt;dans le cadre d'une mauvaise cloture pour les demandes qui ne finalisent pas&lt;/p&gt;</backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item id="8" type="jump">
+        </item><item id="5" type="jump">
           <status>11</status>
           <condition>
             <type>python</type>
             <value>form_var_is_closing_request_raw is False</value>
           </condition><trigger>closed_and_paid</trigger>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item id="9" type="choice">
+        </item><item id="6" type="choice">
           <label>Debug : lib&#233;ration des places</label>
           <by>
             <item role_id="_debug">_debug</item>
@@ -266,7 +266,7 @@ Bien cordialement, </body>
       <colour>FF0000</colour>
       <visibility />
       <items>
-        <item id="3" type="set-backoffice-fields">
+        <item id="1" type="set-backoffice-fields">
           <fields>
             <field>
               <field_id>bo87ac6923-e30f-4862-9d91-d6a3f06f96bb</field_id>
@@ -282,13 +282,13 @@ Bien cordialement, </body>
               <value>=int(form_var_cpt_no_more_place) + 1</value>
             </field>
           </fields>
-        </item><item id="5" type="register-comment">
+        </item><item id="2" type="register-comment">
           <comment>&lt;div&gt;
 Nous sommes au regret de vous annoncer que l'inscription de {{ form_var_selected_child_firstname }} &#224; notre/nos plaine(s) pour le(s) jour(s) suivant :&lt;br/&gt;
 {{ form_var_msg_status_histo }}&lt;/br&gt;
 n'est pas possible.
 &lt;/div&gt;</comment>
-        </item><item id="1" type="sendmail">
+        </item><item id="3" type="sendmail">
           <to>
             <item role_id="_submitter">_submitter</item>
           </to><subject>Portail parent : Inscription &#224; la plaine refus&#233;e</subject>
@@ -301,19 +301,19 @@ Bien cordialement, </body>
             <type>python</type>
             <value>False</value>
           </condition>
-        </item><item id="7" type="jump">
+        </item><item id="4" type="jump">
           <status>17</status>
           <condition>
             <type>python</type>
             <value>int(form_var_cpt_no_more_place) &gt;= int(form_var_nb_weeks)</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item id="4" type="jump">
+        </item><item id="5" type="jump">
           <status>8</status>
           <condition>
             <type>python</type>
             <value>int(form_var_cpt_aes_response) &gt;= int(form_var_nb_weeks)</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item id="2" type="jump">
+        </item><item id="6" type="jump">
           <status>16</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -326,7 +326,7 @@ Bien cordialement, </body>
         <role>_receiver</role>
         <role>_debug</role>
       </visibility><items>
-        <item id="11" type="webservice_call">
+        <item id="1" type="webservice_call">
           <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/validate_form</url>
           <method>POST</method>
           <post>False</post>
@@ -342,16 +342,17 @@ Bien cordialement, </body>
           <action_on_bad_data>:pass</action_on_bad_data>
           <action_on_network_errors>:stop</action_on_network_errors>
           <notify_on_errors>True</notify_on_errors>
+          <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
           <condition>
             <type>python</type>
             <value>int(form_var_cpt_aes_response) == 0</value>
           </condition>
-        </item><item id="1" type="jump">
+        </item><item id="2" type="jump">
           <status>16</status>
           <trigger>validate</trigger>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item id="8" type="jump">
+        </item><item id="3" type="jump">
           <status>12</status>
           <timeout>1200</timeout>
           <set_marker_on_status>False</set_marker_on_status>
@@ -363,12 +364,12 @@ Bien cordialement, </body>
       <colour>0066FF</colour>
       <visibility />
       <items>
-        <item id="7" type="register-comment">
+        <item id="1" type="register-comment">
           <comment>&lt;div&gt;
 &lt;p&gt;Si vous cl&#244;turer, vous nous indiquez que vous avez inscrit vos diff&#233;rents enfants (1 demande par enfant).&lt;/p&gt; 
 &lt;p&gt;Vous acceptez que le calcul du tarif se fasse sur base des enfants inscris jusqu'&#224; cette cl&#244;ture.&lt;/p&gt;
 &lt;/div&gt;</comment>
-        </item><item id="5" type="resubmit">
+        </item><item id="2" type="resubmit">
           <by>
             <item role_id="_submitter">_submitter</item>
           </by><label>Inscrire un nouvel enfant</label>
@@ -386,7 +387,7 @@ Bien cordialement, </body>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
           <identifier>is_closing_request_action</identifier>
-        </item><item id="2" type="sendmail">
+        </item><item id="5" type="sendmail">
           <to>
             <item role_id="_submitter">_submitter</item>
           </to><subject>Plaines : Votre demande {{ form_number }} du portail parent.</subject>
@@ -440,14 +441,14 @@ Bien cordialement,
       <colour>FFFF66</colour>
       <visibility />
       <items>
-        <item id="9" type="set-backoffice-fields">
+        <item id="1" type="set-backoffice-fields">
           <fields>
             <field>
               <field_id>bo9620a85b-a884-4b8f-84ff-024dc4f516af</field_id>
               <value>="Article : \"R&#233;servation de plaine(s)\" pour les demandes n&#176; {}".format(form_var_closed_plaines) if "," in form_var_closed_plaines else "Article : \"R&#233;servation de plaine(s)\" pour la demande n&#176; {}".format(form_var_closed_plaines) </value>
             </field>
           </fields>
-        </item><item id="5" type="webservice_call">
+        </item><item id="2" type="webservice_call">
           <label>AES</label>
           <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/close_plaines_reservation</url>
           <method>POST</method>
@@ -465,14 +466,15 @@ Bien cordialement,
           <action_on_bad_data>:pass</action_on_bad_data>
           <action_on_network_errors>:stop</action_on_network_errors>
           <notify_on_errors>True</notify_on_errors>
+          <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
-        </item><item id="10" type="jump">
+        </item><item id="3" type="jump">
           <status>18</status>
           <condition>
             <type>python</type>
             <value>vars().get("aes_closed_and_pay_response") is False</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item id="1" type="webservice_call">
+        </item><item id="4" type="webservice_call">
           <label>Panier</label>
           <url>{{portal_url}}api/lingo/add-basket-item?NameId={{form_user_name_identifier_0}}&amp;cancellable=no</url>
           <qs_data>
@@ -504,31 +506,32 @@ Bien cordialement,
           <action_on_bad_data>:pass</action_on_bad_data>
           <action_on_network_errors>:stop</action_on_network_errors>
           <notify_on_errors>True</notify_on_errors>
+          <record_on_errors>True</record_on_errors>
           <record_errors>True</record_errors>
-        </item><item id="12" type="set-backoffice-fields">
+        </item><item id="5" type="set-backoffice-fields">
           <fields>
             <field>
               <field_id>bo7614c7ef-0731-4205-9cd1-9bdfa9e26544</field_id>
               <value>=True</value>
             </field>
           </fields>
-        </item><item id="8" type="register-comment">
+        </item><item id="6" type="register-comment">
           <comment>&lt;div&gt;
 &lt;p&gt;{{ form_var_label_basket_item }}&lt;/p&gt;
 &lt;p&gt;&lt;h1 class="pp_panier"&gt;&lt;a href="{{ portal_url}}/panier"&gt;R&#233;gler mon panier&lt;/a&gt;&lt;/h1&gt;&lt;/p&gt;
 &lt;/div&gt;</comment>
-        </item><item id="2" type="jump">
+        </item><item id="7" type="jump">
           <status>11</status>
           <trigger>paid</trigger>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item id="3" type="jump">
+        </item><item id="8" type="jump">
           <status>15</status>
           <condition>
             <type>python</type>
             <value>utils.age_in_days(form_var_in_basket_date) &gt;= int(form_option_nb_days_before_free_places)</value>
           </condition><timeout>82800</timeout>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item id="6" type="choice">
+        </item><item id="9" type="choice">
           <label>FREE UP PLACES</label>
           <by>
             <item role_id="_debug">_debug</item>
@@ -536,7 +539,7 @@ Bien cordialement,
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item id="7" type="choice">
+        </item><item id="10" type="choice">
           <label>debug</label>
           <by>
             <item role_id="_debug">_debug</item>
@@ -552,7 +555,7 @@ Bien cordialement,
           <require_confirmation>True</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item id="13" type="choice">
+        </item><item id="12" type="choice">
           <label>debug panier</label>
           <by>
             <item role_id="_debug">_debug</item>
@@ -569,7 +572,7 @@ Bien cordialement,
       <forced_endpoint>true</forced_endpoint>
       <visibility />
       <items>
-        <item id="3" type="set-backoffice-fields">
+        <item id="1" type="set-backoffice-fields">
           <fields>
             <field>
               <field_id>bo96d77efd-9a54-492d-940b-9c11e1282761</field_id>
@@ -600,12 +603,13 @@ Bien cordialement,
           <action_on_bad_data>:pass</action_on_bad_data>
           <action_on_network_errors>:stop</action_on_network_errors>
           <notify_on_errors>True</notify_on_errors>
+          <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
           <condition>
             <type>python</type>
             <value>form_var_is_closing_request_raw is True</value>
           </condition>
-        </item><item id="4" type="choice">
+        </item><item id="3" type="choice">
           <label>Debug : lib&#233;ration des places</label>
           <by>
             <item role_id="_debug">_debug</item>
@@ -631,14 +635,14 @@ Bien cordialement,
         <role>_receiver</role>
         <role>_debug</role>
       </visibility><items>
-        <item id="2" type="set-backoffice-fields">
+        <item id="1" type="set-backoffice-fields">
           <fields>
             <field>
               <field_id>bo5f6a808e-3e82-47bc-8f93-fdd8887c5309</field_id>
               <value>=True</value>
             </field>
           </fields>
-        </item><item id="1" type="jump">
+        </item><item id="2" type="jump">
           <status>5</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -667,12 +671,13 @@ Bien cordialement,
           <action_on_bad_data>:pass</action_on_bad_data>
           <action_on_network_errors>:stop</action_on_network_errors>
           <notify_on_errors>True</notify_on_errors>
+          <record_on_errors>True</record_on_errors>
           <record_errors>True</record_errors>
           <condition>
             <type>python</type>
             <value>form_var_is_closing_request_raw is True</value>
           </condition>
-        </item><item id="4" type="webservice_call">
+        </item><item id="2" type="webservice_call">
           <label>Suppression de l'article hors du panier</label>
           <url>{{portal_url}}/api/lingo/remove-basket-item?NameId={{form_user_name_identifier_0}}</url>
           <method>POST</method>
@@ -692,8 +697,9 @@ Bien cordialement,
           <action_on_bad_data>:pass</action_on_bad_data>
           <action_on_network_errors>:stop</action_on_network_errors>
           <notify_on_errors>True</notify_on_errors>
+          <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
-        </item><item id="2" type="choice">
+        </item><item id="3" type="choice">
           <label>debug free up places</label>
           <by>
             <item role_id="_debug">_debug</item>
@@ -701,7 +707,7 @@ Bien cordialement,
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item id="3" type="choice">
+        </item><item id="4" type="choice">
           <label>debug</label>
           <by>
             <item role_id="_debug">_debug</item>
@@ -719,7 +725,7 @@ Bien cordialement,
         <role>_receiver</role>
         <role>_debug</role>
       </visibility><items>
-        <item id="3" type="set-backoffice-fields">
+        <item id="1" type="set-backoffice-fields">
           <label>Semaine en cours de validation</label>
           <fields>
             <field>
@@ -727,13 +733,13 @@ Bien cordialement,
               <value>=form_var_semaines_de_plaine.lower().split(",")[int(form_var_cpt_aes_response)]</value>
             </field>
           </fields>
-        </item><item id="1" type="jump">
+        </item><item id="2" type="jump">
           <status>4</status>
           <condition>
             <type>python</type>
             <value>form_var_current_validating_week in aes_week_validate</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item id="2" type="jump">
+        </item><item id="3" type="jump">
           <status>6</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -764,7 +770,7 @@ Nous sommes d&#233;sol&#233; mais il semble que &lt;b&gt;toutes les places&lt;/b
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item id="4" type="choice">
+        </item><item id="2" type="choice">
           <label>debug free up places</label>
           <by>
             <item role_id="_debug">_debug</item>
@@ -772,13 +778,13 @@ Nous sommes d&#233;sol&#233; mais il semble que &lt;b&gt;toutes les places&lt;/b
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item id="2" type="register-comment">
+        </item><item id="3" type="register-comment">
           <comment>&lt;div&gt;
 &lt;p&gt;Un probl&#232;me est survenu.&lt;/p&gt;
 &lt;p&gt;Un mail a &#233;t&#233; envoy&#233; &#224; notre administration pour traiter ce probl&#232;me.&lt;/p&gt;
 &lt;p&gt;Nous vous tenons inform&#233; de la suite dans les plus brefs d&#233;lais.&lt;/p&gt;
 &lt;/div&gt;</comment>
-        </item><item id="3" type="sendmail">
+        </item><item id="4" type="sendmail">
           <to>
             <item role_id="_receiver">_receiver</item>
             <item role_id="_debug">_debug</item>
@@ -802,14 +808,14 @@ Bien cordialement,
         <role>_debug</role>
         <role>_receiver</role>
       </visibility><items>
-        <item id="2" type="set-backoffice-fields">
+        <item id="1" type="set-backoffice-fields">
           <fields>
             <field>
               <field_id>bo3b7197e9-7b19-4e8e-9fb4-f9b3b9a7c89c</field_id>
               <value>=False</value>
             </field>
           </fields>
-        </item><item id="1" type="jump">
+        </item><item id="2" type="jump">
           <status>5</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -852,6 +858,7 @@ Bien cordialement,
           <action_on_bad_data>:pass</action_on_bad_data>
           <action_on_network_errors>:stop</action_on_network_errors>
           <notify_on_errors>True</notify_on_errors>
+          <record_on_errors>True</record_on_errors>
           <record_errors>True</record_errors>
         </item><item id="2" type="jump">
           <status>22</status>
@@ -882,9 +889,7 @@ Bien cordialement,
                 <type>string</type>
                 <required>True</required>
                 <varname>amount</varname>
-                <display_locations />
                 <prefill>
-                  <locked>False</locked>
                   <type>none</type>
                 </prefill><anonymise>False</anonymise>
                 <id>1</id>
@@ -912,7 +917,7 @@ Bien cordialement,
       <items>
         <item id="1" type="remove" />
       </items><triggers>
-        <trigger id="b50324b6-c02c-42f0-b19f-401ef6ffb3f8" type="manual">
+        <trigger id="e255a45b-e38f-40dc-8762-e2e42bdaf0da" type="manual">
           <roles>
             <item role_id="_debug">_debug</item>
           </roles>
@@ -923,7 +928,7 @@ Bien cordialement,
       <name>edit</name>
       <items />
       <triggers>
-        <trigger id="7c5a85ce-e521-421b-8efe-309682a471ae" type="manual">
+        <trigger id="846b154b-47ee-4570-a1c6-121af8823242" type="manual">
           <roles>
             <item role_id="_debug">_debug</item>
           </roles>
@@ -938,7 +943,7 @@ Bien cordialement,
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items><triggers>
-        <trigger id="63dae698-8167-4880-bd3b-a41662370a3b" type="manual">
+        <trigger id="9a50acd1-f8e4-4887-8dc2-0efe1e85666c" type="manual">
           <roles>
             <item role_id="_debug">_debug</item>
           </roles>
@@ -955,7 +960,6 @@ Bien cordialement,
           <required>False</required>
           <hint>Ce message s'affichera au tout d&#233;but de ce formulaire.</hint>
           <varname>commentaire</varname>
-          <display_locations />
           <prefill>
             <type>none</type>
           </prefill><pre>False</pre>
@@ -993,23 +997,10 @@ exemple : Si les plaines d'&#233;t&#233; vont du 01/07/XXXX au 31/08/XXXX alors 
           </prefill><anonymise>True</anonymise>
           <id>5</id>
         </field><field>
-          <label>Est-ce que le formulaire est en test?</label>
-          <type>bool</type>
-          <required>False</required>
-          <hint>Si coch&#233;e, alors, un certain nombre de "check" sont outrepass&#233;s. 
-A d&#233;sactiv&#233; absolument pour la production ! </hint>
-          <varname>test</varname>
-          <display_locations>
-            <display_location>summary</display_location>
-          </display_locations><prefill>
-            <type>none</type>
-          </prefill><id>1</id>
-        </field><field>
           <label>Nombre de jour dans le panier avant lib&#233;ration des places</label>
           <type>string</type>
           <required>True</required>
           <varname>nb_days_before_free_places</varname>
-          <display_locations />
           <prefill>
             <type>string</type>
             <value>3</value>
@@ -1017,6 +1008,16 @@ A d&#233;sactiv&#233; absolument pour la production ! </hint>
             <type>digits</type>
           </validation><anonymise>False</anonymise>
           <id>6</id>
+        </field><field>
+          <label>Cat&#233;gorie d'activit&#233;</label>
+          <type>string</type>
+          <required>True</required>
+          <varname>categorie_d_activite</varname>
+          <display_locations>
+            <display_location>validation</display_location>
+            <display_location>summary</display_location>
+          </display_locations><anonymise>True</anonymise>
+          <id>8</id>
         </field>
       </fields>
     </formdef>
@@ -1058,7 +1059,6 @@ A d&#233;sactiv&#233; absolument pour la production ! </hint>
           <type>string</type>
           <required>False</required>
           <varname>aes_parent_id</varname>
-          <display_locations />
           <anonymise>False</anonymise>
           <id>boecf95bcc-b6f3-4c69-97a8-eb17e5d4ca76</id>
         </field><field>
@@ -1066,7 +1066,6 @@ A d&#233;sactiv&#233; absolument pour la production ! </hint>
           <type>string</type>
           <required>False</required>
           <varname>cpt_aes_response</varname>
-          <display_locations />
           <anonymise>False</anonymise>
           <id>bob9991026-8b9a-4aa8-8161-bd6d26ac0b42</id>
         </field><field>
@@ -1074,7 +1073,6 @@ A d&#233;sactiv&#233; absolument pour la production ! </hint>
           <type>string</type>
           <required>False</required>
           <varname>cpt_no_more_place</varname>
-          <display_locations />
           <anonymise>False</anonymise>
           <id>bo9a83f6a7-2b4e-4c01-8950-193376e2c412</id>
         </field><field>
@@ -1082,7 +1080,6 @@ A d&#233;sactiv&#233; absolument pour la production ! </hint>
           <type>string</type>
           <required>True</required>
           <varname>nb_weeks</varname>
-          <display_locations />
           <anonymise>False</anonymise>
           <id>bo536eed66-8e9a-4c58-b4d5-c54c84f0ccc8</id>
         </field><field>
@@ -1090,7 +1087,6 @@ A d&#233;sactiv&#233; absolument pour la production ! </hint>
           <type>table</type>
           <required>False</required>
           <varname>days_will_be_filtering</varname>
-          <display_locations />
           <rows>
             <row>day</row>
           </rows><columns>
@@ -1101,7 +1097,6 @@ A d&#233;sactiv&#233; absolument pour la production ! </hint>
           <type>string</type>
           <required>False</required>
           <varname>msg_status_histo</varname>
-          <display_locations />
           <anonymise>False</anonymise>
           <id>bo489d9a74-3e88-46f2-b98f-c815b2033927</id>
         </field><field>
@@ -1109,7 +1104,6 @@ A d&#233;sactiv&#233; absolument pour la production ! </hint>
           <type>date</type>
           <required>False</required>
           <varname>in_basket_date</varname>
-          <display_locations />
           <minimum_is_future>False</minimum_is_future>
           <date_in_the_past>False</date_in_the_past>
           <date_can_be_today>False</date_can_be_today>
@@ -1119,7 +1113,6 @@ A d&#233;sactiv&#233; absolument pour la production ! </hint>
           <type>string</type>
           <required>False</required>
           <varname>current_validating_week</varname>
-          <display_locations />
           <anonymise>False</anonymise>
           <id>bof0e2cd2d-c92a-460a-99c6-8abdcbedd541</id>
         </field><field>
@@ -1128,7 +1121,6 @@ A d&#233;sactiv&#233; absolument pour la production ! </hint>
           <required>False</required>
           <hint>Dans le script de cl&#244;ture, on va r&#233;cup&#233;rer les diff&#233;rentes demandes (d&#233;marches) r&#233;alis&#233;es par le parent dans une p&#233;riode donn&#233;e. Ces demandes vont &#234;tre envoy&#233;es &#224; AES pour calculer un montant. Il ne faut &#233;videmment pas r&#233;envoyer les demandes qui ont d&#233;j&#224; &#233;t&#233; cl&#244;tur&#233;es dans cette p&#233;riode et qui ont d&#233;j&#224; fait l'objet d'un paiement. Ce flag permet de certifier qu'on est d&#233;j&#224; pass&#233; par le status "cl&#244;tur&#233;".</hint>
           <varname>is_close</varname>
-          <display_locations />
           <id>bo3b7197e9-7b19-4e8e-9fb4-f9b3b9a7c89c</id>
         </field><field>
           <label>(utils) Cette demande est d&#233;j&#224; pass&#233;e par le panier</label>
@@ -1144,7 +1136,6 @@ A d&#233;sactiv&#233; absolument pour la production ! </hint>
           <required>False</required>
           <hint>Texte du libell&#233; de l'article qui appaitra dans le panier mais aussi dans l'historique de la demande qui a cl&#244;tur&#233; les autres demandes. </hint>
           <varname>label_basket_item</varname>
-          <display_locations />
           <anonymise>False</anonymise>
           <id>bo9620a85b-a884-4b8f-84ff-024dc4f516af</id>
         </field><field>
@@ -1152,7 +1143,6 @@ A d&#233;sactiv&#233; absolument pour la production ! </hint>
           <type>string</type>
           <required>False</required>
           <varname>finalmail</varname>
-          <display_locations />
           <anonymise>False</anonymise>
           <id>bo87ac6923-e30f-4862-9d91-d6a3f06f96bb</id>
         </field><field>
@@ -1160,7 +1150,6 @@ A d&#233;sactiv&#233; absolument pour la production ! </hint>
           <type>string</type>
           <required>False</required>
           <varname>reg_first_date_plaine</varname>
-          <display_locations />
           <anonymise>False</anonymise>
           <id>bo5756c702-afb1-486a-8300-c45736a4148a</id>
         </field><field>
@@ -1168,7 +1157,6 @@ A d&#233;sactiv&#233; absolument pour la production ! </hint>
           <type>string</type>
           <required>False</required>
           <varname>reg_last_date_plaine</varname>
-          <display_locations />
           <anonymise>False</anonymise>
           <id>boccf860cf-383c-4cf6-9137-c7db1283e229</id>
         </field><field>
