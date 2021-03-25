@@ -5,6 +5,7 @@ Changelog
 ------------------
 
 - use parent's nrn to get his children in forms healthsheet and register my child to an activity
+- display service jeunesse mail if a plain is complete for register into a waiting list
   [nhislaire]
 
 0.2.1
