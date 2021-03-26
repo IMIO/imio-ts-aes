@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.2.3
+------------------
+
+- update form and wf register child to plains
+  [nhislaire]
+
 0.2.2
 ------------------
 
