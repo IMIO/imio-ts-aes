@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<formdef id="22">
+<formdef id="52">
   <name>Inscrire mon enfant &#224; une plaine</name>
   <url_name>aes-inscrire-mon-enfant-a-une-plaine</url_name>
   <internal_identifier>inscrire-mon-enfant-a-une-plaine</internal_identifier>
@@ -13,9 +13,9 @@
   <include_download_all_button>false</include_download_all_button>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category category_id="97">Portail parent</category>
-  <workflow workflow_id="13">aes - Inscription &#224; une plaine (validation semaine automatique)</workflow>
-  <max_field_id>52</max_field_id>
+  <category category_id="101">Portail parent</category>
+  <workflow workflow_id="131">aes - Inscription &#224; une plaine (validation semaine automatique)</workflow>
+  <max_field_id>56</max_field_id>
   <fields>
     <field>
       <label>Connexion non autoris&#233;e</label>
@@ -34,7 +34,6 @@
     </field><field>
       <label>&lt;p&gt;L'utilisation du portail parent n&amp;eacute;cessite une authentification par carte d'identit&amp;eacute;.&lt;/p&gt;</label>
       <type>comment</type>
-      <display_locations />
       <id>47</id>
     </field><field>
       <label>Pas d'enfant enregistr&#233;</label>
@@ -56,7 +55,6 @@
 &lt;p&gt;&lt;a class="pk-button" href="{{ site_url }}aes-enregistrer-un-nouvel-enfant/"&gt;Enregistrer un nouvel enfant&lt;/a&gt;&lt;/p&gt;</label>
       <type>comment</type>
       <extra_css_class>no_permission_page</extra_css_class>
-      <display_locations />
       <id>41</id>
     </field><field>
       <label>Coordonn&#233;es</label>
@@ -68,7 +66,6 @@
     </field><field>
       <label>&lt;p&gt;{{ form_option_commentaire }}&lt;/p&gt;</label>
       <type>comment</type>
-      <display_locations />
       <id>49</id>
     </field><field>
       <label>Vos informations</label>
@@ -86,7 +83,6 @@
 
 &lt;p&gt;&amp;nbsp;&lt;/p&gt;</label>
       <type>comment</type>
-      <display_locations />
       <id>11</id>
     </field><field>
       <label>Pr&#233;nom</label>
@@ -209,27 +205,25 @@
 
 &lt;p&gt;{{form_user_email}}&lt;/p&gt;</label>
       <type>comment</type>
-      <display_locations />
       <id>35</id>
     </field><field>
       <label>Inscription pr&#233;alable</label>
       <type>page</type>
       <condition>
         <type>python</type>
-        <value>webservice.aes_is_registered_parent is False and form_option_test is False</value>
+        <value>webservice.aes_is_registered_parent is False</value>
       </condition><id>12</id>
     </field><field>
       <label>&lt;p&gt;Nous vous invitons &amp;agrave; d'abord remplir le formulaire d'inscription. Vos coordonn&amp;eacute;es doivent pr&amp;eacute;alablement appara&amp;icirc;tre dans notre logiciel de traitement avant d'entamer cette d&amp;eacute;marche.&lt;/p&gt;</label>
       <type>comment</type>
       <extra_css_class>no_permission_page</extra_css_class>
-      <display_locations />
       <id>15</id>
     </field><field>
       <label>Qui faut-il inscrire ?</label>
       <type>page</type>
       <condition>
         <type>python</type>
-        <value>webservice.aes_is_registered_parent is True</value>
+        <value>webservice.aes_is_registered_parent is True and form_option_test is False</value>
       </condition><id>14</id>
     </field><field>
       <label>Choisissez l'enfant &#224; inscrire aux plaines</label>
@@ -241,9 +235,9 @@
         <display_location>summary</display_location>
         <display_location>listings</display_location>
       </display_locations><prefill>
+        <locked>False</locked>
         <type>none</type>
-      </prefill><items />
-      <display_mode>radio</display_mode>
+      </prefill><display_mode>radio</display_mode>
       <data_source>
         <type>formula</type>
         <value>webservice.aes_get_children_by_parent_nrn.get('data')</value>
@@ -268,13 +262,17 @@
     </field><field>
       <label>&lt;div class="pk-attention"&gt;Cet enfant n'a pas encore de fiche sant&amp;eacute;. Veuillez compl&amp;eacute;ter sa fiche sant&amp;eacute; avant de poursuivre en cliquant sur le bouton ci-dessous.&lt;/div&gt;
 
+&lt;p&gt;{% if not is_in_backoffice %}&lt;/p&gt;
+
 &lt;p&gt;&lt;a class="pk-button" href="{{site_url}}/portail-parent/fiche-sante/" target="_blank"&gt;Compl&amp;eacute;ter la Fiche Sant&amp;eacute;&lt;/a&gt;&lt;/p&gt;
-&lt;br /&gt;
-&lt;br /&gt;
-&lt;br /&gt;
-&lt;br /&gt;
-</label>
+
+&lt;p&gt;{% endif %} {% if is_in_backoffice %}&lt;/p&gt;
+
+&lt;p&gt;&lt;a class="pk-button" href="{{site_url_backoffice}}/submission/fiche-sante/" target="_blank"&gt;Compl&amp;eacute;ter la Fiche Sant&amp;eacute;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;{% endif %}&lt;/p&gt;</label>
       <type>comment</type>
+      <display_locations />
       <id>52</id>
     </field><field>
       <label>Semaines de plaines</label>
@@ -284,14 +282,20 @@
         <value>form_var_selected_child is not None or form_option_test is True</value>
       </condition><id>23</id>
     </field><field>
+      <label>&lt;p&gt;Vous inscrivez {{ form_var_selected_child }} aux plaines de vacances.&lt;/p&gt;</label>
+      <type>comment</type>
+      <extra_css_class>pk-information</extra_css_class>
+      <display_locations />
+      <id>55</id>
+    </field><field>
       <label>Plaines</label>
       <type>items</type>
-      <required>False</required>
+      <required>True</required>
       <varname>activities_plaines</varname>
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
-      </display_locations><extra_css_class>imio-activities</extra_css_class>
+      </display_locations><extra_css_class>imio-activities hidden</extra_css_class>
       <prefill>
         <locked>False</locked>
         <type>none</type>
@@ -303,27 +307,29 @@
       </data_source><in_filters>False</in_filters>
       <anonymise>True</anonymise>
       <display_disabled_items>False</display_disabled_items>
-      <id>39</id>
+      <id>53</id>
     </field><field>
       <label>&lt;p&gt;Plaines&lt;/p&gt;</label>
       <type>comment</type>
       <extra_css_class>template-portail_parent_plaines</extra_css_class>
       <display_locations />
-      <id>37</id>
+      <id>54</id>
     </field>
   </fields><user-roles>
-    <role role_id="8f2fc1f22995463591df2520146720b1">Parent</role>
+    <role role_id="97fd62031c1f4b35a219ca964396a445">Parent</role>
   </user-roles><backoffice-submission-roles>
-    <role role_id="3ac348f542ac4f40968cf09e7cddb13d">Agents traitants - Portail parent</role>
+    <role role_id="9f94095fe2564f17b88ca929bf3149fc">Agents traitants - Portail parent</role>
   </backoffice-submission-roles><roles>
-    <role role_id="3ac348f542ac4f40968cf09e7cddb13d" role_key="_receiver">Agents traitants - Portail parent</role>
-    <role role_id="52c6b8da2da745efb074ea2c30fa6741" role_key="_debug">Debug</role>
+    <role role_id="9f94095fe2564f17b88ca929bf3149fc" role_key="_receiver">Agents traitants - Portail parent</role>
+    <role role_id="43190215712647a89376713be142a4f5" role_key="_debug">Debug</role>
   </roles><options>
-    <option varname="categorie_d_activite">Plaine</option>
-    <option varname="commentaire" />
-    <option varname="first_date_plain">01/07/2021</option>
-    <option varname="last_date_plain">31/08/2021</option>
+    <option varname="categorie_activite">Plaine</option>
+    <option varname="categorie_activitie">Plaine</option>
+    <option varname="commentaire">Pour toute personne de Staging2, &#233;manant du CPAS, merci de bien vouloir d&#8217;abord contacter ce dernier en premier lieu.</option>
+    <option varname="first_date_plain">01/01/2021</option>
+    <option varname="last_date_plain">31/12/2021</option>
     <option varname="nb_days_before_free_places">3</option>
+    <option varname="service_jeunesse_mail">service.jeunesse@macommune.be</option>
     <option varname="test" />
   </options><custom_views />
   <geolocations />
