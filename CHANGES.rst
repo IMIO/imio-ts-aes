@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.2.4
+------------------
+
+- manage in/out town's pricing
+  [nhislaire]
+
 0.2.3
 ------------------
 
