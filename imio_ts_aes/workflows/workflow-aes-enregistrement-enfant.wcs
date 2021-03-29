@@ -90,6 +90,14 @@
               <value>{{ form_user_var_email }}</value>
             </field>
           </fields>
+        </item><item id="8" type="set-backoffice-fields">
+          <label>Identifiant du type d'enfant</label>
+          <fields>
+            <field>
+              <field_id>bo7cd21660-67d9-42f7-a364-ebec2e10657b</field_id>
+              <value>="1" if form_option_child_type_facturation != "Oui" else [t.get("id") for t in webservice.aes_get_childtypes.get("data") if "hors" in t.get("text").lower()][0] if form_user_var_zipcode not in commune_cp else [t.get("id") for t in webservice.aes_get_childtypes.get("data") if "hors" not in t.get("text").lower() and "commune" in t.get("text").lower()][0]</value>
+            </field>
+          </fields>
         </item><item id="2" type="register-comment">
           <comment>&lt;p&gt;
 {{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }},
@@ -128,7 +136,7 @@ Ci-dessous,  le r&#233;capitulatif de la demande :
 
 Bien cordialement,</body>
         </item><item id="4" type="webservice_call">
-          <label>Enregistrements des enfants</label>
+          <label>Enregistrements de l'enfant dans AES</label>
           <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/child_registration</url>
           <method>POST</method>
           <post>False</post>
@@ -147,7 +155,7 @@ Bien cordialement,</body>
               <value>{{ form_user_var_niss }}</value>
             </item><item>
               <name>childtypeid</name>
-              <value>=form_option_child_type_id_default_value if form_option_child_type_id_default_value is not None else [t.get("id") for t in webservice.aes_get_childtypes.get("data") if "hors" in t.get("text").lower()][0] if form_user_var_zipcode not in commune_cp else [t.get("id") for t in webservice.aes_get_childtypes.get("data") if "hors" not in t.get("text").lower() and "commune" in t.get("text").lower()][0]</value>
+              <value>{{form_var_child_type_id}}</value>
             </item><item>
               <name>firstname</name>
               <value>{{ form_var_enfant_prenom }}</value>
@@ -237,6 +245,10 @@ Bien &#224; vous,
       <items>
         <item id="4" type="redirect_to_url">
           <url>{{ site_url }}/aes-fiche-sante/</url>
+          <condition>
+            <type>django</type>
+            <value>not form_submission_backoffice</value>
+          </condition>
         </item><item id="2" type="register-comment">
           <comment>&lt;div&gt;
 {% if form_submission_backoffice %}
@@ -326,29 +338,34 @@ Bien cordialement,</body>
       <name>-</name>
       <fields>
         <field>
-          <label>Enregistrement automatique dans AES?</label>
+          <label>Enregistrement automatique dans AES ?</label>
           <type>bool</type>
           <required>False</required>
           <varname>autosave</varname>
           <display_locations>
             <display_location>summary</display_location>
           </display_locations><prefill>
+            <locked>False</locked>
             <type>none</type>
           </prefill><id>1</id>
         </field><field>
-          <label>Child type ID (default value)</label>
-          <type>string</type>
+          <label>Faut-il facturer le parent diff&#233;rement selon qu'il habite la commune ou non ?</label>
+          <type>item</type>
           <required>True</required>
-          <hint>Champs obligatoire (et configurable) dans AES MAIS non exposable au parent. Il faut donc lui d&#233;signer la valeur par d&#233;faut pour l'instance AES.
-Ici, on attend donc l'ID par d&#233;faut.</hint>
-          <varname>child_type_id_default_value</varname>
-          <display_locations>
-            <display_location>summary</display_location>
-          </display_locations><prefill>
+          <hint>Ce champ permet de d&#233;finir le type de facturation qui sera utilis&#233;e pour l'enfant qui sera inscrit.</hint>
+          <varname>child_type_facturation</varname>
+          <display_locations />
+          <prefill>
             <locked>False</locked>
             <type>none</type>
-          </prefill><anonymise>True</anonymise>
-          <id>2</id>
+          </prefill><display_mode>radio</display_mode>
+          <data_source>
+            <type>aes_oui_non</type>
+          </data_source><in_filters>False</in_filters>
+          <anonymise>False</anonymise>
+          <display_disabled_items>False</display_disabled_items>
+          <initial_zoom>13</initial_zoom>
+          <id>3</id>
         </field>
       </fields>
     </formdef>
@@ -366,6 +383,16 @@ Ici, on attend donc l'ID par d&#233;faut.</hint>
             <display_location>listings</display_location>
           </display_locations><anonymise>True</anonymise>
           <id>boc34d871a-52e8-42be-b591-d24c5997eb88</id>
+        </field><field>
+          <label>Identifiant du type d'enfant</label>
+          <type>string</type>
+          <required>True</required>
+          <hint>Cette information est utilis&#233;e pour d&#233;terminer le type de facturation &#224; appliquer ; typiquement s'il s'agit d'un enfant de la commune ou non.</hint>
+          <varname>child_type_id</varname>
+          <display_locations>
+            <display_location>summary</display_location>
+          </display_locations><anonymise>True</anonymise>
+          <id>bo7cd21660-67d9-42f7-a364-ebec2e10657b</id>
         </field>
       </fields>
     </formdef>
