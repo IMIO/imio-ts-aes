@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.2.5
+------------------
+
+- fix get_avalaible_plaines category name's option
+  [nhislaire]
+
 0.2.4
 ------------------
 

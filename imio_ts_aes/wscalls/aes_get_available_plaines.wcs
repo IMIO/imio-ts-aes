@@ -11,7 +11,7 @@
       <param key="child_id">{{ form_var_selected_child_raw }}</param>
       <param key="begining_date_search">{{ form_option_first_date_plain }}</param>
       <param key="ending_date_search">{{ form_option_last_date_plain }}</param>
-      <param key="category_name">{{ form_option_categorie_activitie }}</param>
+      <param key="category_name">{{ form_option_categorie_activite }}</param>
     </qs_data><post_data />
   </request>
 </wscall>
