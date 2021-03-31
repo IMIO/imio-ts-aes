@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.2.6
+------------------
+
+- add missing wscall get children by parent nrn
+  [nhislaire]
+  
 0.2.5
 ------------------
 
