@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<workflow id="131">
+<workflow id="13">
   <name>aes - Inscription &#224; une plaine (validation semaine automatique)</name>
   <roles>
     <role id="_debug">Agent Debug</role>
@@ -196,7 +196,8 @@ Bien cordialement,</body>
         </item><item id="3" type="choice">
           <label>Retenter</label>
           <by>
-            <item role_id="43190215712647a89376713be142a4f5">Debug</item>
+            <item role_id="334fbf8ccb18436d8ec67b0d56d970b1">Debug</item>
+            <item role_id="_submitter">_submitter</item>
           </by><status>1</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Retente l'enregistrement de l'enfant dans AES.&lt;/p&gt;</backoffice_info_text>
@@ -265,14 +266,8 @@ Bien cordialement, </body>
             <type>python</type>
             <value>False</value>
           </condition>
-        </item><item id="4" type="jump">
-          <status>8</status>
-          <condition>
-            <type>python</type>
-            <value>int(form_var_aes_response_counter) &gt;= int(form_var_nb_weeks)</value>
-          </condition><set_marker_on_status>False</set_marker_on_status>
         </item><item id="5" type="jump">
-          <status>16</status>
+          <status>26</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
@@ -384,14 +379,8 @@ Bien cordialement, </body>
             <type>python</type>
             <value>int(vars().get('form_var_no_more_place_counter') or '0') &gt;= int(form_var_nb_weeks)</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item id="4" type="jump">
-          <status>8</status>
-          <condition>
-            <type>python</type>
-            <value>int(form_var_aes_response_counter) &gt;= int(form_var_nb_weeks)</value>
-          </condition><set_marker_on_status>False</set_marker_on_status>
         </item><item id="5" type="jump">
-          <status>16</status>
+          <status>26</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
@@ -835,18 +824,18 @@ Ci-dessous, veuillez retrouver les semaines accept&#233;es ou refus&#233;es pour
               <value>=form_var_activities_plaines_structured[int(form_var_aes_response_counter)].get('week')</value>
             </field>
           </fields>
-        </item><item id="4" type="register-comment">
+        </item><item id="2" type="register-comment">
           <comment>Semaine en cours de validation : {{ form_var_current_validating_week }}</comment>
           <to>
             <item role_id="_debug">_debug</item>
           </to>
-        </item><item id="2" type="jump">
+        </item><item id="3" type="jump">
           <status>4</status>
           <condition>
             <type>python</type>
             <value>int(form_var_current_validating_week) in ack_aes_response_aes_week_validate</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item id="3" type="jump">
+        </item><item id="4" type="jump">
           <status>6</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -1030,6 +1019,222 @@ Bien cordialement,
       <colour>00FF00</colour>
       <visibility />
       <items />
+    </status><status>
+      <id>25</id>
+      <name>Inscription valid&#233;e</name>
+      <colour>00FF00</colour>
+      <forced_endpoint>true</forced_endpoint>
+      <visibility />
+      <items>
+        <item id="1" type="displaymsg">
+          <message>L'inscription de {{ form_var_selected_child }} aux plaines a bien &#233;t&#233; valid&#233;e !</message>
+          <level>success</level>
+          <position>top</position>
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
+        </item><item id="2" type="register-comment">
+          <comment>L'inscription de {{ form_var_selected_child }} aux plaines a bien &#233;t&#233; valid&#233;e !</comment>
+          <to>
+            <item role_id="_submitter">_submitter</item>
+            <item role_id="_receiver">_receiver</item>
+            <item role_id="_debug">_debug</item>
+          </to>
+        </item><item id="3" type="sendmail">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>Validation de l'inscription de {{ form_var_selected_child }} aux plaines</subject>
+          <body>L'inscription de {{ form_var_selected_child }} aux plaines a bien &#233;t&#233; valid&#233;e !
+
+Le paiement a bien &#233;t&#233; re&#231;u.</body>
+        </item>
+      </items>
+    </status><status>
+      <id>26</id>
+      <name>D'autres semaines &#224; valider ?</name>
+      <colour>000000</colour>
+      <visibility>
+        <role>_debug</role>
+        <role>_receiver</role>
+      </visibility><items>
+        <item id="2" type="jump">
+          <status>8</status>
+          <condition>
+            <type>python</type>
+            <value>int(form_var_aes_response_counter) &gt;= int(form_var_nb_weeks) and form_option_modalite_paiement == "Paiement en ligne"</value>
+          </condition><set_marker_on_status>False</set_marker_on_status>
+        </item><item id="3" type="jump">
+          <status>30</status>
+          <condition>
+            <type>python</type>
+            <value>int(form_var_aes_response_counter) &gt;= int(form_var_nb_weeks) and form_option_modalite_paiement == 'Paiement par virement'</value>
+          </condition><set_marker_on_status>False</set_marker_on_status>
+        </item><item id="1" type="jump">
+          <status>16</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>27</id>
+      <name>Informations Paiement</name>
+      <colour>FFFFFF</colour>
+      <visibility>
+        <role>_debug</role>
+        <role>_receiver</role>
+      </visibility><items>
+        <item id="1" type="form">
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><varname>info_paiement</varname>
+          <formdef>
+            <name>-</name>
+            <fields>
+              <field>
+                <label>Montant</label>
+                <type>string</type>
+                <required>True</required>
+                <varname>montant</varname>
+                <display_locations />
+                <prefill>
+                  <locked>False</locked>
+                  <type>none</type>
+                </prefill><anonymise>True</anonymise>
+                <id>1</id>
+              </field><field>
+                <label>Communication</label>
+                <type>string</type>
+                <required>False</required>
+                <hint>Si vide, le num&#233;ro de suivi du formulaire est envoy&#233;</hint>
+                <varname>communication</varname>
+                <display_locations />
+                <prefill>
+                  <locked>False</locked>
+                  <type>none</type>
+                </prefill><anonymise>True</anonymise>
+                <id>2</id>
+              </field><field>
+                <label>Informations compl&#233;mentaires</label>
+                <type>text</type>
+                <required>False</required>
+                <varname>complementaires</varname>
+                <display_locations />
+                <prefill>
+                  <locked>False</locked>
+                  <type>none</type>
+                </prefill><pre>False</pre>
+                <id>3</id>
+              </field>
+            </fields>
+          </formdef>
+        </item><item id="2" type="jumponsubmit">
+          <status>28</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>28</id>
+      <name>Demande de paiement</name>
+      <colour>FFFF00</colour>
+      <visibility />
+      <items>
+        <item id="4" type="register-comment">
+          <comment>&lt;p&gt;Voici le montant &#224; payer pour confirmer l&#8217;inscription de {{ form_var_selected_child }} aux plaines.&lt;/p&gt;
+
+&lt;p&gt;*Montant* : {{info_paiement_var_montant}} &#8364;&lt;/p&gt;
+
+{% if info_paiement_var_communication %}
+&lt;p&gt;*Communication* : {{info_paiement_var_communication}}&lt;/p&gt;
+{% else %}
+&lt;p&gt;*Communication* : {{form_tracking_code}}&lt;/p&gt;
+{% endif %}
+
+&lt;p&gt;*Num&#233;ro de compte* : {{form_option_numero_de_compte_iban}}&lt;/p&gt;
+{% if info_paiement_var_complementaires is True %}
+&lt;p&gt;{{info_paiement_var_complementaires}}&lt;/p&gt;
+{% endif %}
+</comment>
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
+        </item><item id="1" type="sendmail">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>Demande paiement pour l'inscription de {{ form_var_selected_child }} aux plaines</subject>
+          <body>Bonjour,
+
+Voici le montant &#224; payer pour confirmer l&#8217;inscription de {{ form_var_selected_child }} aux plaines.
+
+*Montant* : {{info_paiement_var_montant}} &#8364;
+
+{% if info_paiement_var_communication %}
+*Communication* : {{info_paiement_var_communication}}
+{% else %}
+*Communication* : {{form_tracking_code}}
+{% endif %}
+
+*Num&#233;ro de compte* : {{form_option_numero_de_compte_iban}}
+{% if info_paiement_var_complementaires is True %}
+{{info_paiement_var_complementaires}}
+{% endif %}
+
+Bien &#224; vous.</body>
+        </item><item id="2" type="choice">
+          <label>Valider l'inscription</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>25</status>
+          <require_confirmation>True</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Valider l'inscription une fois le paiement re&amp;ccedil;u&lt;/p&gt;</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="3" type="choice">
+          <label>Annuler l'inscription</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>29</status>
+          <require_confirmation>True</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Le paiement n'a pas &amp;eacute;t&amp;eacute; effectu&amp;eacute;&lt;/p&gt;</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>29</id>
+      <name>Inscription annul&#233;e</name>
+      <colour>FF0000</colour>
+      <visibility />
+      <items />
+    </status><status>
+      <id>30</id>
+      <name>Demande d'inscription enregistr&#233;e</name>
+      <colour>99FF99</colour>
+      <visibility />
+      <items>
+        <item id="1" type="displaymsg">
+          <message>Votre demande d'inscription de {{ form_var_selected_child }} aux plaines a bien &#233;t&#233; valid&#233;e !
+
+Vous serez bient&#244;t contact&#233; par mail pour r&#233;gler le montant de l'inscription.</message>
+          <level>success</level>
+          <position>top</position>
+        </item><item id="2" type="register-comment">
+          <comment>Votre demande d'inscription de {{ form_var_selected_child }} aux plaines a bien &#233;t&#233; valid&#233;e !
+
+Vous serez bient&#244;t contact&#233; par mail pour r&#233;gler le montant de l'inscription.</comment>
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
+        </item><item id="3" type="sendmail">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>Votre demande d'inscription de {{ form_var_selected_child }} aux plaines</subject>
+          <body>Votre demande d'inscription de {{ form_var_selected_child }} aux plaines a bien &#233;t&#233; valid&#233;e !
+
+Vous serez bient&#244;t contact&#233; par mail pour r&#233;gler le montant de l'inscription.</body>
+        </item><item id="4" type="jump">
+          <status>27</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
     </status>
   </possible_status><global_actions>
     <action>
@@ -1038,7 +1243,7 @@ Bien cordialement,
       <items>
         <item id="1" type="remove" />
       </items><triggers>
-        <trigger id="7b957047-442e-494d-93d3-d7242cd1f951" type="manual">
+        <trigger id="8253fe70-7fdf-4ce4-9cc4-969e91d44610" type="manual">
           <roles>
             <item role_id="_debug">_debug</item>
           </roles>
@@ -1049,7 +1254,7 @@ Bien cordialement,
       <name>&#201;diter la demande</name>
       <items />
       <triggers>
-        <trigger id="6c9d3cae-619e-4340-86fb-1bd71fcc78a9" type="manual">
+        <trigger id="391505cd-c5c6-4fb2-a658-776812f57436" type="manual">
           <roles>
             <item role_id="_debug">_debug</item>
           </roles>
@@ -1064,7 +1269,7 @@ Bien cordialement,
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items><triggers>
-        <trigger id="bc4ead50-5dc3-47b9-9555-ab4de07ccc0f" type="manual">
+        <trigger id="d8283e2e-35b0-4bd1-afd8-6f2ac0476347" type="manual">
           <roles>
             <item role_id="_debug">_debug</item>
           </roles>
@@ -1083,7 +1288,6 @@ Bien cordialement,
           <display_locations>
             <display_location>summary</display_location>
           </display_locations><prefill>
-            <locked>False</locked>
             <type>none</type>
           </prefill><id>9</id>
         </field><field>
@@ -1132,7 +1336,7 @@ exemple : Si les plaines d'&#233;t&#233; vont du 01/07/XXXX au 31/08/XXXX alors 
           </prefill><anonymise>True</anonymise>
           <id>5</id>
         </field><field>
-          <label>Est-ce que le formulaire est en test?</label>
+          <label>Est-ce que le formulaire est en test ?</label>
           <type>bool</type>
           <required>False</required>
           <hint>Si coch&#233;e, alors, un certain nombre de "check" sont outrepass&#233;s. 
@@ -1141,6 +1345,7 @@ A d&#233;sactiv&#233; absolument pour la production ! </hint>
           <display_locations>
             <display_location>summary</display_location>
           </display_locations><prefill>
+            <locked>False</locked>
             <type>none</type>
           </prefill><id>1</id>
         </field><field>
@@ -1169,6 +1374,38 @@ A d&#233;sactiv&#233; absolument pour la production ! </hint>
             <type>none</type>
           </prefill><anonymise>True</anonymise>
           <id>8</id>
+        </field><field>
+          <label>Modalit&#233; de paiement</label>
+          <type>item</type>
+          <required>True</required>
+          <varname>modalite_paiement</varname>
+          <display_locations>
+            <display_location>summary</display_location>
+          </display_locations><prefill>
+            <locked>False</locked>
+            <type>none</type>
+          </prefill><items>
+            <item>Paiement en ligne</item>
+            <item>Paiement par virement</item>
+          </items><display_mode>radio</display_mode>
+          <in_filters>False</in_filters>
+          <anonymise>False</anonymise>
+          <display_disabled_items>False</display_disabled_items>
+          <initial_zoom>13</initial_zoom>
+          <id>10</id>
+        </field><field>
+          <label>Num&#233;ro de compte IBAN</label>
+          <type>string</type>
+          <required>False</required>
+          <hint>A compl&#233;ter si paiement par virement</hint>
+          <varname>numero_de_compte_iban</varname>
+          <display_locations>
+            <display_location>summary</display_location>
+          </display_locations><prefill>
+            <locked>False</locked>
+            <type>none</type>
+          </prefill><anonymise>True</anonymise>
+          <id>11</id>
         </field>
       </fields>
     </formdef>
@@ -1220,7 +1457,10 @@ A d&#233;sactiv&#233; absolument pour la production ! </hint>
           <type>string</type>
           <required>False</required>
           <varname>aes_response_counter</varname>
-          <anonymise>False</anonymise>
+          <display_locations>
+            <display_location>validation</display_location>
+            <display_location>summary</display_location>
+          </display_locations><anonymise>False</anonymise>
           <id>bob9991026-8b9a-4aa8-8161-bd6d26ac0b42</id>
         </field><field>
           <label>(utils) compteur "plus de place"</label>
@@ -1241,19 +1481,6 @@ A d&#233;sactiv&#233; absolument pour la production ! </hint>
             <display_location>summary</display_location>
           </display_locations><anonymise>False</anonymise>
           <id>bo536eed66-8e9a-4c58-b4d5-c54c84f0ccc8</id>
-        </field><field>
-          <label>(utils) Jours de plaine &#224; filtrer (refuse / validate)</label>
-          <type>table</type>
-          <required>False</required>
-          <varname>days_will_be_filtering</varname>
-          <display_locations>
-            <display_location>validation</display_location>
-            <display_location>summary</display_location>
-          </display_locations><rows>
-            <row>day</row>
-          </rows><columns>
-            <column>days</column>
-          </columns><id>bo17043065-244b-43fb-9911-148cfd2e2a96</id>
         </field><field>
           <label>(utils) Refus ou acceptation dans l'historique (message spontan&#233;)</label>
           <type>string</type>
@@ -1328,14 +1555,20 @@ A d&#233;sactiv&#233; absolument pour la production ! </hint>
           <type>string</type>
           <required>False</required>
           <varname>reg_first_date_plaine</varname>
-          <anonymise>False</anonymise>
+          <display_locations>
+            <display_location>validation</display_location>
+            <display_location>summary</display_location>
+          </display_locations><anonymise>False</anonymise>
           <id>bo5756c702-afb1-486a-8300-c45736a4148a</id>
         </field><field>
           <label>Dernier jour des plaines</label>
           <type>string</type>
           <required>False</required>
           <varname>reg_last_date_plaine</varname>
-          <anonymise>False</anonymise>
+          <display_locations>
+            <display_location>validation</display_location>
+            <display_location>summary</display_location>
+          </display_locations><anonymise>False</anonymise>
           <id>boccf860cf-383c-4cf6-9137-c7db1283e229</id>
         </field><field>
           <label>D&#233;marches cl&#244;tur&#233;es</label>
