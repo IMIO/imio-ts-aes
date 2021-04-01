@@ -1,23 +1,22 @@
 <?xml version="1.0"?>
-<workflow id="16">
+<workflow id="17">
   <name>aes - Enregistrement fiche sant&#233;</name>
   <roles>
     <role id="_receiver">Agent traitent</role>
-  </roles><last_modification user_id="1">2020-06-29 15:42:26</last_modification>
-  <possible_status>
+  </roles><possible_status>
     <status>
       <id>1</id>
       <name>Nouvelle fiche sant&#233;</name>
       <colour>FFFFFF</colour>
       <visibility />
       <items>
-        <item id="2" type="jump">
+        <item id="1" type="jump">
           <status>2</status>
           <condition>
-            <value>form_var_doctor_raw != 'autre'</value>
             <type>django</type>
+            <value>form_option_verifier_encodage == 'Non' or form_var_doctor_raw != 'autre'</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item id="3" type="sendmail">
+        </item><item id="2" type="sendmail">
           <to>
             <item role_id="_receiver">_receiver</item>
           </to><subject>Demande d'un nouveau m&#233;decin</subject>
@@ -41,10 +40,10 @@ Pour enregistrer ce nouveau m&#233;decin et le proposer &#224; tous les parents,
 
 Pour corriger les donn&#233;es encod&#233;es ou signaler que le m&#233;decin existe d&#233;j&#224;, veuillez vous suivre ce lien et vous connecter &#224; la plateforme t&#233;l&#233;service : {{ form_url_backoffice }}</body>
           <condition>
-            <value>form_var_doctor_raw == 'autre'</value>
             <type>django</type>
+            <value>form_var_doctor_raw == 'autre'</value>
           </condition>
-        </item><item id="1" type="choice">
+        </item><item id="3" type="choice">
           <label>Il y a une erreur dans l'encodage du parent</label>
           <by>
             <item role_id="_receiver">_receiver</item>
@@ -69,7 +68,7 @@ Pour corriger les donn&#233;es encod&#233;es ou signaler que le m&#233;decin exi
       <colour>FFFFFF</colour>
       <visibility />
       <items>
-        <item id="5" type="set-backoffice-fields">
+        <item id="1" type="set-backoffice-fields">
           <label>Centralisation des donn&#233;es du m&#233;decin</label>
           <fields>
             <field>
@@ -98,17 +97,12 @@ Pour corriger les donn&#233;es encod&#233;es ou signaler que le m&#233;decin exi
               <value>=locals().get('verified_doctor_var_country_raw') or locals().get('verified_doctor_var_doctor_country_id') or form_var_other_doctor_country_raw</value>
             </field>
           </fields>
-        </item><item id="1" type="webservice_call">
+        </item><item id="2" type="webservice_call">
           <label>Enregistrement dans AES</label>
           <url>{{ passerelle_url }}/passerelle-imio-aes-health/aes_health/post_child_health_sheet</url>
           <method>POST</method>
           <post>True</post>
-          <post_data>
-            <item>
-              <name>screugneugneu</name>
-              <value>=form_var_verified_doctor_name</value>
-            </item>
-          </post_data><response_type>json</response_type>
+          <response_type>json</response_type>
           <varname>healthsheet</varname>
           <action_on_app_error>:stop</action_on_app_error>
           <action_on_4xx>:stop</action_on_4xx>
@@ -118,23 +112,9 @@ Pour corriger les donn&#233;es encod&#233;es ou signaler que le m&#233;decin exi
           <notify_on_errors>True</notify_on_errors>
           <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
-        </item><item id="2" type="jump">
+        </item><item id="3" type="jump">
           <status>4</status>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item id="6" type="choice">
-          <label>Retenter l'enregistrement dans AES</label>
-          <by>
-            <item role_id="117eea72732e4f90a768f5380d79b1a4">Debug</item>
-          </by><status>2</status>
-          <require_confirmation>False</require_confirmation>
-          <ignore_form_errors>False</ignore_form_errors>
-          <set_marker_on_status>False</set_marker_on_status>
-        </item><item id="7" type="editable">
-          <by>
-            <item role_id="117eea72732e4f90a768f5380d79b1a4">Debug</item>
-          </by><status>2</status>
-          <label>&#201;diter la demande (D&#233;bug iMio)</label>
-          <backoffice_info_text>&lt;p&gt;&amp;Eacute;diter la demande (D&amp;eacute;bug iMio)&lt;/p&gt;</backoffice_info_text>
         </item>
       </items>
     </status><status>
@@ -143,7 +123,7 @@ Pour corriger les donn&#233;es encod&#233;es ou signaler que le m&#233;decin exi
       <colour>0099FF</colour>
       <visibility />
       <items>
-        <item id="4" type="form">
+        <item id="1" type="form">
           <by>
             <item role_id="_receiver">_receiver</item>
           </by><varname>verified_doctor</varname>
@@ -179,7 +159,8 @@ Pour corriger les donn&#233;es encod&#233;es ou signaler que le m&#233;decin exi
                 <extra_css_class>newline grid-1-2</extra_css_class>
                 <prefill>
                   <type>none</type>
-                </prefill><display_mode>autocomplete</display_mode>
+                </prefill><items />
+                <display_mode>autocomplete</display_mode>
                 <data_source>
                   <type>aes_doctors</type>
                 </data_source><in_filters>False</in_filters>
@@ -287,7 +268,8 @@ Pour corriger les donn&#233;es encod&#233;es ou signaler que le m&#233;decin exi
                 <prefill>
                   <type>formula</type>
                   <value>form_var_other_doctor_country_raw</value>
-                </prefill><display_mode>list</display_mode>
+                </prefill><items />
+                <display_mode>list</display_mode>
                 <data_source>
                   <type>aes_countries</type>
                 </data_source><in_filters>False</in_filters>
@@ -308,14 +290,6 @@ Pour corriger les donn&#233;es encod&#233;es ou signaler que le m&#233;decin exi
       <colour>00FF00</colour>
       <visibility />
       <items />
-    </status><status>
-      <id>5</id>
-      <name>Debug custom id</name>
-      <colour>FFFFFF</colour>
-      <visibility />
-      <items>
-        <item id="1" type="set-backoffice-fields" />
-      </items>
     </status>
   </possible_status><variables>
     <formdef>
@@ -330,13 +304,33 @@ Pour corriger les donn&#233;es encod&#233;es ou signaler que le m&#233;decin exi
             <display_location>summary</display_location>
           </display_locations><prefill>
             <type>none</type>
-          </prefill><max_choices>0</max_choices>
+          </prefill><items />
+          <min_choices>0</min_choices>
+          <max_choices>0</max_choices>
           <data_source>
             <type>aes_questions_fiche_sante</type>
           </data_source><in_filters>False</in_filters>
           <anonymise>True</anonymise>
           <display_disabled_items>False</display_disabled_items>
           <id>1</id>
+        </field><field>
+          <label>V&#233;rifier l'encodage du parent pour &#233;viter les doublons</label>
+          <type>item</type>
+          <required>True</required>
+          <varname>verifier_encodage</varname>
+          <display_locations />
+          <prefill>
+            <locked>False</locked>
+            <type>none</type>
+          </prefill><items>
+            <item>Oui</item>
+            <item>Non</item>
+          </items><display_mode>radio</display_mode>
+          <in_filters>False</in_filters>
+          <anonymise>False</anonymise>
+          <display_disabled_items>False</display_disabled_items>
+          <initial_zoom>13</initial_zoom>
+          <id>2</id>
         </field>
       </fields>
     </formdef>
