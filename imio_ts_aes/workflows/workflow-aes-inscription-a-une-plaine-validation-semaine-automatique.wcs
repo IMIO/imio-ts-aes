@@ -642,6 +642,28 @@ Ci-dessous, veuillez retrouver les semaines accept&#233;es ou refus&#233;es pour
           <require_confirmation>True</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="12" type="choice">
+          <label>Proposer &#224; l'usager de payer par virement bancaire</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+            <item role_id="_debug">_debug</item>
+          </by><status>31</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Cette action vide le panier de l'usager et l'invite &amp;agrave; payer par virement bancaire. Il recevra les coordonn&amp;eacute;es bancaires de la commune par courriel et sur sa demande.&lt;/p&gt;
+
+&lt;p&gt;La validation de la r&amp;eacute;ception de son paiement se fait manuellement, dans le suivi de la demande.&lt;/p&gt;</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="13" type="choice">
+          <label>Payer au guichet</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+            <item role_id="_debug">_debug</item>
+          </by><status>32</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Proposer &amp;agrave; l'usager de payer au guichet. L'usager ne recevra pas de notification &amp;agrave; payer. La validation du paiement est manuel, par l'agent traitant, au sein de la demande.&lt;/p&gt;</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
     </status><status>
@@ -938,7 +960,7 @@ Bien cordialement,
           <qs_data>
             <item>
               <name>regie_id</name>
-              <value>atos_prod</value>
+              <value>atos_test</value>
             </item>
           </qs_data><method>POST</method>
           <post>False</post>
@@ -967,8 +989,30 @@ Bien cordialement,
           <record_on_errors>True</record_on_errors>
           <record_errors>True</record_errors>
         </item><item id="2" type="jump">
-          <status>22</status>
+          <status>24</status>
           <trigger>paid</trigger>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="3" type="choice">
+          <label>Payer au guichet</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+            <item role_id="_debug">_debug</item>
+          </by><status>32</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Proposer &amp;agrave; l'usager de payer au guichet. L'usager ne recevra pas de notification &amp;agrave; payer. La validation du paiement est manuel, par l'agent traitant, au sein de la demande.&lt;/p&gt;</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="4" type="choice">
+          <label>Payer par virement bancaire</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+            <item role_id="_debug">_debug</item>
+          </by><status>31</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Cette action vide le panier de l'usager et l'invite &amp;agrave; payer par virement bancaire. Il recevra les coordonn&amp;eacute;es bancaires de la commune par courriel et sur sa demande.&lt;/p&gt;
+
+&lt;p&gt;La validation de la r&amp;eacute;ception de son paiement se fait manuellement, dans le suivi de la demande.&lt;/p&gt;</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
@@ -1008,17 +1052,26 @@ Bien cordialement,
         </item>
       </items>
     </status><status>
-      <id>22</id>
-      <name>_Cl&#244;tur&#233; et pay&#233;</name>
-      <colour>00FF00</colour>
-      <visibility />
-      <items />
-    </status><status>
       <id>24</id>
       <name>Cl&#244;tur&#233; et pay&#233;</name>
       <colour>00FF00</colour>
       <visibility />
-      <items />
+      <items>
+        <item id="1" type="sendmail">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>Vos demandes d'inscriptions aux plaines</subject>
+          <body>Bonjour,
+
+Nous avons bien re&#231;u votre paiement pour l'inscription de votre (vos) enfant(s) aux plaines.
+
+Bien &#224; vous,</body>
+          <condition>
+            <type>django</type>
+            <value>form_var_is_closing_request</value>
+          </condition>
+        </item>
+      </items>
     </status><status>
       <id>25</id>
       <name>Inscription valid&#233;e</name>
@@ -1232,6 +1285,135 @@ Vous serez bient&#244;t contact&#233; par mail pour r&#233;gler le montant de l'
 Vous serez bient&#244;t contact&#233; par mail pour r&#233;gler le montant de l'inscription.</body>
         </item><item id="4" type="jump">
           <status>27</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>31</id>
+      <name>Paiement par virement</name>
+      <colour>0099FF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="set-backoffice-fields">
+          <label>Choix du virement</label>
+          <fields>
+            <field>
+              <field_id>bo14f7c398-0b2f-4e0a-9729-5d4e42f18961</field_id>
+              <value>virement</value>
+            </field>
+          </fields>
+        </item><item id="2" type="jump">
+          <status>33</status>
+          <condition>
+            <type>django</type>
+            <value>form_var_payment_means</value>
+          </condition><set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>32</id>
+      <name>Paiement au guichet</name>
+      <colour>0099FF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="set-backoffice-fields">
+          <label>Choix du guichet</label>
+          <fields>
+            <field>
+              <field_id>bo14f7c398-0b2f-4e0a-9729-5d4e42f18961</field_id>
+              <value>guichet</value>
+            </field>
+          </fields>
+        </item><item id="2" type="jump">
+          <status>33</status>
+          <condition>
+            <type>django</type>
+            <value>form_var_payment_means</value>
+          </condition><set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>33</id>
+      <name>En attente du paiement</name>
+      <colour>FFFF00</colour>
+      <visibility />
+      <items>
+        <item id="2" type="sendmail">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>Vos demandes d'inscriptions aux plaines</subject>
+          <body>Madame, Monsieur,
+
+Votre enfant a bien &#233;t&#233; inscrit aux plaines de vacances. Veuillez r&#233;aliser le payement demand&#233; suivant afin de finaliser l'inscription.
+
+Montant : {{ aes_closed_and_pay_response_data_amount }}
+
+Compte : BExx xxxx xxxx xxxx
+
+En vous remerciant de la confiance que vous accordez &#224; nos services,</body>
+          <condition>
+            <type>django</type>
+            <value>form_option_modalite_paiement == "virement"</value>
+          </condition>
+        </item><item id="3" type="register-comment">
+          <comment>&lt;p&gt;Madame, Monsieur,&lt;/p&gt;
+
+&lt;p&gt;Votre enfant a bien &#233;t&#233; inscrit aux plaines de vacances. Veuillez r&#233;aliser le payement demand&#233; suivant afin de finaliser l'inscription.&lt;/p&gt;
+
+&lt;p&gt;Montant : &lt;strong&gt;{{ aes_closed_and_pay_response_data_amount }} &#8364;&lt;/stong&gt;&lt;/p&gt;
+
+&lt;p&gt;Compte : &lt;strong&gt;BExx xxxx xxxx xxxx&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;En vous remerciant de la confiance que vous accordez &#224; nos services,&lt;/p&gt;</comment>
+          <to>
+            <item role_id="_submitter">_submitter</item>
+            <item role_id="_debug">_debug</item>
+            <item role_id="_receiver">_receiver</item>
+          </to><condition>
+            <type>django</type>
+            <value>form_option_modalite_paiement == "virement"</value>
+          </condition>
+        </item><item id="4" type="displaymsg">
+          <message>Veuillez effectuer le paiement afin de finaliser l'inscription de votre enfant</message>
+          <level>warning</level>
+          <position>top</position>
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><condition>
+            <type>django</type>
+            <value>form_option_modalite_paiement == "virement"</value>
+          </condition>
+        </item><item id="5" type="webservice_call">
+          <label>Vider le panier</label>
+          <url>{{portal_url}}/api/lingo/remove-basket-item?NameId={{form_user_name_identifier_0}}</url>
+          <method>POST</method>
+          <post>False</post>
+          <post_data>
+            <item>
+              <name>basket_item_id</name>
+              <value>{{panier_response_id}}</value>
+            </item><item>
+              <name>skip_notification</name>
+              <value>skip</value>
+            </item>
+          </post_data><response_type>json</response_type>
+          <varname>annulation_paiement_manuel</varname>
+          <action_on_app_error>:pass</action_on_app_error>
+          <action_on_4xx>:stop</action_on_4xx>
+          <action_on_5xx>:stop</action_on_5xx>
+          <action_on_bad_data>:pass</action_on_bad_data>
+          <action_on_network_errors>:stop</action_on_network_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <record_on_errors>True</record_on_errors>
+          <record_errors>False</record_errors>
+        </item><item id="1" type="choice">
+          <label>Paiement re&#231;u</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+            <item role_id="_debug">_debug</item>
+          </by><status>24</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
@@ -1542,6 +1724,16 @@ A d&#233;sactiv&#233; absolument pour la production ! </hint>
             <display_location>summary</display_location>
           </display_locations><anonymise>False</anonymise>
           <id>bo9620a85b-a884-4b8f-84ff-024dc4f516af</id>
+        </field><field>
+          <label>(utils) Moyen de paiement</label>
+          <type>string</type>
+          <required>False</required>
+          <hint>Choix du moyen de paiement.
+Se compl&#232;te si le choix par d&#233;faut est le paiement en ligne, mais qu'ensuite, l'usager est amen&#233; &#224; payer d'une autre mani&#232;re (virement ou en pr&#233;sentiel).</hint>
+          <varname>payment_means</varname>
+          <display_locations />
+          <anonymise>False</anonymise>
+          <id>bo14f7c398-0b2f-4e0a-9729-5d4e42f18961</id>
         </field><field>
           <label>Refus et acceptations pour mail final (messages concat&#233;n&#233;s)</label>
           <type>string</type>

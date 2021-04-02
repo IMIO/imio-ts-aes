@@ -1,6 +1,16 @@
 Changelog
 =========
 
+0.2.8
+------------------
+
+- allow no validation when a parent encodes a new doctor
+- simplify workflow healthsheet
+- add other payment means after default online one
+  [nhislaire]
+- add bank transfer as a default payment mean
+  [nselva]
+
 0.2.6
 ------------------
 
