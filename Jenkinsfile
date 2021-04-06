@@ -10,7 +10,6 @@ pipeline {
                 VERSION= sh (script: "sh version.sh", returnStdout: true)
             }
             steps {
-                cleanWs()
                 sh "fpm --verbose -a amd64 -n imio-ts-aes -s python -t deb -v `echo ${VERSION}` --prefix /usr -d passerelle setup.py"
                 withCredentials([string(credentialsId: 'gpg-passphrase-system@imio.be', variable:'PASSPHRASE')]){
                     sh ('''dpkg-sig --gpg-options "--yes --batch --passphrase '$PASSPHRASE' " -s builder -k 9D4C79E197D914CF60C05332C0025EEBC59B875B imio-ts-aes_`echo ${VERSION}`_amd64.deb''')
@@ -49,6 +48,7 @@ pipeline {
     post {
         always {
             sh "rm -f imio-ts-aes_*.deb"
+            cleanWs()
         }
 
     }
