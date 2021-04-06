@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.2.9
+------------------
+
+- do not loop in validation if an error occurs
+  [nhislaire]
+  
 0.2.8
 ------------------
 

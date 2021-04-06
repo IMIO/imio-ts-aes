@@ -196,7 +196,7 @@ Bien cordialement,</body>
         </item><item id="3" type="choice">
           <label>Retenter</label>
           <by>
-            <item role_id="334fbf8ccb18436d8ec67b0d56d970b1">Debug</item>
+            <item role_id="52c6b8da2da745efb074ea2c30fa6741">Debug</item>
             <item role_id="_submitter">_submitter</item>
           </by><status>1</status>
           <require_confirmation>False</require_confirmation>
@@ -266,7 +266,7 @@ Bien cordialement, </body>
             <type>python</type>
             <value>False</value>
           </condition>
-        </item><item id="5" type="jump">
+        </item><item id="4" type="jump">
           <status>26</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -379,7 +379,7 @@ Bien cordialement, </body>
             <type>python</type>
             <value>int(vars().get('form_var_no_more_place_counter') or '0') &gt;= int(form_var_nb_weeks)</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item id="5" type="jump">
+        </item><item id="4" type="jump">
           <status>26</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -1110,21 +1110,24 @@ Le paiement a bien &#233;t&#233; re&#231;u.</body>
         <role>_debug</role>
         <role>_receiver</role>
       </visibility><items>
-        <item id="2" type="jump">
+        <item id="1" type="jump">
           <status>8</status>
           <condition>
             <type>python</type>
             <value>int(form_var_aes_response_counter) &gt;= int(form_var_nb_weeks) and form_option_modalite_paiement == "Paiement en ligne"</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item id="3" type="jump">
+        </item><item id="2" type="jump">
           <status>30</status>
           <condition>
             <type>python</type>
             <value>int(form_var_aes_response_counter) &gt;= int(form_var_nb_weeks) and form_option_modalite_paiement == 'Paiement par virement'</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item id="1" type="jump">
+        </item><item id="3" type="jump">
           <status>16</status>
-          <set_marker_on_status>False</set_marker_on_status>
+          <condition>
+            <type>python</type>
+            <value>int(form_var_aes_response_counter) &lt; int(form_var_nb_weeks)</value>
+          </condition><set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
     </status><status>
@@ -1147,9 +1150,7 @@ Le paiement a bien &#233;t&#233; re&#231;u.</body>
                 <type>string</type>
                 <required>True</required>
                 <varname>montant</varname>
-                <display_locations />
                 <prefill>
-                  <locked>False</locked>
                   <type>none</type>
                 </prefill><anonymise>True</anonymise>
                 <id>1</id>
@@ -1159,9 +1160,7 @@ Le paiement a bien &#233;t&#233; re&#231;u.</body>
                 <required>False</required>
                 <hint>Si vide, le num&#233;ro de suivi du formulaire est envoy&#233;</hint>
                 <varname>communication</varname>
-                <display_locations />
                 <prefill>
-                  <locked>False</locked>
                   <type>none</type>
                 </prefill><anonymise>True</anonymise>
                 <id>2</id>
@@ -1170,9 +1169,7 @@ Le paiement a bien &#233;t&#233; re&#231;u.</body>
                 <type>text</type>
                 <required>False</required>
                 <varname>complementaires</varname>
-                <display_locations />
                 <prefill>
-                  <locked>False</locked>
                   <type>none</type>
                 </prefill><pre>False</pre>
                 <id>3</id>
@@ -1190,7 +1187,7 @@ Le paiement a bien &#233;t&#233; re&#231;u.</body>
       <colour>FFFF00</colour>
       <visibility />
       <items>
-        <item id="4" type="register-comment">
+        <item id="1" type="register-comment">
           <comment>&lt;p&gt;Voici le montant &#224; payer pour confirmer l&#8217;inscription de {{ form_var_selected_child }} aux plaines.&lt;/p&gt;
 
 &lt;p&gt;*Montant* : {{info_paiement_var_montant}} &#8364;&lt;/p&gt;
@@ -1209,7 +1206,7 @@ Le paiement a bien &#233;t&#233; re&#231;u.</body>
           <to>
             <item role_id="_submitter">_submitter</item>
           </to>
-        </item><item id="1" type="sendmail">
+        </item><item id="2" type="sendmail">
           <to>
             <item role_id="_submitter">_submitter</item>
           </to><subject>Demande paiement pour l'inscription de {{ form_var_selected_child }} aux plaines</subject>
@@ -1231,7 +1228,7 @@ Voici le montant &#224; payer pour confirmer l&#8217;inscription de {{ form_var_
 {% endif %}
 
 Bien &#224; vous.</body>
-        </item><item id="2" type="choice">
+        </item><item id="3" type="choice">
           <label>Valider l'inscription</label>
           <by>
             <item role_id="_receiver">_receiver</item>
@@ -1240,7 +1237,7 @@ Bien &#224; vous.</body>
           <backoffice_info_text>&lt;p&gt;Valider l'inscription une fois le paiement re&amp;ccedil;u&lt;/p&gt;</backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item id="3" type="choice">
+        </item><item id="4" type="choice">
           <label>Annuler l'inscription</label>
           <by>
             <item role_id="_receiver">_receiver</item>
@@ -1338,7 +1335,7 @@ Vous serez bient&#244;t contact&#233; par mail pour r&#233;gler le montant de l'
       <colour>FFFF00</colour>
       <visibility />
       <items>
-        <item id="2" type="sendmail">
+        <item id="1" type="sendmail">
           <to>
             <item role_id="_submitter">_submitter</item>
           </to><subject>Vos demandes d'inscriptions aux plaines</subject>
@@ -1355,7 +1352,7 @@ En vous remerciant de la confiance que vous accordez &#224; nos services,</body>
             <type>django</type>
             <value>form_option_modalite_paiement == "virement"</value>
           </condition>
-        </item><item id="3" type="register-comment">
+        </item><item id="2" type="register-comment">
           <comment>&lt;p&gt;Madame, Monsieur,&lt;/p&gt;
 
 &lt;p&gt;Votre enfant a bien &#233;t&#233; inscrit aux plaines de vacances. Veuillez r&#233;aliser le payement demand&#233; suivant afin de finaliser l'inscription.&lt;/p&gt;
@@ -1373,7 +1370,7 @@ En vous remerciant de la confiance que vous accordez &#224; nos services,</body>
             <type>django</type>
             <value>form_option_modalite_paiement == "virement"</value>
           </condition>
-        </item><item id="4" type="displaymsg">
+        </item><item id="3" type="displaymsg">
           <message>Veuillez effectuer le paiement afin de finaliser l'inscription de votre enfant</message>
           <level>warning</level>
           <position>top</position>
@@ -1383,7 +1380,7 @@ En vous remerciant de la confiance que vous accordez &#224; nos services,</body>
             <type>django</type>
             <value>form_option_modalite_paiement == "virement"</value>
           </condition>
-        </item><item id="5" type="webservice_call">
+        </item><item id="4" type="webservice_call">
           <label>Vider le panier</label>
           <url>{{portal_url}}/api/lingo/remove-basket-item?NameId={{form_user_name_identifier_0}}</url>
           <method>POST</method>
@@ -1406,7 +1403,7 @@ En vous remerciant de la confiance que vous accordez &#224; nos services,</body>
           <notify_on_errors>False</notify_on_errors>
           <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
-        </item><item id="1" type="choice">
+        </item><item id="5" type="choice">
           <label>Paiement re&#231;u</label>
           <by>
             <item role_id="_receiver">_receiver</item>
@@ -1425,7 +1422,7 @@ En vous remerciant de la confiance que vous accordez &#224; nos services,</body>
       <items>
         <item id="1" type="remove" />
       </items><triggers>
-        <trigger id="8253fe70-7fdf-4ce4-9cc4-969e91d44610" type="manual">
+        <trigger id="89b2a1ba-b761-412a-8fc2-39b9040395ff" type="manual">
           <roles>
             <item role_id="_debug">_debug</item>
           </roles>
@@ -1436,7 +1433,7 @@ En vous remerciant de la confiance que vous accordez &#224; nos services,</body>
       <name>&#201;diter la demande</name>
       <items />
       <triggers>
-        <trigger id="391505cd-c5c6-4fb2-a658-776812f57436" type="manual">
+        <trigger id="8893acb8-8005-4908-a658-3ba6c6cbce30" type="manual">
           <roles>
             <item role_id="_debug">_debug</item>
           </roles>
@@ -1451,7 +1448,7 @@ En vous remerciant de la confiance que vous accordez &#224; nos services,</body>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items><triggers>
-        <trigger id="d8283e2e-35b0-4bd1-afd8-6f2ac0476347" type="manual">
+        <trigger id="da2f788d-0524-4e02-a6bd-d460b7f2af80" type="manual">
           <roles>
             <item role_id="_debug">_debug</item>
           </roles>
@@ -1527,7 +1524,6 @@ A d&#233;sactiv&#233; absolument pour la production ! </hint>
           <display_locations>
             <display_location>summary</display_location>
           </display_locations><prefill>
-            <locked>False</locked>
             <type>none</type>
           </prefill><id>1</id>
         </field><field>
@@ -1564,7 +1560,6 @@ A d&#233;sactiv&#233; absolument pour la production ! </hint>
           <display_locations>
             <display_location>summary</display_location>
           </display_locations><prefill>
-            <locked>False</locked>
             <type>none</type>
           </prefill><items>
             <item>Paiement en ligne</item>
@@ -1584,7 +1579,6 @@ A d&#233;sactiv&#233; absolument pour la production ! </hint>
           <display_locations>
             <display_location>summary</display_location>
           </display_locations><prefill>
-            <locked>False</locked>
             <type>none</type>
           </prefill><anonymise>True</anonymise>
           <id>11</id>
@@ -1731,7 +1725,6 @@ A d&#233;sactiv&#233; absolument pour la production ! </hint>
           <hint>Choix du moyen de paiement.
 Se compl&#232;te si le choix par d&#233;faut est le paiement en ligne, mais qu'ensuite, l'usager est amen&#233; &#224; payer d'une autre mani&#232;re (virement ou en pr&#233;sentiel).</hint>
           <varname>payment_means</varname>
-          <display_locations />
           <anonymise>False</anonymise>
           <id>bo14f7c398-0b2f-4e0a-9729-5d4e42f18961</id>
         </field><field>
@@ -1739,7 +1732,6 @@ Se compl&#232;te si le choix par d&#233;faut est le paiement en ligne, mais qu'e
           <type>string</type>
           <required>False</required>
           <varname>finalmail</varname>
-          <display_locations />
           <anonymise>False</anonymise>
           <id>bo87ac6923-e30f-4862-9d91-d6a3f06f96bb</id>
         </field><field>
