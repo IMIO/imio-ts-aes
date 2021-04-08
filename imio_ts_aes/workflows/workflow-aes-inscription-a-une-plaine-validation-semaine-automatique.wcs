@@ -182,7 +182,7 @@ Bien cordialement, </body>
         <item id="1" type="register-comment">
           <comment>{% if 'plus de places' in aes_registration_child_plaine_error_response_err_desc %}Il n'y a plus de places disponibles sur cette plaine.
 
-Veuillez contacter {{ form_option_service_jeunesse_mail }}{% endif %}</comment>
+Veuillez contacter {{ form_option_service_jeunesse_mail }}{% else %}Une erreur s'est produite{% endif %}</comment>
         </item><item id="2" type="sendmail">
           <to>
             <item role_id="_receiver">_receiver</item>
@@ -206,7 +206,7 @@ Bien cordialement,</body>
         </item><item id="4" type="displaymsg">
           <message>{% if 'plus de places' in aes_registration_child_plaine_error_response_err_desc %}Il n'y a plus de places disponibles sur cette plaine.
 
-Veuillez contacter {{ form_option_service_jeunesse_mail }}{% endif %}</message>
+Veuillez contacter {{ form_option_service_jeunesse_mail }}{% else %}Une erreur s'est produite{% endif %}</message>
           <level>error</level>
           <position>top</position>
           <to>
@@ -215,7 +215,7 @@ Veuillez contacter {{ form_option_service_jeunesse_mail }}{% endif %}</message>
         </item><item id="5" type="displaymsg">
           <message>{% if 'plus de places' in aes_registration_child_plaine_error_response_err_desc %}Il n'y a plus de places disponibles sur cette plaine.
 
-Veuillez contacter {{ form_option_service_jeunesse_mail }}{% endif %}</message>
+Veuillez contacter {{ form_option_service_jeunesse_mail }}{% else %}Une erreur s'est produite{% endif %}</message>
           <level>error</level>
           <position>bottom</position>
           <to>
