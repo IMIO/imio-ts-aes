@@ -1,6 +1,13 @@
 Changelog
 =========
 
+0.2.10
+------------------
+
+- rework validations messages in plain's registration
+- always display a message if child's registration to plains fails
+  [nhislaire]
+
 0.2.9
 ------------------
 

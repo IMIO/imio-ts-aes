@@ -182,7 +182,7 @@ Bien cordialement, </body>
         <item id="1" type="register-comment">
           <comment>{% if 'plus de places' in aes_registration_child_plaine_error_response_err_desc %}Il n'y a plus de places disponibles sur cette plaine.
 
-Veuillez contacter {{ form_option_service_jeunesse_mail }}{% endif %}</comment>
+Veuillez contacter {{ form_option_service_jeunesse_mail }}{% else %}Une erreur s'est produite{% endif %}</comment>
         </item><item id="2" type="sendmail">
           <to>
             <item role_id="_receiver">_receiver</item>
@@ -206,7 +206,7 @@ Bien cordialement,</body>
         </item><item id="4" type="displaymsg">
           <message>{% if 'plus de places' in aes_registration_child_plaine_error_response_err_desc %}Il n'y a plus de places disponibles sur cette plaine.
 
-Veuillez contacter {{ form_option_service_jeunesse_mail }}{% endif %}</message>
+Veuillez contacter {{ form_option_service_jeunesse_mail }}{% else %}Une erreur s'est produite{% endif %}</message>
           <level>error</level>
           <position>top</position>
           <to>
@@ -215,7 +215,7 @@ Veuillez contacter {{ form_option_service_jeunesse_mail }}{% endif %}</message>
         </item><item id="5" type="displaymsg">
           <message>{% if 'plus de places' in aes_registration_child_plaine_error_response_err_desc %}Il n'y a plus de places disponibles sur cette plaine.
 
-Veuillez contacter {{ form_option_service_jeunesse_mail }}{% endif %}</message>
+Veuillez contacter {{ form_option_service_jeunesse_mail }}{% else %}Une erreur s'est produite{% endif %}</message>
           <level>error</level>
           <position>bottom</position>
           <to>
@@ -234,10 +234,10 @@ Veuillez contacter {{ form_option_service_jeunesse_mail }}{% endif %}</message>
           <fields>
             <field>
               <field_id>bo87ac6923-e30f-4862-9d91-d6a3f06f96bb</field_id>
-              <value>=form_var_finalmail + "&lt;li&gt;Accept&#233; pour la semaine du {}&lt;/li&gt;".format(script.pp_get_monday_from_week_number())</value>
+              <value>=form_var_finalmail + "&lt;li&gt;Accept&#233; pour la semaine du {}&lt;/li&gt;".format(script.pp_get_monday_from_aes_weeks_response())</value>
             </field><field>
               <field_id>bo489d9a74-3e88-46f2-b98f-c815b2033927</field_id>
-              <value>="Accept&#233; pour la semaine du {}".format(script.pp_get_monday_from_week_number())</value>
+              <value>Accept&#233; pour la semaine {{ form_var_current_validating_week }}</value>
             </field><field>
               <field_id>bob9991026-8b9a-4aa8-8161-bd6d26ac0b42</field_id>
               <value>=int(form_var_aes_response_counter) + 1</value>
@@ -248,24 +248,6 @@ Veuillez contacter {{ form_option_service_jeunesse_mail }}{% endif %}</message>
 Nous avons le plaisir de vous confirmer l'inscription de {{ form_var_selected_child_firstname }} &#224; notre/nos plaine(s) pour le(s) jour(s) suivant :&lt;br/&gt;
 {{ form_var_msg_status_histo }}
 &lt;/div&gt;</comment>
-        </item><item id="3" type="sendmail">
-          <to>
-            <item role_id="_submitter">_submitter</item>
-          </to><subject>Portail parent : Inscription &#224; la plaine accept&#233;e</subject>
-          <body>{{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }}, 
-
-Nous avons le plaisir de vous confirmer l'inscription de votre enfant &#224; notre/nos plaine(s).
-
-Ci-dessous, veuillez retrouver les diff&#233;rents jours pour lesquels {{ form_var_selected_child_firstname }} sera pr&#233;sent :
-
-{{form_var_jours_de_plaine}}
-
-
-Bien cordialement, </body>
-          <condition>
-            <type>python</type>
-            <value>False</value>
-          </condition>
         </item><item id="4" type="jump">
           <status>26</status>
           <set_marker_on_status>False</set_marker_on_status>
@@ -357,7 +339,7 @@ Bien cordialement, </body>
               <value>=form_var_final_mail + "&lt;li&gt;Refus pour la semaine du {}&lt;/li&gt;".format(script.pp_get_monday_from_week_number(), script.pp_get_friday_from_week_number())</value>
             </field><field>
               <field_id>bo489d9a74-3e88-46f2-b98f-c815b2033927</field_id>
-              <value>="Refus pour la semaine du {}".format(script.pp_get_monday_from_week_number())</value>
+              <value>{{ form_var_current_validating_week }}</value>
             </field><field>
               <field_id>bob9991026-8b9a-4aa8-8161-bd6d26ac0b42</field_id>
               <value>=int(form_var_aes_response_counter) + 1</value>
@@ -368,10 +350,7 @@ Bien cordialement, </body>
           </fields>
         </item><item id="2" type="register-comment">
           <comment>&lt;div&gt;
-&lt;p class="pk-error"&gt;Il n'y a plus de places disponibles sur cette plaine. Veuillez contacter {{ form_option_service_jeunesse_mail }}&lt;/p&gt;
-&lt;p&gt;Nous sommes au regret de vous annoncer que l'inscription de {{ form_var_selected_child_firstname }} &#224; notre/nos plaine(s) pour le(s) jour(s) suivant :&lt;/p&gt;
-&lt;p&gt;{{ form_var_msg_status_histo }} n'est pas possible.&lt;/p&gt;
-&lt;p&gt;Si vous voulez inscrire votre enfant sur liste d'attente, veuillez envoyer un courriel &#224; l'adresse : {{ form_option_service_jeunesse_mail }}&lt;/p&gt;
+&lt;p class="pk-error"&gt;Il n'y a plus de places disponibles pour cette plaine pour la semaine {{ form_var_msg_status_histo }}. Veuillez contacter {{ form_option_service_jeunesse_mail }} si vous voulez inscrire votre enfant sur liste d'attente&lt;/p&gt;
 &lt;/div&gt;</comment>
         </item><item id="3" type="jump">
           <status>17</status>
@@ -468,16 +447,26 @@ Bien cordialement, </body>
             <item role_id="_submitter">_submitter</item>
           </to><subject>Plaines : Votre demande {{ form_number }} du portail parent.</subject>
           <body>&lt;div&gt;
-{{ form_user_var_title }} {{ form_user_var_first_name }} {{ form_user_var_last_name }},
-&lt;br /&gt;
-Nous avons finalis&#233; le traitement de votre demande soumise le {{ form_receipt_date }}.
-&lt;br /&gt;
-Ci-dessous, veuillez retrouver les semaines accept&#233;es ou refus&#233;es pour votre demande : 
+&lt;p&gt;{{ form_user_var_title }} {{ form_user_var_first_name }} {{ form_user_var_last_name }},&lt;/p&gt;
 
-&lt;ul&gt;
-{{ form_var_finalmail|safe }}
-&lt;/ul&gt;
+&lt;p&gt;Nous vous confirmons que votre enfant a bien &#233;t&#233; inscrit &#224; la ou les plaine(s) suivante(s) :&lt;/p&gt;
 
+&lt;ul&gt;{% for plain in form_var_activities_plaines_structured %}
+    {% if plain|get:"week" in ack_aes_response_aes_week_validate %}&lt;li&gt;{{plain|get:"text"}} - Semaine {{plain|get:"week"}}&lt;/li&gt;{% endif %}
+{% endfor %}&lt;/ul&gt;
+
+{% if plain in form_var_activities_plaines_structured|length &gt; ack_aes_response_aes_week_validate|length %}&lt;p&gt;Il n'y a par contre plus de places pour la ou les plaine(s) suivante(s) :&lt;/p&gt;
+&lt;ul&gt;{% for plain in form_var_activities_plaines_structured %}
+    {% if plain|get:"week" not in ack_aes_response_aes_week_validate %}&lt;li&gt;{{plain|get:"text"}} - Semaine {{plain|get:"week"}}&lt;/li&gt;{% endif %}
+{% endfor %}&lt;/ul&gt;
+&lt;p&gt;Pour inscrire votre enfant sur une liste d'attente, envoyez votre demande &#224; {{ form_option_service_jeunesse_mail }}&lt;/p&gt;{% endif %}
+
+&lt;p&gt;Merci de r&#233;gler le montant de l'inscription pour que celle-ci soit d&#233;finitivement prise en compte.&lt;/p&gt;
+
+&lt;a href="{{ form_url }}"&gt;Consulter l'historique de votre demande&lt;/a&gt;
+
+&lt;p&gt;Bien cordialement,&lt;/p&gt;
+&lt;/div&gt;
 &lt;p&gt;Pour inscrire votre enfant en liste d'attente pour une plaine, veuillez contacter {{ form_option_service_jeunesse_mail }}&lt;/p&gt;
 
 &lt;a href="{{ form_url }}"&gt;Consulter l'historique de votre demande&lt;/a&gt;
@@ -1150,7 +1139,10 @@ Le paiement a bien &#233;t&#233; re&#231;u.</body>
                 <type>string</type>
                 <required>True</required>
                 <varname>montant</varname>
-                <prefill>
+                <display_locations>
+                  <display_location>validation</display_location>
+                  <display_location>summary</display_location>
+                </display_locations><prefill>
                   <type>none</type>
                 </prefill><anonymise>True</anonymise>
                 <id>1</id>
@@ -1160,7 +1152,10 @@ Le paiement a bien &#233;t&#233; re&#231;u.</body>
                 <required>False</required>
                 <hint>Si vide, le num&#233;ro de suivi du formulaire est envoy&#233;</hint>
                 <varname>communication</varname>
-                <prefill>
+                <display_locations>
+                  <display_location>validation</display_location>
+                  <display_location>summary</display_location>
+                </display_locations><prefill>
                   <type>none</type>
                 </prefill><anonymise>True</anonymise>
                 <id>2</id>
@@ -1169,7 +1164,10 @@ Le paiement a bien &#233;t&#233; re&#231;u.</body>
                 <type>text</type>
                 <required>False</required>
                 <varname>complementaires</varname>
-                <prefill>
+                <display_locations>
+                  <display_location>validation</display_location>
+                  <display_location>summary</display_location>
+                </display_locations><prefill>
                   <type>none</type>
                 </prefill><pre>False</pre>
                 <id>3</id>
@@ -1277,9 +1275,20 @@ Vous serez bient&#244;t contact&#233; par mail pour r&#233;gler le montant de l'
           <to>
             <item role_id="_submitter">_submitter</item>
           </to><subject>Votre demande d'inscription de {{ form_var_selected_child }} aux plaines</subject>
-          <body>Votre demande d'inscription de {{ form_var_selected_child }} aux plaines a bien &#233;t&#233; valid&#233;e !
+          <body>&lt;div&gt;
+&lt;p&gt;Nous vous confirmons que votre enfant a bien &#233;t&#233; inscrit &#224; la ou les plaine(s) suivante(s) :&lt;/p&gt;
+&lt;ul&gt;{% for plain in form_var_activities_plaines_structured %}
+    {% if plain|get:"week" in ack_aes_response_aes_week_validate %}&lt;li&gt;{{plain|get:"text"}} - Semaine {{plain|get:"week"}}&lt;/li&gt;{% endif %}
+{% endfor %}&lt;/ul&gt;
+{% if form_var_activities_plaines_structured|length &gt; ack_aes_response_aes_week_validate|length %}&lt;p&gt;Il n'y a par contre plus de places pour la ou les plaine(s) suivante(s) :&lt;/p&gt;
+&lt;ul&gt;{% for plain in form_var_activities_plaines_structured %}
+    {% if plain|get:"week" not in ack_aes_response_aes_week_validate %}&lt;li&gt;{{plain|get:"text"}} - Semaine {{plain|get:"week"}}&lt;/li&gt;{% endif %}
+{% endfor %}&lt;/ul&gt;
+&lt;p&gt;Pour inscrire votre enfant sur une liste d'attente, envoyez votre demande &#224; {{ form_option_service_jeunesse_mail }}&lt;/p&gt;{% endif %}
+&lt;p&gt;Merci de r&#233;gler le montant de l'inscription pour que celle-ci soit d&#233;finitivement prise en compte. Le montant et les modalit&#233;s du virement vous seront communiqu&#233;s par la suite dans un prochain courriel.&lt;/p&gt;
 
-Vous serez bient&#244;t contact&#233; par mail pour r&#233;gler le montant de l'inscription.</body>
+&lt;p&gt;&lt;a href={{ form_url }} target="_blank"&gt;Consulter ma demande&lt;/a&gt;&lt;p&gt;
+&lt;/div&gt;</body>
         </item><item id="4" type="jump">
           <status>27</status>
           <set_marker_on_status>False</set_marker_on_status>
@@ -1422,7 +1431,7 @@ En vous remerciant de la confiance que vous accordez &#224; nos services,</body>
       <items>
         <item id="1" type="remove" />
       </items><triggers>
-        <trigger id="89b2a1ba-b761-412a-8fc2-39b9040395ff" type="manual">
+        <trigger id="50ef9679-0817-4f6f-91a7-9967633bf740" type="manual">
           <roles>
             <item role_id="_debug">_debug</item>
           </roles>
@@ -1433,7 +1442,7 @@ En vous remerciant de la confiance que vous accordez &#224; nos services,</body>
       <name>&#201;diter la demande</name>
       <items />
       <triggers>
-        <trigger id="8893acb8-8005-4908-a658-3ba6c6cbce30" type="manual">
+        <trigger id="22e3b475-5ceb-4c26-b17f-d7d147ad6711" type="manual">
           <roles>
             <item role_id="_debug">_debug</item>
           </roles>
@@ -1448,7 +1457,7 @@ En vous remerciant de la confiance que vous accordez &#224; nos services,</body>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items><triggers>
-        <trigger id="da2f788d-0524-4e02-a6bd-d460b7f2af80" type="manual">
+        <trigger id="45f76d8d-e441-4358-b512-0775e7c3429b" type="manual">
           <roles>
             <item role_id="_debug">_debug</item>
           </roles>
@@ -1725,14 +1734,20 @@ A d&#233;sactiv&#233; absolument pour la production ! </hint>
           <hint>Choix du moyen de paiement.
 Se compl&#232;te si le choix par d&#233;faut est le paiement en ligne, mais qu'ensuite, l'usager est amen&#233; &#224; payer d'une autre mani&#232;re (virement ou en pr&#233;sentiel).</hint>
           <varname>payment_means</varname>
-          <anonymise>False</anonymise>
+          <display_locations>
+            <display_location>validation</display_location>
+            <display_location>summary</display_location>
+          </display_locations><anonymise>False</anonymise>
           <id>bo14f7c398-0b2f-4e0a-9729-5d4e42f18961</id>
         </field><field>
           <label>Refus et acceptations pour mail final (messages concat&#233;n&#233;s)</label>
           <type>string</type>
           <required>False</required>
           <varname>finalmail</varname>
-          <anonymise>False</anonymise>
+          <display_locations>
+            <display_location>validation</display_location>
+            <display_location>summary</display_location>
+          </display_locations><anonymise>False</anonymise>
           <id>bo87ac6923-e30f-4862-9d91-d6a3f06f96bb</id>
         </field><field>
           <label>Date d'ouverture des plaines</label>
