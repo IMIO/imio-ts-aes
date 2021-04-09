@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.2.11
+------------------
+
+- fix validations message in plain's registration
+  [nhislaire]
+
 0.2.10
 ------------------
 

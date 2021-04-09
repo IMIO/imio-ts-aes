@@ -245,7 +245,7 @@ Veuillez contacter {{ form_option_service_jeunesse_mail }}{% else %}Une erreur s
           </fields>
         </item><item id="2" type="register-comment">
           <comment>&lt;div&gt;
-Nous avons le plaisir de vous confirmer l'inscription de {{ form_var_selected_child_firstname }} &#224; notre/nos plaine(s) pour le(s) jour(s) suivant :&lt;br/&gt;
+Nous avons le plaisir de vous confirmer l'inscription de {{ form_var_selected_child_firstname }} &#224; notre/nos plaine(s) pour la semaine suivante :&lt;br/&gt;
 {{ form_var_msg_status_histo }}
 &lt;/div&gt;</comment>
         </item><item id="4" type="jump">
@@ -421,7 +421,7 @@ Nous avons le plaisir de vous confirmer l'inscription de {{ form_var_selected_ch
       <items>
         <item id="1" type="register-comment">
           <comment>&lt;div&gt;
-&lt;p&gt;Si vous cl&#244;turer, vous nous indiquez que vous avez inscrit vos diff&#233;rents enfants (1 demande par enfant).&lt;/p&gt; 
+&lt;p&gt;Si vous cl&#244;turez, vous nous indiquez que vous avez inscrit vos diff&#233;rents enfants (une demande par enfant).&lt;/p&gt;
 &lt;p&gt;Vous acceptez que le calcul du tarif se fasse sur base des enfants inscris jusqu'&#224; cette cl&#244;ture.&lt;/p&gt;
 &lt;/div&gt;</comment>
         </item><item id="2" type="resubmit">
@@ -455,19 +455,13 @@ Nous avons le plaisir de vous confirmer l'inscription de {{ form_var_selected_ch
     {% if plain|get:"week" in ack_aes_response_aes_week_validate %}&lt;li&gt;{{plain|get:"text"}} - Semaine {{plain|get:"week"}}&lt;/li&gt;{% endif %}
 {% endfor %}&lt;/ul&gt;
 
-{% if plain in form_var_activities_plaines_structured|length &gt; ack_aes_response_aes_week_validate|length %}&lt;p&gt;Il n'y a par contre plus de places pour la ou les plaine(s) suivante(s) :&lt;/p&gt;
+{% if form_var_activities_plaines_structured|length &gt; ack_aes_response_aes_week_validate|length %}&lt;p&gt;Il n'y a par contre plus de places pour la ou les plaine(s) suivante(s) :&lt;/p&gt;
 &lt;ul&gt;{% for plain in form_var_activities_plaines_structured %}
     {% if plain|get:"week" not in ack_aes_response_aes_week_validate %}&lt;li&gt;{{plain|get:"text"}} - Semaine {{plain|get:"week"}}&lt;/li&gt;{% endif %}
 {% endfor %}&lt;/ul&gt;
 &lt;p&gt;Pour inscrire votre enfant sur une liste d'attente, envoyez votre demande &#224; {{ form_option_service_jeunesse_mail }}&lt;/p&gt;{% endif %}
 
 &lt;p&gt;Merci de r&#233;gler le montant de l'inscription pour que celle-ci soit d&#233;finitivement prise en compte.&lt;/p&gt;
-
-&lt;a href="{{ form_url }}"&gt;Consulter l'historique de votre demande&lt;/a&gt;
-
-&lt;p&gt;Bien cordialement,&lt;/p&gt;
-&lt;/div&gt;
-&lt;p&gt;Pour inscrire votre enfant en liste d'attente pour une plaine, veuillez contacter {{ form_option_service_jeunesse_mail }}&lt;/p&gt;
 
 &lt;a href="{{ form_url }}"&gt;Consulter l'historique de votre demande&lt;/a&gt;
 
