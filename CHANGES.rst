@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.2.12
+------------------
+
+- fix slug to Fiche santé in Inscrire mon enfant à une plaine
+  [nselva]
+
 0.2.11
 ------------------
 

@@ -264,11 +264,11 @@
 
 &lt;p&gt;{% if not is_in_backoffice %}&lt;/p&gt;
 
-&lt;p&gt;&lt;a class="pk-button" href="{{site_url}}/portail-parent/fiche-sante/" target="_blank"&gt;Compl&amp;eacute;ter la Fiche Sant&amp;eacute;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class="pk-button" href="{{site_url}}/portail-parent/aes-fiche-sante/" target="_blank"&gt;Compl&amp;eacute;ter la Fiche Sant&amp;eacute;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;{% endif %} {% if is_in_backoffice %}&lt;/p&gt;
 
-&lt;p&gt;&lt;a class="pk-button" href="{{site_url_backoffice}}/submission/fiche-sante/" target="_blank"&gt;Compl&amp;eacute;ter la Fiche Sant&amp;eacute;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class="pk-button" href="{{site_url_backoffice}}/submission/aes-fiche-sante/" target="_blank"&gt;Compl&amp;eacute;ter la Fiche Sant&amp;eacute;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;{% endif %}&lt;/p&gt;</label>
       <type>comment</type>
