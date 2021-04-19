@@ -1191,7 +1191,7 @@ Le paiement a bien &#233;t&#233; re&#231;u.</body>
 {% endif %}
 
 &lt;p&gt;*Num&#233;ro de compte* : {{form_option_numero_de_compte_iban}}&lt;/p&gt;
-{% if info_paiement_var_complementaires is True %}
+{% if info_paiement_var_complementaires == True %}
 &lt;p&gt;{{info_paiement_var_complementaires}}&lt;/p&gt;
 {% endif %}
 </comment>
@@ -1215,7 +1215,7 @@ Voici le montant &#224; payer pour confirmer l&#8217;inscription de {{ form_var_
 {% endif %}
 
 *Num&#233;ro de compte* : {{form_option_numero_de_compte_iban}}
-{% if info_paiement_var_complementaires is True %}
+{% if info_paiement_var_complementaires == True %}
 {{info_paiement_var_complementaires}}
 {% endif %}
 
