@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.2.13
+------------------
+
+- fix commentaires in mail
+  [neslva]
+
 0.2.12
 ------------------
 
