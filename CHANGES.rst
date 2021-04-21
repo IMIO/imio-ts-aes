@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.2.14
+------------------
+
+- completing display registering's validation from AES
+  [nhislaire]
+
 0.2.13
 ------------------
 
