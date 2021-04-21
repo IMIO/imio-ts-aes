@@ -1,6 +1,24 @@
 Changelog
 =========
 
+0.2.14
+------------------
+
+- completing display registering's validation from AES
+  [nhislaire]
+
+0.2.13
+------------------
+
+- fix commentaires in mail
+  [neslva]
+
+0.2.12
+------------------
+
+- fix slug to Fiche santé in Inscrire mon enfant à une plaine
+  [nselva]
+
 0.2.11
 ------------------
 
