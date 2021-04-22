@@ -373,14 +373,14 @@ Veuillez contacter {{ form_option_service_jeunesse_mail }}{% else %}Une erreur s
 
 &lt;p&gt;Nous vous confirmons que votre enfant a bien &#233;t&#233; inscrit &#224; la ou les plaine(s) suivante(s) :&lt;/p&gt;
 &lt;ul&gt;
-{% for week in aes_registration_child_plaine_response %}{% if week.status %}&lt;li&gt;&lt;b&gt;{{ week.theme }}&lt;/b&gt; Semaine n&#176;{{ week.week}} : {{ week.reason }}.&lt;/li&gt;{% endif %}{% endfor %}
+{% for week in aes_registration_child_plaine_response %}{% if week.status %}&lt;li&gt;&lt;b&gt;{{ week.theme }}&lt;/b&gt; semaine du lundi {{ week.monday|date:"d M Y" }} : {{ week.reason }}.&lt;/li&gt;{% endif %}{% endfor %}
 &lt;/ul&gt;
 {% regroup aes_registration_child_plaine_response|dictsort:"status" by status as weeks %}{% if weeks.0.grouper == False and weeks.0.list|length &gt; 0 %}&lt;p&gt;Par contre, il n'a pas &#233;t&#233; possible de l'inscrire aux plaines suivantes :&lt;/p&gt;
 &lt;ul&gt;
-{% for week in aes_registration_child_plaine_response %}{% if not week.status %}&lt;li&gt;&lt;b&gt;{{ week.theme}} &lt;/b&gt;Semaine n&#176;{{ week.week}} : Inscription refus&#233;e : {{ week.reason }}. {% if week.reason == "Il n'y a plus de place" %}Veuillez contacter {{ form_option_service_jeunesse_mail }} si vous voulez inscrire votre enfant sur liste d'attente.{% endif %}&lt;/li&gt;{% endif %}{% endfor %}{% endif %}
+{% for week in aes_registration_child_plaine_response %}{% if not week.status %}&lt;li&gt;&lt;b&gt;{{ week.theme}} &lt;/b&gt; semaine du lundi {{ week.monday|date:"d M Y" }} : Inscription refus&#233;e : {{ week.reason }}. {% if week.reason == "Il n'y a plus de place" %}Veuillez contacter {{ form_option_service_jeunesse_mail }} si vous voulez inscrire votre enfant sur liste d'attente.{% endif %}&lt;/li&gt;{% endif %}{% endfor %}{% endif %}
 &lt;/ul&gt;
 
-&lt;p&gt;Merci de r&#233;gler le montant de l'inscription pour que celle-ci soit d&#233;finitivement prise en compte.&lt;/p&gt;
+&lt;p&gt;Merci de r&#233;gler le montant de l'inscription end&#233;ans les {{form_option_nb_days_before_free_places}} jours pour que celle-ci soit d&#233;finitivement prise en compte.&lt;/p&gt;
 
 &lt;a href="{{ form_url }}"&gt;Consulter l'historique de votre demande&lt;/a&gt;
 
@@ -760,7 +760,7 @@ Veuillez contacter {{ form_option_service_jeunesse_mail }}{% else %}Une erreur s
           </fields>
         </item><item id="2" type="register-comment">
           <comment>{% for week in aes_registration_child_plaine_response %}
-{% if week.status %}&lt;p class="pk-information"&gt;&lt;b&gt;{{ week.theme }}&lt;/b&gt; Semaine n&#176;{{ week.week}} : {{ week.reason }}.&lt;/p&gt;{% else %}&lt;p class="pk-error"&gt;&lt;b&gt;{{ week.theme }}&lt;/b&gt; Semaine n&#176;{{ week.week}} : Inscription refus&#233;e : {{ week.reason }}. {% if week.reason == "Il n'y a plus de place" %}Veuillez contacter {{ form_option_service_jeunesse_mail }} si vous voulez inscrire votre enfant sur liste d'attente.{% endif %}&lt;/p&gt;{% endif %}
+{% if week.status %}&lt;p class="pk-information"&gt;&lt;b&gt;{{ week.theme }}&lt;/b&gt; semaine du lundi {{ week.monday|date:"d M Y" }} : {{ week.reason }}.&lt;/p&gt;{% else %}&lt;p class="pk-error"&gt;&lt;b&gt;{{ week.theme }}&lt;/b&gt; semaine du lundi {{ week.monday|date:"d M Y" }} : Inscription refus&#233;e : {{ week.reason }}. {% if week.reason == "Il n'y a plus de place" %}Veuillez contacter {{ form_option_service_jeunesse_mail }} si vous voulez inscrire votre enfant sur liste d'attente.{% endif %}&lt;/p&gt;{% endif %}
 {% endfor %}</comment>
         </item><item id="3" type="jump">
           <status>17</status>
