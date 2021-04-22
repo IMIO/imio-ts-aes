@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<workflow id="21">
+<workflow id="11">
   <name>aes - Enregistrement parent</name>
   <roles>
     <role id="_debug">Debug</role>
@@ -13,7 +13,7 @@
         <role>_debug</role>
         <role>_receiver</role>
       </visibility><items>
-        <item id="4" type="set-backoffice-fields">
+        <item id="1" type="set-backoffice-fields">
           <label>Attribuer l'adresse mail</label>
           <fields>
             <field>
@@ -21,13 +21,13 @@
               <value>{{ form_user_email }}</value>
             </field>
           </fields>
-        </item><item id="6" type="jump">
+        </item><item id="2" type="jump">
           <status>3</status>
           <condition>
             <type>django</type>
             <value>webservice.aes_is_registered_parent</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item id="7" type="jump">
+        </item><item id="3" type="jump">
           <status>1</status>
           <condition>
             <type>django</type>
@@ -41,10 +41,10 @@
       <colour>FFFFFF</colour>
       <visibility />
       <items>
-        <item id="2" type="register-comment">
+        <item id="1" type="register-comment">
           <comment>&lt;p&gt;Merci de votre demande d'enregistrement dans notre portail parent.&lt;/p&gt;</comment>
-        </item><item id="4" type="webservice_call">
-          <label>Enregistrements des occurences s&#233;lectionn&#233;es</label>
+        </item><item id="2" type="webservice_call">
+          <label>Enregistrement du parent dans AES</label>
           <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/parent_registration</url>
           <method>POST</method>
           <post>False</post>
@@ -70,6 +70,9 @@
             </item><item>
               <name>city</name>
               <value>{{ form_user_var_city }}</value>
+            </item><item>
+              <name>housephone</name>
+              <value>{% firstof form_var_telephone form_user_var_phone %}</value>
             </item>
           </post_data><response_type>json</response_type>
           <varname>aes_parent_registration</varname>
@@ -85,13 +88,13 @@
             <type>python</type>
             <value>form_option_autosave is True</value>
           </condition>
-        </item><item id="6" type="jump">
+        </item><item id="3" type="jump">
           <status>3</status>
           <condition>
             <type>python</type>
             <value>form_option_autosave is True and aes_parent_registration_response &gt; 0</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item id="7" type="jump">
+        </item><item id="4" type="jump">
           <status>4</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -152,7 +155,7 @@ Vous pouvez &#224; pr&#233;sent &lt;a href="{{ eservices_url }}aes-enregistrer-u
 {% endif %}
 &lt;/div</comment>
         </item><item id="3" type="add_role">
-          <role_id role_id="97fd62031c1f4b35a219ca964396a445">Parent</role_id>
+          <role_id role_id="8f2fc1f22995463591df2520146720b1">Parent</role_id>
         </item>
       </items>
     </status><status>
@@ -177,7 +180,7 @@ Bien &#224; vous,
           <body>Voici le formulaire qui a pos&#233; un probl&#232;me :
 
 {{ form_url_backoffice }}</body>
-        </item><item id="4" type="choice">
+        </item><item id="3" type="choice">
           <label>Signaler la situation comme r&#233;gularis&#233;e sans notifier l'usager</label>
           <by>
             <item role_id="_receiver">_receiver</item>
@@ -185,7 +188,7 @@ Bien &#224; vous,
           <require_confirmation>True</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item id="5" type="choice">
+        </item><item id="4" type="choice">
           <label>Notifier l'usager de la r&#233;gularisation de sa situation</label>
           <by>
             <item role_id="_receiver">_receiver</item>
@@ -202,18 +205,21 @@ Bien &#224; vous,
       <visibility />
       <items>
         <item id="1" type="add_role">
-          <role_id role_id="97fd62031c1f4b35a219ca964396a445">Parent</role_id>
+          <role_id role_id="8f2fc1f22995463591df2520146720b1">Parent</role_id>
         </item>
       </items>
     </status>
   </possible_status><global_actions>
     <action>
       <id>1</id>
-      <name>DEL</name>
+      <name>Suppression d&#233;finitivie et absolue</name>
+      <backoffice_info_text>&lt;p&gt;Cliquer sur ce bouton supprime d&amp;eacute;finitivement la demande. Les informations d&amp;eacute;j&amp;agrave; transmises &amp;agrave; AES ne sont pas impact&amp;eacute;e, mais il ne sera plus possible de consulter l'historique.&lt;/p&gt;
+
+&lt;p&gt;Normalement, l'usage d'un tel bouton ne peut &amp;ecirc;tre fait que dans le cas de tests.&lt;/p&gt;</backoffice_info_text>
       <items>
         <item id="1" type="remove" />
       </items><triggers>
-        <trigger id="e7370fc7-2884-4b89-9e2e-ef45a691cd97" type="manual">
+        <trigger id="3c8069ac-6ed1-4f41-9263-e6c256d0b40d" type="manual">
           <roles>
             <item role_id="_debug">_debug</item>
           </roles>
@@ -232,7 +238,6 @@ Bien &#224; vous,
           <display_locations>
             <display_location>summary</display_location>
           </display_locations><prefill>
-            <locked>False</locked>
             <type>none</type>
           </prefill><id>1</id>
         </field>

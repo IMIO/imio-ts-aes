@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.2.15
+------------------
+
+- send parent's phone number to AES during his registration
+  [nhislaire]
+
 0.2.14
 ------------------
 
