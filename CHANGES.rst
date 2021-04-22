@@ -1,6 +1,14 @@
 Changelog
 =========
 
+0.2.16
+------------------
+
+- fix text in no more places status
+- display theme and monday's date in summary
+- display limit before free up places in summary mail when epayment
+  [nhislaire]
+
 0.2.15
 ------------------
 

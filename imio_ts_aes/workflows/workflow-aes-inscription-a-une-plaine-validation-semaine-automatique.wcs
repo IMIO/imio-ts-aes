@@ -364,7 +364,7 @@ Veuillez contacter {{ form_option_service_jeunesse_mail }}{% else %}Une erreur s
         </item><item id="3" type="jumponsubmit">
           <status>9</status>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item id="5" type="sendmail">
+        </item><item id="4" type="sendmail">
           <to>
             <item role_id="_submitter">_submitter</item>
           </to><subject>Plaines : Votre demande {{ form_number }} du portail parent.</subject>
@@ -373,24 +373,24 @@ Veuillez contacter {{ form_option_service_jeunesse_mail }}{% else %}Une erreur s
 
 &lt;p&gt;Nous vous confirmons que votre enfant a bien &#233;t&#233; inscrit &#224; la ou les plaine(s) suivante(s) :&lt;/p&gt;
 &lt;ul&gt;
-{% for week in aes_registration_child_plaine_response %}{% if week.status %}&lt;li&gt;&lt;b&gt;Semaine n&#176;{{ week.week}}&lt;/b&gt; : {{ week.reason }}.&lt;/li&gt;{% endif %}{% endfor %}
+{% for week in aes_registration_child_plaine_response %}{% if week.status %}&lt;li&gt;&lt;b&gt;{{ week.theme }}&lt;/b&gt; semaine du lundi {{ week.monday|date:"d M Y" }} : {{ week.reason }}.&lt;/li&gt;{% endif %}{% endfor %}
 &lt;/ul&gt;
 {% regroup aes_registration_child_plaine_response|dictsort:"status" by status as weeks %}{% if weeks.0.grouper == False and weeks.0.list|length &gt; 0 %}&lt;p&gt;Par contre, il n'a pas &#233;t&#233; possible de l'inscrire aux plaines suivantes :&lt;/p&gt;
 &lt;ul&gt;
-{% for week in aes_registration_child_plaine_response %}{% if not week.status %}&lt;li&gt;&lt;b&gt;Semaine n&#176;{{ week.week}}&lt;/b&gt; : Inscription refus&#233;e : {{ week.reason }}. {% if week.reason == "Il n'y a plus de place" %}Veuillez contacter {{ form_option_service_jeunesse_mail }} si vous voulez inscrire votre enfant sur liste d'attente.{% endif %}&lt;/li&gt;{% endif %}{% endfor %}{% endif %}
+{% for week in aes_registration_child_plaine_response %}{% if not week.status %}&lt;li&gt;&lt;b&gt;{{ week.theme}} &lt;/b&gt; semaine du lundi {{ week.monday|date:"d M Y" }} : Inscription refus&#233;e : {{ week.reason }}. {% if week.reason == "Il n'y a plus de place" %}Veuillez contacter {{ form_option_service_jeunesse_mail }} si vous voulez inscrire votre enfant sur liste d'attente.{% endif %}&lt;/li&gt;{% endif %}{% endfor %}{% endif %}
 &lt;/ul&gt;
 
-&lt;p&gt;Merci de r&#233;gler le montant de l'inscription pour que celle-ci soit d&#233;finitivement prise en compte.&lt;/p&gt;
+&lt;p&gt;Merci de r&#233;gler le montant de l'inscription end&#233;ans les {{form_option_nb_days_before_free_places}} jours pour que celle-ci soit d&#233;finitivement prise en compte.&lt;/p&gt;
 
 &lt;a href="{{ form_url }}"&gt;Consulter l'historique de votre demande&lt;/a&gt;
 
 &lt;p&gt;Bien cordialement,&lt;/p&gt;
 &lt;/div&gt;</body>
-        </item><item id="6" type="jump">
+        </item><item id="5" type="jump">
           <status>5</status>
           <trigger>cloture</trigger>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item id="4" type="choice">
+        </item><item id="6" type="choice">
           <label>Cloturer mes demandes</label>
           <by>
             <item role_id="_submitter">_submitter</item>
@@ -760,21 +760,21 @@ Veuillez contacter {{ form_option_service_jeunesse_mail }}{% else %}Une erreur s
           </fields>
         </item><item id="2" type="register-comment">
           <comment>{% for week in aes_registration_child_plaine_response %}
-{% if week.status %}&lt;p class="pk-information"&gt;&lt;b&gt;Semaine n&#176;{{ week.week}}&lt;/b&gt; : {{ week.reason }}.&lt;/p&gt;{% else %}&lt;p class="pk-error"&gt;&lt;b&gt;Semaine n&#176;{{ week.week}}&lt;/b&gt; : Inscription refus&#233;e : {{ week.reason }}. {% if week.reason == "Il n'y a plus de place" %}Veuillez contacter {{ form_option_service_jeunesse_mail }} si vous voulez inscrire votre enfant sur liste d'attente.{% endif %}&lt;/p&gt;{% endif %}
+{% if week.status %}&lt;p class="pk-information"&gt;&lt;b&gt;{{ week.theme }}&lt;/b&gt; semaine du lundi {{ week.monday|date:"d M Y" }} : {{ week.reason }}.&lt;/p&gt;{% else %}&lt;p class="pk-error"&gt;&lt;b&gt;{{ week.theme }}&lt;/b&gt; semaine du lundi {{ week.monday|date:"d M Y" }} : Inscription refus&#233;e : {{ week.reason }}. {% if week.reason == "Il n'y a plus de place" %}Veuillez contacter {{ form_option_service_jeunesse_mail }} si vous voulez inscrire votre enfant sur liste d'attente.{% endif %}&lt;/p&gt;{% endif %}
 {% endfor %}</comment>
-        </item><item id="5" type="jump">
+        </item><item id="3" type="jump">
           <status>17</status>
           <condition>
             <type>django</type>
             <value>form_var_no_more_place_counter == "Plus de place !"</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item id="3" type="jump">
+        </item><item id="4" type="jump">
           <status>8</status>
           <condition>
             <type>django</type>
             <value>form_option_modalite_paiement == "Paiement en ligne"</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item id="4" type="jump">
+        </item><item id="5" type="jump">
           <status>30</status>
           <condition>
             <type>django</type>
@@ -791,7 +791,7 @@ Veuillez contacter {{ form_option_service_jeunesse_mail }}{% else %}Une erreur s
       <items>
         <item id="1" type="register-comment">
           <comment>&lt;div&gt;
-Nous sommes d&#233;sol&#233; mais il semble que &lt;b&gt;toutes les places&lt;/b&gt; que vous aviez choisis dans votre formulaire &lt;b&gt;ont &#233;t&#233; r&#233;serv&#233;e entre temps !&lt;/b&gt; 
+Nous sommes d&#233;sol&#233;s mais il semble que &lt;b&gt;toutes les places&lt;/b&gt; que vous aviez choisies dans votre formulaire &lt;b&gt;ont &#233;t&#233; r&#233;serv&#233;es entre temps !&lt;/b&gt;
 &lt;/div&gt;</comment>
         </item>
       </items>
@@ -1334,7 +1334,7 @@ En vous remerciant de la confiance que vous accordez &#224; nos services,</body>
       <items>
         <item id="1" type="remove" />
       </items><triggers>
-        <trigger id="50ef9679-0817-4f6f-91a7-9967633bf740" type="manual">
+        <trigger id="4fce8ff3-7171-4eb5-9ebf-3d8849a114f2" type="manual">
           <roles>
             <item role_id="_debug">_debug</item>
           </roles>
@@ -1345,7 +1345,7 @@ En vous remerciant de la confiance que vous accordez &#224; nos services,</body>
       <name>&#201;diter la demande</name>
       <items />
       <triggers>
-        <trigger id="22e3b475-5ceb-4c26-b17f-d7d147ad6711" type="manual">
+        <trigger id="e6ab4aaf-f7ee-40df-bc2b-dde1b8229f8c" type="manual">
           <roles>
             <item role_id="_debug">_debug</item>
           </roles>
@@ -1360,7 +1360,7 @@ En vous remerciant de la confiance que vous accordez &#224; nos services,</body>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items><triggers>
-        <trigger id="45f76d8d-e441-4358-b512-0775e7c3429b" type="manual">
+        <trigger id="3aa421f5-1250-40d5-9d5f-519986584219" type="manual">
           <roles>
             <item role_id="_debug">_debug</item>
           </roles>
