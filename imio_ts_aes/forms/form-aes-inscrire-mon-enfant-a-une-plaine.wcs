@@ -294,13 +294,6 @@
       <display_locations />
       <id>55</id>
     </field><field>
-      <label>&lt;p&gt;Si une ou des semaines sont d&#233;j&#224; s&#233;lectionn&#233;es, c'est parce qu'elle(s) correspond(ent) &#224; l'inscription d'un premier enfant, dans l'id&#233;e qu'ils iront ensemble &#224; la plaine.&lt;/p&gt;
-
-&lt;p&gt;Si ce n'est pas le cas, d&#233;s&#233;lectionnez la ou les semaine(s) o&#249; votre enfant ne sera pas inscrit, et ne s&#233;lectionnez que celles o&#249; celui-ci doit &#234;tre inscrit.&lt;/p&gt;</label>
-      <type>comment</type>
-      <display_locations />
-      <id>53</id>
-    </field><field>
       <label>Plaines</label>
       <type>items</type>
       <required>True</required>

@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.2.19
+------------------
+
+- remove message about preselected plains
+  [nhislaire]
+
 0.2.18
 ------------------
 
