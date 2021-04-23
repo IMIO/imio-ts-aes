@@ -1,6 +1,13 @@
 Changelog
 =========
 
+0.2.17
+------------------
+
+- display full month in plain registration summaries
+- display info message about preselected plains, just above them, in form
+  [nhislaire]
+
 0.2.16
 ------------------
 
