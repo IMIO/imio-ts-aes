@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.2.18
+------------------
+
+- adapt message about preselected plains to be always displayable
+  [nhislaire]
+  
 0.2.17
 ------------------
 
