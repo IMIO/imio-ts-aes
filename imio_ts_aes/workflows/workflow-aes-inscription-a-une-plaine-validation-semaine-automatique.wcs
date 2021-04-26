@@ -26,6 +26,10 @@ A d&#233;faut, les places que vous aurez r&#233;serv&#233; seront lib&#233;r&#23
 `Consulter ma demande &lt;{{ form_url }}&gt;`_
 
 Bien cordialement, </body>
+          <condition>
+            <type>django</type>
+            <value>form_option_modalite_paiement == "Paiement en ligne"</value>
+          </condition>
         </item><item id="2" type="set-backoffice-fields">
           <label>Initialisation des donn&#233;es de traitement</label>
           <fields>
@@ -154,8 +158,8 @@ Bien cordialement, </body>
         </item><item id="3" type="jump">
           <status>7</status>
           <condition>
-            <type>python</type>
-            <value>aes_registration_child_plaine_response is True</value>
+            <type>django</type>
+            <value>aes_registration_child_plaine_response</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
         </item><item id="4" type="sendmail">
           <to>
@@ -182,7 +186,7 @@ Bien cordialement, </body>
         <item id="1" type="register-comment">
           <comment>{% if 'plus de places' in aes_registration_child_plaine_error_response_err_desc %}Il n'y a plus de places disponibles sur cette plaine.
 
-Veuillez contacter {{ form_option_service_jeunesse_mail }}{% endif %}</comment>
+Veuillez contacter {{ form_option_service_jeunesse_mail }}{% else %}Une erreur s'est produite{% endif %}</comment>
         </item><item id="2" type="sendmail">
           <to>
             <item role_id="_receiver">_receiver</item>
@@ -196,7 +200,7 @@ Bien cordialement,</body>
         </item><item id="3" type="choice">
           <label>Retenter</label>
           <by>
-            <item role_id="334fbf8ccb18436d8ec67b0d56d970b1">Debug</item>
+            <item role_id="52c6b8da2da745efb074ea2c30fa6741">Debug</item>
             <item role_id="_submitter">_submitter</item>
           </by><status>1</status>
           <require_confirmation>False</require_confirmation>
@@ -206,7 +210,7 @@ Bien cordialement,</body>
         </item><item id="4" type="displaymsg">
           <message>{% if 'plus de places' in aes_registration_child_plaine_error_response_err_desc %}Il n'y a plus de places disponibles sur cette plaine.
 
-Veuillez contacter {{ form_option_service_jeunesse_mail }}{% endif %}</message>
+Veuillez contacter {{ form_option_service_jeunesse_mail }}{% else %}Une erreur s'est produite{% endif %}</message>
           <level>error</level>
           <position>top</position>
           <to>
@@ -215,60 +219,12 @@ Veuillez contacter {{ form_option_service_jeunesse_mail }}{% endif %}</message>
         </item><item id="5" type="displaymsg">
           <message>{% if 'plus de places' in aes_registration_child_plaine_error_response_err_desc %}Il n'y a plus de places disponibles sur cette plaine.
 
-Veuillez contacter {{ form_option_service_jeunesse_mail }}{% endif %}</message>
+Veuillez contacter {{ form_option_service_jeunesse_mail }}{% else %}Une erreur s'est produite{% endif %}</message>
           <level>error</level>
           <position>bottom</position>
           <to>
             <item role_id="_submitter">_submitter</item>
           </to>
-        </item>
-      </items>
-    </status><status>
-      <id>4</id>
-      <name>R&#233;servation accept&#233;e</name>
-      <colour>0066FF</colour>
-      <visibility />
-      <items>
-        <item id="1" type="set-backoffice-fields">
-          <label>Construction des messages et incr&#233;mentation des compteurs</label>
-          <fields>
-            <field>
-              <field_id>bo87ac6923-e30f-4862-9d91-d6a3f06f96bb</field_id>
-              <value>=form_var_finalmail + "&lt;li&gt;Accept&#233; pour la semaine du {}&lt;/li&gt;".format(script.pp_get_monday_from_week_number())</value>
-            </field><field>
-              <field_id>bo489d9a74-3e88-46f2-b98f-c815b2033927</field_id>
-              <value>="Accept&#233; pour la semaine du {}".format(script.pp_get_monday_from_week_number())</value>
-            </field><field>
-              <field_id>bob9991026-8b9a-4aa8-8161-bd6d26ac0b42</field_id>
-              <value>=int(form_var_aes_response_counter) + 1</value>
-            </field>
-          </fields>
-        </item><item id="2" type="register-comment">
-          <comment>&lt;div&gt;
-Nous avons le plaisir de vous confirmer l'inscription de {{ form_var_selected_child_firstname }} &#224; notre/nos plaine(s) pour le(s) jour(s) suivant :&lt;br/&gt;
-{{ form_var_msg_status_histo }}
-&lt;/div&gt;</comment>
-        </item><item id="3" type="sendmail">
-          <to>
-            <item role_id="_submitter">_submitter</item>
-          </to><subject>Portail parent : Inscription &#224; la plaine accept&#233;e</subject>
-          <body>{{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }}, 
-
-Nous avons le plaisir de vous confirmer l'inscription de votre enfant &#224; notre/nos plaine(s).
-
-Ci-dessous, veuillez retrouver les diff&#233;rents jours pour lesquels {{ form_var_selected_child_firstname }} sera pr&#233;sent :
-
-{{form_var_jours_de_plaine}}
-
-
-Bien cordialement, </body>
-          <condition>
-            <type>python</type>
-            <value>False</value>
-          </condition>
-        </item><item id="5" type="jump">
-          <status>26</status>
-          <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
     </status><status>
@@ -344,47 +300,6 @@ Bien cordialement, </body>
         </item>
       </items>
     </status><status>
-      <id>6</id>
-      <name>Il n'y a plus de place pour cette semaine</name>
-      <colour>FF0000</colour>
-      <visibility />
-      <items>
-        <item id="1" type="set-backoffice-fields">
-          <label>Construction des messages et incr&#233;mentation des compteurs</label>
-          <fields>
-            <field>
-              <field_id>bo87ac6923-e30f-4862-9d91-d6a3f06f96bb</field_id>
-              <value>=form_var_final_mail + "&lt;li&gt;Refus pour la semaine du {}&lt;/li&gt;".format(script.pp_get_monday_from_week_number(), script.pp_get_friday_from_week_number())</value>
-            </field><field>
-              <field_id>bo489d9a74-3e88-46f2-b98f-c815b2033927</field_id>
-              <value>="Refus pour la semaine du {}".format(script.pp_get_monday_from_week_number())</value>
-            </field><field>
-              <field_id>bob9991026-8b9a-4aa8-8161-bd6d26ac0b42</field_id>
-              <value>=int(form_var_aes_response_counter) + 1</value>
-            </field><field>
-              <field_id>bo9a83f6a7-2b4e-4c01-8950-193376e2c412</field_id>
-              <value>=int(form_var_no_more_place_counter) + 1</value>
-            </field>
-          </fields>
-        </item><item id="2" type="register-comment">
-          <comment>&lt;div&gt;
-&lt;p class="pk-error"&gt;Il n'y a plus de places disponibles sur cette plaine. Veuillez contacter {{ form_option_service_jeunesse_mail }}&lt;/p&gt;
-&lt;p&gt;Nous sommes au regret de vous annoncer que l'inscription de {{ form_var_selected_child_firstname }} &#224; notre/nos plaine(s) pour le(s) jour(s) suivant :&lt;/p&gt;
-&lt;p&gt;{{ form_var_msg_status_histo }} n'est pas possible.&lt;/p&gt;
-&lt;p&gt;Si vous voulez inscrire votre enfant sur liste d'attente, veuillez envoyer un courriel &#224; l'adresse : {{ form_option_service_jeunesse_mail }}&lt;/p&gt;
-&lt;/div&gt;</comment>
-        </item><item id="3" type="jump">
-          <status>17</status>
-          <condition>
-            <type>python</type>
-            <value>int(vars().get('form_var_no_more_place_counter') or '0') &gt;= int(form_var_nb_weeks)</value>
-          </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item id="5" type="jump">
-          <status>26</status>
-          <set_marker_on_status>False</set_marker_on_status>
-        </item>
-      </items>
-    </status><status>
       <id>7</id>
       <name>Validation des inscriptions</name>
       <colour>FFFFFF</colour>
@@ -442,7 +357,7 @@ Bien cordialement, </body>
       <items>
         <item id="1" type="register-comment">
           <comment>&lt;div&gt;
-&lt;p&gt;Si vous cl&#244;turer, vous nous indiquez que vous avez inscrit vos diff&#233;rents enfants (1 demande par enfant).&lt;/p&gt; 
+&lt;p&gt;Si vous cl&#244;turez, vous nous indiquez que vous avez inscrit vos diff&#233;rents enfants (une demande par enfant).&lt;/p&gt;
 &lt;p&gt;Vous acceptez que le calcul du tarif se fasse sur base des enfants inscris jusqu'&#224; cette cl&#244;ture.&lt;/p&gt;
 &lt;/div&gt;</comment>
         </item><item id="2" type="resubmit">
@@ -453,7 +368,33 @@ Bien cordialement, </body>
         </item><item id="3" type="jumponsubmit">
           <status>9</status>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item id="4" type="choice">
+        </item><item id="4" type="sendmail">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>Plaines : Votre demande {{ form_number }} du portail parent.</subject>
+          <body>&lt;div&gt;
+&lt;p&gt;{{ form_user_var_title }} {{ form_user_var_first_name }} {{ form_user_var_last_name }},&lt;/p&gt;
+
+&lt;p&gt;Nous vous confirmons que votre enfant a bien &#233;t&#233; inscrit &#224; la ou les plaine(s) suivante(s) :&lt;/p&gt;
+&lt;ul&gt;
+{% for week in aes_registration_child_plaine_response %}{% if week.status %}&lt;li&gt;&lt;b&gt;{{ week.theme }}&lt;/b&gt; semaine du lundi {{ week.monday|date:"d F Y" }} : {{ week.reason }}.&lt;/li&gt;{% endif %}{% endfor %}
+&lt;/ul&gt;
+{% regroup aes_registration_child_plaine_response|dictsort:"status" by status as weeks %}{% if weeks.0.grouper == False and weeks.0.list|length &gt; 0 %}&lt;p&gt;Par contre, il n'a pas &#233;t&#233; possible de l'inscrire aux plaines suivantes :&lt;/p&gt;
+&lt;ul&gt;
+{% for week in aes_registration_child_plaine_response %}{% if not week.status %}&lt;li&gt;&lt;b&gt;{{ week.theme}} &lt;/b&gt; semaine du lundi {{ week.monday|date:"d F Y" }} : Inscription refus&#233;e : {{ week.reason }}. {% if week.reason == "Il n'y a plus de place" %}Veuillez contacter {{ form_option_service_jeunesse_mail }} si vous voulez inscrire votre enfant sur liste d'attente.{% endif %}&lt;/li&gt;{% endif %}{% endfor %}{% endif %}
+&lt;/ul&gt;
+
+&lt;p&gt;Merci de r&#233;gler le montant de l'inscription end&#233;ans les {{form_option_nb_days_before_free_places}} jours pour que celle-ci soit d&#233;finitivement prise en compte.&lt;/p&gt;
+
+&lt;a href="{{ form_url }}"&gt;Consulter l'historique de votre demande&lt;/a&gt;
+
+&lt;p&gt;Bien cordialement,&lt;/p&gt;
+&lt;/div&gt;</body>
+        </item><item id="5" type="jump">
+          <status>5</status>
+          <trigger>cloture</trigger>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="6" type="choice">
           <label>Cloturer mes demandes</label>
           <by>
             <item role_id="_submitter">_submitter</item>
@@ -463,31 +404,6 @@ Bien cordialement, </body>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
           <identifier>is_closing_request_action</identifier>
-        </item><item id="5" type="sendmail">
-          <to>
-            <item role_id="_submitter">_submitter</item>
-          </to><subject>Plaines : Votre demande {{ form_number }} du portail parent.</subject>
-          <body>&lt;div&gt;
-{{ form_user_var_title }} {{ form_user_var_first_name }} {{ form_user_var_last_name }},
-&lt;br /&gt;
-Nous avons finalis&#233; le traitement de votre demande soumise le {{ form_receipt_date }}.
-&lt;br /&gt;
-Ci-dessous, veuillez retrouver les semaines accept&#233;es ou refus&#233;es pour votre demande : 
-
-&lt;ul&gt;
-{{ form_var_finalmail|safe }}
-&lt;/ul&gt;
-
-&lt;p&gt;Pour inscrire votre enfant en liste d'attente pour une plaine, veuillez contacter {{ form_option_service_jeunesse_mail }}&lt;/p&gt;
-
-&lt;a href="{{ form_url }}"&gt;Consulter l'historique de votre demande&lt;/a&gt;
-
-&lt;p&gt;Bien cordialement,&lt;/p&gt;
-&lt;/div&gt;</body>
-        </item><item id="6" type="jump">
-          <status>5</status>
-          <trigger>cloture</trigger>
-          <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
     </status><status>
@@ -834,45 +750,51 @@ Ci-dessous, veuillez retrouver les semaines accept&#233;es ou refus&#233;es pour
       </items>
     </status><status>
       <id>16</id>
-      <name>Validation de la semaine en cours</name>
+      <name>Validation en cours</name>
       <colour>FFFFFF</colour>
       <visibility />
       <items>
         <item id="1" type="set-backoffice-fields">
-          <label>Semaine en cours de validation</label>
+          <label>V&#233;rification</label>
           <fields>
             <field>
-              <field_id>bof0e2cd2d-c92a-460a-99c6-8abdcbedd541</field_id>
-              <value>=form_var_activities_plaines_structured[int(form_var_aes_response_counter)].get('week')</value>
+              <field_id>bo9a83f6a7-2b4e-4c01-8950-193376e2c412</field_id>
+              <value>{% regroup aes_registration_child_plaine_response|dictsort:"status" by status as weeks %}{% if weeks.0.grouper == False and weeks.0.list|length &gt;= aes_registration_child_plaine_response|length %}Plus de place !{% else %}Une ou plusieurs semaines ont encore de la place.{% endif %}</value>
             </field>
           </fields>
         </item><item id="2" type="register-comment">
-          <comment>Semaine en cours de validation : {{ form_var_current_validating_week }}</comment>
-          <to>
-            <item role_id="_debug">_debug</item>
-          </to>
+          <comment>{% for week in aes_registration_child_plaine_response %}
+{% if week.status %}&lt;p class="pk-information"&gt;&lt;b&gt;{{ week.theme }}&lt;/b&gt; semaine du lundi {{ week.monday|date:"d F Y" }} : {{ week.reason }}.&lt;/p&gt;{% else %}&lt;p class="pk-error"&gt;&lt;b&gt;{{ week.theme }}&lt;/b&gt; semaine du lundi {{ week.monday|date:"d F Y" }} : Inscription refus&#233;e : {{ week.reason }}. {% if week.reason == "Il n'y a plus de place" %}Veuillez contacter {{ form_option_service_jeunesse_mail }} si vous voulez inscrire votre enfant sur liste d'attente.{% endif %}&lt;/p&gt;{% endif %}
+{% endfor %}</comment>
         </item><item id="3" type="jump">
-          <status>4</status>
+          <status>17</status>
           <condition>
-            <type>python</type>
-            <value>int(form_var_current_validating_week) in ack_aes_response_aes_week_validate</value>
+            <type>django</type>
+            <value>form_var_no_more_place_counter == "Plus de place !"</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
         </item><item id="4" type="jump">
-          <status>6</status>
-          <set_marker_on_status>False</set_marker_on_status>
+          <status>8</status>
+          <condition>
+            <type>django</type>
+            <value>form_option_modalite_paiement == "Paiement en ligne"</value>
+          </condition><set_marker_on_status>False</set_marker_on_status>
+        </item><item id="5" type="jump">
+          <status>30</status>
+          <condition>
+            <type>django</type>
+            <value>form_option_modalite_paiement == 'Paiement par virement'</value>
+          </condition><set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
     </status><status>
       <id>17</id>
-      <name>Plus aucune place !</name>
+      <name>Inscription impossible</name>
       <colour>FF0000</colour>
       <forced_endpoint>true</forced_endpoint>
       <visibility />
       <items>
         <item id="1" type="register-comment">
-          <comment>&lt;div&gt;
-Nous sommes d&#233;sol&#233; mais il semble que &lt;b&gt;toutes les places&lt;/b&gt; que vous aviez choisis dans votre formulaire &lt;b&gt;ont &#233;t&#233; r&#233;serv&#233;e entre temps !&lt;/b&gt; 
-&lt;/div&gt;</comment>
+          <comment>Nous sommes d&#233;sol&#233;s mais il semble que toutes les places que vous aviez choisies dans votre formulaire ont &#233;t&#233; r&#233;serv&#233;es entretemps ou que votre enfant a d&#233;j&#224; &#233;t&#233; inscrit &#224; ces dates.</comment>
         </item>
       </items>
     </status><status>
@@ -1103,31 +1025,6 @@ Le paiement a bien &#233;t&#233; re&#231;u.</body>
         </item>
       </items>
     </status><status>
-      <id>26</id>
-      <name>D'autres semaines &#224; valider ?</name>
-      <colour>000000</colour>
-      <visibility>
-        <role>_debug</role>
-        <role>_receiver</role>
-      </visibility><items>
-        <item id="2" type="jump">
-          <status>8</status>
-          <condition>
-            <type>python</type>
-            <value>int(form_var_aes_response_counter) &gt;= int(form_var_nb_weeks) and form_option_modalite_paiement == "Paiement en ligne"</value>
-          </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item id="3" type="jump">
-          <status>30</status>
-          <condition>
-            <type>python</type>
-            <value>int(form_var_aes_response_counter) &gt;= int(form_var_nb_weeks) and form_option_modalite_paiement == 'Paiement par virement'</value>
-          </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item id="1" type="jump">
-          <status>16</status>
-          <set_marker_on_status>False</set_marker_on_status>
-        </item>
-      </items>
-    </status><status>
       <id>27</id>
       <name>Informations Paiement</name>
       <colour>FFFFFF</colour>
@@ -1147,9 +1044,10 @@ Le paiement a bien &#233;t&#233; re&#231;u.</body>
                 <type>string</type>
                 <required>True</required>
                 <varname>montant</varname>
-                <display_locations />
-                <prefill>
-                  <locked>False</locked>
+                <display_locations>
+                  <display_location>validation</display_location>
+                  <display_location>summary</display_location>
+                </display_locations><prefill>
                   <type>none</type>
                 </prefill><anonymise>True</anonymise>
                 <id>1</id>
@@ -1159,9 +1057,10 @@ Le paiement a bien &#233;t&#233; re&#231;u.</body>
                 <required>False</required>
                 <hint>Si vide, le num&#233;ro de suivi du formulaire est envoy&#233;</hint>
                 <varname>communication</varname>
-                <display_locations />
-                <prefill>
-                  <locked>False</locked>
+                <display_locations>
+                  <display_location>validation</display_location>
+                  <display_location>summary</display_location>
+                </display_locations><prefill>
                   <type>none</type>
                 </prefill><anonymise>True</anonymise>
                 <id>2</id>
@@ -1170,9 +1069,10 @@ Le paiement a bien &#233;t&#233; re&#231;u.</body>
                 <type>text</type>
                 <required>False</required>
                 <varname>complementaires</varname>
-                <display_locations />
-                <prefill>
-                  <locked>False</locked>
+                <display_locations>
+                  <display_location>validation</display_location>
+                  <display_location>summary</display_location>
+                </display_locations><prefill>
                   <type>none</type>
                 </prefill><pre>False</pre>
                 <id>3</id>
@@ -1190,7 +1090,7 @@ Le paiement a bien &#233;t&#233; re&#231;u.</body>
       <colour>FFFF00</colour>
       <visibility />
       <items>
-        <item id="4" type="register-comment">
+        <item id="1" type="register-comment">
           <comment>&lt;p&gt;Voici le montant &#224; payer pour confirmer l&#8217;inscription de {{ form_var_selected_child }} aux plaines.&lt;/p&gt;
 
 &lt;p&gt;*Montant* : {{info_paiement_var_montant}} &#8364;&lt;/p&gt;
@@ -1202,14 +1102,14 @@ Le paiement a bien &#233;t&#233; re&#231;u.</body>
 {% endif %}
 
 &lt;p&gt;*Num&#233;ro de compte* : {{form_option_numero_de_compte_iban}}&lt;/p&gt;
-{% if info_paiement_var_complementaires is True %}
+{% if info_paiement_var_complementaires != 'None' %}
 &lt;p&gt;{{info_paiement_var_complementaires}}&lt;/p&gt;
 {% endif %}
 </comment>
           <to>
             <item role_id="_submitter">_submitter</item>
           </to>
-        </item><item id="1" type="sendmail">
+        </item><item id="2" type="sendmail">
           <to>
             <item role_id="_submitter">_submitter</item>
           </to><subject>Demande paiement pour l'inscription de {{ form_var_selected_child }} aux plaines</subject>
@@ -1226,12 +1126,12 @@ Voici le montant &#224; payer pour confirmer l&#8217;inscription de {{ form_var_
 {% endif %}
 
 *Num&#233;ro de compte* : {{form_option_numero_de_compte_iban}}
-{% if info_paiement_var_complementaires is True %}
+{% if info_paiement_var_complementaires != 'None' %}
 {{info_paiement_var_complementaires}}
 {% endif %}
 
 Bien &#224; vous.</body>
-        </item><item id="2" type="choice">
+        </item><item id="3" type="choice">
           <label>Valider l'inscription</label>
           <by>
             <item role_id="_receiver">_receiver</item>
@@ -1240,7 +1140,7 @@ Bien &#224; vous.</body>
           <backoffice_info_text>&lt;p&gt;Valider l'inscription une fois le paiement re&amp;ccedil;u&lt;/p&gt;</backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item id="3" type="choice">
+        </item><item id="4" type="choice">
           <label>Annuler l'inscription</label>
           <by>
             <item role_id="_receiver">_receiver</item>
@@ -1280,9 +1180,20 @@ Vous serez bient&#244;t contact&#233; par mail pour r&#233;gler le montant de l'
           <to>
             <item role_id="_submitter">_submitter</item>
           </to><subject>Votre demande d'inscription de {{ form_var_selected_child }} aux plaines</subject>
-          <body>Votre demande d'inscription de {{ form_var_selected_child }} aux plaines a bien &#233;t&#233; valid&#233;e !
+          <body>&lt;div&gt;
+&lt;p&gt;Nous vous confirmons que votre enfant a bien &#233;t&#233; inscrit &#224; la ou les plaine(s) suivante(s) :&lt;/p&gt;
+&lt;ul&gt;{% for plain in form_var_activities_plaines_structured %}
+    {% if plain|get:"week" in ack_aes_response_aes_week_validate %}&lt;li&gt;{{plain|get:"text"}} - Semaine {{plain|get:"week"}}&lt;/li&gt;{% endif %}
+{% endfor %}&lt;/ul&gt;
+{% if form_var_activities_plaines_structured|length &gt; ack_aes_response_aes_week_validate|length %}&lt;p&gt;Il n'y a par contre plus de places pour la ou les plaine(s) suivante(s) :&lt;/p&gt;
+&lt;ul&gt;{% for plain in form_var_activities_plaines_structured %}
+    {% if plain|get:"week" not in ack_aes_response_aes_week_validate %}&lt;li&gt;{{plain|get:"text"}} - Semaine {{plain|get:"week"}}&lt;/li&gt;{% endif %}
+{% endfor %}&lt;/ul&gt;
+&lt;p&gt;Pour inscrire votre enfant sur une liste d'attente, envoyez votre demande &#224; {{ form_option_service_jeunesse_mail }}&lt;/p&gt;{% endif %}
+&lt;p&gt;Merci de r&#233;gler le montant de l'inscription pour que celle-ci soit d&#233;finitivement prise en compte. Le montant et les modalit&#233;s du virement vous seront communiqu&#233;s par la suite dans un prochain courriel.&lt;/p&gt;
 
-Vous serez bient&#244;t contact&#233; par mail pour r&#233;gler le montant de l'inscription.</body>
+&lt;p&gt;&lt;a href={{ form_url }} target="_blank"&gt;Consulter ma demande&lt;/a&gt;&lt;p&gt;
+&lt;/div&gt;</body>
         </item><item id="4" type="jump">
           <status>27</status>
           <set_marker_on_status>False</set_marker_on_status>
@@ -1338,7 +1249,7 @@ Vous serez bient&#244;t contact&#233; par mail pour r&#233;gler le montant de l'
       <colour>FFFF00</colour>
       <visibility />
       <items>
-        <item id="2" type="sendmail">
+        <item id="1" type="sendmail">
           <to>
             <item role_id="_submitter">_submitter</item>
           </to><subject>Vos demandes d'inscriptions aux plaines</subject>
@@ -1355,7 +1266,7 @@ En vous remerciant de la confiance que vous accordez &#224; nos services,</body>
             <type>django</type>
             <value>form_option_modalite_paiement == "virement"</value>
           </condition>
-        </item><item id="3" type="register-comment">
+        </item><item id="2" type="register-comment">
           <comment>&lt;p&gt;Madame, Monsieur,&lt;/p&gt;
 
 &lt;p&gt;Votre enfant a bien &#233;t&#233; inscrit aux plaines de vacances. Veuillez r&#233;aliser le payement demand&#233; suivant afin de finaliser l'inscription.&lt;/p&gt;
@@ -1373,7 +1284,7 @@ En vous remerciant de la confiance que vous accordez &#224; nos services,</body>
             <type>django</type>
             <value>form_option_modalite_paiement == "virement"</value>
           </condition>
-        </item><item id="4" type="displaymsg">
+        </item><item id="3" type="displaymsg">
           <message>Veuillez effectuer le paiement afin de finaliser l'inscription de votre enfant</message>
           <level>warning</level>
           <position>top</position>
@@ -1383,7 +1294,7 @@ En vous remerciant de la confiance que vous accordez &#224; nos services,</body>
             <type>django</type>
             <value>form_option_modalite_paiement == "virement"</value>
           </condition>
-        </item><item id="5" type="webservice_call">
+        </item><item id="4" type="webservice_call">
           <label>Vider le panier</label>
           <url>{{portal_url}}/api/lingo/remove-basket-item?NameId={{form_user_name_identifier_0}}</url>
           <method>POST</method>
@@ -1406,7 +1317,7 @@ En vous remerciant de la confiance que vous accordez &#224; nos services,</body>
           <notify_on_errors>False</notify_on_errors>
           <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
-        </item><item id="1" type="choice">
+        </item><item id="5" type="choice">
           <label>Paiement re&#231;u</label>
           <by>
             <item role_id="_receiver">_receiver</item>
@@ -1425,7 +1336,7 @@ En vous remerciant de la confiance que vous accordez &#224; nos services,</body>
       <items>
         <item id="1" type="remove" />
       </items><triggers>
-        <trigger id="8253fe70-7fdf-4ce4-9cc4-969e91d44610" type="manual">
+        <trigger id="4fce8ff3-7171-4eb5-9ebf-3d8849a114f2" type="manual">
           <roles>
             <item role_id="_debug">_debug</item>
           </roles>
@@ -1436,7 +1347,7 @@ En vous remerciant de la confiance que vous accordez &#224; nos services,</body>
       <name>&#201;diter la demande</name>
       <items />
       <triggers>
-        <trigger id="391505cd-c5c6-4fb2-a658-776812f57436" type="manual">
+        <trigger id="e6ab4aaf-f7ee-40df-bc2b-dde1b8229f8c" type="manual">
           <roles>
             <item role_id="_debug">_debug</item>
           </roles>
@@ -1451,7 +1362,7 @@ En vous remerciant de la confiance que vous accordez &#224; nos services,</body>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items><triggers>
-        <trigger id="d8283e2e-35b0-4bd1-afd8-6f2ac0476347" type="manual">
+        <trigger id="3aa421f5-1250-40d5-9d5f-519986584219" type="manual">
           <roles>
             <item role_id="_debug">_debug</item>
           </roles>
@@ -1527,7 +1438,6 @@ A d&#233;sactiv&#233; absolument pour la production ! </hint>
           <display_locations>
             <display_location>summary</display_location>
           </display_locations><prefill>
-            <locked>False</locked>
             <type>none</type>
           </prefill><id>1</id>
         </field><field>
@@ -1564,7 +1474,6 @@ A d&#233;sactiv&#233; absolument pour la production ! </hint>
           <display_locations>
             <display_location>summary</display_location>
           </display_locations><prefill>
-            <locked>False</locked>
             <type>none</type>
           </prefill><items>
             <item>Paiement en ligne</item>
@@ -1584,7 +1493,6 @@ A d&#233;sactiv&#233; absolument pour la production ! </hint>
           <display_locations>
             <display_location>summary</display_location>
           </display_locations><prefill>
-            <locked>False</locked>
             <type>none</type>
           </prefill><anonymise>True</anonymise>
           <id>11</id>
@@ -1731,16 +1639,20 @@ A d&#233;sactiv&#233; absolument pour la production ! </hint>
           <hint>Choix du moyen de paiement.
 Se compl&#232;te si le choix par d&#233;faut est le paiement en ligne, mais qu'ensuite, l'usager est amen&#233; &#224; payer d'une autre mani&#232;re (virement ou en pr&#233;sentiel).</hint>
           <varname>payment_means</varname>
-          <display_locations />
-          <anonymise>False</anonymise>
+          <display_locations>
+            <display_location>validation</display_location>
+            <display_location>summary</display_location>
+          </display_locations><anonymise>False</anonymise>
           <id>bo14f7c398-0b2f-4e0a-9729-5d4e42f18961</id>
         </field><field>
           <label>Refus et acceptations pour mail final (messages concat&#233;n&#233;s)</label>
           <type>string</type>
           <required>False</required>
           <varname>finalmail</varname>
-          <display_locations />
-          <anonymise>False</anonymise>
+          <display_locations>
+            <display_location>validation</display_location>
+            <display_location>summary</display_location>
+          </display_locations><anonymise>False</anonymise>
           <id>bo87ac6923-e30f-4862-9d91-d6a3f06f96bb</id>
         </field><field>
           <label>Date d'ouverture des plaines</label>

@@ -1,6 +1,76 @@
 Changelog
 =========
 
+0.2.19
+------------------
+
+- remove message about preselected plains
+  [nhislaire]
+
+0.2.18
+------------------
+
+- adapt message about preselected plains to be always displayable
+  [nhislaire]
+  
+0.2.17
+------------------
+
+- display full month in plain registration summaries
+- display info message about preselected plains, just above them, in form
+  [nhislaire]
+
+0.2.16
+------------------
+
+- fix text in no more places status
+- display theme and monday's date in summary
+- display limit before free up places in summary mail when epayment
+  [nhislaire]
+
+0.2.15
+------------------
+
+- send parent's phone number to AES during his registration
+  [nhislaire]
+
+0.2.14
+------------------
+
+- completing display registering's validation from AES
+  [nhislaire]
+
+0.2.13
+------------------
+
+- fix commentaires in mail
+  [neslva]
+
+0.2.12
+------------------
+
+- fix slug to Fiche santé in Inscrire mon enfant à une plaine
+  [nselva]
+
+0.2.11
+------------------
+
+- fix validations message in plain's registration
+  [nhislaire]
+
+0.2.10
+------------------
+
+- rework validations messages in plain's registration
+- always display a message if child's registration to plains fails
+  [nhislaire]
+
+0.2.9
+------------------
+
+- do not loop in validation if an error occurs
+  [nhislaire]
+  
 0.2.8
 ------------------
 
