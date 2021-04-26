@@ -26,6 +26,10 @@ A d&#233;faut, les places que vous aurez r&#233;serv&#233; seront lib&#233;r&#23
 `Consulter ma demande &lt;{{ form_url }}&gt;`_
 
 Bien cordialement, </body>
+          <condition>
+            <type>django</type>
+            <value>form_option_modalite_paiement == "Paiement en ligne"</value>
+          </condition>
         </item><item id="2" type="set-backoffice-fields">
           <label>Initialisation des donn&#233;es de traitement</label>
           <fields>
@@ -784,15 +788,13 @@ Veuillez contacter {{ form_option_service_jeunesse_mail }}{% else %}Une erreur s
       </items>
     </status><status>
       <id>17</id>
-      <name>Plus aucune place !</name>
+      <name>Inscription impossible</name>
       <colour>FF0000</colour>
       <forced_endpoint>true</forced_endpoint>
       <visibility />
       <items>
         <item id="1" type="register-comment">
-          <comment>&lt;div&gt;
-Nous sommes d&#233;sol&#233;s mais il semble que &lt;b&gt;toutes les places&lt;/b&gt; que vous aviez choisies dans votre formulaire &lt;b&gt;ont &#233;t&#233; r&#233;serv&#233;es entre temps !&lt;/b&gt;
-&lt;/div&gt;</comment>
+          <comment>Nous sommes d&#233;sol&#233;s mais il semble que toutes les places que vous aviez choisies dans votre formulaire ont &#233;t&#233; r&#233;serv&#233;es entretemps ou que votre enfant a d&#233;j&#224; &#233;t&#233; inscrit &#224; ces dates.</comment>
         </item>
       </items>
     </status><status>
