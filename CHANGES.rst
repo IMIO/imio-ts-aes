@@ -1,6 +1,13 @@
 Changelog
 =========
 
+0.2.20
+------------------
+
+- send first mail to user only if epayment 
+- reformulate registration's error last status
+  [nhislaire]
+
 0.2.19
 ------------------
 
