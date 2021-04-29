@@ -1,4 +1,5 @@
-<wscalls id="get_health_attribute">
+<?xml version="1.0"?>
+<wscall id="get_health_attribute">
   <name>get_health_attribute</name>
   <slug>get_health_attribute</slug>
   <request>
@@ -6,7 +7,7 @@
     <request_signature_key />
     <method>GET</method>
     <qs_data>
-      <param key="id">{{ form_var_selected_child_raw }}</param>
+      <param key="child_id">{{ form_var_selected_child_raw }}</param>
     </qs_data><post_data />
   </request>
-</wscalls>
+</wscall>
