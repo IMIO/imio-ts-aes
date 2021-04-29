@@ -1,6 +1,13 @@
 Changelog
 =========
 
+0.2.21
+------------------
+
+ - add custom info-cell
+ - get blood type from aes
+ - fix get healthsheet webservice
+
 0.2.20
 ------------------
 

@@ -22,5 +22,13 @@ JSON_CELL_TYPES.update(
             "name": "AES - Semaines de plaines",
             "url": "{{ eservices_url}}api/user/forms?email={{ user_email }}&full=on",
         },
+        "aes-info-plaines": {
+            "name": "AES - Informations Plaines",
+            "url": "{{hobo_url}}hobos.json",
+        },
+        "aes-info-repas": {
+            "name": "AES - Informations Repas",
+            "url": "{{hobo_url}}hobos.json",
+        },
     }
 )
