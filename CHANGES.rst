@@ -1,12 +1,19 @@
 Changelog
 =========
 
+0.2.22
+------------------
+
+- auto import new info cells
+  [nhislaire]
+
 0.2.21
 ------------------
 
  - add custom info-cell
  - get blood type from aes
  - fix get healthsheet webservice
+   [nhislaire]
 
 0.2.20
 ------------------
