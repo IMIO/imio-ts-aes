@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.2.24
+------------------
+
+- fix: does child take medication field in healthsheet
+  [nhislaire]
+
 0.2.23
 ------------------
 

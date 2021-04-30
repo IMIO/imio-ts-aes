@@ -805,7 +805,7 @@
       </display_locations><extra_css_class>grid-1-2</extra_css_class>
       <prefill>
         <type>formula</type>
-        <value>'oui' if len(webservice.get_health_attribute.get("medication")) &gt; 0 else False</value>
+        <value>'oui' if len(webservice.get_health_attribute.get("medication")) &gt; 0 else 'non'</value>
       </prefill><items />
       <display_mode>radio</display_mode>
       <data_source>
