@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.2.23
+------------------
+
+- add not aes-linked fields from medical autorisation, rgpd and covid in healthsheet
+  [nhislaire]
+
 0.2.22
 ------------------
 
