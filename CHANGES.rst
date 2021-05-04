@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.2.25
+------------------
+
+- change message if registering child already exist
+  [nhislaire]
+
 0.2.24
 ------------------
 

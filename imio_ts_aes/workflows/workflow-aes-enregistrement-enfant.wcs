@@ -37,13 +37,13 @@
             <type>django</type>
             <value>form_var_enfant_nrn</value>
           </condition>
-        </item><item id="3" type="jump">
+        </item><item id="2" type="jump">
           <status>7</status>
           <condition>
             <type>django</type>
             <value>is_child_registered_response</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item id="2" type="jump">
+        </item><item id="3" type="jump">
           <status>1</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -57,7 +57,8 @@
         <role>_debug</role>
       </visibility><items>
         <item id="1" type="register-comment">
-          <comment>L'enfant que vous avez renseign&#233; existe d&#233;j&#224; dans notre base de donn&#233;es. Veuillez prendre contact avec votre administration communale.</comment>
+          <comment>Votre enfant existe d&#233;j&#224; dans notre base de donn&#233;es car il est probablement d&#233;j&#224; inscrit et associ&#233; avec le compte de son autre parent. Merci de vous reconnecter au Portail Parent avec le compte de son autre parent (ou de cr&#233;er un compte avec le num&#233;ro de registre national de celui-ci) et de v&#233;rifier si votre enfant appara&#238;t bien dans le Portail. Vous pourrez alors l'inscrire.
+Si l'enfant n'appara&#238;t toujours pas dans le compte de son autre parent, merci de contacter l'administration communale en charge des plaines. </comment>
         </item><item id="2" type="displaymsg">
           <message>L'enfant que vous avez renseign&#233; existe d&#233;j&#224; dans notre base de donn&#233;es. Veuillez prendre contact avec votre administration communale.</message>
           <level>warning</level>
@@ -90,7 +91,7 @@
               <value>{{ form_user_var_email }}</value>
             </field>
           </fields>
-        </item><item id="8" type="set-backoffice-fields">
+        </item><item id="2" type="set-backoffice-fields">
           <label>Identifiant du type d'enfant</label>
           <fields>
             <field>
@@ -98,7 +99,7 @@
               <value>="1" if form_option_child_type_facturation != "Oui" else [t.get("id") for t in webservice.aes_get_childtypes.get("data") if "hors" in t.get("text").lower()][0] if form_user_var_zipcode not in commune_cp else [t.get("id") for t in webservice.aes_get_childtypes.get("data") if "hors" not in t.get("text").lower() and "commune" in t.get("text").lower()][0]</value>
             </field>
           </fields>
-        </item><item id="2" type="register-comment">
+        </item><item id="3" type="register-comment">
           <comment>&lt;p&gt;
 {{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }},
 &lt;br /&gt;
@@ -108,7 +109,7 @@ Nous vous tiendrons inform&#233; de la suite dans les plus brefs d&#233;lais.&lt
 
 Bien cordialement,
 &lt;/p&gt;</comment>
-        </item><item id="3" type="sendmail">
+        </item><item id="4" type="sendmail">
           <to>
             <item role_id="_receiver">_receiver</item>
           </to><subject>Portail parent : Nouvelle demande d'enregistrement d'un enfant.</subject>
@@ -135,7 +136,7 @@ Ci-dessous,  le r&#233;capitulatif de la demande :
 
 
 Bien cordialement,</body>
-        </item><item id="4" type="webservice_call">
+        </item><item id="5" type="webservice_call">
           <label>Enregistrements de l'enfant dans AES</label>
           <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/child_registration</url>
           <method>POST</method>
@@ -183,15 +184,15 @@ Bien cordialement,</body>
             <type>python</type>
             <value>form_option_autosave is True</value>
           </condition>
-        </item><item id="5" type="add_role">
-          <role_id role_id="97fd62031c1f4b35a219ca964396a445">Parent</role_id>
-        </item><item id="6" type="jump">
+        </item><item id="6" type="add_role">
+          <role_id role_id="8f2fc1f22995463591df2520146720b1">Parent</role_id>
+        </item><item id="7" type="jump">
           <status>3</status>
           <condition>
             <type>python</type>
             <value>form_option_autosave is True and aes_registration_child_response &gt; 0</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item id="7" type="jump">
+        </item><item id="8" type="jump">
           <status>4</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -243,7 +244,7 @@ Bien &#224; vous,
       <forced_endpoint>true</forced_endpoint>
       <visibility />
       <items>
-        <item id="4" type="redirect_to_url">
+        <item id="1" type="redirect_to_url">
           <url>{{ site_url }}/aes-fiche-sante/</url>
           <condition>
             <type>django</type>
@@ -267,7 +268,7 @@ Retourner sur le &lt;a href="{{ portal_user_url }}portail_parent/"&gt;portail pa
 &lt;/p&gt;
 {% endif %}
 &lt;/div&gt;</comment>
-        </item><item id="1" type="sendmail">
+        </item><item id="3" type="sendmail">
           <to>
             <item role_id="_submitter">_submitter</item>
           </to><subject>Portail parent : Confirmation de votre enregistrement.</subject>
@@ -282,7 +283,7 @@ Pour rappel vous pouvez acc&#233;der au portail parent via ce lien :
 `Acc&#233;der au portail parent &lt;{{ portal_user_url }}portail_parent/&gt;`_
 
 Bien cordialement,</body>
-        </item><item id="3" type="choice">
+        </item><item id="4" type="choice">
           <label>Enregistrer un nouvel enfant</label>
           <by>
             <item role_id="_submitter">_submitter</item>
@@ -309,7 +310,7 @@ Bien cordialement,</body>
         </item><item id="2" type="choice">
           <label>Replay ALL</label>
           <by>
-            <item role_id="43190215712647a89376713be142a4f5">Debug</item>
+            <item role_id="52c6b8da2da745efb074ea2c30fa6741">Debug</item>
           </by><status>1</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
@@ -345,7 +346,6 @@ Bien cordialement,</body>
           <display_locations>
             <display_location>summary</display_location>
           </display_locations><prefill>
-            <locked>False</locked>
             <type>none</type>
           </prefill><id>1</id>
         </field><field>
@@ -356,9 +356,9 @@ Bien cordialement,</body>
           <varname>child_type_facturation</varname>
           <display_locations />
           <prefill>
-            <locked>False</locked>
             <type>none</type>
-          </prefill><display_mode>radio</display_mode>
+          </prefill><items />
+          <display_mode>radio</display_mode>
           <data_source>
             <type>aes_oui_non</type>
           </data_source><in_filters>False</in_filters>
