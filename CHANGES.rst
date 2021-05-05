@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.2.26
+------------------
+
+- Mention "municipality's site" instead of "school's site" for social media authorisation
+  [nhislaire]
+
 0.2.25
 ------------------
 

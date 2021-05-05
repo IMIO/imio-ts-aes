@@ -2365,7 +2365,7 @@
       <display_disabled_items>False</display_disabled_items>
       <id>543</id>
     </field><field>
-      <label>Les photos de l'enfant peuvent-elles &#234;tre publi&#233;es sur les r&#233;seaux sociaux (site de l'&#233;cole, Facebook) ?</label>
+      <label>Les photos de l'enfant peuvent-elles &#234;tre publi&#233;es sur les r&#233;seaux sociaux (site de la commune, Facebook) ?</label>
       <type>item</type>
       <condition>
         <type>django</type>
@@ -2443,7 +2443,7 @@
   </roles><options>
     <option varname="compte">BE80 0910 2100 5377</option>
     <option varname="questions" />
-    <option varname="questions_display">Quel est le groupe sanguin de l'enfant ?, L'enfant a-t'il &#233;t&#233; vaccin&#233; contre le t&#233;tanos ?, L'enfant a-t'il subit une intervention r&#233;cemment ?, L'enfant sait-il nager ?, L'enfant souffre t'il d'un handicap ?, Activit&#233;s non praticables, L'enfant suit-il un r&#233;gime sp&#233;cifique ?, Autorisez-vous les accompagnants &#224; utiliser de l'arnica ?, L'enfant a-t'il des allergies ?, Permettre aux parents d'ajouter d'autres allergies ?, L'enfant a-t'il des maladies ?, Permettre aux parents d'ajouter d'autres maladies ?, L'enfant doit-il prendre des m&#233;dicaments ?, Demander l'adresse des autres contacts, L'enfant peut-il &#234;tre pris en photo durant les stages ou les plaines ?, L'enfant peut-il &#234;tre pris en photo lors des garderies, ateliers, spectacles, ou autre ?, Les photos de l'enfant peuvent-elles &#234;tre publi&#233;es sur les r&#233;seaux sociaux (site de l'&#233;cole, Facebook) ?</option>
+    <option varname="questions_display">Quel est le groupe sanguin de l'enfant ?, L'enfant a-t'il &#233;t&#233; vaccin&#233; contre le t&#233;tanos ?, L'enfant a-t'il subit une intervention r&#233;cemment ?, L'enfant sait-il nager ?, L'enfant souffre t'il d'un handicap ?, Activit&#233;s non praticables, L'enfant suit-il un r&#233;gime sp&#233;cifique ?, Autorisez-vous les accompagnants &#224; utiliser de l'arnica ?, L'enfant a-t'il des allergies ?, Permettre aux parents d'ajouter d'autres allergies ?, L'enfant a-t'il des maladies ?, Permettre aux parents d'ajouter d'autres maladies ?, L'enfant doit-il prendre des m&#233;dicaments ?, Demander l'adresse des autres contacts, L'enfant peut-il &#234;tre pris en photo durant les stages ou les plaines ?, L'enfant peut-il &#234;tre pris en photo lors des garderies, ateliers, spectacles, ou autre ?, Les photos de l'enfant peuvent-elles &#234;tre publi&#233;es sur les r&#233;seaux sociaux (site de la commune, Facebook) ?</option>
     <option varname="questions_structured" />
     <option varname="verifier_encodage">Non</option>
     <option varname="verifier_encodage_display">Non</option>
