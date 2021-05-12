@@ -473,7 +473,7 @@ Veuillez contacter {{ form_option_service_jeunesse_mail }}{% else %}Une erreur s
           <qs_data>
             <item>
               <name>regie_id</name>
-              <value>atos_test</value>
+              <value>{{form_option_regie_de_paiement_raw}}</value>
             </item>
           </qs_data><method>POST</method>
           <post>False</post>
@@ -840,14 +840,6 @@ Une d&#233;marche est en &#233;chec lors de la cl&#244;ture ou de la finalisatio
 Bien cordialement,
 
 &lt;/div&gt;</body>
-        </item><item id="5" type="choice">
-          <label>(temp) retenter l'ajout au panier</label>
-          <by>
-            <item role_id="_debug">_debug</item>
-          </by><status>10</status>
-          <require_confirmation>False</require_confirmation>
-          <ignore_form_errors>False</ignore_form_errors>
-          <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
     </status><status>
@@ -1336,7 +1328,7 @@ En vous remerciant de la confiance que vous accordez &#224; nos services,</body>
       <items>
         <item id="1" type="remove" />
       </items><triggers>
-        <trigger id="4fce8ff3-7171-4eb5-9ebf-3d8849a114f2" type="manual">
+        <trigger id="1e4674bc-75dc-4c21-9f7b-e083b8fe9ac6" type="manual">
           <roles>
             <item role_id="_debug">_debug</item>
           </roles>
@@ -1347,7 +1339,7 @@ En vous remerciant de la confiance que vous accordez &#224; nos services,</body>
       <name>&#201;diter la demande</name>
       <items />
       <triggers>
-        <trigger id="e6ab4aaf-f7ee-40df-bc2b-dde1b8229f8c" type="manual">
+        <trigger id="2c4bef27-cb93-40f7-a0d2-1685db3718ad" type="manual">
           <roles>
             <item role_id="_debug">_debug</item>
           </roles>
@@ -1362,7 +1354,7 @@ En vous remerciant de la confiance que vous accordez &#224; nos services,</body>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items><triggers>
-        <trigger id="3aa421f5-1250-40d5-9d5f-519986584219" type="manual">
+        <trigger id="ab616c07-c9dd-4e60-82e6-bd220208c0f0" type="manual">
           <roles>
             <item role_id="_debug">_debug</item>
           </roles>
@@ -1484,6 +1476,26 @@ A d&#233;sactiv&#233; absolument pour la production ! </hint>
           <display_disabled_items>False</display_disabled_items>
           <initial_zoom>13</initial_zoom>
           <id>10</id>
+        </field><field>
+          <label>R&#233;gie de paiement</label>
+          <type>item</type>
+          <required>False</required>
+          <hint>D&#233;finir la r&#233;gie utilis&#233;e pour le paiement en ligne</hint>
+          <varname>regie_de_paiement</varname>
+          <display_locations>
+            <display_location>summary</display_location>
+          </display_locations><prefill>
+            <locked>False</locked>
+            <type>none</type>
+          </prefill><display_mode>list</display_mode>
+          <data_source>
+            <type>json</type>
+            <value>{{portal_url}}api/lingo/regies</value>
+          </data_source><in_filters>False</in_filters>
+          <anonymise>False</anonymise>
+          <display_disabled_items>False</display_disabled_items>
+          <initial_zoom>13</initial_zoom>
+          <id>12</id>
         </field><field>
           <label>Num&#233;ro de compte IBAN</label>
           <type>string</type>

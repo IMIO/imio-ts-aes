@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.2.27
+------------------
+
+- Define regie in form option
+  [nhislaire]
+
 0.2.26
 ------------------
 
