@@ -41,12 +41,12 @@
       <type>page</type>
       <condition>
         <type>python</type>
-        <value>len(webservice.aes_get_children_by_parent_nrn.get("data")) == 0</value>
+        <value>len(webservice.aes_get_children_by_parent_nrn.get("data") or []) == 0</value>
       </condition><post_conditions>
         <post_condition>
           <condition>
             <type>python</type>
-            <value>len(webservice.aes_get_children_by_parent_nrn.get("data")) &gt; 0</value>
+            <value>len(webservice.aes_get_children_by_parent_nrn.get("data") or []) &gt; 0</value>
           </condition><error_message>Aucun enfant trouv&#233; dans notre portail parent</error_message>
         </post_condition>
       </post_conditions><id>40</id>

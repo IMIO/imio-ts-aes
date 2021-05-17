@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.2.28
+------------------
+
+- Use empty list instead of nonetype if parent try plain's registration without child
+  [nhi]
+
 0.2.27
 ------------------
 
