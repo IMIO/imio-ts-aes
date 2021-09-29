@@ -118,7 +118,7 @@
 Voici votre commande :
 
 {% for repas in form_var_menu_structured %}
-    {{ repas.id|slice:"1:10" }} - {{ repas.text }}
+    {{ repas.id|slice:"1:11" }} - {{ repas.text }}
 
 {% endfor %}</comment>
         </item><item id="7" type="sendmail">
@@ -130,7 +130,7 @@ Voici votre commande :
 Voici votre commande :
 
 {% for repas in form_var_menu_structured %}
-    {{ repas.id|slice:"1:10" }} - {{ repas.text }}
+    {{ repas.id|slice:"1:11" }} - {{ repas.text }}
 {% endfor %}</body>
         </item><item id="2" type="jump">
           <status>4</status>
