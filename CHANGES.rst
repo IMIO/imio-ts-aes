@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.2.29
+------------------
+
+- Remove deprecated forms and wfs
+  [nhi]
+
 0.2.28
 ------------------
 
