@@ -18,7 +18,7 @@
   <max_field_id>50</max_field_id>
   <fields>
     <field>
-      <label>erreur</label>
+      <label>Erreur</label>
       <type>page</type>
       <condition>
         <type>python</type>
@@ -28,7 +28,7 @@
           <condition>
             <type>django</type>
             <value>webservice.aes_are_meals_up_to_date is True</value>
-          </condition><error_message>Attention! Les donn&#233;es de l'agenda des repas ne semblent pas &#224; jour.</error_message>
+          </condition><error_message>Attention ! Les donn&#233;es de l'agenda des repas ne semblent pas &#224; jour.</error_message>
         </post_condition>
       </post_conditions><id>45</id>
     </field><field>

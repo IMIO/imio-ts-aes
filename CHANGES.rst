@@ -1,6 +1,13 @@
 Changelog
 =========
 
+0.2.30
+------------------
+
+- Fix error in form inscription aux repas
+- Fix date in form inscription aux repas feedback
+  [nhi]
+
 0.2.29
 ------------------
 
