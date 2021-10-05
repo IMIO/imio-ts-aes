@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.2.31
+------------------
+
+- add -k option to curl to avoid SSL problems
+  [dmu]
+
 0.2.30
 ------------------
 
