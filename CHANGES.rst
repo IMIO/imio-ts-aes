@@ -1,6 +1,14 @@
 Changelog
 =========
 
+0.2.32
+------------------
+
+- set author to iA.Téléservices team
+- set version in setup.py
+- use iateleservicesCreateDeb pipeline function
+  [nhi]
+
 0.2.31
 ------------------
 

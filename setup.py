@@ -16,11 +16,12 @@ class inst(install):
         )
         os.system("sh " + path + "install_imio-ts-aes.sh")
 
+version = "0.2.32"
 
 setup(
     name="imio-ts-aes",
-    author="Christophe Boulanger",
-    author_email="christophe.boulanger@imio.be",
+    author="iA.Téléservices",
+    author_email="support-ts@imio.be",
     packages=find_packages(),
     include_package_data=True,
     url="https://github.com/IMIO/imio-ts-aes",
