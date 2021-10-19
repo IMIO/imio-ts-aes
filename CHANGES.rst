@@ -7,6 +7,7 @@ Changelog
 - set author to iA.Téléservices team
 - set version in setup.py
 - use iateleservicesCreateDeb pipeline function
+- set install path in jenkinsfile
   [nhi]
 
 0.2.31
