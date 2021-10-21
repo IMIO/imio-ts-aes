@@ -244,7 +244,13 @@ Bien &#224; vous,
       <forced_endpoint>true</forced_endpoint>
       <visibility />
       <items>
-        <item id="2" type="register-comment">
+        <item id="1" type="redirect_to_url">
+          <url>{{ portal_url }}portail_parent</url>
+          <condition>
+            <type>django</type>
+            <value>not form_submission_backoffice</value>
+          </condition>
+        </item><item id="2" type="register-comment">
           <comment>&lt;div&gt;
 {% if form_submission_backoffice %}
 &lt;p&gt;

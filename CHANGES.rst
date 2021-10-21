@@ -4,7 +4,7 @@ Changelog
 0.2.33
 ------------------
 
-- remove redirect after registering a new child
+- redirect to parent portal after registering a new child
   [nhi]
 
 0.2.32
