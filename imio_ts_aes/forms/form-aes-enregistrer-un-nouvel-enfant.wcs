@@ -193,6 +193,11 @@
             <type>python</type>
             <value>len(form_var_enfant_nrn) == 11</value>
           </condition><error_message>Le num&#233;ro national est compos&#233; de 11 chiffres, veuillez l'encoder sans caract&#232;res sp&#233;ciaux.</error_message>
+        </post_condition><post_condition>
+          <condition>
+            <type>python</type>
+            <value>webservice.aes_is_registered_child == False</value>
+          </condition><error_message>Votre enfant existe d&#233;j&#224;.</error_message>
         </post_condition>
       </post_conditions><id>14</id>
     </field><field>
@@ -264,6 +269,21 @@
         <type>none</type>
       </prefill><anonymise>True</anonymise>
       <id>20</id>
+    </field><field>
+      <label>&lt;div&gt;{% if webservice.aes_is_registered_child %}
+&lt;p&gt;Votre enfant existe d&amp;eacute;j&amp;agrave; dans notre base de donn&amp;eacute;es. V&amp;eacute;rifiez tout d'abord s'il est pr&amp;eacute;sent dans la liste de vos enfants sur &lt;a href="{{ portal_url }}portail_parent" target="_blank"&gt;la page d'accueil du Portail Parent&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Si ce n'est pas le cas, c'est qu'il est probablement d&amp;eacute;j&amp;agrave; inscrit et associ&amp;eacute; avec le compte de son autre parent. Merci de vous reconnecter au Portail Parent avec la carte d'identit&amp;eacute; de son autre parent et de v&amp;eacute;rifier si votre enfant appara&amp;icirc;t bien dans le Portail. Vous pourrez alors l'inscrire.&lt;/p&gt;
+
+&lt;p&gt;Si l'enfant n'appara&amp;icirc;t toujours pas dans le compte de son autre parent, merci de contacter l'administration communale en charge des plaines ou des repas scolaires.&lt;/p&gt;
+{% endif %}&lt;/div&gt;</label>
+      <type>comment</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_enfant_nrn</value>
+      </condition><extra_css_class>pk-error</extra_css_class>
+      <display_locations />
+      <id>30</id>
     </field><field>
       <label>Implantation scolaire</label>
       <type>item</type>

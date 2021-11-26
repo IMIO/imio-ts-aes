@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<wscall id="aes_is_registered_child" url="https://staging2-formulaires.guichet-citoyen.be/backoffice/settings/wscalls/aes_is_registered_child/">
+  <name>aes_is_registered_child</name>
+  <slug>aes_is_registered_child</slug>
+  <description>Renvoie True si l'enfant existe d&#233;j&#224; dans AES. Fonctionne avec son num&#233;ro de registre national.</description>
+  <request>
+    <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/is_child_registered</url>
+    <request_signature_key />
+    <method>GET</method>
+    <qs_data>
+      <param key="nrn">{{ form_var_enfant_nrn|default:"" }}</param>
+    </qs_data><post_data />
+  </request><record_on_errors>true</record_on_errors>
+</wscall>
