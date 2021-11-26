@@ -730,6 +730,17 @@ Veuillez contacter {{ form_option_service_jeunesse_mail }}{% else %}Une erreur s
           <notify_on_errors>True</notify_on_errors>
           <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
+        </item><item id="5" type="sendmail">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>Portail Parent : d&#233;sinscription des plaines</subject>
+          <body>Bonjour,
+
+Votre demande d'inscription au plaines n&#176;{{ form_number }} a &#233;t&#233; annul&#233;e.
+
+`Consulter ma demande &lt;{{ form_url }}&gt;`_
+
+Bien cordialement,</body>
         </item><item id="3" type="choice">
           <label>debug free up places</label>
           <by>

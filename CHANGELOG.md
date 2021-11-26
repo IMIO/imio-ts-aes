@@ -4,8 +4,8 @@ Changelog
 0.2.33
 ------------------
 
-- redirect to parent portal after registering a new child
-  [nhi]
+- Send mail to submitter if free up places
+- check if child exist directly in form and display error
 
 0.2.32
 ------------------
