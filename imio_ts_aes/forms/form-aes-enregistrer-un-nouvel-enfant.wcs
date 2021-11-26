@@ -279,7 +279,7 @@
       <condition>
         <type>django</type>
         <value>form_var_enfant_nrn</value>
-      </condition><extra_css_class>pk-error</extra_css_class>
+      </condition>
       <display_locations />
       <id>30</id>
     </field><field>
