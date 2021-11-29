@@ -7,6 +7,7 @@ Changelog
   - Added : Alert to user if his unsubscribe child to meals request was successful [nhi]
   - Fixed : email to parent when they unsubscribe their child from meals [nhi]
   - Fixed : condition in register child to meals [nhi]
+  - Fixed : typo in parent registering workflow [nhi]
 
 0.2.33
 ------------------

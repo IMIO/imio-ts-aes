@@ -147,7 +147,7 @@ Retourner sur &lt;a href="{{ portal_agent_url }}fiche-usager/{{ form_user_name_i
 &lt;/p&gt;
 {% else%}
 &lt;p&gt;
-Votre inscription dans notre portail parent a &#233;t&#233; correctement r&#233;alis&#233;.
+Votre inscription dans notre portail parent a &#233;t&#233; correctement r&#233;alis&#233;e.
 &lt;/p&gt;
 &lt;p&gt;
 Vous pouvez &#224; pr&#233;sent &lt;a href="{{ eservices_url }}aes-enregistrer-un-nouvel-enfant/"&gt;enregistrer votre/vos enfant(s)&lt;/a&gt;
