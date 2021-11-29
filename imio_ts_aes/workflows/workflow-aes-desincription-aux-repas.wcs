@@ -56,17 +56,43 @@
       </items>
     </status><status>
       <id>3</id>
-      <name>Confirmation</name>
+      <name>D&#233;sinscription enregistr&#233;e</name>
       <colour>00FF00</colour>
       <visibility />
       <items>
         <item id="1" type="sendmail">
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><subject>{{ form_name }}{{ form_number }}</subject>
-          <body>La d&#233;sinscription de {{ form_var_selected_child_name }} de certains repas a &#233;t&#233; enregistr&#233;e.
+          </to><subject>{{ form_name }} n&#176;{{ form_number }}</subject>
+          <body>&lt;p&gt;Votre demande d&#233;sinscription de {{ form_var_selected_child_lastname|upper }} {{ form_var_selected_child_firstname }} a &#233;t&#233; enregistr&#233;e. Celle-ci concerne les repas suivants :&lt;/p&gt;
+&lt;ul&gt;
+ {% for date in form_var_jours_a_desinscrire_structured %}&lt;li&gt;{{ date.text }}&lt;/li&gt;{% endfor %}
+&lt;/ul&gt;
+&lt;p&gt;Nous vous remercions d'utiliser nos services.&lt;/p&gt;</body>
+        </item><item id="2" type="sendmail">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to><subject>{{ form_name }} n&#176;{{ form_number }}</subject>
+          <body>&lt;p&gt;Bonjour, &lt;/p&gt;
 
-Nous vous remercions d'utiliser nos services.</body>
+&lt;p&gt;Nous vous informons que l'enfant {{ form_var_selected_child_lastname|upper }} {{ form_var_selected_child_firstname }} a &#233;t&#233; d&#233;sinscrit du ou des repas suivant(s) : &lt;/p&gt;
+
+&lt;ul&gt;
+ {% for date in form_var_jours_a_desinscrire_structured %}&lt;li&gt;{{ date.text }}&lt;/li&gt;{% endfor %}
+&lt;/ul&gt;
+
+&lt;p&gt;Bonne journ&#233;e !&lt;/p&gt;</body>
+          <condition>
+            <type>django</type>
+            <value>"oui" in form_option_notifier_agents|lower</value>
+          </condition>
+        </item><item id="3" type="displaymsg">
+          <message>Votre demande de d&#233;sinscription a &#233;t&#233; enregistr&#233;e.</message>
+          <level>success</level>
+          <position>top</position>
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
         </item>
       </items>
     </status><status>
@@ -97,5 +123,29 @@ Veuillez r&#233;aliser la d&#233;sinscription manuellement
         </item>
       </items>
     </status>
-  </possible_status>
+  </possible_status><variables>
+    <formdef>
+      <name>-</name>
+      <fields>
+        <field>
+          <label>Notifier les agents traitants des d&#233;sinscriptions</label>
+          <type>item</type>
+          <required>True</required>
+          <varname>notifier_agents</varname>
+          <display_locations />
+          <extra_css_class>grid-6-12</extra_css_class>
+          <items>
+            <item>Oui</item>
+            <item>Non</item>
+          </items><display_mode>radio</display_mode>
+          <data_source>
+            <type>aes_oui_non</type>
+          </data_source><in_filters>False</in_filters>
+          <anonymise>False</anonymise>
+          <display_disabled_items>False</display_disabled_items>
+          <id>1</id>
+        </field>
+      </fields>
+    </formdef>
+  </variables>
 </workflow>

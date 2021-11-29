@@ -36,7 +36,7 @@
       <type>comment</type>
       <condition>
         <type>django</type>
-        <value>webservice.aes_are_meals_up_to_date is False</value>
+        <value>not webservice.aes_are_meals_up_to_date</value>
       </condition><id>44</id>
     </field><field>
       <label>Coordonn&#233;es</label>
