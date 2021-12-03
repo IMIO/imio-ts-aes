@@ -189,6 +189,20 @@ Voici votre commande :
             <locked>False</locked>
             <type>none</type>
           </prefill><id>1</id>
+        </field><field>
+          <label>Implantations scolaires</label>
+          <required>False</required>
+          <hint>Filtrer les enfants en fonction des &#233;coles coch&#233;es. Si aucune &#233;cole n'est coch&#233;e, les enfants ne sont pas filtr&#233;s.</hint>
+          <varname>implantations_scolaires</varname>
+          <display_locations />
+          <min_choices>0</min_choices>
+          <max_choices>0</max_choices>
+          <data_source>
+            <type>aes_implantations_scolaires</type>
+          </data_source><in_filters>False</in_filters>
+          <anonymise>True</anonymise>
+          <display_disabled_items>False</display_disabled_items>
+          <id>2</id>
         </field>
       </fields>
     </formdef>

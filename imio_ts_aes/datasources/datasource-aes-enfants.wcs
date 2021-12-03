@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<datasource id="2" url="">
+  <name>AES Enfants</name>
+  <slug>aes_enfants</slug>
+  <data_source>
+    <type>json</type>
+    <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/get_children_by_parent_nrn?nrn={{ form_user_var_niss }}{% if form_option_implantations_scolaires %}&amp;school_implantation_ids={% for implantation_scolaire in form_option_implantations_scolaires_structured %}{{ implantation_scolaire.id }}{% if not forloop.last %},{% endif %}{% endfor %}{% endif %}</value>
+  </data_source>
+</datasource>

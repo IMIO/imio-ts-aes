@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<datasource id="1" url="">
+  <name>AES Implantations scolaires</name>
+  <slug>aes_implantations_scolaires</slug>
+  <data_source>
+    <type>json</type>
+    <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/get_schoolimplantation</value>
+  </data_source>
+</datasource>

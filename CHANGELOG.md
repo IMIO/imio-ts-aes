@@ -1,6 +1,13 @@
 Changelog
 =========
 
+0.2.35
+------------------
+  - Added: aes-enfant json datasource
+  - Added: implantations-scolaires json datasource
+  - Updated: meal registration form and workflwo to use new datasources
+  - Removed: old implantations-scolaire python datasource
+
 0.2.34
 ------------------
   - Added : Send an email to portal agent when parent unsubscribe their child from meals [nhi]
