@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.2.36
+------------------
+  - Fixed: regie_id when manual amount is used
+
 0.2.35
 ------------------
   - Added: aes-enfant json datasource

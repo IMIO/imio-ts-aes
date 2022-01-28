@@ -885,7 +885,7 @@ Bien cordialement,
           <qs_data>
             <item>
               <name>regie_id</name>
-              <value>atos_test</value>
+              <value>{{form_option_regie_de_paiement_raw}}</value>
             </item>
           </qs_data><method>POST</method>
           <post>False</post>
