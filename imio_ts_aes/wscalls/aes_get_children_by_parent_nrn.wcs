@@ -8,8 +8,8 @@
     <request_signature_key />
     <method>GET</method>
     <qs_data>
-      <param key="nrn">=form_user_var_niss</param>
-      <param key="email">=form_user_email</param>
+      <param key="nrn">{{ form_user_var_niss }}</param>
+      <param key="email">{{ form_user_email }}</param>
     </qs_data><post_data />
   </request>
 </wscall>

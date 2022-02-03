@@ -1,6 +1,11 @@
 Changelog
 =========
 
+0.2.37
+------------------
+
+- [MPP-188] Fixed: Use Django syntax to prevent evaluation errors [dmshd]
+
 0.2.36
 ------------------
   - Fixed: regie_id when manual amount is used
@@ -108,7 +113,7 @@ Changelog
 0.2.20
 ------------------
 
-- send first mail to user only if epayment 
+- send first mail to user only if epayment
 - reformulate registration's error last status
   [nhislaire]
 
@@ -123,7 +128,7 @@ Changelog
 
 - adapt message about preselected plains to be always displayable
   [nhislaire]
-  
+
 0.2.17
 ------------------
 
@@ -181,7 +186,7 @@ Changelog
 
 - do not loop in validation if an error occurs
   [nhislaire]
-  
+
 0.2.8
 ------------------
 
@@ -197,7 +202,7 @@ Changelog
 
 - add missing wscall get children by parent nrn
   [nhislaire]
-  
+
 0.2.5
 ------------------
 
@@ -249,7 +254,7 @@ Changelog
 
 - Add aes_doctors datasource
 - Use dynamic urls
-- Use wscall instead of action webservice 
+- Use wscall instead of action webservice
 - Redirect user to healthsheet after child registration
   [nhislaire]
 
