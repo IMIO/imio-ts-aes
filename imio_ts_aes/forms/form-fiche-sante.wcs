@@ -1,0 +1,1589 @@
+<?xml version="1.0"?>
+<formdef id="525" url="https://staging2-formulaires.guichet-citoyen.be/backoffice/forms/525/">
+  <name>Fiche sant&#233;</name>
+  <url_name>fiche-sante</url_name>
+  <internal_identifier>fiche-sante</internal_identifier>
+  <discussion>false</discussion>
+  <detailed_emails>true</detailed_emails>
+  <disabled>true</disabled>
+  <only_allow_one>false</only_allow_one>
+  <enable_tracking_codes>true</enable_tracking_codes>
+  <confirmation>true</confirmation>
+  <always_advertise>true</always_advertise>
+  <include_download_all_button>false</include_download_all_button>
+  <has_captcha>false</has_captcha>
+  <skip_from_360_view>false</skip_from_360_view>
+  <category category_id="101" slug="portail-parent">Portail parent</category>
+  <workflow slug="aes-enregistrement-fiche-sante" workflow_id="84">aes - Enregistrement fiche sant&#233;</workflow>
+  <max_field_id>581</max_field_id>
+  <fields>
+    <field>
+      <label type="str">Informations g&#233;n&#233;rales</label>
+      <type type="str">page</type>
+      <id type="str">522</id>
+    </field><field>
+      <label type="str">Enfant</label>
+      <type type="str">computed</type>
+      <varname type="str">enfant</varname>
+      <value_template type="str">{{ request.GET.child }}</value_template>
+      <freeze_on_initial_value type="bool">True</freeze_on_initial_value>
+      <id type="str">581</id>
+    </field><field>
+      <label type="str">Groupe sanguin</label>
+      <type type="str">item</type>
+      <condition>
+        <type>django</type>
+        <value>'blood_type' in form_option_questions_raw</value>
+      </condition><required type="bool">True</required>
+      <hint type="str">Indiquez le groupe sanguin de votre enfant</hint>
+      <varname type="str">blood_type</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_enfant|get:"blood_type" }}</value>
+      </prefill><items>
+        <item>O+</item>
+        <item>A+</item>
+        <item>B+</item>
+        <item>AB+</item>
+        <item>O-</item>
+        <item>A-</item>
+        <item>B-</item>
+        <item>AB-</item>
+        <item>inconnu</item>
+      </items><display_mode type="str">list</display_mode>
+      <in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <initial_zoom type="str">13</initial_zoom>
+      <id type="str">402</id>
+    </field><field>
+      <label type="str">L'enfant a-t-il &#233;t&#233; vaccin&#233; contre le t&#233;tanos ?</label>
+      <type type="str">item</type>
+      <condition>
+        <type>django</type>
+        <value>'tetanos' in form_option_questions_raw</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">tetanos</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
+        <locked>False</locked>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("tetanus").get("vaccinated")</value>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>aes_oui_non</type>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">360</id>
+    </field><field>
+      <label type="str">Date du premier vaccin contre le t&#233;tanos</label>
+      <type type="str">date</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_tetanos_raw == 'oui'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">first_date_tetanus</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-4</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("tetanus").get("first_date_tetanus")</value>
+      </prefill><minimum_is_future type="bool">False</minimum_is_future>
+      <date_in_the_past type="bool">False</date_in_the_past>
+      <date_can_be_today type="bool">False</date_can_be_today>
+      <id type="str">169</id>
+    </field><field>
+      <label type="str">Date du dernier vaccin contre le t&#233;tanos</label>
+      <type type="str">date</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_tetanos_raw == 'oui'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">last_date_tetanus</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-4</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("tetanus").get("last_date_tetanus")</value>
+      </prefill><minimum_is_future type="bool">False</minimum_is_future>
+      <date_in_the_past type="bool">False</date_in_the_past>
+      <date_can_be_today type="bool">False</date_can_be_today>
+      <id type="str">361</id>
+    </field><field>
+      <label type="str">Votre enfant a-t-il subit une op&#233;ration r&#233;cement ?</label>
+      <type type="str">item</type>
+      <condition>
+        <type>django</type>
+        <value>'intervention' in form_option_questions</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">has_intervention</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("has_intervention")</value>
+      </prefill><items />
+      <display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>aes_oui_non</type>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">525</id>
+    </field><field>
+      <label type="str">Nature de l'intervention</label>
+      <type type="str">text</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_intervention_raw == 'oui'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">intervention_text</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("intervention_text")</value>
+      </prefill><pre type="bool">False</pre>
+      <id type="str">529</id>
+    </field><field>
+      <label type="str">Votre enfant sait-il nager ?</label>
+      <type type="str">item</type>
+      <condition>
+        <type>django</type>
+        <value>'swim' in form_option_questions_raw</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">swim</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("swim")</value>
+      </prefill><items />
+      <display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>aes_oui_non</type>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">526</id>
+    </field><field>
+      <label type="str">Niveau de natation de votre enfant</label>
+      <type type="str">item</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_swim_raw == 'oui'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">swim_level</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("swim_level")</value>
+      </prefill><display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>aes_swim_levels</type>
+        <value>{{passerelle_url}}/passerelle-imio-aes-health/aes_health/get_swim_levels</value>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">531</id>
+    </field><field>
+      <label type="str">L'enfant souffre t'il d'un handicap ?</label>
+      <type type="str">item</type>
+      <condition>
+        <type>django</type>
+        <value>'handicap' in form_option_questions_raw</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">handicap</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("has_handicap")</value>
+      </prefill><items />
+      <display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>aes_oui_non</type>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">362</id>
+    </field><field>
+      <label type="str">Niveau du handicap</label>
+      <type type="str">item</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_handicap_raw == 'oui'</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">level_handicap</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("level_handicap")</value>
+      </prefill><items />
+      <display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>aes_handicap_levels</type>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">559</id>
+    </field><field>
+      <label type="str">Description du type de handicap de l'enfant</label>
+      <type type="str">text</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_handicap_raw == 'oui'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">handicap_text</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("handicap")</value>
+      </prefill><pre type="bool">False</pre>
+      <id type="str">363</id>
+    </field><field>
+      <label type="str">Y a-t-il des activit&#233;s auxquelles votre enfant ne peut participer ?</label>
+      <type type="str">item</type>
+      <condition>
+        <type>django</type>
+        <value>'activity_no_available' in form_option_questions_raw</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">activity_no_available</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("activity_no_available")</value>
+      </prefill><display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>aes_oui_non</type>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">364</id>
+    </field><field>
+      <label type="str">Quelles sont les activit&#233;s auxquelles votre enfant ne peut-il pas participer ?</label>
+      <type type="str">text</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_activity_no_available_raw  == 'oui'</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">activity_no_available_text</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("activity_no_available_text")</value>
+      </prefill><pre type="bool">False</pre>
+      <id type="str">545</id>
+    </field><field>
+      <label type="str">Pourquoi votre enfant ne peut-il pas participer &#224; cette (ces) activit&#233;(s)</label>
+      <type type="str">text</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_activity_no_available_raw  == 'oui'</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">activity_no_available_reason</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("activity_no_available_reason")</value>
+      </prefill><pre type="bool">False</pre>
+      <id type="str">365</id>
+    </field><field>
+      <label type="str">Votre enfant a-t-il un r&#233;gime sp&#233;cifique</label>
+      <type type="str">item</type>
+      <condition>
+        <type>django</type>
+        <value>'regime' in form_option_questions_raw</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">has_specific_regime</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("has_specific_regime")</value>
+      </prefill><items />
+      <display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>aes_oui_non</type>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">523</id>
+    </field><field>
+      <label type="str">Veuillez d&#233;tailler le r&#233;gime suivi par votre enfant</label>
+      <type type="str">text</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_specific_regime_raw == 'oui'</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">specific_regime</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("specific_regime")</value>
+      </prefill><pre type="bool">False</pre>
+      <id type="str">524</id>
+    </field><field>
+      <label type="str">Autorisez-vous les accompagnants &#224; utiliser de l'arnica ?</label>
+      <type type="str">item</type>
+      <condition>
+        <type>django</type>
+        <value>'arnica' in form_option_questions_raw</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">arnica</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("arnica")</value>
+      </prefill><items />
+      <display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>aes_oui_non</type>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">528</id>
+    </field><field>
+      <label type="str">Allergies</label>
+      <type type="str">page</type>
+      <condition>
+        <type>python</type>
+        <value>'allergies' in form_option_questions_raw</value>
+      </condition><id type="str">447</id>
+    </field><field>
+      <label type="str">L'enfant a-t-il des allergies ?</label>
+      <type type="str">item</type>
+      <required type="bool">True</required>
+      <varname type="str">allergie</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
+        <locked>False</locked>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("allergies").get("has_allergies")</value>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>aes_oui_non</type>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">170</id>
+    </field><field>
+      <label type="str">Quelles sont les allergies de votre enfant ?</label>
+      <type type="str">items</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_allergie_raw  == 'oui'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">allergies</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
+        <type>formula</type>
+        <value>[str(allergy.get('id')) for allergy in webservice.get_health_attribute.get("allergies").get('list')]</value>
+      </prefill><items />
+      <min_choices type="int">0</min_choices>
+      <max_choices type="int">0</max_choices>
+      <data_source>
+        <type>aes_allergies</type>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">True</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">520</id>
+    </field><field>
+      <label type="str">Votre enfant a-t-il une allergie qui n'est pas dans la liste ?</label>
+      <type type="str">tablerows</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_allergie_raw  == 'oui' and 'new_allergies' in form_option_questions_raw</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">autres_allergies</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <columns>
+        <column>Allergie</column>
+      </columns><total_row type="bool">False</total_row>
+      <id type="str">429</id>
+    </field><field>
+      <label type="str">Quelles en sont les cons&#233;quences ?</label>
+      <type type="str">text</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_allergie_raw  == 'oui'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">allergie_consequence</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("allergies").get("consequence")</value>
+      </prefill><pre type="bool">False</pre>
+      <id type="str">171</id>
+    </field><field>
+      <label type="str">Maladies</label>
+      <type type="str">page</type>
+      <condition>
+        <type>python</type>
+        <value>'diseases' in form_option_questions_raw</value>
+      </condition><id type="str">449</id>
+    </field><field>
+      <label type="str">Votre enfant souffre-t-il d'une de ces maladies ?</label>
+      <type type="str">items</type>
+      <required type="bool">False</required>
+      <varname type="str">diseases</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>[str(disease.get('id')) for disease in webservice.get_health_attribute.get("diseases")]</value>
+      </prefill><items />
+      <min_choices type="int">0</min_choices>
+      <max_choices type="int">0</max_choices>
+      <data_source>
+        <type>aes_diseases</type>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">True</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">450</id>
+    </field><field>
+      <label type="str">Votre enfant souffre-t-il d'une maladie qui ne se trouve pas dans la liste ?</label>
+      <type type="str">tablerows</type>
+      <condition>
+        <type>django</type>
+        <value>'new_diseases' in form_option_questions</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">other_diseases</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <columns>
+        <column>Maladie</column>
+      </columns><total_row type="bool">False</total_row>
+      <id type="str">451</id>
+    </field><field>
+      <label type="str">Maladies - d&#233;tails</label>
+      <type type="str">page</type>
+      <condition>
+        <type>django</type>
+        <value>script.pp_how_many_encoded_diseases &gt; 0 and 'diseases' in form_option_questions_raw</value>
+      </condition><id type="str">500</id>
+    </field><field>
+      <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases "get_disease_from_index" "form_var_diseases_raw" "form_var_other_diseases" "0"]&lt;/h3&gt;</label>
+      <type type="str">comment</type>
+      <display_locations />
+      <id type="str">521</id>
+    </field><field>
+      <label type="str">Gravit&#233;</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>script.pp_how_many_encoded_diseases &gt; 0</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">disease_0_gravity</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("diseases")[0].get('gravity')</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">507</id>
+    </field><field>
+      <label type="str">Traitement</label>
+      <type type="str">text</type>
+      <condition>
+        <type>django</type>
+        <value>script.pp_how_many_encoded_diseases &gt; 0</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">disease_0_treatment</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("diseases")[0].get('text')</value>
+      </prefill><pre type="bool">False</pre>
+      <id type="str">508</id>
+    </field><field>
+      <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases "get_disease_from_index" "form_var_diseases_raw" "form_var_other_diseases" "1"]&lt;/h3&gt;</label>
+      <type type="str">comment</type>
+      <display_locations />
+      <id type="str">502</id>
+    </field><field>
+      <label type="str">Gravit&#233;</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>script.pp_how_many_encoded_diseases &gt; 1</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">disease_1_gravity</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("diseases")[1].get('gravity')</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">509</id>
+    </field><field>
+      <label type="str">Traitement</label>
+      <type type="str">text</type>
+      <condition>
+        <type>django</type>
+        <value>script.pp_how_many_encoded_diseases &gt; 1</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">disease_1_treatment</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("diseases")[1].get('text')</value>
+      </prefill><pre type="bool">False</pre>
+      <id type="str">514</id>
+    </field><field>
+      <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases "get_disease_from_index" "form_var_diseases_raw" "form_var_other_diseases" "2"]&lt;/h3&gt;</label>
+      <type type="str">comment</type>
+      <display_locations />
+      <id type="str">506</id>
+    </field><field>
+      <label type="str">Gravit&#233;</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>script.pp_how_many_encoded_diseases &gt; 2</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">disease_2_gravity</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("diseases")[2].get('gravity')</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">513</id>
+    </field><field>
+      <label type="str">Traitement</label>
+      <type type="str">text</type>
+      <condition>
+        <type>django</type>
+        <value>script.pp_how_many_encoded_diseases &gt; 2</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">disease_2_treatment</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("diseases")[2].get('text')</value>
+      </prefill><pre type="bool">False</pre>
+      <id type="str">515</id>
+    </field><field>
+      <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases "get_disease_from_index" "form_var_diseases_raw" "form_var_other_diseases" "3"]&lt;/h3&gt;</label>
+      <type type="str">comment</type>
+      <display_locations />
+      <id type="str">505</id>
+    </field><field>
+      <label type="str">Gravit&#233;</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>script.pp_how_many_encoded_diseases &gt; 3</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">disease_3_gravity</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("diseases")[3].get('gravity')</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">510</id>
+    </field><field>
+      <label type="str">Traitement</label>
+      <type type="str">text</type>
+      <condition>
+        <type>django</type>
+        <value>script.pp_how_many_encoded_diseases &gt; 3</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">disease_3_treatment</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("diseases")[3].get('text')</value>
+      </prefill><pre type="bool">False</pre>
+      <id type="str">516</id>
+    </field><field>
+      <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases "get_disease_from_index" "form_var_diseases_raw" "form_var_other_diseases" "4"]&lt;/h3&gt;</label>
+      <type type="str">comment</type>
+      <display_locations />
+      <id type="str">503</id>
+    </field><field>
+      <label type="str">Gravit&#233;</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>script.pp_how_many_encoded_diseases &gt; 4</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">disease_4_gravity</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("diseases")[4].get('gravity')</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">511</id>
+    </field><field>
+      <label type="str">Traitement</label>
+      <type type="str">text</type>
+      <condition>
+        <type>django</type>
+        <value>script.pp_how_many_encoded_diseases &gt; 4</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">disease_4_treatment</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("diseases")[4].get('text')</value>
+      </prefill><pre type="bool">False</pre>
+      <id type="str">517</id>
+    </field><field>
+      <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases "get_disease_from_index" "form_var_diseases_raw" "form_var_other_diseases" "5"]&lt;/h3&gt;</label>
+      <type type="str">comment</type>
+      <display_locations />
+      <id type="str">504</id>
+    </field><field>
+      <label type="str">Gravit&#233;</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>script.pp_how_many_encoded_diseases &gt; 5</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">disease_5_gravity</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("diseases")[5].get('gravity')</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">512</id>
+    </field><field>
+      <label type="str">Traitement</label>
+      <type type="str">text</type>
+      <condition>
+        <type>django</type>
+        <value>script.pp_how_many_encoded_diseases &gt; 5</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">disease_5_treatment</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("diseases")[5].get('text')</value>
+      </prefill><pre type="bool">False</pre>
+      <id type="str">518</id>
+    </field><field>
+      <label type="str">M&#233;dication</label>
+      <type type="str">page</type>
+      <condition>
+        <type>python</type>
+        <value>'medication' in form_option_questions_raw</value>
+      </condition><id type="str">401</id>
+    </field><field>
+      <label type="str">Votre enfant doit-il prendre des m&#233;dicaments ?</label>
+      <type type="str">item</type>
+      <required type="bool">True</required>
+      <varname type="str">has_medication</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>'oui' if len(webservice.get_health_attribute.get("medication")) &gt; 0 else 'non'</value>
+      </prefill><items />
+      <display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>aes_oui_non</type>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">453</id>
+    </field><field>
+      <label type="str">Informations concernant les m&#233;dicaments</label>
+      <type type="str">block:pp_fiche_sante_medicaments</type>
+      <required type="bool">True</required>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><max_items type="int">10</max_items>
+      <add_element_label type="str">Ajouter un autre m&#233;dicament</add_element_label>
+      <label_display type="str">subtitle</label_display>
+      <remove_button type="bool">True</remove_button>
+      <id type="str">580</id>
+    </field><field>
+      <label type="str">Autres informations</label>
+      <type type="str">page</type>
+      <id type="str">423</id>
+    </field><field>
+      <label type="str">L'enfant peut-il rentrer seul ?</label>
+      <type type="str">item</type>
+      <required type="bool">True</required>
+      <varname type="str">to_go_alone</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("to_go_alone")</value>
+      </prefill><items />
+      <display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>aes_oui_non</type>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">546</id>
+    </field><field>
+      <label type="str">Y a-t-il des donn&#233;es m&#233;dicales sp&#233;cifiques importantes &#224; conna&#238;tre pour le bon d&#233;roulement des activit&#233;s ?</label>
+      <type type="str">item</type>
+      <condition>
+        <type>django</type>
+        <value>'medical_data' in form_option_questions_raw</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">medical_data</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
+        <type>none</type>
+      </prefill><items />
+      <display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>aes_oui_non</type>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">172</id>
+    </field><field>
+      <label type="str">Si oui, lesquels</label>
+      <type type="str">text</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_medical_data_raw == 'oui'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medical_data_text</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><pre type="bool">False</pre>
+      <id type="str">173</id>
+    </field><field>
+      <label type="str">Pr&#233;cisions suppl&#233;mentaires &#233;ventuelles</label>
+      <type type="str">text</type>
+      <required type="bool">False</required>
+      <varname type="str">precisions_supp</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("comment")</value>
+      </prefill><pre type="bool">False</pre>
+      <id type="str">174</id>
+    </field><field>
+      <label type="str">En cas d'intervention urgente, le p&#232;re et/ou la m&#232;re autorise(nt) les chefs de plaine &#224; prendre toutes les dispositions n&#233;cessaires  </label>
+      <type type="str">bool</type>
+      <condition>
+        <type>django</type>
+        <value>False</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">chk_dispo_necessaires</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
+        <type>none</type>
+      </prefill><id type="str">175</id>
+    </field><field>
+      <label type="str">M&#233;decin traitant</label>
+      <type type="str">page</type>
+      <id type="str">406</id>
+    </field><field>
+      <label type="str">M&#233;decin traitant</label>
+      <type type="str">subtitle</type>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><id type="str">417</id>
+    </field><field>
+      <label type="str">&lt;p&gt;Vous pouvez s&amp;eacute;lectionner un m&amp;eacute;decin traitant de l'entit&amp;eacute; dans la liste ci-dessous. Votre m&amp;eacute;decin ne s'y trouve pas ? S&amp;eacute;lectionnez &amp;quot;Autre&amp;quot; et indiquez ses coordonn&amp;eacute;es. Veillez &amp;agrave; ce que celles-ci soient absolument correctes.&lt;/p&gt;</label>
+      <type type="str">comment</type>
+      <display_locations />
+      <id type="str">576</id>
+    </field><field>
+      <label type="str">M&#233;decin traitant</label>
+      <type type="str">item</type>
+      <required type="bool">True</required>
+      <varname type="str">doctor</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("doctor").get('id')</value>
+      </prefill><items />
+      <display_mode type="str">autocomplete</display_mode>
+      <data_source>
+        <type>formula</type>
+        <value>sorted(data_source.aes_doctors, key=lambda x: x["text"], reverse = False) + [{'id':'autre','text':'Autre'}]</value>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <initial_zoom type="str">13</initial_zoom>
+      <id type="str">548</id>
+    </field><field>
+      <label type="str">&lt;p class="data"&gt;{% if form_var_doctor_tel %}T&amp;eacute;l&amp;eacute;phone : {{ form_var_doctor_tel }}{% endif %}&lt;/p&gt;
+
+&lt;p class="data"&gt;{% if form_var_doctor_gsm %}GSM : {{ form_var_doctor_gsm }} {% endif %}&lt;/p&gt;
+
+&lt;p class="data"&gt;{% if form_var_doctor_street or form_var_doctor_zipcode or form_var_doctor_city %}Adresse : {% endif %}{% if form_var_doctor_street %}{{ form_var_doctor_street }}{% endif %} {% if form_var_doctor_zipcode %}{{ form_var_doctor_zipcode }}{% endif %} {% if form_var_doctor_city %}{{ form_var_doctor_city }}{% endif %}&lt;/p&gt;</label>
+      <type type="str">comment</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_doctor is not None and form_var_doctor_raw != 'autre'</value>
+      </condition><display_locations />
+      <id type="str">556</id>
+    </field><field>
+      <label type="str">Docteur</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_doctor_raw == 'autre'</value>
+      </condition><required type="bool">True</required>
+      <hint type="str">Pr&#233;nom et nom du m&#233;decin traitant</hint>
+      <varname type="str">other_doctor_name</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">557</id>
+    </field><field>
+      <label type="str">T&#233;l&#233;phone du m&#233;decin</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_doctor_raw == 'autre'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">other_doctor_tel</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-4</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">167</id>
+    </field><field>
+      <label type="str">GSM du m&#233;decin</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_doctor_raw == 'autre'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">other_doctor_gsm</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-4</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>None</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">430</id>
+    </field><field>
+      <label type="str">Rue et num&#233;ro</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_doctor_raw == 'autre'</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">other_doctor_street</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>None</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">550</id>
+    </field><field>
+      <label type="str">Code postal</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_doctor_raw == 'autre'</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">other_doctor_zipcode</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-2-12</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>None</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">552</id>
+    </field><field>
+      <label type="str">Localit&#233;</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_doctor_raw == 'autre'</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">other_doctor_city</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-4-12</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">553</id>
+    </field><field>
+      <label type="str">Pays</label>
+      <type type="str">item</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_doctor_raw == 'autre'</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">other_doctor_country</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>21 or webservice.get_health_attribute.get("doctor").get('country_id')</value>
+      </prefill><items />
+      <display_mode type="str">autocomplete</display_mode>
+      <data_source>
+        <type>aes_countries</type>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <initial_zoom type="str">13</initial_zoom>
+      <id type="str">560</id>
+    </field><field>
+      <label type="str">Personnes de contact</label>
+      <type type="str">page</type>
+      <post_conditions>
+        <post_condition>
+          <condition>
+            <type>python</type>
+            <value>form_var_contact_0_tel is None or (re.match("^(0|\\+|00)(\d{8,})$", form_var_contact_0_tel))</value>
+          </condition><error_message>Le num&#233;ro de t&#233;l&#233;phone du premier contact n'est pas correctement encod&#233;.</error_message>
+        </post_condition><post_condition>
+          <condition>
+            <type>python</type>
+            <value>form_var_contact_1_tel is None or (re.match("^(0|\\+|00)(\d{8,})$", form_var_contact_1_tel))</value>
+          </condition><error_message>Le num&#233;ro de t&#233;l&#233;phone du deuxi&#232;me contact n'est pas correctement encod&#233;.</error_message>
+        </post_condition><post_condition>
+          <condition>
+            <type>python</type>
+            <value>(form_var_contact_0_name is None and form_var_contact_0_relation is None) or (form_var_contact_0_name is not None and form_var_contact_0_relation is not None)</value>
+          </condition><error_message>Veuillez compl&#233;ter le premier contact ou le laisser vide.</error_message>
+        </post_condition><post_condition>
+          <condition>
+            <type>python</type>
+            <value>(form_var_contact_1_name is None and form_var_contact_1_relation is None) or (form_var_contact_1_name is not None and form_var_contact_1_relation is not None)</value>
+          </condition><error_message>Veuillez compl&#233;ter le deuxi&#232;me contact ou le laisser vide.</error_message>
+        </post_condition>
+      </post_conditions><id type="str">547</id>
+    </field><field>
+      <label type="str">Autres contacts</label>
+      <type type="str">title</type>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><id type="str">418</id>
+    </field><field>
+      <label type="str">Premier contact</label>
+      <type type="str">subtitle</type>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><id type="str">415</id>
+    </field><field>
+      <label type="str">Nom</label>
+      <type type="str">string</type>
+      <required type="bool">False</required>
+      <varname type="str">contact_0_name</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("contact")[0].get("text")</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">407</id>
+    </field><field>
+      <label type="str">Pr&#233;nom</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>False</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">contact_0_firstname</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">408</id>
+    </field><field>
+      <label type="str">Lien de parent&#233;</label>
+      <type type="str">string</type>
+      <required type="bool">False</required>
+      <varname type="str">contact_0_relation</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("contact")[0].get("relation")</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">409</id>
+    </field><field>
+      <label type="str">T&#233;l / GSM</label>
+      <type type="str">string</type>
+      <required type="bool">False</required>
+      <varname type="str">contact_0_tel</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("contact")[0].get("tel")</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">410</id>
+    </field><field>
+      <label type="str">Rue</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>'other_contact_address' in form_option_questions_raw</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">contact_0_street</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("contact")[0].get("street")</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">443</id>
+    </field><field>
+      <label type="str">Num&#233;ro</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>'other_contact_address' in form_option_questions_raw</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">contact_0_number</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("contact")[0].get("number")</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">436</id>
+    </field><field>
+      <label type="str">Bo&#238;te</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>'other_contact_address' in form_option_questions_raw</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">contact_0_box</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("contact")[0].get("box_number")</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">444</id>
+    </field><field>
+      <label type="str">Code postal</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>'other_contact_address' in form_option_questions_raw</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">contact_0_zip_code</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("contact")[0].get("zip_code")</value>
+      </prefill><validation>
+        <type>regex</type>
+        <value>^[0-9]*</value>
+      </validation><anonymise type="bool">True</anonymise>
+      <id type="str">437</id>
+    </field><field>
+      <label type="str">Ville</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>'other_contact_address' in form_option_questions_raw</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">contact_0_city</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("contact")[0].get("city")</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">445</id>
+    </field><field>
+      <label type="str">Pays</label>
+      <type type="str">item</type>
+      <condition>
+        <type>django</type>
+        <value>'other_contact_address' in form_option_questions_raw</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">contact_0_country</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>21 or webservice.get_health_attribute.get("contact")[0].get("country_id")</value>
+      </prefill><items />
+      <display_mode type="str">autocomplete</display_mode>
+      <data_source>
+        <type>aes_countries</type>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <initial_zoom type="str">13</initial_zoom>
+      <id type="str">561</id>
+    </field><field>
+      <label type="str">Deuxi&#232;me contact</label>
+      <type type="str">subtitle</type>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><id type="str">416</id>
+    </field><field>
+      <label type="str">Nom</label>
+      <type type="str">string</type>
+      <required type="bool">False</required>
+      <varname type="str">contact_1_name</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("contact")[1].get("text")</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">411</id>
+    </field><field>
+      <label type="str">Pr&#233;nom</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>False</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">contact_1_firstname</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">412</id>
+    </field><field>
+      <label type="str">Lien de parent&#233;</label>
+      <type type="str">string</type>
+      <required type="bool">False</required>
+      <varname type="str">contact_1_relation</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("contact")[1].get("relation")</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">413</id>
+    </field><field>
+      <label type="str">T&#233;l / GSM</label>
+      <type type="str">string</type>
+      <required type="bool">False</required>
+      <varname type="str">contact_1_tel</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("contact")[1].get("tel")</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">414</id>
+    </field><field>
+      <label type="str">Rue</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>'other_contact_address' in form_option_questions_raw</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">contact_1_street</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("contact")[1].get("street")</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">533</id>
+    </field><field>
+      <label type="str">Num&#233;ro</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>'other_contact_address' in form_option_questions_raw</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">contact_1_number</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("contact")[1].get("number")</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">534</id>
+    </field><field>
+      <label type="str">Bo&#238;te</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>'other_contact_address' in form_option_questions_raw</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">contact_1_box</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("contact")[1].get("box_number")</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">535</id>
+    </field><field>
+      <label type="str">Code postal</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>'other_contact_address' in form_option_questions_raw</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">contact_1_zip_code</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("contact")[1].get("zip_code")</value>
+      </prefill><validation>
+        <type>regex</type>
+        <value>^[0-9]*</value>
+      </validation><anonymise type="bool">True</anonymise>
+      <id type="str">536</id>
+    </field><field>
+      <label type="str">Ville</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>'other_contact_address' in form_option_questions_raw</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">contact_1_city</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("contact")[1].get("city")</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">537</id>
+    </field><field>
+      <label type="str">Pays</label>
+      <type type="str">item</type>
+      <condition>
+        <type>django</type>
+        <value>'other_contact_address' in form_option_questions_raw</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">contact_1_country</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>21 or webservice.get_health_attribute.get("contact")[0].get("country_id")</value>
+      </prefill><items />
+      <display_mode type="str">autocomplete</display_mode>
+      <data_source>
+        <type>aes_countries</type>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <initial_zoom type="str">13</initial_zoom>
+      <id type="str">562</id>
+    </field><field>
+      <label type="str">Droit &#224; l'image</label>
+      <type type="str">page</type>
+      <id type="str">532</id>
+    </field><field>
+      <label type="str">L'enfant peut-il &#234;tre pris en photo durant les stages ou les plaines ?</label>
+      <type type="str">item</type>
+      <condition>
+        <type>django</type>
+        <value>'photo' in form_option_questions_raw</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">photo</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-1</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("photo")</value>
+      </prefill><items />
+      <display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>aes_oui_non</type>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">544</id>
+    </field><field>
+      <label type="str">L'enfant peut-il &#234;tre pris en photo lors des garderies, ateliers, spectacles, ou autre ?</label>
+      <type type="str">item</type>
+      <condition>
+        <type>django</type>
+        <value>'photo_general' in form_option_questions_raw</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">photo_general</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-1</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("photo_general")</value>
+      </prefill><items />
+      <display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>aes_oui_non</type>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">543</id>
+    </field><field>
+      <label type="str">Les photos de l'enfant peuvent-elles &#234;tre publi&#233;es sur les r&#233;seaux sociaux (site de la commune, Facebook) ?</label>
+      <type type="str">item</type>
+      <condition>
+        <type>django</type>
+        <value>'facebook' in form_option_questions_raw</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">facebook</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-1</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>webservice.get_health_attribute.get("facebook")</value>
+      </prefill><items />
+      <display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>aes_oui_non</type>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">541</id>
+    </field><field>
+      <label type="str">Je marque mon accord pour que la prise en charge ou les traitements estim&#233;s n&#233;cessaires soient entrepris durant le s&#233;jour de mon enfant par les responsables de l&#8217;accueil ou par le service m&#233;dical qui y est associ&#233;. J&#8217;autorise le m&#233;decin local &#224; prendre les d&#233;cisions qu&#8217;il juge urgentes et indispensables pour assurer l&#8217;&#233;tat de sant&#233; de l&#8217;enfant, m&#234;me s&#8217;il s&#8217;agit d&#8217;une intervention chirurgicale. En cas d&#8217;urgence, les parents/tuteurs seront avertis le plus rapidement possible. N&#233;anmoins, s&#8217;ils ne sont pas joignables et que l&#8217;urgence le requiert, l&#8217;intervention se fera sans leur consentement.</label>
+      <type type="str">bool</type>
+      <condition>
+        <type>django</type>
+        <value>'medical_autorisation' in form_option_questions_raw</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">medical_autorisation</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
+        <type>none</type>
+      </prefill><id type="str">577</id>
+    </field><field>
+      <label type="str">Je m&#8217;engage sur l&#8217;honneur &#224; ce que moi-m&#234;me ou un autre adulte de la bulle sociale de mon enfant soit joignable par t&#233;l&#233;phone et d&#8217;avoir la possibilit&#233; de venir chercher l&#8217;enfant imm&#233;diatement pendant toute la dur&#233;e de l&#8217;activit&#233; si son &#233;tat de sant&#233; le n&#233;cessite, et de s&#8217;engager dans ce cas &#224; faire consulter le participant d&#232;s que possible (et end&#233;ans les 24h du retour au plus tard) par son m&#233;decin r&#233;f&#233;rent ou un autre m&#233;decin si ce dernier n&#8217;est pas disponible</label>
+      <type type="str">bool</type>
+      <condition>
+        <type>django</type>
+        <value>'covid' in form_option_questions_raw</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">covid</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
+        <type>none</type>
+      </prefill><id type="str">578</id>
+    </field><field>
+      <label type="str">Je consens au traitement de mes donn&#233;es &#224; caract&#232;re personnel par l'Administration communale de Chaudfontaine conform&#233;ment &#224; sa charte relative &#224; la protection de la vie priv&#233;e.</label>
+      <type type="str">bool</type>
+      <condition>
+        <type>django</type>
+        <value>'rgpd' in form_option_questions_raw</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">rgpd</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
+        <type>none</type>
+      </prefill><id type="str">579</id>
+    </field>
+  </fields><user-roles>
+    <role role_id="97fd62031c1f4b35a219ca964396a445" slug="parent">Parent</role>
+  </user-roles><backoffice-submission-roles>
+    <role role_id="9f94095fe2564f17b88ca929bf3149fc" slug="agents-traitants-portail-parent">Agents traitants - Portail parent</role>
+  </backoffice-submission-roles><roles>
+    <role role_id="9f94095fe2564f17b88ca929bf3149fc" role_key="_receiver" slug="agents-traitants-portail-parent">Agents traitants - Portail parent</role>
+    <role role_id="43190215712647a89376713be142a4f5" role_key="_debug" slug="debug">Debug</role>
+  </roles><options>
+    <option varname="compte">BE80 0910 2100 5377</option>
+    <option varname="questions" />
+    <option varname="questions_display">Quel est le groupe sanguin de l'enfant ?, L'enfant a-t'il &#233;t&#233; vaccin&#233; contre le t&#233;tanos ?, L'enfant a-t'il subit une intervention r&#233;cemment ?, L'enfant sait-il nager ?, L'enfant souffre t'il d'un handicap ?, Activit&#233;s non praticables, L'enfant suit-il un r&#233;gime sp&#233;cifique ?, Autorisez-vous les accompagnants &#224; utiliser de l'arnica ?, L'enfant a-t'il des allergies ?, Permettre aux parents d'ajouter d'autres allergies ?, L'enfant a-t'il des maladies ?, Permettre aux parents d'ajouter d'autres maladies ?, L'enfant doit-il prendre des m&#233;dicaments ?, Demander l'adresse des autres contacts, L'enfant peut-il &#234;tre pris en photo durant les stages ou les plaines ?, L'enfant peut-il &#234;tre pris en photo lors des garderies, ateliers, spectacles, ou autre ?, Les photos de l'enfant peuvent-elles &#234;tre publi&#233;es sur les r&#233;seaux sociaux (site de la commune, Facebook) ?</option>
+    <option varname="questions_structured" />
+    <option varname="verifier_encodage">Non</option>
+    <option varname="verifier_encodage_display">Non</option>
+    <option varname="verifier_encodage_structured" />
+  </options><custom_views />
+  <geolocations />
+  <digest_templates />
+</formdef>
