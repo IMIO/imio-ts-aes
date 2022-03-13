@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<formdef id="524" url="https://staging2-formulaires.guichet-citoyen.be/backoffice/forms/524/">
+  <name>Plaines de vacances</name>
+  <url_name>plaines-de-vacances</url_name>
+  <internal_identifier>plaines-de-vacances</internal_identifier>
+  <drafts_lifespan>2</drafts_lifespan>
+  <discussion>false</discussion>
+  <detailed_emails>true</detailed_emails>
+  <disabled>false</disabled>
+  <only_allow_one>false</only_allow_one>
+  <enable_tracking_codes>true</enable_tracking_codes>
+  <confirmation>false</confirmation>
+  <always_advertise>false</always_advertise>
+  <include_download_all_button>false</include_download_all_button>
+  <has_captcha>false</has_captcha>
+  <skip_from_360_view>false</skip_from_360_view>
+  <category category_id="101" slug="portail-parent">Portail parent</category>
+  <workflow slug="plaines-de-vacances" workflow_id="263">Plaines de vacances</workflow>
+  <max_field_id>64</max_field_id>
+  <fields>
+    <field>
+      <label type="str">Inscription</label>
+      <type type="str">page</type>
+      <id type="str">64</id>
+    </field><field>
+      <label type="str">Identifiant de l'enfant</label>
+      <type type="str">computed</type>
+      <varname type="str">id_enfant</varname>
+      <value_template type="str">{{request.GET.enfant|default:""}}</value_template>
+      <freeze_on_initial_value type="bool">True</freeze_on_initial_value>
+      <data_source>
+        <type>aes_enfants</type>
+        <value>webservice.aes_get_children_by_parent_nrn.get('data')</value>
+      </data_source><id type="str">61</id>
+    </field><field>
+      <label type="str">Choisissez l'enfant &#224; inscrire aux plaines</label>
+      <type type="str">item</type>
+      <required type="bool">False</required>
+      <varname type="str">enfant</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+        <display_location>listings</display_location>
+      </display_locations><extra_css_class type="str">hidden</extra_css_class>
+      <prefill>
+        <locked>True</locked>
+        <type>string</type>
+        <value>{{request.GET.enfant|default:""}}</value>
+      </prefill><display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>aes_enfants</type>
+        <value>webservice.aes_get_children_by_parent_nrn.get('data')</value>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">22</id>
+    </field><field>
+      <label type="str">&lt;p&gt;Vous inscrivez &lt;span class="varname"&gt;{{ form_var_enfant }}&lt;/span&gt; aux plaines de vacances.&lt;/p&gt;
+</label>
+      <type type="str">comment</type>
+      <extra_css_class type="str">pk-information</extra_css_class>
+      <display_locations />
+      <id type="str">55</id>
+    </field><field>
+      <label type="str">Plaines</label>
+      <type type="str">items</type>
+      <required type="bool">True</required>
+      <hint type="str">Choisissez vos plaines</hint>
+      <varname type="str">activities_plaines</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+      </display_locations><extra_css_class type="str">hidden</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>none</type>
+      </prefill><min_choices type="int">0</min_choices>
+      <max_choices type="int">0</max_choices>
+      <data_source>
+        <type>formula</type>
+        <value>[activity for activities in [week['activities'] for week in webservice.aes_get_available_plaines] for activity in activities]</value>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">True</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">53</id>
+    </field><field>
+      <label type="str">&lt;p&gt;Plaines&lt;/p&gt;
+</label>
+      <type type="str">comment</type>
+      <extra_css_class type="str">template-portail_parent_plaines</extra_css_class>
+      <display_locations />
+      <id type="str">54</id>
+    </field>
+  </fields><user-roles>
+    <role role_id="97fd62031c1f4b35a219ca964396a445" slug="parent">Parent</role>
+  </user-roles><backoffice-submission-roles>
+    <role role_id="9f94095fe2564f17b88ca929bf3149fc" slug="agents-traitants-portail-parent">Agents traitants - Portail parent</role>
+  </backoffice-submission-roles><roles>
+    <role role_id="9f94095fe2564f17b88ca929bf3149fc" role_key="_receiver" slug="agents-traitants-portail-parent">Agents traitants - Portail parent</role>
+    <role role_id="43190215712647a89376713be142a4f5" role_key="_debug" slug="debug">Debug</role>
+  </roles><options>
+    <option varname="categorie_activite">Plaine</option>
+    <option varname="categorie_activitie">Plaine</option>
+    <option varname="commentaire">Pour toute personne de Staging2, &#233;manant du CPAS, merci de bien vouloir d&#8217;abord contacter ce dernier en premier lieu.</option>
+    <option varname="first_date_plain">01/01/2022</option>
+    <option varname="last_date_plain">31/12/2022</option>
+    <option varname="modalite_paiement">Paiement en ligne</option>
+    <option varname="modalite_paiement_display">Paiement en ligne</option>
+    <option varname="modalite_paiement_structured" />
+    <option varname="nb_days_before_free_places">3</option>
+    <option varname="numero_de_compte_iban" />
+    <option varname="regie_de_paiement" />
+    <option varname="regie_de_paiement_display" />
+    <option varname="regie_de_paiement_structured" />
+    <option varname="service_jeunesse_mail">service.jeunesse@macommune.be</option>
+    <option varname="test" />
+  </options><custom_views />
+  <geolocations />
+  <digest_templates />
+</formdef>

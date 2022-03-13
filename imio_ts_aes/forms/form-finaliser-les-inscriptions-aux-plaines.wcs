@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<formdef id="534" url="https://staging2-formulaires.guichet-citoyen.be/backoffice/forms/534/">
+  <name>Finaliser les inscriptions aux plaines</name>
+  <url_name>finaliser-les-inscriptions-aux-plaines</url_name>
+  <internal_identifier>finaliser-les-inscriptions-aux-plaines</internal_identifier>
+  <discussion>false</discussion>
+  <detailed_emails>true</detailed_emails>
+  <disabled>false</disabled>
+  <only_allow_one>false</only_allow_one>
+  <enable_tracking_codes>false</enable_tracking_codes>
+  <confirmation>false</confirmation>
+  <always_advertise>false</always_advertise>
+  <include_download_all_button>false</include_download_all_button>
+  <has_captcha>false</has_captcha>
+  <skip_from_360_view>false</skip_from_360_view>
+  <category category_id="101" slug="portail-parent">Portail parent</category>
+  <workflow slug="finalisation-des-inscriptions" workflow_id="266">Finalisation des inscriptions</workflow>
+  <max_field_id>3</max_field_id>
+  <fields>
+    <field>
+      <label type="str">R&#233;capitulatif des inscriptions aux plaines de vos enfants</label>
+      <type type="str">title</type>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><id type="str">3</id>
+    </field><field>
+      <label type="str">&lt;div&gt;{% if form_user_email %}
+&lt;ol&gt;{% for registration in forms|objects:"poc-inscription-plaine-fiche"|filter_by_user:form_user|filter_by_status:"En attente de validation" %}
+    &lt;li&gt;{{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }}&lt;/li&gt;
+{% endfor %}&lt;/ol&gt;{% else %}Pas d'utilisateur d&#233;tect&#233; - Peut-&#234;tre &#234;tes vous dans la fabrique de formulaires ?{% endif %}&lt;/div&gt;</label>
+      <type type="str">comment</type>
+      <display_locations />
+      <id type="str">2</id>
+    </field>
+  </fields><backoffice-submission-roles>
+    <role role_id="43190215712647a89376713be142a4f5" slug="debug">Debug</role>
+  </backoffice-submission-roles><roles>
+    <role role_id="43190215712647a89376713be142a4f5" role_key="_receiver" slug="debug">Debug</role>
+  </roles><options>
+    <option varname="calcul_montant">Calculer le montant manuellement</option>
+    <option varname="calcul_montant_display">Calculer le montant manuellement</option>
+    <option varname="calcul_montant_structured" />
+    <option varname="iban">BE</option>
+    <option varname="mode_paiement">Paiement en ligne</option>
+    <option varname="mode_paiement_display">Paiement en ligne</option>
+    <option varname="mode_paiement_structured" />
+    <option varname="regie_de_paiement">atos_test</option>
+    <option varname="regie_de_paiement_display">Atos test</option>
+    <option varname="regie_de_paiement_structured" />
+  </options><custom_views />
+  <geolocations />
+</formdef>
