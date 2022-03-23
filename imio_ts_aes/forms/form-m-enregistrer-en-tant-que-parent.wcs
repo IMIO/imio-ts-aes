@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
-<formdef id="520" url="https://staging2-formulaires.guichet-citoyen.be/backoffice/forms/520/">
+<formdef id="5" url="https://wcs.dev.publik.love/backoffice/forms/5/">
   <name>M'enregistrer en tant que parent</name>
   <url_name>m-enregistrer-en-tant-que-parent</url_name>
   <description>&lt;p&gt;S'enregistrer dans le portail parent permet ensuite d'y inscrire ses enfants, de compl&amp;eacute;ter leur fiche sant&amp;eacute; et de les inscrire &amp;agrave; des activit&amp;eacute;s.&lt;/p&gt;</description>
-  <internal_identifier>m-inscrire-en-tant-que-parent</internal_identifier>
+  <internal_identifier>m-enregistrer-en-tant-que-parent</internal_identifier>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
-  <disabled>true</disabled>
+  <disabled>false</disabled>
   <only_allow_one>false</only_allow_one>
   <enable_tracking_codes>false</enable_tracking_codes>
   <confirmation>true</confirmation>
@@ -14,9 +14,9 @@
   <include_download_all_button>false</include_download_all_button>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category category_id="101" slug="portail-parent">Portail parent</category>
-  <workflow slug="aes-enregistrement-parent" workflow_id="29">aes - Enregistrement parent</workflow>
-  <max_field_id>19</max_field_id>
+  <category slug="portail-parent" category_id="1">Portail Parent</category>
+  <workflow slug="enregistrement-d-un-parent" workflow_id="7">Enregistrement d'un parent</workflow>
+  <max_field_id>21</max_field_id>
   <fields>
     <field>
       <label type="str">&lt;p&gt;En validant ce formulaire, vous acceptez que vos donn&amp;eacute;es soient transf&amp;eacute;r&amp;eacute;es dans l&amp;#39;application de gestion des activit&amp;eacute;s extra-scolaire blablabla&lt;/p&gt;
@@ -24,17 +24,49 @@
       <type type="str">comment</type>
       <display_locations />
       <id type="str">19</id>
+    </field><field>
+      <label type="str">Num&#233;ro de registre national</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_registre_national</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">registre_national</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+        <display_location>listings</display_location>
+      </display_locations><prefill>
+        <locked>True</locked>
+        <type>user</type>
+        <value>_niss</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">20</id>
+    </field><field>
+      <label type="str">Num&#233;ro de matricule</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>not form_var_registre_national</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">matricule</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+        <display_location>listings</display_location>
+      </display_locations><prefill>
+        <locked>False</locked>
+        <type>none</type>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">21</id>
     </field>
   </fields><user-roles>
     <role role_id="logged-users">logged-users</role>
-  </user-roles><backoffice-submission-roles>
-    <role role_id="9f94095fe2564f17b88ca929bf3149fc" slug="agents-traitants-portail-parent">Agents traitants - Portail parent</role>
-  </backoffice-submission-roles><roles>
-    <role role_id="9f94095fe2564f17b88ca929bf3149fc" role_key="_receiver" slug="agents-traitants-portail-parent">Agents traitants - Portail parent</role>
-    <role role_id="43190215712647a89376713be142a4f5" role_key="_debug" slug="debug">Debug</role>
+  </user-roles><roles>
+    <role slug="debug" role_id="5162edec67c74e23bc26251709ab4101" role_key="_receiver">Debug</role>
+    <role slug="debug" role_id="5162edec67c74e23bc26251709ab4101" role_key="_debug">Debug</role>
   </roles><options>
     <option varname="autosave" />
   </options><custom_views />
   <geolocations />
-  <digest_templates />
 </formdef>

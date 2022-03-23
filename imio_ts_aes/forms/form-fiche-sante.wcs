@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
-<formdef id="525" url="https://staging2-formulaires.guichet-citoyen.be/backoffice/forms/525/">
+<formdef id="8" url="https://wcs.dev.publik.love/backoffice/forms/8/">
   <name>Fiche sant&#233;</name>
   <url_name>fiche-sante</url_name>
   <internal_identifier>fiche-sante</internal_identifier>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
-  <disabled>true</disabled>
+  <disabled>false</disabled>
   <only_allow_one>false</only_allow_one>
   <enable_tracking_codes>true</enable_tracking_codes>
   <confirmation>true</confirmation>
@@ -13,9 +13,9 @@
   <include_download_all_button>false</include_download_all_button>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category category_id="101" slug="portail-parent">Portail parent</category>
-  <workflow slug="aes-enregistrement-fiche-sante" workflow_id="84">aes - Enregistrement fiche sant&#233;</workflow>
-  <max_field_id>581</max_field_id>
+  <category slug="portail-parent" category_id="1">Portail Parent</category>
+  <workflow slug="aes-enregistrement-fiche-sante" workflow_id="6">aes - Enregistrement fiche sant&#233;</workflow>
+  <max_field_id>586</max_field_id>
   <fields>
     <field>
       <label type="str">Informations g&#233;n&#233;rales</label>
@@ -24,10 +24,40 @@
     </field><field>
       <label type="str">Enfant</label>
       <type type="str">computed</type>
-      <varname type="str">enfant</varname>
-      <value_template type="str">{{ request.GET.child }}</value_template>
+      <varname type="str">enfant_id</varname>
+      <value_template type="str">{{request.GET.enfant|default:""}}</value_template>
       <freeze_on_initial_value type="bool">True</freeze_on_initial_value>
       <id type="str">581</id>
+    </field><field>
+      <label type="str">Fiche sant&#233;</label>
+      <type type="str">computed</type>
+      <varname type="str">fiche_sante</varname>
+      <value_template type="str">{{ webservice.portail_parent_fiche_sante }}</value_template>
+      <freeze_on_initial_value type="bool">True</freeze_on_initial_value>
+      <id type="str">584</id>
+    </field><field>
+      <label type="str">Fiche sant&#233;</label>
+      <type type="str">computed</type>
+      <varname type="str">fiche_sante_selections</varname>
+      <value_template type="str">{{ webservice.portail_parent_fiche_sante_selections }}</value_template>
+      <freeze_on_initial_value type="bool">True</freeze_on_initial_value>
+      <id type="str">585</id>
+    </field><field>
+      <label type="str">&lt;h3&gt;&lt;strong&gt;Donn&amp;eacute;es d&amp;eacute;j&amp;agrave; enregistr&amp;eacute;es&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;{{ form_var_fiche_sante }}&lt;/p&gt;
+
+&lt;h3&gt;&lt;strong&gt;S&amp;eacute;lections possibles&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;{{ form_var_fiche_sante_selections }}&lt;/p&gt;
+
+&lt;h3&gt;&lt;strong&gt;Tests&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;{{ form_var_fiche_sante.blood_type }}&lt;/p&gt;
+</label>
+      <type type="str">comment</type>
+      <display_locations />
+      <id type="str">586</id>
     </field><field>
       <label type="str">Groupe sanguin</label>
       <type type="str">item</type>
@@ -42,9 +72,8 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
       <prefill>
-        <locked>False</locked>
         <type>string</type>
-        <value>{{ form_var_enfant|get:"blood_type" }}</value>
+        <value>{{ form_var_fiche_sante.blood_type }}</value>
       </prefill><items>
         <item>O+</item>
         <item>A+</item>
@@ -56,7 +85,10 @@
         <item>AB-</item>
         <item>inconnu</item>
       </items><display_mode type="str">list</display_mode>
-      <in_filters type="bool">False</in_filters>
+      <data_source>
+        <type>formula</type>
+        <value>form_var_fiche_sante_selections["blood_type"]</value>
+      </data_source><in_filters type="bool">False</in_filters>
       <anonymise type="bool">False</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <initial_zoom type="str">13</initial_zoom>
@@ -73,7 +105,6 @@
         <display_location>validation</display_location>
         <display_location>summary</display_location>
       </display_locations><prefill>
-        <locked>False</locked>
         <type>formula</type>
         <value>webservice.get_health_attribute.get("tetanus").get("vaccinated")</value>
       </prefill><items>
@@ -137,12 +168,13 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("has_intervention")</value>
-      </prefill><items />
-      <display_mode type="str">radio</display_mode>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.intervention_selection }}</value>
+      </prefill><display_mode type="str">radio</display_mode>
       <data_source>
-        <type>aes_oui_non</type>
+        <type>formula</type>
+        <value>form_var_fiche_sante_seletions["intervention_selection"]</value>
       </data_source><in_filters type="bool">False</in_filters>
       <anonymise type="bool">False</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
@@ -160,8 +192,8 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("intervention_text")</value>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.intervention_text }}</value>
       </prefill><pre type="bool">False</pre>
       <id type="str">529</id>
     </field><field>
@@ -177,12 +209,13 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("swim")</value>
-      </prefill><items />
-      <display_mode type="str">radio</display_mode>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.swim }}</value>
+      </prefill><display_mode type="str">radio</display_mode>
       <data_source>
-        <type>aes_oui_non</type>
+        <type>formula</type>
+        <value>form_var_fiche_sante_selections["swim"]</value>
       </data_source><in_filters type="bool">False</in_filters>
       <anonymise type="bool">False</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
@@ -192,7 +225,7 @@
       <type type="str">item</type>
       <condition>
         <type>django</type>
-        <value>form_var_swim_raw == 'oui'</value>
+        <value>form_var_swim_raw == 'yes'</value>
       </condition><required type="bool">False</required>
       <varname type="str">swim_level</varname>
       <display_locations>
@@ -200,13 +233,13 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
-        <locked>False</locked>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("swim_level")</value>
-      </prefill><display_mode type="str">radio</display_mode>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.swim_level }}</value>
+      </prefill><items />
+      <display_mode type="str">radio</display_mode>
       <data_source>
-        <type>aes_swim_levels</type>
-        <value>{{passerelle_url}}/passerelle-imio-aes-health/aes_health/get_swim_levels</value>
+        <type>formula</type>
+        <value>form_var_fiche_sante_selections["swim_level"]</value>
       </data_source><in_filters type="bool">False</in_filters>
       <anonymise type="bool">False</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
@@ -224,12 +257,13 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("has_handicap")</value>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.handicap_selection }}</value>
       </prefill><items />
       <display_mode type="str">radio</display_mode>
       <data_source>
-        <type>aes_oui_non</type>
+        <type>formula</type>
+        <value>form_var_fiche_sante_selections["handicap_selection"]</value>
       </data_source><in_filters type="bool">False</in_filters>
       <anonymise type="bool">False</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
@@ -239,19 +273,20 @@
       <type type="str">item</type>
       <condition>
         <type>django</type>
-        <value>form_var_handicap_raw == 'oui'</value>
+        <value>form_var_handicap_raw == 'yes'</value>
       </condition><required type="bool">True</required>
       <varname type="str">level_handicap</varname>
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
       </display_locations><prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("level_handicap")</value>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.level_handicap }}</value>
       </prefill><items />
       <display_mode type="str">radio</display_mode>
       <data_source>
-        <type>aes_handicap_levels</type>
+        <type>formula</type>
+        <value>form_var_fiche_sante_selections["level_handicap"]</value>
       </data_source><in_filters type="bool">False</in_filters>
       <anonymise type="bool">False</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
@@ -261,7 +296,7 @@
       <type type="str">text</type>
       <condition>
         <type>django</type>
-        <value>form_var_handicap_raw == 'oui'</value>
+        <value>form_var_handicap_raw == 'yes'</value>
       </condition><required type="bool">False</required>
       <varname type="str">handicap_text</varname>
       <display_locations>
@@ -269,8 +304,8 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("handicap")</value>
+        <type>string</type>
+        <value>{{ webservice.portail_parent_fiche_sante.type_handicap }}</value>
       </prefill><pre type="bool">False</pre>
       <id type="str">363</id>
     </field><field>
@@ -286,12 +321,13 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
-        <locked>False</locked>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("activity_no_available")</value>
-      </prefill><display_mode type="str">radio</display_mode>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.activity_no_available_selection }}</value>
+      </prefill><items />
+      <display_mode type="str">radio</display_mode>
       <data_source>
-        <type>aes_oui_non</type>
+        <type>formula</type>
+        <value>form_var_fiche_sante_selections["activity_no_available_selection"]</value>
       </data_source><in_filters type="bool">False</in_filters>
       <anonymise type="bool">False</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
@@ -301,7 +337,7 @@
       <type type="str">text</type>
       <condition>
         <type>django</type>
-        <value>form_var_activity_no_available_raw  == 'oui'</value>
+        <value>form_var_activity_no_available_raw  == 'yes'</value>
       </condition><required type="bool">True</required>
       <varname type="str">activity_no_available_text</varname>
       <display_locations>
@@ -309,8 +345,8 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("activity_no_available_text")</value>
+        <type>string</type>
+        <value>{{ webservice.portail_parent_fiche_sante.activity_no_available_text }}</value>
       </prefill><pre type="bool">False</pre>
       <id type="str">545</id>
     </field><field>
@@ -318,7 +354,7 @@
       <type type="str">text</type>
       <condition>
         <type>django</type>
-        <value>form_var_activity_no_available_raw  == 'oui'</value>
+        <value>form_var_activity_no_available_raw  == 'yes'</value>
       </condition><required type="bool">True</required>
       <varname type="str">activity_no_available_reason</varname>
       <display_locations>
@@ -326,8 +362,8 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("activity_no_available_reason")</value>
+        <type>string</type>
+        <value>{{ webservice.portail_parent_fiche_sante.activity_no_available_reason }}</value>
       </prefill><pre type="bool">False</pre>
       <id type="str">365</id>
     </field><field>
@@ -342,12 +378,13 @@
         <display_location>validation</display_location>
         <display_location>summary</display_location>
       </display_locations><prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("has_specific_regime")</value>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.specific_regime_selection }}</value>
       </prefill><items />
       <display_mode type="str">radio</display_mode>
       <data_source>
-        <type>aes_oui_non</type>
+        <type>formula</type>
+        <value>form_var_fiche_sante_selections["specific_regime_selection"]</value>
       </data_source><in_filters type="bool">False</in_filters>
       <anonymise type="bool">False</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
@@ -357,7 +394,7 @@
       <type type="str">text</type>
       <condition>
         <type>django</type>
-        <value>form_var_has_specific_regime_raw == 'oui'</value>
+        <value>form_var_has_specific_regime_raw == 'yes'</value>
       </condition><required type="bool">True</required>
       <varname type="str">specific_regime</varname>
       <display_locations>
@@ -365,9 +402,8 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
-        <locked>False</locked>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("specific_regime")</value>
+        <type>string</type>
+        <value>{{ webservice.portail_parent_fiche_sante.specific_regime_text }}</value>
       </prefill><pre type="bool">False</pre>
       <id type="str">524</id>
     </field><field>
@@ -383,12 +419,13 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("arnica")</value>
-      </prefill><items />
-      <display_mode type="str">radio</display_mode>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.arnica }}</value>
+      </prefill><display_mode type="str">radio</display_mode>
       <data_source>
-        <type>aes_oui_non</type>
+        <type>formula</type>
+        <value>form_var_fiche_sante_selections["arnica"]</value>
       </data_source><in_filters type="bool">False</in_filters>
       <anonymise type="bool">False</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
@@ -409,15 +446,15 @@
         <display_location>validation</display_location>
         <display_location>summary</display_location>
       </display_locations><prefill>
-        <locked>False</locked>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("allergies").get("has_allergies")</value>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.allergy_selection }}</value>
       </prefill><items>
         <item>Oui</item>
         <item>Non</item>
       </items><display_mode type="str">radio</display_mode>
       <data_source>
-        <type>aes_oui_non</type>
+        <type>formula</type>
+        <value>form_var_fiche_sante_selections["allergy_selection"]</value>
       </data_source><in_filters type="bool">False</in_filters>
       <anonymise type="bool">False</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
@@ -427,20 +464,21 @@
       <type type="str">items</type>
       <condition>
         <type>django</type>
-        <value>form_var_allergie_raw  == 'oui'</value>
+        <value>form_var_allergie_raw  == 'yes'</value>
       </condition><required type="bool">False</required>
       <varname type="str">allergies</varname>
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
       </display_locations><prefill>
-        <type>formula</type>
-        <value>[str(allergy.get('id')) for allergy in webservice.get_health_attribute.get("allergies").get('list')]</value>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.allergy_ids }}</value>
       </prefill><items />
       <min_choices type="int">0</min_choices>
       <max_choices type="int">0</max_choices>
       <data_source>
-        <type>aes_allergies</type>
+        <type>formula</type>
+        <value>form_var_fiche_sante_selections["allergies"]</value>
       </data_source><in_filters type="bool">False</in_filters>
       <anonymise type="bool">True</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
@@ -495,13 +533,14 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>[str(disease.get('id')) for disease in webservice.get_health_attribute.get("diseases")]</value>
-      </prefill><items />
-      <min_choices type="int">0</min_choices>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.disease_ids }}</value>
+      </prefill><min_choices type="int">0</min_choices>
       <max_choices type="int">0</max_choices>
       <data_source>
-        <type>aes_diseases</type>
+        <type>formula</type>
+        <value>form_var_fiche_sante_selections["disease_type"]</value>
       </data_source><in_filters type="bool">False</in_filters>
       <anonymise type="bool">True</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
@@ -780,12 +819,13 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>'oui' if len(webservice.get_health_attribute.get("medication")) &gt; 0 else 'non'</value>
-      </prefill><items />
-      <display_mode type="str">radio</display_mode>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.self_medication }}</value>
+      </prefill><display_mode type="str">radio</display_mode>
       <data_source>
-        <type>aes_oui_non</type>
+        <type>formula</type>
+        <value>form_var_fiche_sante_selections["self_medication"]</value>
       </data_source><in_filters type="bool">False</in_filters>
       <anonymise type="bool">False</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
@@ -1469,12 +1509,13 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-1</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("photo")</value>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.photo }}</value>
       </prefill><items />
       <display_mode type="str">radio</display_mode>
       <data_source>
-        <type>aes_oui_non</type>
+        <type>json</type>
+        <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/healtsheet-field?field=photo</value>
       </data_source><in_filters type="bool">False</in_filters>
       <anonymise type="bool">False</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
@@ -1492,12 +1533,13 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-1</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("photo_general")</value>
+        <type>string</type>
+        <value>{{ webservice.portail_parent_fiche_sante.photo_general }}</value>
       </prefill><items />
       <display_mode type="str">radio</display_mode>
       <data_source>
-        <type>aes_oui_non</type>
+        <type>json</type>
+        <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/healtsheet-field?field=photo_general</value>
       </data_source><in_filters type="bool">False</in_filters>
       <anonymise type="bool">False</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
@@ -1515,12 +1557,13 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-1</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("facebook")</value>
+        <type>string</type>
+        <value>{{ webservice.portail_parent_fiche_sante.facebook }}</value>
       </prefill><items />
       <display_mode type="str">radio</display_mode>
       <data_source>
-        <type>aes_oui_non</type>
+        <type>json</type>
+        <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/healtsheet-field?field=facebook</value>
       </data_source><in_filters type="bool">False</in_filters>
       <anonymise type="bool">False</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
@@ -1569,21 +1612,17 @@
       </prefill><id type="str">579</id>
     </field>
   </fields><user-roles>
-    <role role_id="97fd62031c1f4b35a219ca964396a445" slug="parent">Parent</role>
-  </user-roles><backoffice-submission-roles>
-    <role role_id="9f94095fe2564f17b88ca929bf3149fc" slug="agents-traitants-portail-parent">Agents traitants - Portail parent</role>
-  </backoffice-submission-roles><roles>
-    <role role_id="9f94095fe2564f17b88ca929bf3149fc" role_key="_receiver" slug="agents-traitants-portail-parent">Agents traitants - Portail parent</role>
-    <role role_id="43190215712647a89376713be142a4f5" role_key="_debug" slug="debug">Debug</role>
+    <role slug="parent" role_id="9568ff2000794db8a6711bd2ff596ceb">Parent</role>
+  </user-roles><roles>
+    <role slug="debug" role_id="5162edec67c74e23bc26251709ab4101" role_key="_debug">Debug</role>
   </roles><options>
     <option varname="compte">BE80 0910 2100 5377</option>
     <option varname="questions" />
-    <option varname="questions_display">Quel est le groupe sanguin de l'enfant ?, L'enfant a-t'il &#233;t&#233; vaccin&#233; contre le t&#233;tanos ?, L'enfant a-t'il subit une intervention r&#233;cemment ?, L'enfant sait-il nager ?, L'enfant souffre t'il d'un handicap ?, Activit&#233;s non praticables, L'enfant suit-il un r&#233;gime sp&#233;cifique ?, Autorisez-vous les accompagnants &#224; utiliser de l'arnica ?, L'enfant a-t'il des allergies ?, Permettre aux parents d'ajouter d'autres allergies ?, L'enfant a-t'il des maladies ?, Permettre aux parents d'ajouter d'autres maladies ?, L'enfant doit-il prendre des m&#233;dicaments ?, Demander l'adresse des autres contacts, L'enfant peut-il &#234;tre pris en photo durant les stages ou les plaines ?, L'enfant peut-il &#234;tre pris en photo lors des garderies, ateliers, spectacles, ou autre ?, Les photos de l'enfant peuvent-elles &#234;tre publi&#233;es sur les r&#233;seaux sociaux (site de la commune, Facebook) ?</option>
+    <option varname="questions_display">Quel est le groupe sanguin de l'enfant ?, L'enfant a-t'il &#233;t&#233; vaccin&#233; contre le t&#233;tanos ?, L'enfant a-t'il subit une intervention r&#233;cemment ?, L'enfant sait-il nager ?, L'enfant souffre t'il d'un handicap ?, Activit&#233;s non praticables, L'enfant suit-il un r&#233;gime sp&#233;cifique ?, Autorisez-vous les accompagnants &#224; utiliser de l'arnica ?, L'enfant a-t'il des allergies ?, Permettre aux parents d'ajouter d'autres allergies ?, L'enfant a-t'il des maladies ?, Permettre aux parents d'ajouter d'autres maladies ?, L'enfant doit-il prendre des m&#233;dicaments ?, Demander l'adresse des autres contacts, L'enfant peut-il &#234;tre pris en photo durant les stages ou les plaines ?, L'enfant peut-il &#234;tre pris en photo lors des garderies, ateliers, spectacles, ou autre ?, Les photos de l'enfant peuvent-elles &#234;tre publi&#233;es sur les r&#233;seaux sociaux (site de la commune, Facebook) ?, Je marque mon accord pour que la prise en charge ou les traitements estim&#233;s n&#233;cessaires soient entrepris durant le s&#233;jour de mon enfant par les responsables de l&#8217;accueil ou par le service m&#233;dical qui y est associ&#233;. J&#8217;autorise le m&#233;decin local &#224; prendre les d&#233;cisions qu&#8217;il juge urgentes et indispensables pour assurer l&#8217;&#233;tat de sant&#233; de l&#8217;enfant, m&#234;me s&#8217;il s&#8217;agit d&#8217;une intervention chirurgicale. En cas d&#8217;urgence, les parents/tuteurs seront avertis le plus rapidement possible. N&#233;anmoins, s&#8217;ils ne sont pas joignables et que l&#8217;urgence le requiert, l&#8217;intervention se fera sans leur consentement., Je m&#8217;engage sur l&#8217;honneur &#224; ce que moi-m&#234;me ou un autre adulte de la bulle sociale de mon enfant soit joignable par t&#233;l&#233;phone et d&#8217;avoir la possibilit&#233; de venir chercher l&#8217;enfant imm&#233;diatement pendant toute la dur&#233;e de l&#8217;activit&#233; si son &#233;tat de sant&#233; le n&#233;cessite, et de s&#8217;engager dans ce cas &#224; faire consulter le participant d&#232;s que possible (et end&#233;ans les 24h du retour au plus tard) par son m&#233;decin r&#233;f&#233;rent ou un autre m&#233;decin si ce dernier n&#8217;est pas disponible, Je consens au traitement de mes donn&#233;es &#224; caract&#232;re personnel par l'Administration communale de Chaudfontaine conform&#233;ment &#224; sa charte relative &#224; la protection de la vie priv&#233;e.</option>
     <option varname="questions_structured" />
     <option varname="verifier_encodage">Non</option>
     <option varname="verifier_encodage_display">Non</option>
     <option varname="verifier_encodage_structured" />
   </options><custom_views />
   <geolocations />
-  <digest_templates />
 </formdef>
