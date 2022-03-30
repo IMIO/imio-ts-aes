@@ -9,7 +9,7 @@
   <disabled>false</disabled>
   <only_allow_one>false</only_allow_one>
   <enable_tracking_codes>false</enable_tracking_codes>
-  <confirmation>true</confirmation>
+  <confirmation>false</confirmation>
   <always_advertise>false</always_advertise>
   <include_download_all_button>false</include_download_all_button>
   <has_captcha>false</has_captcha>
@@ -19,7 +19,9 @@
   <max_field_id>21</max_field_id>
   <fields>
     <field>
-      <label type="str">&lt;p&gt;En validant ce formulaire, vous acceptez que vos donn&amp;eacute;es soient transf&amp;eacute;r&amp;eacute;es dans l&amp;#39;application de gestion des activit&amp;eacute;s extra-scolaire blablabla&lt;/p&gt;
+      <label type="str">&lt;p&gt;En m&amp;#39;enregistrant en tant que parent, j&amp;#39;accepte que mes informations personnelles soient utilis&amp;eacute;es&lt;br&gt;
+dans le cadre du traitement qui d&amp;eacute;coule de l&amp;#39;usage du Portail Parent, c&amp;#39;est-&amp;agrave;-dire l&amp;#39;inscription des&lt;br&gt;
+enfants aux activit&amp;eacute;s extra-scolaires, aux repas scolaires et &amp;agrave; l&amp;#39;accueil temps libre.&lt;/p&gt;
 </label>
       <type type="str">comment</type>
       <display_locations />
@@ -31,6 +33,7 @@
         <type>django</type>
         <value>form_var_registre_national</value>
       </condition><required type="bool">True</required>
+      <hint type="str">Le num&#233;ro de registre national ne peut &#234;tre modifi&#233;. Merci de cliquer sur valider pour passer &#224; la suite.</hint>
       <varname type="str">registre_national</varname>
       <display_locations>
         <display_location>validation</display_location>
@@ -49,6 +52,7 @@
         <type>django</type>
         <value>not form_var_registre_national</value>
       </condition><required type="bool">True</required>
+      <hint type="str">Le num&#233;ro de matricule vous a &#233;t&#233; communiqu&#233; par votre administration communale. Si vous ne l'avez pas, merci de prendre contact avec elle.</hint>
       <varname type="str">matricule</varname>
       <display_locations>
         <display_location>validation</display_location>
