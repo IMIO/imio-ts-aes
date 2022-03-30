@@ -128,7 +128,7 @@
           <fields>
             <field>
               <field_id>aes_id</field_id>
-              <value>{{ form_workflow_data_recherche_response_parent_id }}</value>
+              <value>{% firstof form_workflow_data_creation_parent_response_odoo_id form_workflow_data_recherche_response_parent_id %}</value>
             </field>
           </fields>
         </item><item type="jump" id="2">
@@ -189,7 +189,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           </to>
         </item><item type="sendmail" id="2">
           <to>
-            <item role_id="_submitter">_submitter</item>
+            <item role_id="_receiver">_receiver</item>
           </to><subject>Erreur lors de la cr&#233;ation d'un parent, formulaire {{ form_name }} n&#176;{{ form_number }}</subject>
           <body>Une erreur est survenue lors de la cr&#233;ation d'un parent. Celui-ci n'existait pas dans iA.AES et n'a pu &#234;tre cr&#233;&#233;. Il ne peut donc r&#233;aliser les inscriptions de ses enfants.
 
