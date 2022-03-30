@@ -66,8 +66,10 @@ enfants aux activit&amp;eacute;s extra-scolaires, aux repas scolaires et &amp;ag
     </field>
   </fields><user-roles>
     <role role_id="logged-users">logged-users</role>
-  </user-roles><roles>
-    <role slug="debug" role_id="5162edec67c74e23bc26251709ab4101" role_key="_receiver">Debug</role>
+  </user-roles><backoffice-submission-roles>
+    <role slug="agent-traitant-portail-parent" role_id="d0b8282bf6114da680fa4c848da76167">Agent traitant - Portail Parent</role>
+  </backoffice-submission-roles><roles>
+    <role slug="agent-traitant-portail-parent" role_id="d0b8282bf6114da680fa4c848da76167" role_key="_receiver">Agent traitant - Portail Parent</role>
     <role slug="debug" role_id="5162edec67c74e23bc26251709ab4101" role_key="_debug">Debug</role>
   </roles><options>
     <option varname="autosave" />
