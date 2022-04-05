@@ -1,0 +1,272 @@
+<?xml version="1.0"?>
+<workflow id="1" url="https://wcs.dev.publik.love/backoffice/workflows/1/">
+  <name>Plaines de vacances</name>
+  <slug>plaines-de-vacances</slug>
+  <category slug="portail-parent" category_id="1">Portail parent</category>
+  <roles>
+    <role id="_receiver">Agent traitant</role>
+  </roles><possible_status>
+    <status>
+      <id>1</id>
+      <name>Nouvelle demande</name>
+      <colour>FFFFFF</colour>
+      <visibility>
+        <role>_receiver</role>
+      </visibility><items>
+        <item type="set-backoffice-fields" id="1">
+          <label>Initialisation du compteur</label>
+          <fields>
+            <field>
+              <field_id>bo45617e34-2d32-4e82-928a-9d3bfaf2ce33</field_id>
+              <value>0</value>
+            </field>
+          </fields>
+        </item><item type="jump" id="2">
+          <status>2</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>2</id>
+      <name>Inscription en cours</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item type="webservice_call" id="1">
+          <label>Inscriptions aux plaines</label>
+          <url>{{ passerelle_url }}/passerelle-imio-ia-aes/aes/registrations/create</url>
+          <method>POST</method>
+          <post>False</post>
+          <post_data>
+            <item>
+              <name>child_id</name>
+              <value>{{ form_var_enfant_id }}</value>
+            </item><item>
+              <name>plains</name>
+              <value>{{ form_var_activities_plaines_structured }}</value>
+            </item><item>
+              <name>form_number</name>
+              <value>{{ form_number_raw }}</value>
+            </item><item>
+              <name>parent_id</name>
+              <value>{{ form_user_aes_id }}</value>
+            </item>
+          </post_data><response_type>json</response_type>
+          <varname>registration</varname>
+          <action_on_app_error>6</action_on_app_error>
+          <action_on_4xx>6</action_on_4xx>
+          <action_on_5xx>6</action_on_5xx>
+          <action_on_bad_data>:pass</action_on_bad_data>
+          <action_on_network_errors>:stop</action_on_network_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <record_on_errors>True</record_on_errors>
+          <record_errors>False</record_errors>
+        </item><item type="jump" id="3">
+          <status>7</status>
+          <condition>
+            <type>django</type>
+            <value>form_workflow_data_registration_response_success|length == 0</value>
+          </condition><set_marker_on_status>False</set_marker_on_status>
+        </item><item type="jump" id="2">
+          <status>3</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>3</id>
+      <name>Cr&#233;ation des fiches</name>
+      <colour>FFFFFF</colour>
+      <visibility>
+        <role>_receiver</role>
+      </visibility><items>
+        <item type="create_formdata" id="1">
+          <draft>False</draft>
+          <formdef_slug>fiche-inscription-plaine</formdef_slug>
+          <map_fields_by_varname>False</map_fields_by_varname>
+          <mappings>
+            <mapping field_id="1">{{ form_var_enfant_id }}</mapping>
+            <mapping field_id="8">{{ form_workflow_data_registration_response_success|get:form_var_fiches_creees|get:"theme" }}</mapping>
+            <mapping field_id="6">{{ form_workflow_data_registration_response_success|get:form_var_fiches_creees|get:"registration_id" }}</mapping>
+            <mapping field_id="7">{{ form_workflow_data_registration_response_success|get:form_var_fiches_creees|get:"activity_id" }}</mapping>
+          </mappings><backoffice_submission>False</backoffice_submission>
+          <user_association_mode>keep-user</user_association_mode>
+          <keep_submission_context>True</keep_submission_context>
+          <attach_to_history>True</attach_to_history>
+        </item><item type="jump" id="2">
+          <status>4</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>4</id>
+      <name>Y a-t-il d'autres fiches &#224; cr&#233;er ?</name>
+      <colour>FFFFFF</colour>
+      <visibility>
+        <role>_receiver</role>
+      </visibility><items>
+        <item type="set-backoffice-fields" id="1">
+          <label>Gestion du compteur</label>
+          <fields>
+            <field>
+              <field_id>bo45617e34-2d32-4e82-928a-9d3bfaf2ce33</field_id>
+              <value>{{ form_var_fiches_creees|add:1 }}</value>
+            </field>
+          </fields>
+        </item><item type="register-comment" id="2">
+          <comment>{{ form_var_fiches_creees }}</comment>
+        </item><item type="jump" id="3">
+          <status>3</status>
+          <condition>
+            <type>django</type>
+            <value>form_var_fiches_creees|add:0 &lt; form_workflow_data_registration_response_success|length</value>
+          </condition><set_marker_on_status>False</set_marker_on_status>
+        </item><item type="jump" id="4">
+          <status>5</status>
+          <condition>
+            <type>django</type>
+            <value>form_var_fiches_creees|add:0 &gt;=  form_workflow_data_registration_response_success|length</value>
+          </condition><set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>5</id>
+      <name>Inscription enregist&#233;e</name>
+      <colour>00FF00</colour>
+      <visibility />
+      <items>
+        <item type="sendmail" id="1">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>Inscription de {{ form_var_enfant }} aux {{ form_name|lower }}</subject>
+          <body>{{ form_var_enfant }} a bien &#233;t&#233; inscrit aux plaines de vacances suivantes :
+
+Vous avez trois jours pour finaliser les inscriptions de vos enfants. Au-del&#224; de ce d&#233;lai, ils seront d&#233;sincris.
+
+`Consulter ma demande &lt;{{ eservices_url }}portail-parent/plaines-de-vacances/&gt;`_</body>
+        </item><item type="displaymsg" id="2">
+          <message>{{ form_var_enfant }} a bien &#233;t&#233; inscrit !
+
+&lt;p&gt;Vous pouvez &lt;a href="{{ eservices_url }}portail-parent/plaines-de-vacances/?enfant="&gt;inscrire un autre enfant&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a class="pk-button" href="{{ eservices_url }}portail-parent/plaines-de-vacances/?enfant="&gt;Inscrire un autre enfant&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Si vous avez inscrit tous vos enfants, vous pouvez &lt;a href="{{ eservices_url }}finaliser-les-inscriptions-aux-plaines"&gt;finaliser vos inscriptions&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a class="pk-button" href="{{ eservices_url }}finaliser-les-inscriptions-aux-plaines"&gt;Finaliser vos inscriptions&lt;/a&gt;&lt;/p&gt;</message>
+          <level>success</level>
+          <position>bottom</position>
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
+        </item><item type="displaymsg" id="3">
+          <message>Vous avez trois jours pour finaliser les inscriptions de vos enfants. Au-del&#224; de ce d&#233;lai, ils seront d&#233;sincrits.</message>
+          <level>error</level>
+          <position>bottom</position>
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
+        </item>
+      </items>
+    </status><status>
+      <id>6</id>
+      <name>Erreur lors de l'inscription</name>
+      <colour>FF0000</colour>
+      <visibility />
+      <items>
+        <item type="sendmail" id="1">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to><body>Une erreur est survenue lors de l'inscription de {{ form_var_enfant }}.
+
+Veuillez consulter la demande.
+
+`Consulter la demande &lt;{{ form_url_backoffice }}&gt;`_
+
+Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le support d'iMio
+
+`Consulter la demande &lt;support.imio.be&gt;`_</body>
+        </item><item type="choice" id="2">
+          <label>Relancer les inscriptions</label>
+          <by>
+            <item role_id="_submitter">_submitter</item>
+          </by><status>2</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Une fois le probl&amp;egrave;me corrig&amp;eacute;, il est possible par ce biais de relancer les inscriptions dans AES.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>7</id>
+      <name>Aucune inscription n'a pu aboutir</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items />
+    </status>
+  </possible_status><global_actions>
+    <action>
+      <id>1</id>
+      <name>Suppression</name>
+      <items>
+        <item type="remove" id="1" />
+      </items><triggers>
+        <trigger type="manual" id="4d63a502-426e-4421-bf51-7dae02b2b9cf">
+          <roles>
+            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+          </roles>
+        </trigger>
+      </triggers>
+    </action>
+  </global_actions><variables>
+    <formdef>
+      <name>-</name>
+      <fields>
+        <field>
+          <label type="str">first_date_plain</label>
+          <type type="str">string</type>
+          <required type="bool">True</required>
+          <varname type="str">first_date_plain</varname>
+          <display_locations />
+          <anonymise type="bool">True</anonymise>
+          <id type="str">2</id>
+        </field><field>
+          <label type="str">last_date_plain</label>
+          <type type="str">string</type>
+          <required type="bool">True</required>
+          <varname type="str">last_date_plain</varname>
+          <display_locations>
+            <display_location>validation</display_location>
+            <display_location>summary</display_location>
+          </display_locations><anonymise type="bool">True</anonymise>
+          <id type="str">1</id>
+        </field><field>
+          <label type="str">categorie_activite</label>
+          <type type="str">string</type>
+          <required type="bool">True</required>
+          <varname type="str">categorie_activite</varname>
+          <display_locations>
+            <display_location>validation</display_location>
+            <display_location>summary</display_location>
+          </display_locations><anonymise type="bool">True</anonymise>
+          <id type="str">3</id>
+        </field>
+      </fields>
+    </formdef>
+  </variables><backoffice-fields>
+    <formdef>
+      <name>-</name>
+      <fields>
+        <field>
+          <label type="str">Fiches cr&#233;&#233;es</label>
+          <type type="str">string</type>
+          <required type="bool">True</required>
+          <varname type="str">fiches_creees</varname>
+          <display_locations />
+          <anonymise type="bool">True</anonymise>
+          <id type="str">bo45617e34-2d32-4e82-928a-9d3bfaf2ce33</id>
+        </field>
+      </fields>
+    </formdef>
+  </backoffice-fields>
+</workflow>
