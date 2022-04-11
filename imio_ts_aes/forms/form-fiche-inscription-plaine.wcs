@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<formdef id="2" url="https://wcs.dev.publik.love/backoffice/forms/2/">
+  <name>Fiche d'inscription aux plaines</name>
+  <url_name>fiche-inscription-plaine</url_name>
+  <internal_identifier>fiche-d-inscription-aux-plaines</internal_identifier>
+  <discussion>false</discussion>
+  <detailed_emails>true</detailed_emails>
+  <disabled>false</disabled>
+  <only_allow_one>false</only_allow_one>
+  <enable_tracking_codes>false</enable_tracking_codes>
+  <confirmation>true</confirmation>
+  <always_advertise>false</always_advertise>
+  <include_download_all_button>false</include_download_all_button>
+  <has_captcha>false</has_captcha>
+  <skip_from_360_view>false</skip_from_360_view>
+  <category slug="portail-parent-fiche-d-inscription" category_id="2">Portail Parent - Fiche d'inscription</category>
+  <workflow slug="inscri" workflow_id="3">Fiche d'inscription</workflow>
+  <max_field_id>10</max_field_id>
+  <fields>
+    <field>
+      <label type="str">Enfant</label>
+      <type type="str">page</type>
+      <id type="str">3</id>
+    </field><field>
+      <label type="str">Enfant</label>
+      <type type="str">item</type>
+      <required type="bool">True</required>
+      <varname type="str">enfant</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+        <display_location>listings</display_location>
+      </display_locations><prefill>
+        <locked>False</locked>
+        <type>none</type>
+      </prefill><display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>portail_parent_enfants</type>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">True</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">1</id>
+    </field><field>
+      <label type="str">Plaine</label>
+      <type type="str">string</type>
+      <required type="bool">True</required>
+      <varname type="str">plaine</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+        <display_location>listings</display_location>
+      </display_locations><prefill>
+        <locked>False</locked>
+        <type>none</type>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">8</id>
+    </field><field>
+      <label type="str">Num&#233;ro d'inscription</label>
+      <type type="str">string</type>
+      <required type="bool">True</required>
+      <varname type="str">inscription</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+        <display_location>listings</display_location>
+      </display_locations><prefill>
+        <locked>False</locked>
+        <type>none</type>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">6</id>
+    </field><field>
+      <label type="str">Identifiant de la plaine</label>
+      <type type="str">string</type>
+      <required type="bool">True</required>
+      <varname type="str">id_plaine</varname>
+      <display_locations />
+      <prefill>
+        <locked>False</locked>
+        <type>none</type>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">7</id>
+    </field>
+  </fields><user-roles>
+    <role slug="parent" role_id="9568ff2000794db8a6711bd2ff596ceb">Parent</role>
+  </user-roles><roles />
+  <options>
+    <option varname="categorie_activite">Plaine</option>
+    <option varname="categorie_activites">Plaine</option>
+    <option varname="first_date_plain">01/06/2022</option>
+    <option varname="last_date_plain">31/07/2022</option>
+  </options><custom_views />
+  <geolocations />
+  <digest_templates>
+    <template key="default">{{ form_var_enfant }} {{ form_var_plaine }}</template>
+  </digest_templates>
+</formdef>

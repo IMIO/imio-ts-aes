@@ -1,0 +1,11 @@
+<datasource id="19">
+  <name>Portail Parent - Localit&#233;s</name>
+  <slug>portail_parent_localites</slug>
+  <data_attribute>items</data_attribute>
+  <id_attribute>id</id_attribute>
+  <text_attribute>name</text_attribute>
+  <data_source>
+    <type>json</type>
+    <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/localities</value>
+  </data_source>
+</datasource>

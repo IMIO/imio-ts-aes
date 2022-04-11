@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<formdef id="5" url="https://wcs.dev.publik.love/backoffice/forms/5/">
+  <name>M'enregistrer en tant que parent</name>
+  <url_name>m-enregistrer-en-tant-que-parent</url_name>
+  <description>&lt;p&gt;S'enregistrer dans le portail parent permet ensuite d'y inscrire ses enfants, de compl&amp;eacute;ter leur fiche sant&amp;eacute; et de les inscrire &amp;agrave; des activit&amp;eacute;s.&lt;/p&gt;</description>
+  <internal_identifier>m-enregistrer-en-tant-que-parent</internal_identifier>
+  <discussion>false</discussion>
+  <detailed_emails>true</detailed_emails>
+  <disabled>false</disabled>
+  <only_allow_one>false</only_allow_one>
+  <enable_tracking_codes>false</enable_tracking_codes>
+  <confirmation>false</confirmation>
+  <always_advertise>false</always_advertise>
+  <include_download_all_button>false</include_download_all_button>
+  <has_captcha>false</has_captcha>
+  <skip_from_360_view>false</skip_from_360_view>
+  <category slug="portail-parent" category_id="1">Portail Parent</category>
+  <workflow slug="enregistrement-d-un-parent" workflow_id="7">Enregistrement d'un parent</workflow>
+  <max_field_id>21</max_field_id>
+  <fields>
+    <field>
+      <label type="str">&lt;p&gt;En m&amp;#39;enregistrant en tant que parent, j&amp;#39;accepte que mes informations personnelles soient utilis&amp;eacute;es&lt;br&gt;
+dans le cadre du traitement qui d&amp;eacute;coule de l&amp;#39;usage du Portail Parent, c&amp;#39;est-&amp;agrave;-dire l&amp;#39;inscription des&lt;br&gt;
+enfants aux activit&amp;eacute;s extra-scolaires, aux repas scolaires et &amp;agrave; l&amp;#39;accueil temps libre.&lt;/p&gt;
+</label>
+      <type type="str">comment</type>
+      <display_locations />
+      <id type="str">19</id>
+    </field><field>
+      <label type="str">Num&#233;ro de registre national</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_registre_national</value>
+      </condition><required type="bool">True</required>
+      <hint type="str">Le num&#233;ro de registre national ne peut &#234;tre modifi&#233;. Merci de cliquer sur valider pour passer &#224; la suite.</hint>
+      <varname type="str">registre_national</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+        <display_location>listings</display_location>
+      </display_locations><prefill>
+        <locked>True</locked>
+        <type>user</type>
+        <value>_niss</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">20</id>
+    </field><field>
+      <label type="str">Num&#233;ro de matricule</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>not form_var_registre_national</value>
+      </condition><required type="bool">True</required>
+      <hint type="str">Le num&#233;ro de matricule vous a &#233;t&#233; communiqu&#233; par votre administration communale. Si vous ne l'avez pas, merci de prendre contact avec elle.</hint>
+      <varname type="str">matricule</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+        <display_location>listings</display_location>
+      </display_locations><prefill>
+        <locked>False</locked>
+        <type>none</type>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">21</id>
+    </field>
+  </fields><user-roles>
+    <role role_id="logged-users">logged-users</role>
+  </user-roles><backoffice-submission-roles>
+    <role slug="agent-traitant-portail-parent" role_id="d0b8282bf6114da680fa4c848da76167">Agent traitant - Portail Parent</role>
+  </backoffice-submission-roles><roles>
+    <role slug="agent-traitant-portail-parent" role_id="d0b8282bf6114da680fa4c848da76167" role_key="_receiver">Agent traitant - Portail Parent</role>
+    <role slug="debug" role_id="5162edec67c74e23bc26251709ab4101" role_key="_debug">Debug</role>
+  </roles><options>
+    <option varname="autosave" />
+  </options><custom_views />
+  <geolocations />
+</formdef>

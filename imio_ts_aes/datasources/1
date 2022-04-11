@@ -1,5 +1,4 @@
-<?xml version="1.0"?>
-<datasource id="1" url="">
+<datasource id="1">
   <name>AES Implantations scolaires</name>
   <slug>aes_implantations_scolaires</slug>
   <data_source>

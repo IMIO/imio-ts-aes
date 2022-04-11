@@ -1,0 +1,233 @@
+<?xml version="1.0"?>
+<workflow id="3" url="https://wcs.dev.publik.love/backoffice/workflows/3/">
+  <name>Fiche d'inscription</name>
+  <slug>inscri</slug>
+  <category slug="portail-parent" category_id="1">Portail parent</category>
+  <roles>
+    <role id="_receiver">Agent traitant</role>
+  </roles><possible_status>
+    <status>
+      <id>1</id>
+      <name>En attente de validation</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item type="choice" id="1">
+          <label>En attente de paiement</label>
+          <by>
+            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+          </by><status>3</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item type="choice" id="2">
+          <label>Annuler cette inscription</label>
+          <by>
+            <item role_id="_submitter">_submitter</item>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>6</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item type="jump" id="3">
+          <status>6</status>
+          <timeout>259200</timeout>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>3</id>
+      <name>En attente de paiement</name>
+      <colour>99FF66</colour>
+      <visibility />
+      <items>
+        <item type="choice" id="1">
+          <label>Cl&#244;turer la demande</label>
+          <by>
+            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+          </by><status>4</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>4</id>
+      <name>Cl&#244;tur&#233;</name>
+      <colour>00FF00</colour>
+      <visibility />
+      <items />
+    </status><status>
+      <id>6</id>
+      <name>Annulation de l'inscription</name>
+      <colour>FFFFFF</colour>
+      <visibility>
+        <role>_receiver</role>
+      </visibility><items>
+        <item type="webservice_call" id="1">
+          <label>Annulation de l'inscription</label>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/registrations/delete</url>
+          <qs_data>
+            <item>
+              <name>registration_id</name>
+              <value>{{ form_var_inscription }}</value>
+            </item>
+          </qs_data><method>DELETE</method>
+          <post>False</post>
+          <response_type>json</response_type>
+          <varname>annulation</varname>
+          <action_on_app_error>7</action_on_app_error>
+          <action_on_4xx>7</action_on_4xx>
+          <action_on_5xx>7</action_on_5xx>
+          <action_on_bad_data>:pass</action_on_bad_data>
+          <action_on_network_errors>:stop</action_on_network_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <record_on_errors>True</record_on_errors>
+          <record_errors>False</record_errors>
+        </item><item type="jump" id="2">
+          <status>5</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>7</id>
+      <name>Erreur lors de l'annulation</name>
+      <colour>FF0000</colour>
+      <visibility />
+      <items>
+        <item type="displaymsg" id="1">
+          <message>Votre demande d'annulation a malheureusement rencontr&#233; une erreur.
+
+**Ne faites rien !** Votre administration a &#233;t&#233; contact&#233;e et le probl&#232;me sera corrig&#233; dans les plus bref d&#233;lai. Une fois celui-ci r&#233;solu, vous pourrez finaliser vos inscriptions.</message>
+          <level>error</level>
+          <position>top</position>
+        </item><item type="sendmail" id="2">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to><subject>Erreur lors de l'annulation {{ form_name|lower }} n&#176;{{ form_number }}</subject>
+          <body>Bonjour,
+
+Un parent a voulu annuler une inscription aux plaines, mais celle-ci est tomb&#233;e en erreur. La plaine est donc toujours r&#233;serv&#233;e dans iA.AES.
+
+`Consulter la demande &lt;{{ form_url_backoffice }}&gt;`_</body>
+        </item><item type="register-comment" id="3">
+          <comment>Un parent a voulu annuler cette inscription aux plaines, mais celle-ci est tomb&#233;e en erreur. La plaine est donc toujours r&#233;serv&#233;e dans iA.AES.
+
+Si vous n'avez pu r&#233;soudre le probl&#232;me, vous pouvez contacter le support d'iMio.
+
+`Contacter le support d'iMio &lt;support.imio.be&gt;`_</comment>
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to>
+        </item><item type="choice" id="4">
+          <label>Annuler cette inscription</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>6</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Une fois l&amp;#39;erreur corrig&amp;eacute;e, vous pouvez &amp;agrave; nouveau tenter d&amp;#39;annuler cette inscription.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item type="choice" id="5">
+          <label>Noter cette inscription comme annul&#233;e</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>5</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Noter cette inscription comme annul&amp;eacute;e si elle l&amp;#39;a &amp;eacute;t&amp;eacute; depuis iA.AES.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>5</id>
+      <name>Inscription annul&#233;e</name>
+      <colour>999999</colour>
+      <visibility />
+      <items />
+    </status>
+  </possible_status><global_actions>
+    <action>
+      <id>1</id>
+      <name>Vers en attente de paiement</name>
+      <items>
+        <item type="jump" id="1">
+          <status>3</status>
+          <condition>
+            <type>django</type>
+            <value>form_status == "En attente de validation"</value>
+          </condition><set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items><triggers>
+        <trigger type="webservice" id="494fe477-c51c-4112-944c-21165d35ffd6">
+          <identifier>validate</identifier>
+        </trigger>
+      </triggers>
+    </action><action>
+      <id>2</id>
+      <name>Cl&#244;turer la demande</name>
+      <items>
+        <item type="jump" id="1">
+          <status>4</status>
+          <condition>
+            <type>django</type>
+            <value>form_status == "En attente de paiement"</value>
+          </condition><set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items><triggers>
+        <trigger type="webservice" id="e24200cb-7ad6-4044-82bf-825175c007ef">
+          <identifier>closed</identifier>
+        </trigger>
+      </triggers>
+    </action><action>
+      <id>3</id>
+      <name>Annulation des inscriptions</name>
+      <items>
+        <item type="jump" id="1">
+          <status>6</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items><triggers>
+        <trigger type="webservice" id="660c7988-49c3-43e4-ae10-c19180e9a088">
+          <identifier>cancel</identifier>
+        </trigger>
+      </triggers>
+    </action><action>
+      <id>4</id>
+      <name>Suppression</name>
+      <items>
+        <item type="remove" id="1" />
+      </items><triggers>
+        <trigger type="manual" id="a4c645dd-7e1a-4ab0-b479-48a9ff4a1f31">
+          <roles>
+            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+          </roles>
+        </trigger>
+      </triggers>
+    </action>
+  </global_actions><backoffice-fields>
+    <formdef>
+      <name>-</name>
+      <fields>
+        <field>
+          <label type="str">Plaine</label>
+          <type type="str">item</type>
+          <required type="bool">True</required>
+          <varname type="str">plaine</varname>
+          <display_locations>
+            <display_location>summary</display_location>
+          </display_locations><display_mode type="str">list</display_mode>
+          <data_source>
+            <type>formula</type>
+            <value>[activity for activities in [week['activities'] for week in webservice.aes_get_available_plaines] for activity in activities]</value>
+          </data_source><in_filters type="bool">False</in_filters>
+          <anonymise type="bool">False</anonymise>
+          <display_disabled_items type="bool">False</display_disabled_items>
+          <id type="str">bo0a400754-416f-49bb-8c6d-50306a4e0240</id>
+        </field>
+      </fields>
+    </formdef>
+  </backoffice-fields>
+</workflow>

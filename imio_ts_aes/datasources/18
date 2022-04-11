@@ -1,0 +1,11 @@
+<datasource id="18">
+  <name>Portail Parent - Repas scolaires</name>
+  <slug>portail_parent_repas_scolaires</slug>
+  <id_parameter>id</id_parameter>
+  <id_attribute>id</id_attribute>
+  <text_attribute>text</text_attribute>
+  <data_source>
+    <type>json</type>
+    <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/menus?child_id=22&amp;month=0</value>
+  </data_source>
+</datasource>

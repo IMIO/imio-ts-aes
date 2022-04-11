@@ -1,8 +1,0 @@
-<datasources id="0">
-  <name>demo_aes_repas</name>
-  <slug>demo_aes_repas</slug>
-  <data_source>
-    <type>formula</type>
-    <value>script.aes_quickly_meat()</value>
-  </data_source>
-</datasources>

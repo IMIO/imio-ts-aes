@@ -1,9 +1,0 @@
-<datasources id="5">
-  <name>AES Diseases</name>
-  <slug>aes_diseases</slug>
-  <cache_duration>86400</cache_duration>
-  <data_source>
-    <type>json</type>
-    <value>{{passerelle_url}}/passerelle-imio-aes-health/aes_health/get_disease</value>
-  </data_source>
-</datasources>
