@@ -1,9 +1,12 @@
-<datasources id="2">
-  <name>AES Allergies</name>
-  <slug>aes_allergies</slug>
-  <cache_duration>3600</cache_duration>
+<datasource id="2">
+  <name>Portail Parent - Enfants</name>
+  <slug>portail_parent_enfants</slug>
+  <description>Liste les enfants d'un parent.</description>
+  <data_attribute>items</data_attribute>
+  <id_attribute>id</id_attribute>
+  <text_attribute>name</text_attribute>
   <data_source>
     <type>json</type>
-    <value>{{passerelle_url}}/passerelle-imio-aes-health/aes_health/get_allergies</value>
+    <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ form_user_var_aes_id }}/children/</value>
   </data_source>
-</datasources>
+</datasource>

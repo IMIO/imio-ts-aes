@@ -15,7 +15,7 @@
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="1">Portail Parent</category>
   <workflow slug="aes-enregistrement-fiche-sante" workflow_id="6">aes - Enregistrement fiche sant&#233;</workflow>
-  <max_field_id>586</max_field_id>
+  <max_field_id>649</max_field_id>
   <fields>
     <field>
       <label type="str">Informations g&#233;n&#233;rales</label>
@@ -53,7 +53,7 @@
 
 &lt;h3&gt;&lt;strong&gt;Tests&lt;/strong&gt;&lt;/h3&gt;
 
-&lt;p&gt;{{ form_var_fiche_sante.blood_type }}&lt;/p&gt;
+&lt;pre&gt;{% for disease in form_var_fiche_sante.disease_ids %}{{ disease|get:"disease_type_id" }}{% endfor %}&lt;/pre&gt;
 </label>
       <type type="str">comment</type>
       <display_locations />
@@ -105,14 +105,16 @@
         <display_location>validation</display_location>
         <display_location>summary</display_location>
       </display_locations><prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("tetanus").get("vaccinated")</value>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.tetanus_selection }}</value>
       </prefill><items>
         <item>Oui</item>
         <item>Non</item>
       </items><display_mode type="str">radio</display_mode>
       <data_source>
-        <type>aes_oui_non</type>
+        <type>formula</type>
+        <value>form_var_fiche_sante_selections["tetanus_selection"]</value>
       </data_source><in_filters type="bool">False</in_filters>
       <anonymise type="bool">False</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
@@ -122,7 +124,7 @@
       <type type="str">date</type>
       <condition>
         <type>django</type>
-        <value>form_var_tetanos_raw == 'oui'</value>
+        <value>form_var_tetanos_raw == 'yes'</value>
       </condition><required type="bool">False</required>
       <varname type="str">first_date_tetanus</varname>
       <display_locations>
@@ -130,10 +132,11 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-4</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("tetanus").get("first_date_tetanus")</value>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.first_date_tetanus|date }}</value>
       </prefill><minimum_is_future type="bool">False</minimum_is_future>
-      <date_in_the_past type="bool">False</date_in_the_past>
+      <date_in_the_past type="bool">True</date_in_the_past>
       <date_can_be_today type="bool">False</date_can_be_today>
       <id type="str">169</id>
     </field><field>
@@ -141,7 +144,7 @@
       <type type="str">date</type>
       <condition>
         <type>django</type>
-        <value>form_var_tetanos_raw == 'oui'</value>
+        <value>form_var_tetanos_raw == 'yes'</value>
       </condition><required type="bool">False</required>
       <varname type="str">last_date_tetanus</varname>
       <display_locations>
@@ -149,8 +152,9 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-4</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("tetanus").get("last_date_tetanus")</value>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.last_date_tetanus|date }}</value>
       </prefill><minimum_is_future type="bool">False</minimum_is_future>
       <date_in_the_past type="bool">False</date_in_the_past>
       <date_can_be_today type="bool">False</date_can_be_today>
@@ -174,7 +178,7 @@
       </prefill><display_mode type="str">radio</display_mode>
       <data_source>
         <type>formula</type>
-        <value>form_var_fiche_sante_seletions["intervention_selection"]</value>
+        <value>form_var_fiche_sante_selections["intervention_selection"]</value>
       </data_source><in_filters type="bool">False</in_filters>
       <anonymise type="bool">False</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
@@ -304,8 +308,9 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
-        <value>{{ webservice.portail_parent_fiche_sante.type_handicap }}</value>
+        <value>{{ form_var_fiche_sante.type_handicap }}</value>
       </prefill><pre type="bool">False</pre>
       <id type="str">363</id>
     </field><field>
@@ -345,8 +350,9 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
-        <value>{{ webservice.portail_parent_fiche_sante.activity_no_available_text }}</value>
+        <value>{{ form_var_fiche_sante.activity_no_available_text }}</value>
       </prefill><pre type="bool">False</pre>
       <id type="str">545</id>
     </field><field>
@@ -362,8 +368,9 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
-        <value>{{ webservice.portail_parent_fiche_sante.activity_no_available_reason }}</value>
+        <value>{{ form_var_fiche_sante.activity_no_available_reason }}</value>
       </prefill><pre type="bool">False</pre>
       <id type="str">365</id>
     </field><field>
@@ -402,8 +409,9 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
-        <value>{{ webservice.portail_parent_fiche_sante.specific_regime_text }}</value>
+        <value>{{ form_var_fiche_sante.specific_regime_text }}</value>
       </prefill><pre type="bool">False</pre>
       <id type="str">524</id>
     </field><field>
@@ -471,14 +479,14 @@
         <display_location>validation</display_location>
         <display_location>summary</display_location>
       </display_locations><prefill>
+        <locked>False</locked>
         <type>string</type>
-        <value>{{ form_var_fiche_sante.allergy_ids }}</value>
-      </prefill><items />
-      <min_choices type="int">0</min_choices>
+        <value>{% for allergy in form_var_fiche_sante.allergy_ids %}{{ allergy.id }}{% endfor %}</value>
+      </prefill><min_choices type="int">0</min_choices>
       <max_choices type="int">0</max_choices>
       <data_source>
         <type>formula</type>
-        <value>form_var_fiche_sante_selections["allergies"]</value>
+        <value>form_var_fiche_sante_selections["allergy_type"]</value>
       </data_source><in_filters type="bool">False</in_filters>
       <anonymise type="bool">True</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
@@ -512,8 +520,9 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("allergies").get("consequence")</value>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.allergy_consequence }}</value>
       </prefill><pre type="bool">False</pre>
       <id type="str">171</id>
     </field><field>
@@ -535,7 +544,7 @@
       <prefill>
         <locked>False</locked>
         <type>string</type>
-        <value>{{ form_var_fiche_sante.disease_ids }}</value>
+        <value>{% for disease in form_var_fiche_sante.disease_ids %}{{ disease|get:"disease_type_id" }}{% endfor %}</value>
       </prefill><min_choices type="int">0</min_choices>
       <max_choices type="int">0</max_choices>
       <data_source>
@@ -569,7 +578,8 @@
         <value>script.pp_how_many_encoded_diseases &gt; 0 and 'diseases' in form_option_questions_raw</value>
       </condition><id type="str">500</id>
     </field><field>
-      <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases "get_disease_from_index" "form_var_diseases_raw" "form_var_other_diseases" "0"]&lt;/h3&gt;</label>
+      <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases "get_disease_from_index" "form_var_diseases_raw" "form_var_other_diseases" "0"]&lt;/h3&gt;
+</label>
       <type type="str">comment</type>
       <display_locations />
       <id type="str">521</id>
@@ -586,8 +596,9 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("diseases")[0].get('gravity')</value>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.disease_ids.0|get:"gravity"|default:"" }}</value>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">507</id>
     </field><field>
@@ -603,12 +614,14 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("diseases")[0].get('text')</value>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.disease_ids.0|get:"disease_text"|default:"" }}</value>
       </prefill><pre type="bool">False</pre>
       <id type="str">508</id>
     </field><field>
-      <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases "get_disease_from_index" "form_var_diseases_raw" "form_var_other_diseases" "1"]&lt;/h3&gt;</label>
+      <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases "get_disease_from_index" "form_var_diseases_raw" "form_var_other_diseases" "1"]&lt;/h3&gt;
+</label>
       <type type="str">comment</type>
       <display_locations />
       <id type="str">502</id>
@@ -625,8 +638,9 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("diseases")[1].get('gravity')</value>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.disease_ids.1|get:"gravity"|default:"" }}</value>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">509</id>
     </field><field>
@@ -642,12 +656,14 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("diseases")[1].get('text')</value>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.disease_ids.1|get:"disease_text"|default:"" }}</value>
       </prefill><pre type="bool">False</pre>
       <id type="str">514</id>
     </field><field>
-      <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases "get_disease_from_index" "form_var_diseases_raw" "form_var_other_diseases" "2"]&lt;/h3&gt;</label>
+      <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases "get_disease_from_index" "form_var_diseases_raw" "form_var_other_diseases" "2"]&lt;/h3&gt;
+</label>
       <type type="str">comment</type>
       <display_locations />
       <id type="str">506</id>
@@ -664,8 +680,9 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("diseases")[2].get('gravity')</value>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.disease_ids.2|get:"gravity"|default:"" }}</value>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">513</id>
     </field><field>
@@ -681,12 +698,14 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("diseases")[2].get('text')</value>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.disease_ids.2|get:"disease_text"|default:"" }}</value>
       </prefill><pre type="bool">False</pre>
       <id type="str">515</id>
     </field><field>
-      <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases "get_disease_from_index" "form_var_diseases_raw" "form_var_other_diseases" "3"]&lt;/h3&gt;</label>
+      <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases "get_disease_from_index" "form_var_diseases_raw" "form_var_other_diseases" "3"]&lt;/h3&gt;
+</label>
       <type type="str">comment</type>
       <display_locations />
       <id type="str">505</id>
@@ -703,8 +722,9 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("diseases")[3].get('gravity')</value>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.disease_ids.3|get:"gravity"|default:"" }}</value>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">510</id>
     </field><field>
@@ -720,12 +740,14 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("diseases")[3].get('text')</value>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.disease_ids.3|get:"disease_text"|default:"" }}</value>
       </prefill><pre type="bool">False</pre>
       <id type="str">516</id>
     </field><field>
-      <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases "get_disease_from_index" "form_var_diseases_raw" "form_var_other_diseases" "4"]&lt;/h3&gt;</label>
+      <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases "get_disease_from_index" "form_var_diseases_raw" "form_var_other_diseases" "4"]&lt;/h3&gt;
+</label>
       <type type="str">comment</type>
       <display_locations />
       <id type="str">503</id>
@@ -742,8 +764,9 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("diseases")[4].get('gravity')</value>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.disease_ids.4|get:"gravity"|default:"" }}</value>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">511</id>
     </field><field>
@@ -759,12 +782,14 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("diseases")[4].get('text')</value>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.disease_ids.4|get:"disease_text"|default:"" }}</value>
       </prefill><pre type="bool">False</pre>
       <id type="str">517</id>
     </field><field>
-      <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases "get_disease_from_index" "form_var_diseases_raw" "form_var_other_diseases" "5"]&lt;/h3&gt;</label>
+      <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases "get_disease_from_index" "form_var_diseases_raw" "form_var_other_diseases" "5"]&lt;/h3&gt;
+</label>
       <type type="str">comment</type>
       <display_locations />
       <id type="str">504</id>
@@ -781,8 +806,9 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("diseases")[5].get('gravity')</value>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.disease_ids.5|get:"gravity"|default:"" }}</value>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">512</id>
     </field><field>
@@ -798,8 +824,9 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("diseases")[5].get('text')</value>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.disease_ids.5|get:"disease_text"|default:"" }}</value>
       </prefill><pre type="bool">False</pre>
       <id type="str">518</id>
     </field><field>
@@ -819,9 +846,107 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
       <prefill>
-        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.self_medication }}</value>
+      </prefill><items />
+      <display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>formula</type>
+        <value>form_var_fiche_sante_selections["self_medication"]</value>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">588</id>
+    </field><field>
+      <label type="str">Indiquez ici les m&#233;dicaments</label>
+      <type type="str">title</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><id type="str">589</id>
+    </field><field>
+      <label type="str">M&#233;dicament 1</label>
+      <type type="str">subtitle</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><id type="str">590</id>
+    </field><field>
+      <label type="str">Nom du m&#233;dicament</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_0_name</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-3</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.0.name }}</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">591</id>
+    </field><field>
+      <label type="str">Prises par jour</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_0_quantity</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.0.quantity }}</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">592</id>
+    </field><field>
+      <label type="str">P&#233;riodes de prise</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_0_period</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.0.period }}</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">593</id>
+    </field><field>
+      <label type="str">Votre enfant peut-il prendre ce m&#233;dicament seul ?</label>
+      <type type="str">item</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_0_self_medication</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.0.self_medication }}</value>
       </prefill><display_mode type="str">radio</display_mode>
       <data_source>
         <type>formula</type>
@@ -829,19 +954,799 @@
       </data_source><in_filters type="bool">False</in_filters>
       <anonymise type="bool">False</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
-      <id type="str">453</id>
+      <id type="str">594</id>
     </field><field>
-      <label type="str">Informations concernant les m&#233;dicaments</label>
-      <type type="str">block:pp_fiche_sante_medicaments</type>
-      <required type="bool">True</required>
+      <label type="str">M&#233;dicament 2</label>
+      <type type="str">subtitle</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><id type="str">595</id>
+    </field><field>
+      <label type="str">Nom du m&#233;dicament</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_1_name</varname>
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
-      </display_locations><max_items type="int">10</max_items>
-      <add_element_label type="str">Ajouter un autre m&#233;dicament</add_element_label>
-      <label_display type="str">subtitle</label_display>
-      <remove_button type="bool">True</remove_button>
-      <id type="str">580</id>
+      </display_locations><extra_css_class type="str">newline grid-1-3</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.1.name }}</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">596</id>
+    </field><field>
+      <label type="str">Prises par jour</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_1_quantity</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.1.quantity }}</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">597</id>
+    </field><field>
+      <label type="str">P&#233;riodes de prise</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_1_period</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.1.period }}</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">598</id>
+    </field><field>
+      <label type="str">Votre enfant peut-il prendre ce m&#233;dicament seul ?</label>
+      <type type="str">item</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_1_self_medication</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.1.self_medication }}</value>
+      </prefill><display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>formula</type>
+        <value>form_var_fiche_sante_selections["self_medication"]</value>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">599</id>
+    </field><field>
+      <label type="str">M&#233;dicament 3</label>
+      <type type="str">subtitle</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><id type="str">600</id>
+    </field><field>
+      <label type="str">Nom du m&#233;dicament</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_2_name</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-3</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.2.name }}</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">601</id>
+    </field><field>
+      <label type="str">Prises par jour</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_2_quantity</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.2.quantity }}</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">602</id>
+    </field><field>
+      <label type="str">P&#233;riodes de prise</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_2_period</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.2.period }}</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">603</id>
+    </field><field>
+      <label type="str">Votre enfant peut-il prendre ce m&#233;dicament seul ?</label>
+      <type type="str">item</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_2_self_medication</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.2.self_medication }}</value>
+      </prefill><display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>formula</type>
+        <value>form_var_fiche_sante_selections["self_medication"]</value>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">604</id>
+    </field><field>
+      <label type="str">M&#233;dicament 4</label>
+      <type type="str">subtitle</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><id type="str">605</id>
+    </field><field>
+      <label type="str">Nom du m&#233;dicament</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_3_name</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-3</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.3.name }}</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">606</id>
+    </field><field>
+      <label type="str">Prises par jour</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_3_quantity</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.3.quantity }}</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">607</id>
+    </field><field>
+      <label type="str">P&#233;riodes de prise</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_3_period</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.3.period }}</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">608</id>
+    </field><field>
+      <label type="str">Votre enfant peut-il prendre ce m&#233;dicament seul ?</label>
+      <type type="str">item</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_3_self_medication</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.3.self_medication }}</value>
+      </prefill><display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>formula</type>
+        <value>form_var_fiche_sante_selections["self_medication"]</value>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">609</id>
+    </field><field>
+      <label type="str">M&#233;dicament 5</label>
+      <type type="str">subtitle</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><id type="str">610</id>
+    </field><field>
+      <label type="str">Nom du m&#233;dicament</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_4_name</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-3</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.4.name }}</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">611</id>
+    </field><field>
+      <label type="str">Prises par jour</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_4_quantity</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.4.quantity }}</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">612</id>
+    </field><field>
+      <label type="str">P&#233;riodes de prise</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_4_period</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.4.period }}</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">613</id>
+    </field><field>
+      <label type="str">Votre enfant peut-il prendre ce m&#233;dicament seul ?</label>
+      <type type="str">item</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_4_self_medication</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.4.self_medication }}</value>
+      </prefill><display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>formula</type>
+        <value>form_var_fiche_sante_selections["self_medication"]</value>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">614</id>
+    </field><field>
+      <label type="str">M&#233;dicament 6</label>
+      <type type="str">subtitle</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><id type="str">615</id>
+    </field><field>
+      <label type="str">Nom du m&#233;dicament</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_5_name</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-3</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.5.name }}</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">616</id>
+    </field><field>
+      <label type="str">Prises par jour</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_5_quantity</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.5.quantity }}</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">617</id>
+    </field><field>
+      <label type="str">P&#233;riodes de prise</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_5_period</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.5.period }}</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">618</id>
+    </field><field>
+      <label type="str">Votre enfant peut-il prendre ce m&#233;dicament seul ?</label>
+      <type type="str">item</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_5_self_medication</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.5.self_medication }}</value>
+      </prefill><display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>formula</type>
+        <value>form_var_fiche_sante_selections["self_medication"]</value>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">619</id>
+    </field><field>
+      <label type="str">M&#233;dicament 7</label>
+      <type type="str">subtitle</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><id type="str">620</id>
+    </field><field>
+      <label type="str">Nom du m&#233;dicament</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_6_name</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-3</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.6.name }}</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">621</id>
+    </field><field>
+      <label type="str">Prises par jour</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_6_quantity</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.6.quantity }}</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">622</id>
+    </field><field>
+      <label type="str">P&#233;riodes de prise</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_6_period</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.6.period }}</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">623</id>
+    </field><field>
+      <label type="str">Votre enfant peut-il prendre ce m&#233;dicament seul ?</label>
+      <type type="str">item</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_6_self_medication</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.6.self_medication }}</value>
+      </prefill><display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>formula</type>
+        <value>form_var_fiche_sante_selections["self_medication"]</value>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">624</id>
+    </field><field>
+      <label type="str">M&#233;dicament 8</label>
+      <type type="str">subtitle</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><id type="str">625</id>
+    </field><field>
+      <label type="str">Nom du m&#233;dicament</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_7_name</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-3</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.6.name }}</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">626</id>
+    </field><field>
+      <label type="str">Prises par jour</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_7_quantity</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.6.quantity }}</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">627</id>
+    </field><field>
+      <label type="str">P&#233;riodes de prise</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_7_period</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.6.period }}</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">628</id>
+    </field><field>
+      <label type="str">Votre enfant peut-il prendre ce m&#233;dicament seul ?</label>
+      <type type="str">item</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_7_self_medication</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.6.self_medication }}</value>
+      </prefill><display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>formula</type>
+        <value>form_var_fiche_sante_selections["self_medication"]</value>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">629</id>
+    </field><field>
+      <label type="str">M&#233;dicament 9</label>
+      <type type="str">subtitle</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><id type="str">630</id>
+    </field><field>
+      <label type="str">Nom du m&#233;dicament</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_8_name</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-3</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.8.name }}</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">631</id>
+    </field><field>
+      <label type="str">Prises par jour</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_8_quantity</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.8.quantity }}</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">632</id>
+    </field><field>
+      <label type="str">P&#233;riodes de prise</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_8_period</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.8.period }}</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">633</id>
+    </field><field>
+      <label type="str">Votre enfant peut-il prendre ce m&#233;dicament seul ?</label>
+      <type type="str">item</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_8_self_medication</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.8.self_medication }}</value>
+      </prefill><display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>formula</type>
+        <value>form_var_fiche_sante_selections["self_medication"]</value>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">634</id>
+    </field><field>
+      <label type="str">M&#233;dicament 10</label>
+      <type type="str">subtitle</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><id type="str">635</id>
+    </field><field>
+      <label type="str">Nom du m&#233;dicament</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_9_name</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-3</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.9.name }}</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">636</id>
+    </field><field>
+      <label type="str">Prises par jour</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_9_quantity</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.9.quantity }}</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">637</id>
+    </field><field>
+      <label type="str">P&#233;riodes de prise</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_9_period</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.9.period }}</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">638</id>
+    </field><field>
+      <label type="str">Votre enfant peut-il prendre ce m&#233;dicament seul ?</label>
+      <type type="str">item</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <varname type="str">medication_9_self_medication</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.medication_ids.9.self_medication }}</value>
+      </prefill><display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>formula</type>
+        <value>form_var_fiche_sante_selections["self_medication"]</value>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">639</id>
     </field><field>
       <label type="str">Autres informations</label>
       <type type="str">page</type>
@@ -856,12 +1761,13 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("to_go_alone")</value>
-      </prefill><items />
-      <display_mode type="str">radio</display_mode>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.to_go_alone }}</value>
+      </prefill><display_mode type="str">radio</display_mode>
       <data_source>
-        <type>aes_oui_non</type>
+        <type>formula</type>
+        <value>form_var_fiche_sante_selections["to_go_alone"]</value>
       </data_source><in_filters type="bool">False</in_filters>
       <anonymise type="bool">False</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
@@ -913,8 +1819,9 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("comment")</value>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.comment }}</value>
       </prefill><pre type="bool">False</pre>
       <id type="str">174</id>
     </field><field>
@@ -943,24 +1850,29 @@
         <display_location>summary</display_location>
       </display_locations><id type="str">417</id>
     </field><field>
-      <label type="str">&lt;p&gt;Vous pouvez s&amp;eacute;lectionner un m&amp;eacute;decin traitant de l'entit&amp;eacute; dans la liste ci-dessous. Votre m&amp;eacute;decin ne s'y trouve pas ? S&amp;eacute;lectionnez &amp;quot;Autre&amp;quot; et indiquez ses coordonn&amp;eacute;es. Veillez &amp;agrave; ce que celles-ci soient absolument correctes.&lt;/p&gt;</label>
+      <label type="str">&lt;p&gt;Vous pouvez s&amp;eacute;lectionner un m&amp;eacute;decin traitant de l&amp;#39;entit&amp;eacute; dans la liste ci-dessous. Votre m&amp;eacute;decin ne s&amp;#39;y trouve pas ? S&amp;eacute;lectionnez &amp;quot;Autre&amp;quot; et indiquez ses coordonn&amp;eacute;es. Veillez &amp;agrave; ce que celles-ci soient absolument correctes.&lt;/p&gt;
+</label>
       <type type="str">comment</type>
-      <display_locations />
+      <condition>
+        <type>django</type>
+        <value>False</value>
+      </condition><display_locations />
       <id type="str">576</id>
     </field><field>
       <label type="str">M&#233;decin traitant</label>
       <type type="str">item</type>
-      <required type="bool">True</required>
+      <condition>
+        <type>django</type>
+        <value>False</value>
+      </condition><required type="bool">True</required>
       <varname type="str">doctor</varname>
-      <display_locations>
-        <display_location>validation</display_location>
-        <display_location>summary</display_location>
-      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <display_locations />
+      <extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("doctor").get('id')</value>
-      </prefill><items />
-      <display_mode type="str">autocomplete</display_mode>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.doctor_id.0 }}</value>
+      </prefill><display_mode type="str">autocomplete</display_mode>
       <data_source>
         <type>formula</type>
         <value>sorted(data_source.aes_doctors, key=lambda x: x["text"], reverse = False) + [{'id':'autre','text':'Autre'}]</value>
@@ -982,70 +1894,74 @@
       </condition><display_locations />
       <id type="str">556</id>
     </field><field>
-      <label type="str">Docteur</label>
+      <label type="str">Pr&#233;nom</label>
       <type type="str">string</type>
-      <condition>
-        <type>django</type>
-        <value>form_var_doctor_raw == 'autre'</value>
-      </condition><required type="bool">True</required>
-      <hint type="str">Pr&#233;nom et nom du m&#233;decin traitant</hint>
+      <required type="bool">True</required>
+      <varname type="str">other_doctor_firstname</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-3-12</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>none</type>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">642</id>
+    </field><field>
+      <label type="str">Nom</label>
+      <type type="str">string</type>
+      <required type="bool">True</required>
+      <hint type="str">Nom du m&#233;decin traitant</hint>
       <varname type="str">other_doctor_name</varname>
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
-      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      </display_locations><extra_css_class type="str">grid-3-12</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>none</type>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">557</id>
     </field><field>
       <label type="str">T&#233;l&#233;phone du m&#233;decin</label>
       <type type="str">string</type>
-      <condition>
-        <type>django</type>
-        <value>form_var_doctor_raw == 'autre'</value>
-      </condition><required type="bool">False</required>
+      <required type="bool">False</required>
       <varname type="str">other_doctor_tel</varname>
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-4</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>none</type>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">167</id>
     </field><field>
       <label type="str">GSM du m&#233;decin</label>
       <type type="str">string</type>
-      <condition>
-        <type>django</type>
-        <value>form_var_doctor_raw == 'autre'</value>
-      </condition><required type="bool">False</required>
+      <required type="bool">False</required>
       <varname type="str">other_doctor_gsm</varname>
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-4</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>None</value>
+        <locked>False</locked>
+        <type>none</type>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">430</id>
     </field><field>
       <label type="str">Rue et num&#233;ro</label>
       <type type="str">string</type>
-      <condition>
-        <type>django</type>
-        <value>form_var_doctor_raw == 'autre'</value>
-      </condition><required type="bool">True</required>
+      <required type="bool">True</required>
       <varname type="str">other_doctor_street</varname>
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>None</value>
+        <locked>False</locked>
+        <type>none</type>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">550</id>
     </field><field>
@@ -1053,16 +1969,14 @@
       <type type="str">string</type>
       <condition>
         <type>django</type>
-        <value>form_var_doctor_raw == 'autre'</value>
+        <value>False</value>
       </condition><required type="bool">True</required>
       <varname type="str">other_doctor_zipcode</varname>
-      <display_locations>
-        <display_location>validation</display_location>
-        <display_location>summary</display_location>
-      </display_locations><extra_css_class type="str">newline grid-2-12</extra_css_class>
+      <display_locations />
+      <extra_css_class type="str">newline grid-2-12</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>None</value>
+        <locked>False</locked>
+        <type>none</type>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">552</id>
     </field><field>
@@ -1070,34 +1984,49 @@
       <type type="str">string</type>
       <condition>
         <type>django</type>
-        <value>form_var_doctor_raw == 'autre'</value>
+        <value>False</value>
       </condition><required type="bool">True</required>
       <varname type="str">other_doctor_city</varname>
-      <display_locations>
-        <display_location>validation</display_location>
-        <display_location>summary</display_location>
-      </display_locations><extra_css_class type="str">grid-4-12</extra_css_class>
+      <display_locations />
+      <extra_css_class type="str">grid-4-12</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>none</type>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">553</id>
     </field><field>
+      <label type="str">Localit&#233;</label>
+      <type type="str">item</type>
+      <required type="bool">True</required>
+      <varname type="str">other_doctor_locality</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-4</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>none</type>
+      </prefill><display_mode type="str">autocomplete</display_mode>
+      <data_source>
+        <type>portail_parent_localites</type>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">644</id>
+    </field><field>
       <label type="str">Pays</label>
       <type type="str">item</type>
-      <condition>
-        <type>django</type>
-        <value>form_var_doctor_raw == 'autre'</value>
-      </condition><required type="bool">True</required>
+      <required type="bool">True</required>
       <varname type="str">other_doctor_country</varname>
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
-      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      </display_locations><extra_css_class type="str">newline  grid-1-4</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>21 or webservice.get_health_attribute.get("doctor").get('country_id')</value>
-      </prefill><items />
-      <display_mode type="str">autocomplete</display_mode>
+        <locked>False</locked>
+        <type>string</type>
+        <value>20</value>
+      </prefill><display_mode type="str">list</display_mode>
       <data_source>
         <type>aes_countries</type>
       </data_source><in_filters type="bool">False</in_filters>
@@ -1153,10 +2082,11 @@
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
-      </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
+      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("contact")[0].get("text")</value>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.allowed_contact_ids.0|get:"name" }}</value>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">407</id>
     </field><field>
@@ -1183,10 +2113,11 @@
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
-      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      </display_locations><extra_css_class type="str">newline grid-1-3</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("contact")[0].get("relation")</value>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.allowed_contact_ids.0|get:"parental_link" }}</value>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">409</id>
     </field><field>
@@ -1197,10 +2128,11 @@
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
-      </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
+      </display_locations><extra_css_class type="str">newline grid-1-3</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("contact")[0].get("tel")</value>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.allowed_contact_ids.0|get:"phone"|default:"" }}</value>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">410</id>
     </field><field>
@@ -1214,10 +2146,11 @@
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
-      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      </display_locations><extra_css_class type="str">newline grid-1-3</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("contact")[0].get("street")</value>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.allowed_contact_ids.0|get:"street"|default:"" }}</value>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">443</id>
     </field><field>
@@ -1225,7 +2158,7 @@
       <type type="str">string</type>
       <condition>
         <type>django</type>
-        <value>'other_contact_address' in form_option_questions_raw</value>
+        <value>'other_contact_address' in form_option_questions_raw and false</value>
       </condition><required type="bool">False</required>
       <varname type="str">contact_0_number</varname>
       <display_locations>
@@ -1233,8 +2166,9 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("contact")[0].get("number")</value>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.allowed_contact_ids.0|get:"number"|default:"" }}</value>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">436</id>
     </field><field>
@@ -1242,7 +2176,7 @@
       <type type="str">string</type>
       <condition>
         <type>django</type>
-        <value>'other_contact_address' in form_option_questions_raw</value>
+        <value>'other_contact_address' in form_option_questions_raw and false</value>
       </condition><required type="bool">False</required>
       <varname type="str">contact_0_box</varname>
       <display_locations>
@@ -1250,8 +2184,9 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("contact")[0].get("box_number")</value>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.allowed_contact_ids.0|get:"box"|default:"" }}</value>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">444</id>
     </field><field>
@@ -1259,7 +2194,7 @@
       <type type="str">string</type>
       <condition>
         <type>django</type>
-        <value>'other_contact_address' in form_option_questions_raw</value>
+        <value>'other_contact_address' in form_option_questions_raw and false</value>
       </condition><required type="bool">False</required>
       <varname type="str">contact_0_zip_code</varname>
       <display_locations>
@@ -1267,8 +2202,9 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("contact")[0].get("zip_code")</value>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.allowed_contact_ids.0|get:"zip"|default:"" }}</value>
       </prefill><validation>
         <type>regex</type>
         <value>^[0-9]*</value>
@@ -1279,7 +2215,7 @@
       <type type="str">string</type>
       <condition>
         <type>django</type>
-        <value>'other_contact_address' in form_option_questions_raw</value>
+        <value>'other_contact_address' in form_option_questions_raw and false</value>
       </condition><required type="bool">False</required>
       <varname type="str">contact_0_city</varname>
       <display_locations>
@@ -1287,10 +2223,31 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("contact")[0].get("city")</value>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.allowed_contact_ids.0|get:"city"|default:"" }}</value>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">445</id>
+    </field><field>
+      <label type="str">Localit&#233;</label>
+      <type type="str">item</type>
+      <required type="bool">True</required>
+      <varname type="str">contact_0_locality</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-3</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.allowed_contact_ids.0|get:"city"|get:0|default:"" }}</value>
+      </prefill><display_mode type="str">list</display_mode>
+      <data_source>
+        <type>portail_parent_localites</type>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">647</id>
     </field><field>
       <label type="str">Pays</label>
       <type type="str">item</type>
@@ -1298,16 +2255,17 @@
         <type>django</type>
         <value>'other_contact_address' in form_option_questions_raw</value>
       </condition><required type="bool">True</required>
+      <hint type="str">---</hint>
       <varname type="str">contact_0_country</varname>
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
-      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      </display_locations><extra_css_class type="str">newline grid-1-3</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>21 or webservice.get_health_attribute.get("contact")[0].get("country_id")</value>
-      </prefill><items />
-      <display_mode type="str">autocomplete</display_mode>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.allowed_contact_ids.0|get:"country_id"|get:"0" }}</value>
+      </prefill><display_mode type="str">list</display_mode>
       <data_source>
         <type>aes_countries</type>
       </data_source><in_filters type="bool">False</in_filters>
@@ -1330,10 +2288,11 @@
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
-      </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
+      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("contact")[1].get("text")</value>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.allowed_contact_ids.1|get:"name"|default:"" }}</value>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">411</id>
     </field><field>
@@ -1349,6 +2308,7 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>none</type>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">412</id>
@@ -1360,10 +2320,11 @@
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
-      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      </display_locations><extra_css_class type="str">newline grid-1-3</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("contact")[1].get("relation")</value>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.allowed_contact_ids.1|get:"parental_link"|default:"" }}</value>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">413</id>
     </field><field>
@@ -1374,10 +2335,11 @@
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
-      </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
+      </display_locations><extra_css_class type="str">newline grid-1-3</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("contact")[1].get("tel")</value>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.allowed_contact_ids.1|get:"phone"|default:"" }}</value>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">414</id>
     </field><field>
@@ -1391,10 +2353,11 @@
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
-      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      </display_locations><extra_css_class type="str">newline grid-1-3</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("contact")[1].get("street")</value>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.allowed_contact_ids.1|get:"street"|default:"" }}</value>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">533</id>
     </field><field>
@@ -1402,7 +2365,7 @@
       <type type="str">string</type>
       <condition>
         <type>django</type>
-        <value>'other_contact_address' in form_option_questions_raw</value>
+        <value>'other_contact_address' in form_option_questions_raw and false</value>
       </condition><required type="bool">False</required>
       <varname type="str">contact_1_number</varname>
       <display_locations>
@@ -1410,8 +2373,9 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("contact")[1].get("number")</value>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.allowed_contact_ids.1|get:"number"|default:"" }}</value>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">534</id>
     </field><field>
@@ -1419,7 +2383,7 @@
       <type type="str">string</type>
       <condition>
         <type>django</type>
-        <value>'other_contact_address' in form_option_questions_raw</value>
+        <value>'other_contact_address' in form_option_questions_raw and false</value>
       </condition><required type="bool">False</required>
       <varname type="str">contact_1_box</varname>
       <display_locations>
@@ -1427,8 +2391,9 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("contact")[1].get("box_number")</value>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.allowed_contact_ids.0|get:"box"|default:"" }}</value>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">535</id>
     </field><field>
@@ -1436,7 +2401,7 @@
       <type type="str">string</type>
       <condition>
         <type>django</type>
-        <value>'other_contact_address' in form_option_questions_raw</value>
+        <value>'other_contact_address' in form_option_questions_raw and false</value>
       </condition><required type="bool">False</required>
       <varname type="str">contact_1_zip_code</varname>
       <display_locations>
@@ -1444,8 +2409,9 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("contact")[1].get("zip_code")</value>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.allowed_contact_ids.1|get:"zip"|default:"" }}</value>
       </prefill><validation>
         <type>regex</type>
         <value>^[0-9]*</value>
@@ -1456,7 +2422,7 @@
       <type type="str">string</type>
       <condition>
         <type>django</type>
-        <value>'other_contact_address' in form_option_questions_raw</value>
+        <value>'other_contact_address' in form_option_questions_raw and false</value>
       </condition><required type="bool">False</required>
       <varname type="str">contact_1_city</varname>
       <display_locations>
@@ -1464,27 +2430,50 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>webservice.get_health_attribute.get("contact")[1].get("city")</value>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.allowed_contact_ids.0|get:"city"|default:"" }}</value>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">537</id>
+    </field><field>
+      <label type="str">Localit&#233;</label>
+      <type type="str">item</type>
+      <required type="bool">False</required>
+      <hint type="str">---</hint>
+      <varname type="str">contact_1_locality</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-3</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.allowed_contact_ids.1|get:"city"|default:"" }}</value>
+      </prefill><display_mode type="str">list</display_mode>
+      <data_source>
+        <type>portail_parent_localites</type>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">648</id>
     </field><field>
       <label type="str">Pays</label>
       <type type="str">item</type>
       <condition>
         <type>django</type>
         <value>'other_contact_address' in form_option_questions_raw</value>
-      </condition><required type="bool">True</required>
+      </condition><required type="bool">False</required>
+      <hint type="str">---</hint>
       <varname type="str">contact_1_country</varname>
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
-      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      </display_locations><extra_css_class type="str">newline grid-1-3</extra_css_class>
       <prefill>
-        <type>formula</type>
-        <value>21 or webservice.get_health_attribute.get("contact")[0].get("country_id")</value>
-      </prefill><items />
-      <display_mode type="str">autocomplete</display_mode>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.allowed_contact_ids.1|get:"country_id"|get:"0"|default:20 }}</value>
+      </prefill><display_mode type="str">list</display_mode>
       <data_source>
         <type>aes_countries</type>
       </data_source><in_filters type="bool">False</in_filters>
@@ -1509,13 +2498,13 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-1</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.photo }}</value>
-      </prefill><items />
-      <display_mode type="str">radio</display_mode>
+      </prefill><display_mode type="str">radio</display_mode>
       <data_source>
-        <type>json</type>
-        <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/healtsheet-field?field=photo</value>
+        <type>formula</type>
+        <value>form_var_fiche_sante_selections["photo"]</value>
       </data_source><in_filters type="bool">False</in_filters>
       <anonymise type="bool">False</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
@@ -1533,13 +2522,13 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-1</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
-        <value>{{ webservice.portail_parent_fiche_sante.photo_general }}</value>
-      </prefill><items />
-      <display_mode type="str">radio</display_mode>
+        <value>{{ form_var_fiche_sante.photo_general }}</value>
+      </prefill><display_mode type="str">radio</display_mode>
       <data_source>
-        <type>json</type>
-        <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/healtsheet-field?field=photo_general</value>
+        <type>formula</type>
+        <value>form_var_fiche_sante_selections["photo_general"]</value>
       </data_source><in_filters type="bool">False</in_filters>
       <anonymise type="bool">False</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
@@ -1557,13 +2546,13 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-1</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
-        <value>{{ webservice.portail_parent_fiche_sante.facebook }}</value>
-      </prefill><items />
-      <display_mode type="str">radio</display_mode>
+        <value>{{ form_var_fiche_sante.facebook }}</value>
+      </prefill><display_mode type="str">radio</display_mode>
       <data_source>
-        <type>json</type>
-        <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/healtsheet-field?field=facebook</value>
+        <type>formula</type>
+        <value>form_var_fiche_sante_selections["facebook"]</value>
       </data_source><in_filters type="bool">False</in_filters>
       <anonymise type="bool">False</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
@@ -1618,7 +2607,7 @@
   </roles><options>
     <option varname="compte">BE80 0910 2100 5377</option>
     <option varname="questions" />
-    <option varname="questions_display">Quel est le groupe sanguin de l'enfant ?, L'enfant a-t'il &#233;t&#233; vaccin&#233; contre le t&#233;tanos ?, L'enfant a-t'il subit une intervention r&#233;cemment ?, L'enfant sait-il nager ?, L'enfant souffre t'il d'un handicap ?, Activit&#233;s non praticables, L'enfant suit-il un r&#233;gime sp&#233;cifique ?, Autorisez-vous les accompagnants &#224; utiliser de l'arnica ?, L'enfant a-t'il des allergies ?, Permettre aux parents d'ajouter d'autres allergies ?, L'enfant a-t'il des maladies ?, Permettre aux parents d'ajouter d'autres maladies ?, L'enfant doit-il prendre des m&#233;dicaments ?, Demander l'adresse des autres contacts, L'enfant peut-il &#234;tre pris en photo durant les stages ou les plaines ?, L'enfant peut-il &#234;tre pris en photo lors des garderies, ateliers, spectacles, ou autre ?, Les photos de l'enfant peuvent-elles &#234;tre publi&#233;es sur les r&#233;seaux sociaux (site de la commune, Facebook) ?, Je marque mon accord pour que la prise en charge ou les traitements estim&#233;s n&#233;cessaires soient entrepris durant le s&#233;jour de mon enfant par les responsables de l&#8217;accueil ou par le service m&#233;dical qui y est associ&#233;. J&#8217;autorise le m&#233;decin local &#224; prendre les d&#233;cisions qu&#8217;il juge urgentes et indispensables pour assurer l&#8217;&#233;tat de sant&#233; de l&#8217;enfant, m&#234;me s&#8217;il s&#8217;agit d&#8217;une intervention chirurgicale. En cas d&#8217;urgence, les parents/tuteurs seront avertis le plus rapidement possible. N&#233;anmoins, s&#8217;ils ne sont pas joignables et que l&#8217;urgence le requiert, l&#8217;intervention se fera sans leur consentement., Je m&#8217;engage sur l&#8217;honneur &#224; ce que moi-m&#234;me ou un autre adulte de la bulle sociale de mon enfant soit joignable par t&#233;l&#233;phone et d&#8217;avoir la possibilit&#233; de venir chercher l&#8217;enfant imm&#233;diatement pendant toute la dur&#233;e de l&#8217;activit&#233; si son &#233;tat de sant&#233; le n&#233;cessite, et de s&#8217;engager dans ce cas &#224; faire consulter le participant d&#232;s que possible (et end&#233;ans les 24h du retour au plus tard) par son m&#233;decin r&#233;f&#233;rent ou un autre m&#233;decin si ce dernier n&#8217;est pas disponible, Je consens au traitement de mes donn&#233;es &#224; caract&#232;re personnel par l'Administration communale de Chaudfontaine conform&#233;ment &#224; sa charte relative &#224; la protection de la vie priv&#233;e.</option>
+    <option varname="questions_display">Quel est le groupe sanguin de l'enfant ?, L'enfant a-t'il &#233;t&#233; vaccin&#233; contre le t&#233;tanos ?, L'enfant a-t'il subit une intervention r&#233;cemment ?, L'enfant sait-il nager ?, L'enfant souffre t'il d'un handicap ?, Activit&#233;s non praticables, L'enfant suit-il un r&#233;gime sp&#233;cifique ?, Autorisez-vous les accompagnants &#224; utiliser de l'arnica ?, L'enfant a-t'il des allergies ?, Permettre aux parents d'ajouter d'autres allergies ?, L'enfant a-t'il des maladies ?, Permettre aux parents d'ajouter d'autres maladies ?, L'enfant doit-il prendre des m&#233;dicaments ?, Demander l'adresse des autres contacts, L'enfant peut-il &#234;tre pris en photo durant les stages ou les plaines ?, L'enfant peut-il &#234;tre pris en photo lors des garderies, ateliers, spectacles, ou autre ?, Les photos de l'enfant peuvent-elles &#234;tre publi&#233;es sur les r&#233;seaux sociaux (site de la commune, Facebook) ?</option>
     <option varname="questions_structured" />
     <option varname="verifier_encodage">Non</option>
     <option varname="verifier_encodage_display">Non</option>

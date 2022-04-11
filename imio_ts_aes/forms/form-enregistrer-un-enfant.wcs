@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
-<formdef id="521" url="https://staging2-formulaires.guichet-citoyen.be/backoffice/forms/521/">
-  <name>Enregistrer un autre enfant</name>
-  <url_name>enregistrer-un-autre-enfant</url_name>
-  <internal_identifier>enregistrer-un-nouvel-enfant</internal_identifier>
+<formdef id="1" url="https://wcs.dev.publik.love/backoffice/forms/1/">
+  <name>Enregistrer un enfant</name>
+  <url_name>enregistrer-un-enfant</url_name>
+  <internal_identifier>enregistrer-un-enfant</internal_identifier>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
-  <disabled>true</disabled>
+  <disabled>false</disabled>
   <only_allow_one>false</only_allow_one>
   <enable_tracking_codes>false</enable_tracking_codes>
   <confirmation>true</confirmation>
@@ -13,31 +13,14 @@
   <include_download_all_button>false</include_download_all_button>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category category_id="101" slug="portail-parent">Portail parent</category>
-  <workflow slug="aes-enregistrement-enfant" workflow_id="23">aes - Enregistrement enfant</workflow>
-  <max_field_id>30</max_field_id>
+  <category slug="portail-parent" category_id="1">Portail Parent</category>
+  <workflow slug="aes-enregistrement-enfant" workflow_id="5">Enregistrement enfant</workflow>
+  <max_field_id>31</max_field_id>
   <fields>
     <field>
       <label type="str">Nouvel enfant &#224; enregistrer</label>
       <type type="str">page</type>
-      <post_conditions>
-        <post_condition>
-          <condition>
-            <type>python</type>
-            <value>script.commune('is_valid_belgian_nrn', {'nrn': form_var_enfant_nrn})</value>
-          </condition><error_message>Num&#233;ro national incorrect ou incomplet. Ce champ ne peut contenir que des chiffres (pas de ., -, +, /,...).</error_message>
-        </post_condition><post_condition>
-          <condition>
-            <type>python</type>
-            <value>len(form_var_enfant_nrn) == 11</value>
-          </condition><error_message>Le num&#233;ro national est compos&#233; de 11 chiffres, veuillez l'encoder sans caract&#232;res sp&#233;ciaux.</error_message>
-        </post_condition><post_condition>
-          <condition>
-            <type>python</type>
-            <value>webservice.aes_is_registered_child == False</value>
-          </condition><error_message>Votre enfant existe d&#233;j&#224;.</error_message>
-        </post_condition>
-      </post_conditions><id type="str">14</id>
+      <id type="str">14</id>
     </field><field>
       <label type="str">Signal&#233;tique de votre enfant</label>
       <type type="str">title</type>
@@ -54,8 +37,9 @@
         <display_location>validation</display_location>
         <display_location>summary</display_location>
         <display_location>listings</display_location>
-      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      </display_locations><extra_css_class type="str">grid-1-4</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>none</type>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">16</id>
@@ -68,8 +52,9 @@
         <display_location>validation</display_location>
         <display_location>summary</display_location>
         <display_location>listings</display_location>
-      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      </display_locations><extra_css_class type="str">grid-1-4</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>none</type>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">17</id>
@@ -82,24 +67,50 @@
         <display_location>validation</display_location>
         <display_location>summary</display_location>
         <display_location>listings</display_location>
-      </display_locations><extra_css_class type="str">grid-1-3</extra_css_class>
+      </display_locations><extra_css_class type="str">newline grid-1-3</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>none</type>
       </prefill><minimum_is_future type="bool">False</minimum_is_future>
       <date_in_the_past type="bool">True</date_in_the_past>
       <date_can_be_today type="bool">False</date_can_be_today>
       <id type="str">19</id>
     </field><field>
+      <label type="str">Mon enfant poss&#232;de un num&#233;ro de registre national belge ou bis.</label>
+      <type type="str">item</type>
+      <required type="bool">True</required>
+      <hint type="str">Si votre enfant a la nationalit&#233; belge, son num&#233;ro de registre national se trouve sur sa carte d'identit&#233;, sa carte de mutuelle ou sur son acte de naissance. </hint>
+      <varname type="str">a_un_rn</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><display_mode type="str">radio</display_mode>
+      <in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">31</id>
+    </field><field>
       <label type="str">Num&#233;ro de registre national de l'enfant</label>
       <type type="str">string</type>
-      <required type="bool">True</required>
+      <condition>
+        <type>django</type>
+        <value>form_var_a_un_rn|lower == "oui"</value>
+      </condition><required type="bool">True</required>
       <hint type="str">Vous trouverez cette information sur la carte d'identit&#233; &#233;lectronique de votre enfant. Si vous ne l'avez pas, vous pouvez la demander &#224; votre administration communale.</hint>
       <varname type="str">enfant_nrn</varname>
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
-      </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>none</type>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">20</id>
@@ -119,18 +130,19 @@
       <label type="str">Implantation scolaire</label>
       <type type="str">item</type>
       <required type="bool">True</required>
+      <hint type="str">---</hint>
       <varname type="str">implantation_scolaire</varname>
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>none</type>
-      </prefill><items />
-      <display_mode type="str">list</display_mode>
+      </prefill><display_mode type="str">list</display_mode>
       <data_source>
-        <type>formula</type>
-        <value>webservice.aes_get_implantation.get("data")</value>
+        <type>implantations_scolaires</type>
+        <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/places</value>
       </data_source><in_filters type="bool">False</in_filters>
       <anonymise type="bool">False</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
@@ -143,13 +155,13 @@
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
-      </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>none</type>
-      </prefill><items />
-      <display_mode type="str">list</display_mode>
+      </prefill><display_mode type="str">radio</display_mode>
       <data_source>
-        <type>formula</type>
+        <type>portail_parent_niveaux</type>
         <value>webservice.aes_get_levels.get("data")</value>
       </data_source><in_filters type="bool">False</in_filters>
       <anonymise type="bool">False</anonymise>
@@ -157,13 +169,10 @@
       <id type="str">25</id>
     </field>
   </fields><user-roles>
-    <role role_id="a93e019556714b90b9d7519e72c420a5" slug="citoyentest">Citoyen(test)</role>
-    <role role_id="97fd62031c1f4b35a219ca964396a445" slug="parent">Parent</role>
-  </user-roles><backoffice-submission-roles>
-    <role role_id="9f94095fe2564f17b88ca929bf3149fc" slug="agents-traitants-portail-parent">Agents traitants - Portail parent</role>
-  </backoffice-submission-roles><roles>
-    <role role_id="9f94095fe2564f17b88ca929bf3149fc" role_key="_receiver" slug="agents-traitants-portail-parent">Agents traitants - Portail parent</role>
-    <role role_id="43190215712647a89376713be142a4f5" role_key="_debug" slug="debug">Debug</role>
+    <role role_id="logged-users">logged-users</role>
+  </user-roles><roles>
+    <role slug="debug" role_id="5162edec67c74e23bc26251709ab4101" role_key="_receiver">Debug</role>
+    <role slug="debug" role_id="5162edec67c74e23bc26251709ab4101" role_key="_debug">Debug</role>
   </roles><options>
     <option varname="autosave" />
     <option varname="child_type_facturation">non</option>
@@ -172,5 +181,4 @@
     <option varname="child_type_id_default_value">1</option>
   </options><custom_views />
   <geolocations />
-  <digest_templates />
 </formdef>

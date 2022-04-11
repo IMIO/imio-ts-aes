@@ -1,5 +1,4 @@
 <category id="1">
-  <name>Portail Parent - Fiches d'inscriptions</name>
-  <url_name>portail-parent-fiches-inscriptions</url_name>
-  <position>1</position>
+  <name>Portail Parent</name>
+  <url_name>portail-parent</url_name>
 </category>

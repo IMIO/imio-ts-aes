@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<formdef id="524" url="https://staging2-formulaires.guichet-citoyen.be/backoffice/forms/524/">
+<formdef id="3" url="https://wcs.dev.publik.love/backoffice/forms/3/">
   <name>Plaines de vacances</name>
   <url_name>plaines-de-vacances</url_name>
   <internal_identifier>plaines-de-vacances</internal_identifier>
@@ -14,8 +14,8 @@
   <include_download_all_button>false</include_download_all_button>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category category_id="101" slug="portail-parent">Portail parent</category>
-  <workflow slug="plaines-de-vacances" workflow_id="263">Plaines de vacances</workflow>
+  <category slug="portail-parent" category_id="1">Portail Parent</category>
+  <workflow slug="plaines-de-vacances" workflow_id="1">Plaines de vacances</workflow>
   <max_field_id>64</max_field_id>
   <fields>
     <field>
@@ -28,10 +28,7 @@
       <varname type="str">id_enfant</varname>
       <value_template type="str">{{request.GET.enfant|default:""}}</value_template>
       <freeze_on_initial_value type="bool">True</freeze_on_initial_value>
-      <data_source>
-        <type>aes_enfants</type>
-        <value>webservice.aes_get_children_by_parent_nrn.get('data')</value>
-      </data_source><id type="str">61</id>
+      <id type="str">61</id>
     </field><field>
       <label type="str">Choisissez l'enfant &#224; inscrire aux plaines</label>
       <type type="str">item</type>
@@ -41,15 +38,14 @@
         <display_location>validation</display_location>
         <display_location>summary</display_location>
         <display_location>listings</display_location>
-      </display_locations><extra_css_class type="str">hidden</extra_css_class>
-      <prefill>
+      </display_locations><prefill>
         <locked>True</locked>
         <type>string</type>
-        <value>{{request.GET.enfant|default:""}}</value>
+        <value>{{ form_var_id_enfant }}</value>
       </prefill><display_mode type="str">radio</display_mode>
       <data_source>
-        <type>aes_enfants</type>
-        <value>webservice.aes_get_children_by_parent_nrn.get('data')</value>
+        <type>portail_parent_enfants</type>
+        <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ form_user_var_aes_id }}/children/</value>
       </data_source><in_filters type="bool">False</in_filters>
       <anonymise type="bool">False</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
@@ -58,7 +54,10 @@
       <label type="str">&lt;p&gt;Vous inscrivez &lt;span class="varname"&gt;{{ form_var_enfant }}&lt;/span&gt; aux plaines de vacances.&lt;/p&gt;
 </label>
       <type type="str">comment</type>
-      <extra_css_class type="str">pk-information</extra_css_class>
+      <condition>
+        <type>django</type>
+        <value>form_var_enfant</value>
+      </condition><extra_css_class type="str">pk-information</extra_css_class>
       <display_locations />
       <id type="str">55</id>
     </field><field>
@@ -91,12 +90,9 @@
       <id type="str">54</id>
     </field>
   </fields><user-roles>
-    <role role_id="97fd62031c1f4b35a219ca964396a445" slug="parent">Parent</role>
-  </user-roles><backoffice-submission-roles>
-    <role role_id="9f94095fe2564f17b88ca929bf3149fc" slug="agents-traitants-portail-parent">Agents traitants - Portail parent</role>
-  </backoffice-submission-roles><roles>
-    <role role_id="9f94095fe2564f17b88ca929bf3149fc" role_key="_receiver" slug="agents-traitants-portail-parent">Agents traitants - Portail parent</role>
-    <role role_id="43190215712647a89376713be142a4f5" role_key="_debug" slug="debug">Debug</role>
+    <role slug="parent" role_id="9568ff2000794db8a6711bd2ff596ceb">Parent</role>
+  </user-roles><roles>
+    <role slug="debug" role_id="5162edec67c74e23bc26251709ab4101" role_key="_debug">Debug</role>
   </roles><options>
     <option varname="categorie_activite">Plaine</option>
     <option varname="categorie_activitie">Plaine</option>
@@ -115,5 +111,4 @@
     <option varname="test" />
   </options><custom_views />
   <geolocations />
-  <digest_templates />
 </formdef>

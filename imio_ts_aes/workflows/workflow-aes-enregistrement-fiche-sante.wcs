@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
-<workflow id="17">
+<workflow id="6" url="https://wcs.dev.publik.love/backoffice/workflows/6/">
   <name>aes - Enregistrement fiche sant&#233;</name>
+  <slug>aes-enregistrement-fiche-sante</slug>
+  <category slug="portail-parent" category_id="1">Portail parent</category>
   <roles>
     <role id="_receiver">Agent traitent</role>
   </roles><possible_status>
@@ -10,56 +12,9 @@
       <colour>FFFFFF</colour>
       <visibility />
       <items>
-        <item id="1" type="jump">
-          <status>2</status>
-          <condition>
-            <type>django</type>
-            <value>form_option_verifier_encodage == 'Non' or form_var_doctor_raw != 'autre'</value>
-          </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item id="2" type="sendmail">
-          <to>
-            <item role_id="_receiver">_receiver</item>
-          </to><subject>Demande d'un nouveau m&#233;decin</subject>
-          <body>Bonjour,
-
-Un nouveau m&#233;decin a &#233;t&#233; enregistr&#233; par {{ session_user_var_first_name }} {{ session_user_var_last_name }}. 
-
-Pourriez-vous v&#233;rifier si ce m&#233;decin a &#233;t&#233; correctement encod&#233; et s'il n'existe pas d&#233;j&#224; dans AES.
-
-Nom du m&#233;decin : {{ form_var_other_doctor_name }}
-
-T&#233;l&#233;phone : {{ form_var_other_doctor_tel }}
-
-GSM : {{ form_var_other_doctor_gsm }}
-
-Adresse : {{ form_var_other_doctor_street }} {{ form_var_other_doctor_zipcode }} {{ form_var_other_doctor_city }}
-
-Pour enregistrer ce nouveau m&#233;decin et le proposer &#224; tous les parents, cliquez sur le bouton ci-dessous :
-
-{% action_button "validate" label="Valider" delay=7 %}
-
-Pour corriger les donn&#233;es encod&#233;es ou signaler que le m&#233;decin existe d&#233;j&#224;, veuillez vous suivre ce lien et vous connecter &#224; la plateforme t&#233;l&#233;service : {{ form_url_backoffice }}</body>
-          <condition>
-            <type>django</type>
-            <value>form_var_doctor_raw == 'autre'</value>
-          </condition>
-        </item><item id="3" type="choice">
-          <label>Il y a une erreur dans l'encodage du parent</label>
-          <by>
-            <item role_id="_receiver">_receiver</item>
-          </by><status>3</status>
-          <require_confirmation>False</require_confirmation>
-          <ignore_form_errors>False</ignore_form_errors>
+        <item type="jump" id="1">
+          <status>5</status>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item id="4" type="choice">
-          <label>Ce m&#233;decin est correctement encod&#233; par le parent</label>
-          <by>
-            <item role_id="_receiver">_receiver</item>
-          </by><status>2</status>
-          <require_confirmation>False</require_confirmation>
-          <ignore_form_errors>False</ignore_form_errors>
-          <set_marker_on_status>False</set_marker_on_status>
-          <identifier>validate</identifier>
         </item>
       </items>
     </status><status>
@@ -68,219 +23,195 @@ Pour corriger les donn&#233;es encod&#233;es ou signaler que le m&#233;decin exi
       <colour>FFFFFF</colour>
       <visibility />
       <items>
-        <item id="1" type="set-backoffice-fields">
-          <label>Centralisation des donn&#233;es du m&#233;decin</label>
-          <fields>
-            <field>
-              <field_id>bo95136f0e-2b2e-4e1f-b45b-6618128adafa</field_id>
-              <value>=locals().get('verified_doctor_var_doctor_raw') if locals().get('verified_doctor_var_is_new_doctor') == "Existe d&#233;j&#224;" else form_var_doctor_raw</value>
-            </field><field>
-              <field_id>bo9b4a4171-d9d8-4e93-991a-8a4745bc9c21</field_id>
-              <value>=locals().get('verified_doctor_var_name') or locals().get('verified_doctor_var_doctor') or form_var_other_doctor_name</value>
-            </field><field>
-              <field_id>boc2dd14c8-365e-487b-b627-a1326756a7fe</field_id>
-              <value>=locals().get('verified_doctor_var_tel') or locals().get('verified_doctor_var_doctor_tel') or form_var_other_doctor_tel</value>
-            </field><field>
-              <field_id>bo66352ab1-8b0e-453a-a3fe-ab81a2160d40</field_id>
-              <value>=locals().get('verified_doctor_var_gsm') or locals().get('verified_doctor_var_doctor_gsm') or form_var_other_doctor_gsm</value>
-            </field><field>
-              <field_id>bo7e4e681e-39d0-4248-ba09-76a674111374</field_id>
-              <value>=locals().get('verified_doctor_var_street') or locals().get('verified_doctor_var_doctor_street') or form_var_other_doctor_street</value>
-            </field><field>
-              <field_id>bo97709d07-7fcd-43c0-b71b-5b3dd14c0224</field_id>
-              <value>=locals().get('verified_doctor_var_zipcode') or locals().get('verified_doctor_var_doctor_zipcode') or form_var_other_doctor_zipcode</value>
-            </field><field>
-              <field_id>bo27dfc8e7-2701-4978-8cb7-62cfd689725f</field_id>
-              <value>=locals().get('verified_doctor_var_city') or locals().get('verified_doctor_var_doctor_city') or form_var_other_doctor_city</value>
-            </field><field>
-              <field_id>bo424a354b-177a-40a7-a959-1f5edba81fad</field_id>
-              <value>=locals().get('verified_doctor_var_country_raw') or locals().get('verified_doctor_var_doctor_country_id') or form_var_other_doctor_country_raw</value>
-            </field>
-          </fields>
-        </item><item id="2" type="webservice_call">
+        <item type="webservice_call" id="2">
           <label>Enregistrement dans AES</label>
-          <url>{{ passerelle_url }}/passerelle-imio-aes-health/aes_health/post_child_health_sheet</url>
-          <method>POST</method>
-          <post>True</post>
-          <response_type>json</response_type>
-          <varname>healthsheet</varname>
-          <action_on_app_error>:stop</action_on_app_error>
-          <action_on_4xx>:stop</action_on_4xx>
-          <action_on_5xx>:stop</action_on_5xx>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/children/{{ form_var_enfant_id }}/healthsheet/update</url>
+          <method>PUT</method>
+          <post>False</post>
+          <post_data>
+            <item>
+              <name>blood_type</name>
+              <value>{{ form_var_blood_type }}</value>
+            </item><item>
+              <name>allergy_selection</name>
+              <value>{{ form_var_allergie_raw }}</value>
+            </item><item>
+              <name>handicap_selection</name>
+              <value>{{ form_var_handicap_raw }}</value>
+            </item><item>
+              <name>level_handicap</name>
+              <value>{{ form_var_level_handicap }}</value>
+            </item><item>
+              <name>specific_regime_selection</name>
+              <value>{{ form_var_has_specific_regime_raw }}</value>
+            </item><item>
+              <name>activity_no_available_selection</name>
+              <value>{{ form_var_activity_no_available_raw }}</value>
+            </item><item>
+              <name>facebook</name>
+              <value>{{ form_var_facebook_raw }}</value>
+            </item><item>
+              <name>photo</name>
+              <value>{{ form_var_photo_raw }}</value>
+            </item><item>
+              <name>swim</name>
+              <value>{{ form_var_swim_raw }}</value>
+            </item><item>
+              <name>swim_level</name>
+              <value>{{ form_var_swim_level_raw }}</value>
+            </item><item>
+              <name>intervention_selection</name>
+              <value>{{ form_var_has_intervention_raw }}</value>
+            </item><item>
+              <name>arnica</name>
+              <value>{{ form_var_arnica_raw }}</value>
+            </item><item>
+              <name>photo_general</name>
+              <value>{{ form_var_photo_general_raw }}</value>
+            </item><item>
+              <name>self_medication</name>
+              <value>{{ form_var_self_medication }}</value>
+            </item><item>
+              <name>to_go_alone</name>
+              <value>{{ form_var_to_go_alone_raw }}</value>
+            </item><item>
+              <name>child_id</name>
+              <value>{{ form_var_enfant_id }}</value>
+            </item><item>
+              <name>tetanus_selection</name>
+              <value>{{ form_var_tetanos_raw }}</value>
+            </item><item>
+              <name>first_date_tetanus</name>
+              <value>{{ form_var_first_date_tetanus|date }}</value>
+            </item><item>
+              <name>last_date_tetanus</name>
+              <value>{{ form_var_last_date_tetanus|date }}</value>
+            </item><item>
+              <name>intervention_text</name>
+              <value>{{ form_var_intervention_text }}</value>
+            </item><item>
+              <name>type_handicap</name>
+              <value>{{ form_var_handicap_text }}</value>
+            </item><item>
+              <name>activity_no_available_text</name>
+              <value>{{ form_var_activity_no_available_text }}</value>
+            </item><item>
+              <name>activity_no_available_reason</name>
+              <value>{{ form_var_activity_no_available_reason }}</value>
+            </item><item>
+              <name>specific_regime_text</name>
+              <value>{{ form_var_specific_regime }}</value>
+            </item><item>
+              <name>allergy_ids</name>
+              <value>{{ form_var_allergies_raw }}</value>
+            </item><item>
+              <name>other_allergies</name>
+              <value>{{ form_var_autres_allergies }}</value>
+            </item><item>
+              <name>allergy_consequence</name>
+              <value>{{ form_var_allergie_consequence }}</value>
+            </item><item>
+              <name>disease_ids</name>
+              <value>{{ form_var_diseases_raw }}</value>
+            </item><item>
+              <name>other_diseases</name>
+              <value>{{ form_var_other_diseases }}</value>
+            </item><item>
+              <name>disease_0_gravity</name>
+              <value>{{ form_var_disease_0_gravity }}</value>
+            </item><item>
+              <name>disease_0_treatment</name>
+              <value>{{ form_var_disease_0_treatment }}</value>
+            </item><item>
+              <name>disease_1_gravity</name>
+              <value>{{ form_var_disease_1_gravity }}</value>
+            </item><item>
+              <name>disease_1_treatment</name>
+              <value>{{ form_var_disease_1_treatment }}</value>
+            </item><item>
+              <name>disease_2_gravity</name>
+              <value>{{ form_var_disease_2_gravity }}</value>
+            </item><item>
+              <name>disease_2_treatment</name>
+              <value>{{ form_var_disease_2_treatment }}</value>
+            </item><item>
+              <name>disease_3_gravity</name>
+              <value>{{ form_var_disease_3_gravity }}</value>
+            </item><item>
+              <name>disease_3_treatment</name>
+              <value>{{ form_var_disease_3_treatment }}</value>
+            </item><item>
+              <name>disease_4_gravity</name>
+              <value>{{ form_var_disease_4_gravity }}</value>
+            </item><item>
+              <name>disease_4_treatment</name>
+              <value>{{ form_var_disease_4_treatment }}</value>
+            </item><item>
+              <name>disease_5_gravity</name>
+              <value>{{ form_var_disease_5_gravity }}</value>
+            </item><item>
+              <name>disease_5_treatment</name>
+              <value>{{ form_var_disease_5_treatment }}</value>
+            </item><item>
+              <name>doctor_id</name>
+              <value>{{ form_workflow_data_doctor_response_odoo_id }}</value>
+            </item><item>
+              <name>contact_0</name>
+              <value>{{ form_var_contact_0_name }} - {{ form_var_contact_0_relation }} - {{ form_var_contact_0_tel }} - {{ form_var_contact_0_street }} - {{ form_var_contact_0_locality }} - {{ form_var_contact_0_country }}</value>
+            </item><item>
+              <name>contact_1</name>
+              <value>{{ form_var_contact_1_name }} - {{ form_var_contact_1_relation }} - {{ form_var_contact_1_tel }} - {{ form_var_contact_1_street }} - {{ form_var_contact_1_locality }} - {{ form_var_contact_1_country }}</value>
+            </item><item>
+              <name>medication_0</name>
+              <value>{{ form_var_medication_0_name }} - {{ form_var_medication_0_quantity }} - {{ form_var_medication_0_period }} - {{ form_var_medication_0_self_medication_raw }}</value>
+            </item><item>
+              <name>medication_1</name>
+              <value>{{ form_var_medication_1_name }} - {{ form_var_medication_1_quantity }} - {{ form_var_medication_1_period }} - {{ form_var_medication_1_self_medication_raw }}</value>
+            </item><item>
+              <name>medication_2</name>
+              <value>{{ form_var_medication_2_name }} - {{ form_var_medication_2_quantity }} - {{ form_var_medication_2_period }} - {{ form_var_medication_2_self_medication_raw }}</value>
+            </item><item>
+              <name>medication_3</name>
+              <value>{{ form_var_medication_3_name }} - {{ form_var_medication_3_quantity }} - {{ form_var_medication_3_period }} - {{ form_var_medication_3_self_medication_raw }}</value>
+            </item><item>
+              <name>medication_4</name>
+              <value>{{ form_var_medication_4_name }} - {{ form_var_medication_4_quantity }} - {{ form_var_medication_4_period }} - {{ form_var_medication_4_self_medication_raw }}</value>
+            </item><item>
+              <name>medication_5</name>
+              <value>{{ form_var_medication_5_name }} - {{ form_var_medication_5_quantity }} - {{ form_var_medication_5_period }} - {{ form_var_medication_5_self_medication_raw }}</value>
+            </item><item>
+              <name>medication_6</name>
+              <value>{{ form_var_medication_6_name }} - {{ form_var_medication_6_quantity }} - {{ form_var_medication_6_period }} - {{ form_var_medication_6_self_medication_raw }}</value>
+            </item><item>
+              <name>medication_7</name>
+              <value>{{ form_var_medication_7_name }} - {{ form_var_medication_7_quantity }} - {{ form_var_medication_7_period }} - {{ form_var_medication_7_self_medication_raw }}</value>
+            </item><item>
+              <name>medication_8</name>
+              <value>{{ form_var_medication_8_name }} - {{ form_var_medication_8_quantity }} - {{ form_var_medication_8_period }} - {{ form_var_medication_8_self_medication_raw }}</value>
+            </item><item>
+              <name>medication_9</name>
+              <value>{{ form_var_medication_9_name }} - {{ form_var_medication_9_quantity }} - {{ form_var_medication_9_period }} - {{ form_var_medication_9_self_medication_raw }}</value>
+            </item>
+          </post_data><response_type>json</response_type>
+          <varname>enregistrement_fiche_sante</varname>
+          <action_on_app_error>6</action_on_app_error>
+          <action_on_4xx>6</action_on_4xx>
+          <action_on_5xx>6</action_on_5xx>
           <action_on_bad_data>:stop</action_on_bad_data>
-          <action_on_network_errors>:stop</action_on_network_errors>
-          <notify_on_errors>True</notify_on_errors>
+          <action_on_network_errors>6</action_on_network_errors>
+          <notify_on_errors>False</notify_on_errors>
           <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
-        </item><item id="3" type="jump">
-          <status>4</status>
+        </item><item type="jump" id="3">
+          <status>6</status>
           <set_marker_on_status>False</set_marker_on_status>
-        </item>
-      </items>
-    </status><status>
-      <id>3</id>
-      <name>Demande d'ajout d'un m&#233;decin</name>
-      <colour>0099FF</colour>
-      <visibility />
-      <items>
-        <item id="1" type="form">
+        </item><item type="choice" id="4">
+          <label>Sauter en erreur</label>
           <by>
-            <item role_id="_receiver">_receiver</item>
-          </by><varname>verified_doctor</varname>
-          <formdef>
-            <name>-</name>
-            <fields>
-              <field>
-                <label>Ce m&#233;decin</label>
-                <type>item</type>
-                <required>True</required>
-                <varname>is_new_doctor</varname>
-                <display_locations />
-                <extra_css_class>newline grid-1-2</extra_css_class>
-                <prefill>
-                  <type>none</type>
-                </prefill><items>
-                  <item>Est bien un nouveau m&#233;decin</item>
-                  <item>Existe d&#233;j&#224;</item>
-                </items><display_mode>radio</display_mode>
-                <in_filters>False</in_filters>
-                <anonymise>False</anonymise>
-                <display_disabled_items>False</display_disabled_items>
-                <id>7</id>
-              </field><field>
-                <label>Il s'agit de</label>
-                <type>item</type>
-                <condition>
-                  <type>django</type>
-                  <value>verified_doctor_var_is_new_doctor == "Existe d&#233;j&#224;"</value>
-                </condition><required>True</required>
-                <varname>doctor</varname>
-                <display_locations />
-                <extra_css_class>newline grid-1-2</extra_css_class>
-                <prefill>
-                  <type>none</type>
-                </prefill><items />
-                <display_mode>autocomplete</display_mode>
-                <data_source>
-                  <type>aes_doctors</type>
-                </data_source><in_filters>False</in_filters>
-                <anonymise>False</anonymise>
-                <display_disabled_items>False</display_disabled_items>
-                <id>8</id>
-              </field><field>
-                <label>Docteur</label>
-                <type>string</type>
-                <condition>
-                  <type>django</type>
-                  <value>verified_doctor_var_is_new_doctor == "Est bien un nouveau m&#233;decin"</value>
-                </condition><required>True</required>
-                <hint>Pr&#233;nom et nom du m&#233;decin traitant</hint>
-                <varname>name</varname>
-                <display_locations />
-                <extra_css_class>newline grid-1-2</extra_css_class>
-                <prefill>
-                  <type>formula</type>
-                  <value>form_var_other_doctor_name</value>
-                </prefill><anonymise>True</anonymise>
-                <id>6</id>
-              </field><field>
-                <label>T&#233;l&#233;phone</label>
-                <type>string</type>
-                <condition>
-                  <type>django</type>
-                  <value>verified_doctor_var_is_new_doctor == "Est bien un nouveau m&#233;decin"</value>
-                </condition><required>False</required>
-                <varname>tel</varname>
-                <display_locations />
-                <extra_css_class>newline grid-1-4</extra_css_class>
-                <prefill>
-                  <type>formula</type>
-                  <value>form_var_other_doctor_tel</value>
-                </prefill><anonymise>True</anonymise>
-                <id>4</id>
-              </field><field>
-                <label>GSM</label>
-                <type>string</type>
-                <condition>
-                  <type>django</type>
-                  <value>verified_doctor_var_is_new_doctor == "Est bien un nouveau m&#233;decin"</value>
-                </condition><required>False</required>
-                <varname>gsm</varname>
-                <display_locations />
-                <extra_css_class>grid-1-4</extra_css_class>
-                <prefill>
-                  <type>formula</type>
-                  <value>form_var_other_doctor_gsm</value>
-                </prefill><anonymise>True</anonymise>
-                <id>5</id>
-              </field><field>
-                <label>Rue et num&#233;ro</label>
-                <type>string</type>
-                <condition>
-                  <type>django</type>
-                  <value>verified_doctor_var_is_new_doctor == "Est bien un nouveau m&#233;decin"</value>
-                </condition><required>False</required>
-                <varname>street</varname>
-                <display_locations />
-                <extra_css_class>newline grid-1-2</extra_css_class>
-                <prefill>
-                  <type>formula</type>
-                  <value>form_var_other_doctor_street</value>
-                </prefill><anonymise>True</anonymise>
-                <id>1</id>
-              </field><field>
-                <label>Code postal</label>
-                <type>string</type>
-                <condition>
-                  <type>django</type>
-                  <value>verified_doctor_var_is_new_doctor == "Est bien un nouveau m&#233;decin"</value>
-                </condition><required>False</required>
-                <varname>zipcode</varname>
-                <display_locations />
-                <extra_css_class>newline grid-2-12</extra_css_class>
-                <prefill>
-                  <type>formula</type>
-                  <value>form_var_other_doctor_zipcode</value>
-                </prefill><anonymise>True</anonymise>
-                <id>2</id>
-              </field><field>
-                <label>Localit&#233;</label>
-                <type>string</type>
-                <condition>
-                  <type>django</type>
-                  <value>verified_doctor_var_is_new_doctor == "Est bien un nouveau m&#233;decin"</value>
-                </condition><required>False</required>
-                <varname>city</varname>
-                <display_locations />
-                <extra_css_class>grid-4-12</extra_css_class>
-                <prefill>
-                  <type>formula</type>
-                  <value>form_var_other_doctor_city</value>
-                </prefill><anonymise>True</anonymise>
-                <id>3</id>
-              </field><field>
-                <label>Pays</label>
-                <type>item</type>
-                <required>True</required>
-                <varname>country</varname>
-                <display_locations />
-                <extra_css_class>newline grid-1-2</extra_css_class>
-                <prefill>
-                  <type>formula</type>
-                  <value>form_var_other_doctor_country_raw</value>
-                </prefill><items />
-                <display_mode>list</display_mode>
-                <data_source>
-                  <type>aes_countries</type>
-                </data_source><in_filters>False</in_filters>
-                <anonymise>False</anonymise>
-                <display_disabled_items>False</display_disabled_items>
-                <id>9</id>
-              </field>
-            </fields>
-          </formdef>
-        </item><item id="2" type="jumponsubmit">
-          <status>2</status>
+            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+          </by><status>6</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
@@ -290,128 +221,113 @@ Pour corriger les donn&#233;es encod&#233;es ou signaler que le m&#233;decin exi
       <colour>00FF00</colour>
       <visibility />
       <items />
+    </status><status>
+      <id>5</id>
+      <name>Enregistrement du m&#233;decin</name>
+      <colour>FFFFFF</colour>
+      <visibility>
+        <role>_receiver</role>
+      </visibility><items>
+        <item type="webservice_call" id="1">
+          <label>Enregistrement du m&#233;decin</label>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/doctors/create</url>
+          <method>POST</method>
+          <post>False</post>
+          <post_data>
+            <item>
+              <name>firstname</name>
+              <value>{{ form_var_other_doctor_firstname }}</value>
+            </item><item>
+              <name>lastname</name>
+              <value>{{ form_var_other_doctor_lastname }}</value>
+            </item><item>
+              <name>street</name>
+              <value>{{ form_var_other_doctor_street }}</value>
+            </item><item>
+              <name>phone</name>
+              <value>{{ form_var_other_doctor_tel }}</value>
+            </item><item>
+              <name>mobile</name>
+              <value>{{ form_var_other_doctor_gsm }}</value>
+            </item><item>
+              <name>locality_id</name>
+              <value>{{ form_var_other_doctor_locality_raw }}</value>
+            </item><item>
+              <name>country_id</name>
+              <value>{{ form_var_other_doctor_country_raw }}</value>
+            </item><item>
+              <name>zip</name>
+              <value>{{ form_var_other_doctor_zipcode }}</value>
+            </item>
+          </post_data><response_type>json</response_type>
+          <varname>doctor</varname>
+          <action_on_app_error>:pass</action_on_app_error>
+          <action_on_4xx>:stop</action_on_4xx>
+          <action_on_5xx>:stop</action_on_5xx>
+          <action_on_bad_data>:pass</action_on_bad_data>
+          <action_on_network_errors>:stop</action_on_network_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <record_on_errors>True</record_on_errors>
+          <record_errors>False</record_errors>
+        </item><item type="jump" id="2">
+          <status>2</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item type="choice" id="3">
+          <label>Rejouer</label>
+          <by>
+            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+          </by><status>1</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>6</id>
+      <name>Erreur lors de l'enregistrement</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item type="choice" id="1">
+          <label>Retenter l'enregistrement</label>
+          <by>
+            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+          </by><status>2</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
     </status>
   </possible_status><variables>
     <formdef>
       <name>-</name>
       <fields>
         <field>
-          <label>Questions &#224; poser aux parents</label>
-          <type>items</type>
-          <required>False</required>
-          <varname>questions</varname>
+          <label type="str">Questions &#224; poser aux parents</label>
+          <type type="str">items</type>
+          <required type="bool">False</required>
+          <varname type="str">questions</varname>
           <display_locations>
             <display_location>summary</display_location>
           </display_locations><prefill>
             <type>none</type>
           </prefill><items />
-          <min_choices>0</min_choices>
-          <max_choices>0</max_choices>
+          <min_choices type="int">0</min_choices>
+          <max_choices type="int">0</max_choices>
           <data_source>
             <type>aes_questions_fiche_sante</type>
-          </data_source><in_filters>False</in_filters>
-          <anonymise>True</anonymise>
-          <display_disabled_items>False</display_disabled_items>
-          <id>1</id>
-        </field><field>
-          <label>V&#233;rifier l'encodage du parent pour &#233;viter les doublons</label>
-          <type>item</type>
-          <required>True</required>
-          <varname>verifier_encodage</varname>
-          <display_locations />
-          <prefill>
-            <locked>False</locked>
-            <type>none</type>
-          </prefill><items>
-            <item>Oui</item>
-            <item>Non</item>
-          </items><display_mode>radio</display_mode>
-          <in_filters>False</in_filters>
-          <anonymise>False</anonymise>
-          <display_disabled_items>False</display_disabled_items>
-          <initial_zoom>13</initial_zoom>
-          <id>2</id>
+          </data_source><in_filters type="bool">False</in_filters>
+          <anonymise type="bool">True</anonymise>
+          <display_disabled_items type="bool">False</display_disabled_items>
+          <id type="str">1</id>
         </field>
       </fields>
     </formdef>
   </variables><backoffice-fields>
     <formdef>
       <name>-</name>
-      <fields>
-        <field>
-          <label>Identifiant du m&#233;decin</label>
-          <type>string</type>
-          <required>True</required>
-          <varname>verified_doctor_id</varname>
-          <display_locations>
-            <display_location>summary</display_location>
-          </display_locations><anonymise>True</anonymise>
-          <id>bo95136f0e-2b2e-4e1f-b45b-6618128adafa</id>
-        </field><field>
-          <label>Nom du m&#233;decin</label>
-          <type>string</type>
-          <required>True</required>
-          <varname>verified_doctor_name</varname>
-          <display_locations>
-            <display_location>summary</display_location>
-          </display_locations><anonymise>True</anonymise>
-          <id>bo9b4a4171-d9d8-4e93-991a-8a4745bc9c21</id>
-        </field><field>
-          <label>Num&#233;ro de t&#233;l&#233;phone du m&#233;decin</label>
-          <type>string</type>
-          <required>True</required>
-          <varname>verified_doctor_tel</varname>
-          <display_locations>
-            <display_location>summary</display_location>
-          </display_locations><anonymise>True</anonymise>
-          <id>boc2dd14c8-365e-487b-b627-a1326756a7fe</id>
-        </field><field>
-          <label>Num&#233;ro de GSM du m&#233;decin</label>
-          <type>string</type>
-          <required>True</required>
-          <varname>verified_doctor_gsm</varname>
-          <display_locations>
-            <display_location>summary</display_location>
-          </display_locations><anonymise>True</anonymise>
-          <id>bo66352ab1-8b0e-453a-a3fe-ab81a2160d40</id>
-        </field><field>
-          <label>Rue et num&#233;ro de porte du m&#233;decin</label>
-          <type>string</type>
-          <required>True</required>
-          <varname>verified_doctor_street</varname>
-          <display_locations>
-            <display_location>summary</display_location>
-          </display_locations><anonymise>True</anonymise>
-          <id>bo7e4e681e-39d0-4248-ba09-76a674111374</id>
-        </field><field>
-          <label>Code postal du m&#233;decin</label>
-          <type>string</type>
-          <required>True</required>
-          <varname>verified_doctor_zipcode</varname>
-          <display_locations>
-            <display_location>summary</display_location>
-          </display_locations><anonymise>True</anonymise>
-          <id>bo97709d07-7fcd-43c0-b71b-5b3dd14c0224</id>
-        </field><field>
-          <label>Localit&#233; du m&#233;decin</label>
-          <type>string</type>
-          <required>True</required>
-          <varname>verified_doctor_city</varname>
-          <display_locations>
-            <display_location>summary</display_location>
-          </display_locations><anonymise>True</anonymise>
-          <id>bo27dfc8e7-2701-4978-8cb7-62cfd689725f</id>
-        </field><field>
-          <label>Identifiant du pays du m&#233;decin</label>
-          <type>string</type>
-          <required>True</required>
-          <varname>verified_doctor_country</varname>
-          <display_locations>
-            <display_location>summary</display_location>
-          </display_locations><anonymise>True</anonymise>
-          <id>bo424a354b-177a-40a7-a959-1f5edba81fad</id>
-        </field>
-      </fields>
+      <fields />
     </formdef>
   </backoffice-fields>
 </workflow>

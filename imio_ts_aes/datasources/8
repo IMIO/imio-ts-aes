@@ -1,8 +1,9 @@
-<datasources id="8">
-  <name>AES Swim levels</name>
-  <slug>aes_swim_levels</slug>
+<datasource id="8">
+  <name>AES Oui - Non</name>
+  <slug>aes_oui_non</slug>
+  <description>Juste un oui - non, mais avec True et False, par facilit&#233;.</description>
   <data_source>
-    <type>json</type>
-    <value>{{ passerelle_url }}/passerelle-imio-aes-health/aes_health/get_swim_levels</value>
+    <type>formula</type>
+    <value>[{'id':'oui','text':'Oui'}, {'id':'non', 'text':'Non'},{'id':'non_renseigne', 'text':'Non renseign&#233;'}]</value>
   </data_source>
-</datasources>
+</datasource>
