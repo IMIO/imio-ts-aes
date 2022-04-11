@@ -1,0 +1,13 @@
+<datasource id="12">
+  <name>Portail Parent - Implantations scolaires</name>
+  <slug>implantations_scolaires</slug>
+  <description>Implantations scolaires issues de AES pour le Portail Parent.</description>
+  <cache_duration>600</cache_duration>
+  <data_attribute>items</data_attribute>
+  <id_attribute>id</id_attribute>
+  <text_attribute>name</text_attribute>
+  <data_source>
+    <type>json</type>
+    <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/places</value>
+  </data_source>
+</datasource>

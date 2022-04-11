@@ -1,0 +1,237 @@
+<?xml version="1.0"?>
+<workflow id="7" url="https://wcs.dev.publik.love/backoffice/workflows/7/">
+  <name>Enregistrement d'un parent</name>
+  <slug>enregistrement-d-un-parent</slug>
+  <category slug="portail-parent" category_id="1">Portail parent</category>
+  <roles>
+    <role id="_receiver">Agent traitant</role>
+  </roles><possible_status>
+    <status>
+      <id>3</id>
+      <name>Enregistrement en cours</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item type="jump" id="1">
+          <status>1</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>1</id>
+      <name>Recherche du parent</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item type="webservice_call" id="1">
+          <label>Recherche du parent</label>
+          <url>{{ passerelle_url}}passerelle-imio-ia-aes/aes/parents</url>
+          <qs_data>
+            <item>
+              <name>national_number</name>
+              <value>{{ form_var_registre_national|default:"" }}</value>
+            </item><item>
+              <name>registration_number</name>
+              <value>{{ form_var_matricule|default:"" }}</value>
+            </item>
+          </qs_data><method>GET</method>
+          <post>False</post>
+          <response_type>json</response_type>
+          <varname>recherche</varname>
+          <action_on_app_error>5</action_on_app_error>
+          <action_on_4xx>5</action_on_4xx>
+          <action_on_5xx>5</action_on_5xx>
+          <action_on_bad_data>5</action_on_bad_data>
+          <action_on_network_errors>5</action_on_network_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <record_on_errors>True</record_on_errors>
+          <record_errors>False</record_errors>
+        </item><item type="jump" id="2">
+          <status>2</status>
+          <condition>
+            <type>django</type>
+            <value>not form_workflow_data_recherche_response_parent_id</value>
+          </condition><set_marker_on_status>False</set_marker_on_status>
+        </item><item type="jump" id="3">
+          <status>4</status>
+          <condition>
+            <type>django</type>
+            <value>form_workflow_data_recherche_response_parent_id</value>
+          </condition><set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>2</id>
+      <name>Cr&#233;ation du parent</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item type="webservice_call" id="1">
+          <label>Cr&#233;ation du parent</label>
+          <url>{{ passerelle_url}}/passerelle-imio-ia-aes/aes/create-parent</url>
+          <method>POST</method>
+          <post>False</post>
+          <post_data>
+            <item>
+              <name>firstname</name>
+              <value>{{ form_user_var_first_name }}</value>
+            </item><item>
+              <name>lastname</name>
+              <value>{{ form_user_var_last_name }}</value>
+            </item><item>
+              <name>email</name>
+              <value>{{ form_user_email }}</value>
+            </item><item>
+              <name>phone</name>
+              <value>{{ form_user_var_phone }}</value>
+            </item><item>
+              <name>street</name>
+              <value>{% firstof form_user_var_address form_user_var_street %}</value>
+            </item><item>
+              <name>locality</name>
+              <value>{{ form_user_var_city }}</value>
+            </item><item>
+              <name>is_company</name>
+              <value>{{ False }}</value>
+            </item><item>
+              <name>national_number</name>
+              <value>{{ form_user_var_niss }}</value>
+            </item><item>
+              <name>registration_number</name>
+              <value>{{ form_var_matricule }}</value>
+            </item><item>
+              <name>zipcode</name>
+              <value>{{ form_user_var_zipcode }}</value>
+            </item><item>
+              <name>country</name>
+              <value>{% firstof form_user_var_country "belgique" %}</value>
+            </item>
+          </post_data><response_type>json</response_type>
+          <varname>creation_parent</varname>
+          <action_on_app_error>6</action_on_app_error>
+          <action_on_4xx>6</action_on_4xx>
+          <action_on_5xx>6</action_on_5xx>
+          <action_on_bad_data>6</action_on_bad_data>
+          <action_on_network_errors>6</action_on_network_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <record_on_errors>True</record_on_errors>
+          <record_errors>False</record_errors>
+        </item><item type="jump" id="2">
+          <status>4</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>4</id>
+      <name>Enregistrement valid&#233;</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item type="update_user_profile" id="1">
+          <fields>
+            <field>
+              <field_id>aes_id</field_id>
+              <value>{% firstof form_workflow_data_creation_parent_response_odoo_id form_workflow_data_recherche_response_parent_id %}</value>
+            </field>
+          </fields>
+        </item><item type="jump" id="2">
+          <status>7</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>5</id>
+      <name>Erreur dans la recherche</name>
+      <colour>FF0000</colour>
+      <visibility />
+      <items>
+        <item type="displaymsg" id="2">
+          <message>Une erreur est survenue lors de la recherche d'un parent. Celui-ci n'a donc pas pu &#234;tre retrouv&#233; ou cr&#233;&#233; dans iA.AES, et ne peut poursuivre les inscriptions de ses enfants.</message>
+          <level>error</level>
+          <position>top</position>
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to>
+        </item><item type="sendmail" id="3">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to><subject>Erreur lors de la recherche d'un parent, formulaire {{ form_name }} n&#176;{{ form_number }}</subject>
+          <body>Une erreur est survenue lors de la recherche d'un parent. Celui-ci n'a donc pas pu &#234;tre retrouv&#233; ou cr&#233;&#233; dans iA.AES, et ne peut poursuivre les inscriptions de ses enfants.
+
+Veuillez consulter la demande.
+
+`Consulter la demande &lt;{{ form_url_backoffice }}&gt;`_
+
+Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le support d'iMio
+
+`Consulter la demande &lt;support.imio.be&gt;`_</body>
+        </item><item type="choice" id="1">
+          <label>Rechercher le parent</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>1</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Cette action relance la recherche du parent. &amp;Agrave; n&amp;#39;utiliser que si les probl&amp;egrave;mes rencontr&amp;eacute;s ont &amp;eacute;t&amp;eacute; r&amp;eacute;solus.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>6</id>
+      <name>Erreur lors de l'enregistrement</name>
+      <colour>FF0000</colour>
+      <visibility />
+      <items>
+        <item type="displaymsg" id="1">
+          <message>Une erreur est survenue lors de la cr&#233;ation d'un parent. Celui-ci n'existait pas dans iA.AES et n'a pu &#234;tre cr&#233;&#233;. Il ne peut donc r&#233;aliser les inscriptions de ses enfants.</message>
+          <level>error</level>
+          <position>top</position>
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to>
+        </item><item type="sendmail" id="2">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to><subject>Erreur lors de la cr&#233;ation d'un parent, formulaire {{ form_name }} n&#176;{{ form_number }}</subject>
+          <body>Une erreur est survenue lors de la cr&#233;ation d'un parent. Celui-ci n'existait pas dans iA.AES et n'a pu &#234;tre cr&#233;&#233;. Il ne peut donc r&#233;aliser les inscriptions de ses enfants.
+
+Veuillez consulter la demande.
+
+`Consulter la demande &lt;{{ form_url_backoffice }}&gt;`_
+
+Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le support d'iMio
+
+`Consulter la demande &lt;support.imio.be&gt;`_</body>
+        </item><item type="choice" id="3">
+          <label>Cr&#233;er le parent</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>2</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Une fois la source du probl&amp;egrave;me r&amp;eacute;solu, vous pouvez retenter de cr&amp;eacute;er le parent dans iA.AES.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>7</id>
+      <name>Enregistrement termin&#233;</name>
+      <colour>00FF00</colour>
+      <visibility />
+      <items>
+        <item type="sendmail" id="1">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>Votre enregistrement en tant que parent</subject>
+          <body>Bonjour,
+
+Vous avez bien &#233;t&#233; enregistr&#233; en tant que parent.
+
+Cordialement,</body>
+        </item>
+      </items>
+    </status>
+  </possible_status>
+</workflow>

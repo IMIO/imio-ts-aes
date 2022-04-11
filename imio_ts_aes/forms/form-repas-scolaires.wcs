@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<formdef id="10" url="https://wcs.dev.publik.love/backoffice/forms/10/">
+  <name>Repas scolaires</name>
+  <url_name>repas-scolaires</url_name>
+  <internal_identifier>repas-scolaires</internal_identifier>
+  <discussion>false</discussion>
+  <detailed_emails>true</detailed_emails>
+  <disabled>false</disabled>
+  <only_allow_one>false</only_allow_one>
+  <enable_tracking_codes>false</enable_tracking_codes>
+  <confirmation>true</confirmation>
+  <always_advertise>false</always_advertise>
+  <include_download_all_button>false</include_download_all_button>
+  <has_captcha>false</has_captcha>
+  <skip_from_360_view>false</skip_from_360_view>
+  <category slug="portail-parent" category_id="1">Portail Parent</category>
+  <workflow slug="aes-inscription-aux-repas" workflow_id="10">aes - Inscription aux repas</workflow>
+  <max_field_id>55</max_field_id>
+  <fields>
+    <field>
+      <label type="str">S&#233;lection des repas</label>
+      <type type="str">page</type>
+      <id type="str">47</id>
+    </field><field>
+      <label type="str">Identifiant de l'enfant</label>
+      <type type="str">computed</type>
+      <varname type="str">id_enfant</varname>
+      <value_template type="str">{{request.GET.enfant|default:""}}</value_template>
+      <freeze_on_initial_value type="bool">True</freeze_on_initial_value>
+      <id type="str">53</id>
+    </field><field>
+      <label type="str">Choisissez l'enfant &#224; inscrire aux plaines</label>
+      <type type="str">item</type>
+      <required type="bool">True</required>
+      <varname type="str">enfant</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
+        <locked>True</locked>
+        <type>string</type>
+        <value>{{ form_var_id_enfant }}</value>
+      </prefill><display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>portail_parent_enfants</type>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">54</id>
+    </field><field>
+      <label type="str">Menu</label>
+      <type type="str">items</type>
+      <required type="bool">True</required>
+      <hint type="str">calendrier</hint>
+      <varname type="str">menu</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">calendrier</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>none</type>
+      </prefill><min_choices type="int">0</min_choices>
+      <max_choices type="int">0</max_choices>
+      <data_source>
+        <type>portail_parent_repas_scolaires</type>
+        <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/menus?child_id=22&amp;month=1</value>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">True</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">39</id>
+    </field>
+  </fields><user-roles>
+    <role slug="parent" role_id="9568ff2000794db8a6711bd2ff596ceb">Parent</role>
+  </user-roles><backoffice-submission-roles>
+    <role slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</role>
+  </backoffice-submission-roles><roles>
+    <role slug="debug" role_id="5162edec67c74e23bc26251709ab4101" role_key="_debug">Debug</role>
+  </roles><options>
+    <option varname="implantations_scolaires" />
+    <option varname="implantations_scolaires_display" />
+    <option varname="implantations_scolaires_structured" />
+    <option varname="mois">1</option>
+    <option varname="mois_display">Mois prochain</option>
+    <option varname="mois_structured" />
+    <option varname="test" />
+  </options><custom_views />
+  <geolocations />
+</formdef>

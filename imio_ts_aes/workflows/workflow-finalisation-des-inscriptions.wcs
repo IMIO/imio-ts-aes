@@ -1,0 +1,559 @@
+<?xml version="1.0"?>
+<workflow id="2" url="https://wcs.dev.publik.love/backoffice/workflows/2/">
+  <name>Finalisation des inscriptions</name>
+  <slug>finalisation-des-inscriptions</slug>
+  <category slug="portail-parent" category_id="1">Portail parent</category>
+  <roles>
+    <role id="_receiver">Agent traitant</role>
+  </roles><possible_status>
+    <status>
+      <id>7</id>
+      <name>Juste envoy&#233;</name>
+      <colour>FFFFFF</colour>
+      <visibility>
+        <role>_receiver</role>
+      </visibility><items>
+        <item type="set-backoffice-fields" id="1">
+          <label>Liste des enfants</label>
+          <fields>
+            <field>
+              <field_id>bob83465d0-0d08-48c2-abec-3fff36b18325</field_id>
+              <value>{% regroup forms|objects:"fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de validation" by var.enfant.structured.name as enfants %}{% for enfant in enfants %}{{ enfant.grouper }}{% if not forloop.last %},{% endif %}{% endfor %}</value>
+            </field><field>
+              <field_id>bo05ae962d-cb56-4c1d-b44a-ccdefe25b71d</field_id>
+              <value>{% regroup forms|objects:"fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de validation" by submission_context as demandes %}{% for demande in demandes %}{{ demande.grouper.orig_formdata_id }}{% if not forloop.last %},{% endif %}{% endfor %}</value>
+            </field><field>
+              <field_id>bob83465d0-0d08-48c2-abec-3fff36b18325</field_id>
+              <value>=",".join(set(form_var_enfants.split(",")))</value>
+            </field><field>
+              <field_id>bo05ae962d-cb56-4c1d-b44a-ccdefe25b71d</field_id>
+              <value>=",".join(set(form_var_inscriptions_concernees.split(",")))</value>
+            </field>
+          </fields>
+        </item><item type="jump" id="2">
+          <status>3</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>3</id>
+      <name>Validation des inscriptions</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item type="external_workflow_global_action" id="1">
+          <slug>formdef:fiche-inscription-plaine</slug>
+          <trigger_id>action:validate</trigger_id>
+          <target_mode>manual</target_mode>
+          <target_id>{{ forms|objects:"fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de validation" }}</target_id>
+        </item><item type="register-comment" id="2">
+          <comment>&lt;div&gt;Les inscriptions suivantes seront valid&#233;es et ajout&#233;es au panier :
+&lt;ul&gt;{% for registration in forms|objects:"fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de paiement" %}
+    &lt;li&gt;{{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }}&lt;/li&gt;
+{% endfor %}&lt;/ul&gt;&lt;/div&gt;</comment>
+        </item><item type="jump" id="3">
+          <status>1</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>1</id>
+      <name>Demande du montant</name>
+      <colour>FFFFFF</colour>
+      <visibility>
+        <role>_receiver</role>
+      </visibility><items>
+        <item type="webservice_call" id="1">
+          <label>Calcul du montant</label>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/registrations/cost</url>
+          <qs_data>
+            <item>
+              <name>form_numbers</name>
+              <value>{% for form_number in form_var_inscriptions_concernees|split:"," %}{% if not forloop.first %}&amp;form_numbers={% endif %}{{ form_number }}{% endfor %}</value>
+            </item>
+          </qs_data><method>GET</method>
+          <post>False</post>
+          <response_type>json</response_type>
+          <varname>montant</varname>
+          <action_on_app_error>8</action_on_app_error>
+          <action_on_4xx>8</action_on_4xx>
+          <action_on_5xx>8</action_on_5xx>
+          <action_on_bad_data>:pass</action_on_bad_data>
+          <action_on_network_errors>:stop</action_on_network_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <record_on_errors>True</record_on_errors>
+          <record_errors>False</record_errors>
+          <condition>
+            <type>django</type>
+            <value>form_option_mode_paiement == "Paiement en ligne" or form_option_calcul_montant == "Demander le montant &#224; AES"</value>
+          </condition>
+        </item><item type="form" id="2">
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><varname>calcul</varname>
+          <condition>
+            <type>django</type>
+            <value>form_option_calcul_montant == "Calculer le montant manuellement" and form_option_mode_paiement == "Paiement par virement"</value>
+          </condition><formdef>
+            <name>-</name>
+            <fields>
+              <field>
+                <label type="str">Montant total &#224; payer</label>
+                <type type="str">string</type>
+                <required type="bool">True</required>
+                <varname type="str">montant</varname>
+                <display_locations />
+                <prefill>
+                  <type>none</type>
+                </prefill><anonymise type="bool">True</anonymise>
+                <id type="str">1</id>
+              </field>
+            </fields>
+          </formdef>
+        </item><item type="jump" id="3">
+          <status>9</status>
+          <condition>
+            <type>django</type>
+            <value>form_option_mode_paiement == "Paiement par virement"</value>
+          </condition><set_marker_on_status>False</set_marker_on_status>
+        </item><item type="jump" id="4">
+          <status>2</status>
+          <condition>
+            <type>django</type>
+            <value>form_option_mode_paiement == "Paiement en ligne"</value>
+          </condition><set_marker_on_status>False</set_marker_on_status>
+        </item><item type="jump" id="5">
+          <status>11</status>
+          <condition>
+            <type>django</type>
+            <value>form_option_mode_paiement == "Paiement diff&#233;r&#233;"</value>
+          </condition><set_marker_on_status>False</set_marker_on_status>
+        </item><item type="jumponsubmit" id="6">
+          <status>9</status>
+          <set_marker_on_status>False</set_marker_on_status>
+          <condition>
+            <type>django</type>
+            <value>form_option_calcul_montant == "Calculer le montant manuellement" and form_option_mode_paiement == "Paiement par virement"</value>
+          </condition>
+        </item>
+      </items>
+    </status><status>
+      <id>8</id>
+      <name>Erreur lors du calcul du montant</name>
+      <colour>FF0000</colour>
+      <visibility>
+        <role>_receiver</role>
+      </visibility><items>
+        <item type="choice" id="1">
+          <label>Calculer le total</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+          </by><status>1</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Une fois la source de l&amp;#39;erreur identifi&amp;eacute;e et celle-ci corrig&amp;eacute;e, il est possible de redemander &amp;agrave; AES de calculer le montant &amp;agrave; payer.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>2</id>
+      <name>Ajout au panier</name>
+      <colour>FFFFFF</colour>
+      <visibility>
+        <role>_receiver</role>
+      </visibility><items>
+        <item type="webservice_call" id="1">
+          <label>Ajout au panier</label>
+          <url>{{ portal_url }}api/lingo/add-basket-item?NameId={{ form_user_name_identifier_0 }}</url>
+          <qs_data>
+            <item>
+              <name>regie_id</name>
+              <value>{{form_option_regie_de_paiement_raw}}</value>
+            </item>
+          </qs_data><method>POST</method>
+          <post>False</post>
+          <post_data>
+            <item>
+              <name>display_name</name>
+              <value>{{ form_display_name }}</value>
+            </item><item>
+              <name>url</name>
+              <value>{{ form_url }}</value>
+            </item><item>
+              <name>amount</name>
+              <value>{{ form_workflow_data_montant_response_cost|decimal:2 }}</value>
+            </item>
+          </post_data><response_type>json</response_type>
+          <varname>paiement</varname>
+          <action_on_app_error>:pass</action_on_app_error>
+          <action_on_4xx>:stop</action_on_4xx>
+          <action_on_5xx>:stop</action_on_5xx>
+          <action_on_bad_data>:pass</action_on_bad_data>
+          <action_on_network_errors>:stop</action_on_network_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <record_on_errors>True</record_on_errors>
+          <record_errors>False</record_errors>
+        </item><item type="jump" id="2">
+          <status>4</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>4</id>
+      <name>En attente de paiement</name>
+      <colour>FFFF99</colour>
+      <visibility />
+      <items>
+        <item type="displaymsg" id="1">
+          <message>&lt;p&gt;Veuillez r&#233;gler &lt;a href="{{ portal_url }}panier/"&gt;votre panier&lt;/a&gt; afin de finaliser les inscriptions.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="{{ portal_url }}panier/" class="pk-button"&gt;R&#233;gler mon panier&lt;/a&gt;&lt;/p&gt;</message>
+          <level>info</level>
+          <position>top</position>
+        </item><item type="jump" id="2">
+          <status>5</status>
+          <trigger>paid</trigger>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item type="jump" id="3">
+          <status>13</status>
+          <trigger>cancelled</trigger>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item type="choice" id="4">
+          <label>Payer au guichet</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>14</status>
+          <require_confirmation>True</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Indiquer que le paiement a &amp;eacute;t&amp;eacute; r&amp;eacute;alis&amp;eacute; au guichet. Cette action vide le panier de l&amp;#39;utilisateur et cl&amp;ocirc;ture la demande.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>13</id>
+      <name>Annulation des inscriptions</name>
+      <colour>999999</colour>
+      <visibility />
+      <items>
+        <item type="webservice_call" id="1">
+          <label>Vider le panier</label>
+          <url>{{ portal_url }}/api/lingo/remove-basket-item?NameId={{ form_user_name_identifier_0 }}</url>
+          <method>POST</method>
+          <post>False</post>
+          <post_data>
+            <item>
+              <name>basket_item_id</name>
+              <value>{{paiement_response_id}}</value>
+            </item><item>
+              <name>skip_notification</name>
+              <value>skip</value>
+            </item>
+          </post_data><response_type>json</response_type>
+          <varname>vide_panier</varname>
+          <action_on_app_error>:pass</action_on_app_error>
+          <action_on_4xx>:stop</action_on_4xx>
+          <action_on_5xx>:stop</action_on_5xx>
+          <action_on_bad_data>:pass</action_on_bad_data>
+          <action_on_network_errors>:stop</action_on_network_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <record_on_errors>True</record_on_errors>
+          <record_errors>False</record_errors>
+        </item><item type="external_workflow_global_action" id="2">
+          <slug>formdef:fiche-inscription-plaine</slug>
+          <trigger_id>action:cancel</trigger_id>
+          <target_mode>manual</target_mode>
+          <target_id>{{ forms|objects:"fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de paiement" }}</target_id>
+        </item>
+      </items>
+    </status><status>
+      <id>14</id>
+      <name>Paiement au guichet</name>
+      <colour>FFFF00</colour>
+      <visibility />
+      <items>
+        <item type="webservice_call" id="1">
+          <label>Vider le panier</label>
+          <url>{{ portal_url }}/api/lingo/remove-basket-item?NameId={{ form_user_name_identifier_0 }}</url>
+          <method>POST</method>
+          <post>False</post>
+          <post_data>
+            <item>
+              <name>basket_item_id</name>
+              <value>{{paiement_response_id}}</value>
+            </item><item>
+              <name>skip_notification</name>
+              <value>skip</value>
+            </item>
+          </post_data><response_type>json</response_type>
+          <varname>vide_panier</varname>
+          <action_on_app_error>:pass</action_on_app_error>
+          <action_on_4xx>:stop</action_on_4xx>
+          <action_on_5xx>:stop</action_on_5xx>
+          <action_on_bad_data>:pass</action_on_bad_data>
+          <action_on_network_errors>:stop</action_on_network_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <record_on_errors>True</record_on_errors>
+          <record_errors>False</record_errors>
+        </item><item type="jump" id="2">
+          <status>5</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>9</id>
+      <name>En attente de virement</name>
+      <colour>FFFF00</colour>
+      <visibility />
+      <items>
+        <item type="sendmail" id="1">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>{{ form_name }} n&#176;{{ form_number }}</subject>
+          <body>**Merci pour vos inscriptions !**
+
+Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en mentionnant les instructions de paiement suivantes :
+
+* B&#233;n&#233;ficiaire : **Ville de {{ commune_name }} - {{ administration_adresse }}**
+* Num&#233;ro de compte b&#233;n&#233;ficiaire (IBAN) : **{{ form_option_iban }}**
+* R&#233;f&#233;rence de la commande (communication libre) : **{{ form_number }}**
+* Montant de la commande : **{% firstof montant_response form_workflow_form_calcul_var_montant %}**</body>
+        </item><item type="displaymsg" id="2">
+          <message>&lt;h3&gt;Merci pour vos inscriptions&lt;/h3&gt;
+&lt;p&gt;Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en mentionnant les instructions de paiement suivantes :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;B&#233;n&#233;ficiaire : &lt;b&gt;Ville de {{ commune_name }} - {{ administration_adresse }} &lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;Num&#233;ro de compte b&#233;n&#233;ficiaire (IBAN) : &lt;b&gt;{{ form_option_iban }}&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;R&#233;f&#233;rence de la commande (communication libre) : &lt;b&gt;{{ form_number }}&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;Montant de la commande : &lt;b&gt;{% firstof montant_response form_workflow_form_calcul_var_montant %}&lt;/b&gt;&lt;/li&gt;
+&lt;/ul&gt;</message>
+          <level>info</level>
+          <position>top</position>
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
+        </item><item type="register-comment" id="3">
+          <comment>Vos inscriptions ont bien &#233;t&#233; enregistr&#233;es.</comment>
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
+        </item><item type="choice" id="4">
+          <label>Valider le paiement</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>12</status>
+          <require_confirmation>True</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Une fois la demande pay&amp;eacute;e par l&amp;#39;usager, ce bouton permet de le signaler au syst&amp;egrave;me afin de la cl&amp;ocirc;turer.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item type="choice" id="5">
+          <label>Annuler toutes les inscriptions</label>
+          <by>
+            <item role_id="_submitter">_submitter</item>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>17</status>
+          <require_confirmation>True</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;En cliquant sur ce bouton, toutes les inscriptions de tous les enfants de ce parent seront annul&amp;eacute;es.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>12</id>
+      <name>Virement re&#231;u</name>
+      <colour>99FF99</colour>
+      <visibility />
+      <items>
+        <item type="jump" id="1">
+          <status>5</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item type="register-comment" id="2">
+          <comment>Votre virement a bien &#233;t&#233; re&#231;u.</comment>
+        </item>
+      </items>
+    </status><status>
+      <id>11</id>
+      <name>Paiement diff&#233;r&#233;</name>
+      <colour>99FF99</colour>
+      <visibility />
+      <items>
+        <item type="register-comment" id="1">
+          <comment>La facture vous sera envoy&#233;e a posteriori.</comment>
+        </item><item type="jump" id="2">
+          <status>5</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>5</id>
+      <name>Cl&#244;ture en cours</name>
+      <colour>99FF00</colour>
+      <visibility />
+      <items>
+        <item type="register-comment" id="1">
+          <comment>&lt;div&gt;Les inscriptions suivantes sont d&#233;sormais cl&#244;tur&#233;es :
+&lt;ul&gt;{% for registration in forms|objects:"poc-inscription-plaine-fiche"|filter_by_user:form_user|filter_by_status:"En attente de paiement" %}
+    &lt;li&gt;{{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }}&lt;/li&gt;
+{% endfor %}&lt;/ul&gt;&lt;/div&gt;</comment>
+        </item><item type="external_workflow_global_action" id="2">
+          <slug>formdef:fiche-inscription-plaine</slug>
+          <trigger_id>action:closed</trigger_id>
+          <target_mode>manual</target_mode>
+          <target_id>{{ forms|objects:"fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de paiement" }}</target_id>
+        </item><item type="jump" id="3">
+          <status>15</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>15</id>
+      <name>Inscription cl&#244;tur&#233;e</name>
+      <colour>00FF00</colour>
+      <visibility />
+      <items>
+        <item type="register-comment" id="1">
+          <comment>Vos inscriptions sont finalis&#233;es. Merci d'avoir utilis&#233; nos services.</comment>
+        </item>
+      </items>
+    </status><status>
+      <id>17</id>
+      <name>Inscriptions annul&#233;es</name>
+      <colour>999999</colour>
+      <visibility />
+      <items>
+        <item type="external_workflow_global_action" id="1">
+          <slug>formdef:fiche-inscription-plaine</slug>
+          <trigger_id>action:cancel</trigger_id>
+          <target_mode>manual</target_mode>
+          <target_id>{{ forms|objects:"fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de paiement" }}</target_id>
+        </item>
+      </items>
+    </status>
+  </possible_status><global_actions>
+    <action>
+      <id>1</id>
+      <name>Suppression</name>
+      <items>
+        <item type="remove" id="1" />
+      </items><triggers>
+        <trigger type="manual" id="d5630034-e02b-416f-8b2b-3e07afc900e9">
+          <roles>
+            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+          </roles>
+        </trigger>
+      </triggers>
+    </action>
+  </global_actions><variables>
+    <formdef>
+      <name>-</name>
+      <fields>
+        <field>
+          <label type="str">Configurer les modes de paiement</label>
+          <type type="str">title</type>
+          <display_locations>
+            <display_location>validation</display_location>
+            <display_location>summary</display_location>
+          </display_locations><id type="str">7</id>
+        </field><field>
+          <label type="str">Mode de paiement</label>
+          <type type="str">item</type>
+          <required type="bool">True</required>
+          <varname type="str">mode_paiement</varname>
+          <display_locations />
+          <items>
+            <item>Paiement en ligne</item>
+            <item>Paiement par virement</item>
+            <item>Paiement diff&#233;r&#233;</item>
+          </items><display_mode type="str">radio</display_mode>
+          <in_filters type="bool">False</in_filters>
+          <anonymise type="bool">False</anonymise>
+          <display_disabled_items type="bool">False</display_disabled_items>
+          <id type="str">1</id>
+        </field><field>
+          <label type="str">Paiement en ligne</label>
+          <type type="str">subtitle</type>
+          <display_locations>
+            <display_location>validation</display_location>
+            <display_location>summary</display_location>
+          </display_locations><id type="str">6</id>
+        </field><field>
+          <label type="str">R&#233;gie de paiement</label>
+          <type type="str">item</type>
+          <required type="bool">False</required>
+          <hint type="str">Celle-ci d&#233;fini le panier sp&#233;cifique pour les plaines.</hint>
+          <varname type="str">regie_de_paiement</varname>
+          <display_locations />
+          <items />
+          <display_mode type="str">radio</display_mode>
+          <data_source>
+            <type>json</type>
+            <value>{{portal_url}}/api/lingo/regies</value>
+          </data_source><in_filters type="bool">False</in_filters>
+          <anonymise type="bool">False</anonymise>
+          <display_disabled_items type="bool">False</display_disabled_items>
+          <id type="str">3</id>
+        </field><field>
+          <label type="str">Paiement par virement</label>
+          <type type="str">subtitle</type>
+          <display_locations>
+            <display_location>validation</display_location>
+            <display_location>summary</display_location>
+          </display_locations><id type="str">5</id>
+        </field><field>
+          <label type="str">Num&#233;ro de compte</label>
+          <type type="str">string</type>
+          <required type="bool">False</required>
+          <hint type="str">&#192; compl&#233;ter si le mode de paiement est "Paiement par virement", ce num&#233;ro sera affich&#233; &#224; l'usager lorsqu'il sera invit&#233; &#224; payer.</hint>
+          <varname type="str">iban</varname>
+          <display_locations />
+          <anonymise type="bool">True</anonymise>
+          <id type="str">2</id>
+        </field><field>
+          <label type="str">Comment calculer le montant ?</label>
+          <type type="str">item</type>
+          <required type="bool">False</required>
+          <hint type="str">Quand le paiement doit &#234;tre fait par virement, il faut indiquer comment le montant est calcul&#233;.</hint>
+          <varname type="str">calcul_montant</varname>
+          <display_locations />
+          <items>
+            <item>Demander le montant &#224; AES</item>
+            <item>Calculer le montant manuellement</item>
+          </items><display_mode type="str">radio</display_mode>
+          <in_filters type="bool">False</in_filters>
+          <anonymise type="bool">False</anonymise>
+          <display_disabled_items type="bool">False</display_disabled_items>
+          <id type="str">4</id>
+        </field>
+      </fields>
+    </formdef>
+  </variables><backoffice-fields>
+    <formdef>
+      <name>-</name>
+      <fields>
+        <field>
+          <label type="str">Enfants</label>
+          <type type="str">string</type>
+          <required type="bool">True</required>
+          <varname type="str">enfants</varname>
+          <display_locations>
+            <display_location>summary</display_location>
+            <display_location>listings</display_location>
+          </display_locations><anonymise type="bool">True</anonymise>
+          <id type="str">bob83465d0-0d08-48c2-abec-3fff36b18325</id>
+        </field><field>
+          <label type="str">Inscriptions concern&#233;es</label>
+          <type type="str">string</type>
+          <required type="bool">True</required>
+          <varname type="str">inscriptions_concernees</varname>
+          <display_locations />
+          <anonymise type="bool">True</anonymise>
+          <id type="str">bo05ae962d-cb56-4c1d-b44a-ccdefe25b71d</id>
+        </field>
+      </fields>
+    </formdef>
+  </backoffice-fields>
+</workflow>

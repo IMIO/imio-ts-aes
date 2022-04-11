@@ -1,0 +1,12 @@
+<wscall id="portail_parent_fiche_sante">
+  <name>Portail Parent - Fiche sant&#233;</name>
+  <slug>portail_parent_fiche_sante</slug>
+  <description>Ram&#232;ne la fiche sant&#233; d'un enfant pour la proposer au sein des formulaires.</description>
+  <request>
+    <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/children/{{ form_var_enfant_id }}/healthsheet/</url>
+    <request_signature_key />
+    <method>GET</method>
+    <qs_data />
+    <post_data />
+  </request><record_on_errors>true</record_on_errors>
+</wscall>

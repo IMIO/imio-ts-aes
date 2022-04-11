@@ -1,0 +1,8 @@
+<datasource id="15">
+  <name>Portail Parent - Mois des repas</name>
+  <slug>portail_parent_mois_des_repas</slug>
+  <data_source>
+    <type>formula</type>
+    <value>[     {'id':"0",'text':"Mois courant"},     {'id':"1",'text':"Mois prochain"},     {'id':"2",'text':"Dans deux mois"} ]</value>
+  </data_source>
+</datasource>
