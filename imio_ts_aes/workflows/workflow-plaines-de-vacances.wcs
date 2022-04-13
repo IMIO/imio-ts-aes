@@ -139,16 +139,27 @@
             <item role_id="_submitter">_submitter</item>
           </to><subject>Inscription de {{ form_var_enfant }} aux {{ form_name|lower }}</subject>
           <body>{{ form_var_enfant }} a bien &#233;t&#233; inscrit aux plaines de vacances suivantes :
+{% for registration in form_workflow_data_registration_response_success %}
+* {{ registration.theme}} du {{ registration.start_date|date:"j F Y" }} au {{ registration.end_date|date:"j F Y" }}
+{% endfor %}
+{% if form_workflow_data_registration_response_error %}Attention, l'inscription n'a pas pu &#234;tre effectu&#233;es pour les plaines suivantes :
+{% for registration in form_workflow_data_registration_response_error %}
+* {{ registration.theme}} du {{ registration.start_date|date:"j F Y" }} au {{ registration.end_date|date:"j F Y" }}
+{% endfor %}{% endif %}
 
-Vous avez trois jours pour finaliser les inscriptions de vos enfants. Au-del&#224; de ce d&#233;lai, ils seront d&#233;sincris.
+{% if form_option_mode_de_paiement == "Paiement en ligne" %}Vous avez trois jours pour finaliser les inscriptions de tous vos enfants. Au-del&#224; de ce d&#233;lai, ils seront d&#233;sinscrits.{% endif %}
 
-`Consulter ma demande &lt;{{ eservices_url }}portail-parent/plaines-de-vacances/&gt;`_</body>
+`Inscrire un autre enfant &lt;{{ eservices_url }}portail-parent/&gt;`_
+
+`Consulter ma demande &lt;{{ form_url }}&gt;`_
+
+Une fois que vous aurez inscrits tous vos enfants, vous pouvez `finaliser vos inscriptions &lt;{{ portal_url }}portail-parent/&gt;`_.</body>
         </item><item type="displaymsg" id="2">
           <message>{{ form_var_enfant }} a bien &#233;t&#233; inscrit !
 
 &lt;p&gt;Vous pouvez &lt;a href="{{ eservices_url }}portail-parent/plaines-de-vacances/?enfant="&gt;inscrire un autre enfant&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;a class="pk-button" href="{{ eservices_url }}portail-parent/"&gt;Inscrire un autre enfant&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class="pk-button" href="{{ portal_url }}portail-parent/"&gt;Inscrire un autre enfant&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Si vous avez inscrit tous vos enfants, vous pouvez &lt;a href="{{ eservices_url }}finaliser-les-inscriptions-aux-plaines"&gt;finaliser vos inscriptions&lt;/a&gt;.&lt;/p&gt;
 
@@ -164,7 +175,10 @@ Vous avez trois jours pour finaliser les inscriptions de vos enfants. Au-del&#22
           <position>bottom</position>
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to>
+          </to><condition>
+            <type>django</type>
+            <value>form_option_mode_de_paiement == "Paiement en ligne"</value>
+          </condition>
         </item>
       </items>
     </status><status>
@@ -188,7 +202,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
         </item><item type="choice" id="2">
           <label>Relancer les inscriptions</label>
           <by>
-            <item role_id="_submitter">_submitter</item>
+            <item role_id="_receiver">_receiver</item>
           </by><status>2</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Une fois le probl&amp;egrave;me corrig&amp;eacute;, il est possible par ce biais de relancer les inscriptions dans AES.&lt;/p&gt;
@@ -223,23 +237,21 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
       <name>-</name>
       <fields>
         <field>
-          <label type="str">first_date_plain</label>
-          <type type="str">string</type>
+          <label type="str">Mode de paiement</label>
+          <type type="str">item</type>
           <required type="bool">True</required>
-          <varname type="str">first_date_plain</varname>
+          <hint type="str">Si Paiement en ligne, le parent sera notifi&#233; qu'il n'a que trois jours pour finaliser ses d&#233;marches avant d&#233;sinscription.</hint>
+          <varname type="str">mode_de_paiement</varname>
           <display_locations />
-          <anonymise type="bool">True</anonymise>
-          <id type="str">2</id>
-        </field><field>
-          <label type="str">last_date_plain</label>
-          <type type="str">string</type>
-          <required type="bool">True</required>
-          <varname type="str">last_date_plain</varname>
-          <display_locations>
-            <display_location>validation</display_location>
-            <display_location>summary</display_location>
-          </display_locations><anonymise type="bool">True</anonymise>
-          <id type="str">1</id>
+          <items>
+            <item>Paiement en ligne</item>
+            <item>Paiement par virement</item>
+            <item>Paiement diff&#233;r&#233;</item>
+          </items><display_mode type="str">radio</display_mode>
+          <in_filters type="bool">False</in_filters>
+          <anonymise type="bool">False</anonymise>
+          <display_disabled_items type="bool">False</display_disabled_items>
+          <id type="str">4</id>
         </field><field>
           <label type="str">categorie_activite</label>
           <type type="str">string</type>

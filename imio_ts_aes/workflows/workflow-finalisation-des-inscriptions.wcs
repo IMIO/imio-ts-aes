@@ -98,15 +98,45 @@
             <name>-</name>
             <fields>
               <field>
-                <label type="str">Montant total &#224; payer</label>
+                <label type="str">Montant</label>
                 <type type="str">string</type>
                 <required type="bool">True</required>
+                <hint type="str">Indiquez le montant &#224; payer, en euros. Ne pr&#233;cisez pas la monnaie.</hint>
                 <varname type="str">montant</varname>
                 <display_locations />
                 <prefill>
+                  <locked>False</locked>
+                  <type>none</type>
+                </prefill><validation>
+                  <error_message>Ne pr&#233;cisez pas la monnaie.</error_message>
+                  <type>django</type>
+                  <value>"&#8364;" not in value</value>
+                </validation><anonymise type="bool">True</anonymise>
+                <id type="str">1</id>
+              </field><field>
+                <label type="str">Communication</label>
+                <type type="str">string</type>
+                <required type="bool">False</required>
+                <hint type="str">Si vide, le num&#233;ro de suivi du formulaire est envoy&#233;.</hint>
+                <varname type="str">communication</varname>
+                <display_locations />
+                <prefill>
+                  <locked>False</locked>
                   <type>none</type>
                 </prefill><anonymise type="bool">True</anonymise>
-                <id type="str">1</id>
+                <id type="str">2</id>
+              </field><field>
+                <label type="str">Informations compl&#233;mentaires</label>
+                <type type="str">text</type>
+                <required type="bool">False</required>
+                <hint type="str">Indiquez les d&#233;lais pour effectuer le virement ainsi que toute autre information utile au parent.</hint>
+                <varname type="str">info_complementaires</varname>
+                <display_locations />
+                <prefill>
+                  <locked>False</locked>
+                  <type>none</type>
+                </prefill><pre type="bool">False</pre>
+                <id type="str">4</id>
               </field>
             </fields>
           </formdef>
@@ -114,7 +144,7 @@
           <status>9</status>
           <condition>
             <type>django</type>
-            <value>form_option_mode_paiement == "Paiement par virement"</value>
+            <value>form_option_calcul_montant == "Demander le montant &#224; AES" and form_option_mode_paiement == "Paiement par virement"</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
         </item><item type="jump" id="4">
           <status>2</status>
@@ -318,17 +348,20 @@ Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en me
 
 * B&#233;n&#233;ficiaire : **Ville de {{ commune_name }} - {{ administration_adresse }}**
 * Num&#233;ro de compte b&#233;n&#233;ficiaire (IBAN) : **{{ form_option_iban }}**
-* R&#233;f&#233;rence de la commande (communication libre) : **{{ form_number }}**
-* Montant de la commande : **{% firstof montant_response form_workflow_form_calcul_var_montant %}**</body>
+* R&#233;f&#233;rence de la commande (communication libre) : **{{ form_workflow_form_calcul_var_communication|default:form_number }}**
+* Montant de la commande : **{% firstof montant_response form_workflow_form_calcul_var_montant %} &#8364;**
+
+{{ form_workflow_form_calcul_var_info_complementaires }}</body>
         </item><item type="displaymsg" id="2">
           <message>&lt;h3&gt;Merci pour vos inscriptions&lt;/h3&gt;
 &lt;p&gt;Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en mentionnant les instructions de paiement suivantes :&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;B&#233;n&#233;ficiaire : &lt;b&gt;Ville de {{ commune_name }} - {{ administration_adresse }} &lt;/b&gt;&lt;/li&gt;
 &lt;li&gt;Num&#233;ro de compte b&#233;n&#233;ficiaire (IBAN) : &lt;b&gt;{{ form_option_iban }}&lt;/b&gt;&lt;/li&gt;
-&lt;li&gt;R&#233;f&#233;rence de la commande (communication libre) : &lt;b&gt;{{ form_number }}&lt;/b&gt;&lt;/li&gt;
-&lt;li&gt;Montant de la commande : &lt;b&gt;{% firstof montant_response form_workflow_form_calcul_var_montant %}&lt;/b&gt;&lt;/li&gt;
-&lt;/ul&gt;</message>
+&lt;li&gt;R&#233;f&#233;rence de la commande (communication libre) : &lt;b&gt;{{ form_workflow_form_calcul_var_communication|default:form_number }}&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;Montant de la commande : &lt;b&gt;{% firstof montant_response form_workflow_form_calcul_var_montant %} &#8364;&lt;/b&gt;&lt;/li&gt;
+&lt;/ul&gt;
+{% if form_workflow_form_calcul_var_info_complementaires %}&lt;p&gt;&lt;b&gt;Informations compl&#233;mentaires :&lt;/b&gt;&lt;br/&gt;{{ form_workflow_form_calcul_var_info_complementaires }}&lt;/p&gt;{% endif %}</message>
           <level>info</level>
           <position>top</position>
           <to>

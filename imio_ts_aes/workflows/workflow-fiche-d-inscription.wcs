@@ -31,7 +31,10 @@
           <set_marker_on_status>False</set_marker_on_status>
         </item><item type="jump" id="3">
           <status>6</status>
-          <timeout>259200</timeout>
+          <condition>
+            <type>django</type>
+            <value>form_option_mode_paiement == "Paiement en ligne"</value>
+          </condition><timeout>259200</timeout>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
@@ -207,7 +210,29 @@ Si vous n'avez pu r&#233;soudre le probl&#232;me, vous pouvez contacter le suppo
         </trigger>
       </triggers>
     </action>
-  </global_actions><backoffice-fields>
+  </global_actions><variables>
+    <formdef>
+      <name>-</name>
+      <fields>
+        <field>
+          <label type="str">Mode de paiement</label>
+          <type type="str">item</type>
+          <required type="bool">True</required>
+          <varname type="str">mode_de_paiement</varname>
+          <display_locations />
+          <items>
+            <item>Paiement en ligne</item>
+            <item>Paiement par virement</item>
+            <item>Paiement diff&#233;r&#233;</item>
+          </items><display_mode type="str">radio</display_mode>
+          <in_filters type="bool">False</in_filters>
+          <anonymise type="bool">False</anonymise>
+          <display_disabled_items type="bool">False</display_disabled_items>
+          <id type="str">1</id>
+        </field>
+      </fields>
+    </formdef>
+  </variables><backoffice-fields>
     <formdef>
       <name>-</name>
       <fields>
