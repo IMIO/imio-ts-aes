@@ -148,7 +148,7 @@ Vous avez trois jours pour finaliser les inscriptions de vos enfants. Au-del&#22
 
 &lt;p&gt;Vous pouvez &lt;a href="{{ eservices_url }}portail-parent/plaines-de-vacances/?enfant="&gt;inscrire un autre enfant&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;a class="pk-button" href="{{ eservices_url }}portail-parent/plaines-de-vacances/?enfant="&gt;Inscrire un autre enfant&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class="pk-button" href="{{ eservices_url }}portail-parent/"&gt;Inscrire un autre enfant&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Si vous avez inscrit tous vos enfants, vous pouvez &lt;a href="{{ eservices_url }}finaliser-les-inscriptions-aux-plaines"&gt;finaliser vos inscriptions&lt;/a&gt;.&lt;/p&gt;
 

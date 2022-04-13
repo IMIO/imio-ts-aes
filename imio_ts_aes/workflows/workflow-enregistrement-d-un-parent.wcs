@@ -230,6 +230,12 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
 Vous avez bien &#233;t&#233; enregistr&#233; en tant que parent.
 
 Cordialement,</body>
+        </item><item type="redirect_to_url" id="2">
+          <url>{{ portal_url }}/portail_parent</url>
+          <condition>
+            <type>django</type>
+            <value>not form_submission_backoffice</value>
+          </condition>
         </item>
       </items>
     </status>

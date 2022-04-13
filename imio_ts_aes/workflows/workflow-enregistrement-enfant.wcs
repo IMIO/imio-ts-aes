@@ -104,16 +104,6 @@
             <type>django</type>
             <value>False</value>
           </condition>
-        </item><item type="register-comment" id="3">
-          <comment>&lt;p&gt;
-{{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }},
-&lt;br /&gt;
-Merci pour votre demande d'enregistrement de {{form_var_enfant_prenom}} dans notre portail parent.&lt;br /&gt;
-&lt;br /&gt;
-Nous vous tiendrons inform&#233; de la suite dans les plus brefs d&#233;lais.&lt;br /&gt;
-
-Bien cordialement,
-&lt;/p&gt;</comment>
         </item><item type="webservice_call" id="5">
           <label>Enregistrements de l'enfant dans AES</label>
           <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ form_user_var_aes_id }}/children/create</url>
@@ -205,26 +195,20 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
         <item type="register-comment" id="5">
           <comment>&lt;div&gt;
 &lt;p&gt;
-{% if form_submission_backoffice %}L'inscription de l'enfant dans le portail parent a &#233;t&#233; correctement r&#233;alis&#233;e.{% else %}L'inscription de votre enfant dans le portail parent a &#233;t&#233; correctement r&#233;alis&#233;e.{% endif %}
-&lt;/p&gt;
-&lt;p&gt;
 &lt;a class="pk-button" href="{{ portal_url }}portail_parent/"&gt;Page d'accueil&lt;/a&gt;
 &lt;a class="pk-button" href="{{ eservices_url }}enregistrer-un-enfant/"&gt;Enregister un autre enfant&lt;/a&gt;
 &lt;/p&gt;
 &lt;/div&gt;</comment>
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
         </item><item type="register-comment" id="2">
           <comment>&lt;div&gt;
 {% if form_submission_backoffice %}
 &lt;p&gt;
-L'inscription de l'enfant dans le portail parent a &#233;t&#233; correctement r&#233;alis&#233;e.
-&lt;/p&gt;
-&lt;p&gt;
 Retourner sur &lt;a href="{{ portal_agent_url }}fiche-usager/{{ form_user_name_identifier_0}}/"&gt;La fiche du parent&lt;/a&gt;
 &lt;/p&gt;
 {% else%}
-&lt;p&gt;
-L'inscription de votre enfant dans le portail parent a &#233;t&#233; correctement r&#233;alis&#233;e.
-&lt;/p&gt;
 &lt;p&gt;
 Retourner sur le &lt;a href="{{ portal_user_url }}portail_parent/"&gt;portail parent&lt;/a&gt;
 &lt;/p&gt;
