@@ -1,4 +1,5 @@
-<datasource id="19">
+<?xml version="1.0"?>
+<datasource id="19" url="https://wcs.dev.publik.love/backoffice/settings/data-sources/19/">
   <name>Portail Parent - Localit&#233;s</name>
   <slug>portail_parent_localites</slug>
   <data_attribute>items</data_attribute>

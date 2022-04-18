@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <formdef id="1" url="https://wcs.dev.publik.love/backoffice/forms/1/">
   <name>Enregistrer un enfant</name>
-  <url_name>enregistrer-un-enfant</url_name>
+  <url_name>pp-enregistrer-un-enfant</url_name>
   <internal_identifier>enregistrer-un-enfant</internal_identifier>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
@@ -14,7 +14,7 @@
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="1">Portail Parent</category>
-  <workflow slug="aes-enregistrement-enfant" workflow_id="5">Enregistrement enfant</workflow>
+  <workflow slug="aes-enregistrement-enfant" workflow_id="5">Portail Parent - Enregistrement enfant</workflow>
   <max_field_id>31</max_field_id>
   <fields>
     <field>

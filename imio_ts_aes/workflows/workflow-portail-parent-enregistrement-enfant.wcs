@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <workflow id="5" url="https://wcs.dev.publik.love/backoffice/workflows/5/">
-  <name>Enregistrement enfant</name>
+  <name>Portail Parent - Enregistrement enfant</name>
   <slug>aes-enregistrement-enfant</slug>
   <category slug="portail-parent" category_id="1">Portail parent</category>
   <roles>
@@ -302,7 +302,7 @@ Bien cordialement,</body>
   </possible_status><global_actions>
     <action>
       <id>1</id>
-      <name>Supprimer</name>
+      <name>Suppression</name>
       <items>
         <item type="remove" id="1" />
       </items><triggers>

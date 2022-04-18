@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <datasource id="12" url="https://wcs.dev.publik.love/backoffice/settings/data-sources/12/">
   <name>Portail Parent - Implantations scolaires</name>
-  <slug>implantations_scolaires</slug>
+  <slug>portail-parent-implantations_scolaires</slug>
   <description>Implantations scolaires issues de AES pour le Portail Parent.</description>
   <cache_duration>600</cache_duration>
   <data_attribute>items</data_attribute>

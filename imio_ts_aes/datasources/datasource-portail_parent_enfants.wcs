@@ -1,4 +1,5 @@
-<datasource id="2">
+<?xml version="1.0"?>
+<datasource id="2" url="https://wcs.dev.publik.love/backoffice/settings/data-sources/2/">
   <name>Portail Parent - Enfants</name>
   <slug>portail_parent_enfants</slug>
   <description>Liste les enfants d'un parent.</description>

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <formdef id="8" url="https://wcs.dev.publik.love/backoffice/forms/8/">
   <name>Fiche sant&#233;</name>
-  <url_name>fiche-sante</url_name>
+  <url_name>pp-fiche-sante</url_name>
   <internal_identifier>fiche-sante</internal_identifier>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
@@ -14,7 +14,7 @@
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="1">Portail Parent</category>
-  <workflow slug="aes-enregistrement-fiche-sante" workflow_id="6">aes - Enregistrement fiche sant&#233;</workflow>
+  <workflow slug="aes-enregistrement-fiche-sante" workflow_id="6">Portail Parent - Fiche sant&#233;</workflow>
   <max_field_id>649</max_field_id>
   <fields>
     <field>
@@ -43,22 +43,6 @@
       <freeze_on_initial_value type="bool">True</freeze_on_initial_value>
       <id type="str">585</id>
     </field><field>
-      <label type="str">&lt;h3&gt;&lt;strong&gt;Donn&amp;eacute;es d&amp;eacute;j&amp;agrave; enregistr&amp;eacute;es&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;p&gt;{{ form_var_fiche_sante }}&lt;/p&gt;
-
-&lt;h3&gt;&lt;strong&gt;S&amp;eacute;lections possibles&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;p&gt;{{ form_var_fiche_sante_selections }}&lt;/p&gt;
-
-&lt;h3&gt;&lt;strong&gt;Tests&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;pre&gt;{% for disease in form_var_fiche_sante.disease_ids %}{{ disease|get:"disease_type_id" }}{% endfor %}&lt;/pre&gt;
-</label>
-      <type type="str">comment</type>
-      <display_locations />
-      <id type="str">586</id>
-    </field><field>
       <label type="str">Groupe sanguin</label>
       <type type="str">item</type>
       <condition>
@@ -72,8 +56,9 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
-        <value>{{ form_var_fiche_sante.blood_type }}</value>
+        <value>{{ form_var_fiche_sante.blood_type|default:"unknown" }}</value>
       </prefill><items>
         <item>O+</item>
         <item>A+</item>
@@ -1821,7 +1806,7 @@
       <prefill>
         <locked>False</locked>
         <type>string</type>
-        <value>{{ form_var_fiche_sante.comment }}</value>
+        <value>{{ form_var_fiche_sante.comment|default:"" }}</value>
       </prefill><pre type="bool">False</pre>
       <id type="str">174</id>
     </field><field>
@@ -2086,7 +2071,7 @@
       <prefill>
         <locked>False</locked>
         <type>string</type>
-        <value>{{ form_var_fiche_sante.allowed_contact_ids.0|get:"name" }}</value>
+        <value>{{ form_var_fiche_sante.allowed_contact_ids.0|get:"name"|default:"" }}</value>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">407</id>
     </field><field>
@@ -2117,7 +2102,7 @@
       <prefill>
         <locked>False</locked>
         <type>string</type>
-        <value>{{ form_var_fiche_sante.allowed_contact_ids.0|get:"parental_link" }}</value>
+        <value>{{ form_var_fiche_sante.allowed_contact_ids.0|get:"parental_link"|default:"" }}</value>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">409</id>
     </field><field>

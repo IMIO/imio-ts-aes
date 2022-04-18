@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <formdef id="4" url="https://wcs.dev.publik.love/backoffice/forms/4/">
   <name>Finaliser les inscriptions aux plaines</name>
-  <url_name>finaliser-les-inscriptions-aux-plaines</url_name>
+  <url_name>pp-finaliser-les-inscriptions-aux-plaines</url_name>
   <internal_identifier>finaliser-les-inscriptions-aux-plaines</internal_identifier>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
@@ -14,7 +14,7 @@
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="1">Portail Parent</category>
-  <workflow slug="finalisation-des-inscriptions" workflow_id="2">Finalisation des inscriptions</workflow>
+  <workflow slug="finalisation-des-inscriptions" workflow_id="2">Portail Parent - Finalisation des inscriptions</workflow>
   <max_field_id>3</max_field_id>
   <fields>
     <field>
@@ -40,7 +40,7 @@
   </fields><backoffice-submission-roles>
     <role slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</role>
   </backoffice-submission-roles><roles>
-    <role slug="debug" role_id="5162edec67c74e23bc26251709ab4101" role_key="_receiver">Debug</role>
+    <role slug="agent-traitant-portail-parent" role_id="d0b8282bf6114da680fa4c848da76167" role_key="_receiver">Agent traitant - Portail Parent</role>
   </roles><options>
     <option varname="calcul_montant">Demander le montant &#224; AES</option>
     <option varname="calcul_montant_display">Demander le montant &#224; AES</option>

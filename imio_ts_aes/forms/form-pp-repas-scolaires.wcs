@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
 <formdef id="10" url="https://wcs.dev.publik.love/backoffice/forms/10/">
   <name>Repas scolaires</name>
-  <url_name>repas-scolaires</url_name>
+  <url_name>pp-repas-scolaires</url_name>
   <internal_identifier>repas-scolaires</internal_identifier>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
   <disabled>false</disabled>
   <only_allow_one>false</only_allow_one>
   <enable_tracking_codes>false</enable_tracking_codes>
-  <confirmation>true</confirmation>
+  <confirmation>false</confirmation>
   <always_advertise>false</always_advertise>
   <include_download_all_button>false</include_download_all_button>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="1">Portail Parent</category>
-  <workflow slug="aes-inscription-aux-repas" workflow_id="10">aes - Inscription aux repas</workflow>
+  <workflow slug="aes-inscription-aux-repas" workflow_id="10">Portail Parent - Repas scolaires</workflow>
   <max_field_id>55</max_field_id>
   <fields>
     <field>
@@ -76,6 +76,7 @@
     <role slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</role>
   </backoffice-submission-roles><roles>
     <role slug="debug" role_id="5162edec67c74e23bc26251709ab4101" role_key="_debug">Debug</role>
+    <role slug="agent-traitant-portail-parent" role_id="d0b8282bf6114da680fa4c848da76167" role_key="_receiver">Agent traitant - Portail Parent</role>
   </roles><options>
     <option varname="implantations_scolaires" />
     <option varname="implantations_scolaires_display" />

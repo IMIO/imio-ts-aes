@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <workflow id="7" url="https://wcs.dev.publik.love/backoffice/workflows/7/">
-  <name>Enregistrement d'un parent</name>
+  <name>Portail Parent - Enregistrement parent</name>
   <slug>enregistrement-d-un-parent</slug>
   <category slug="portail-parent" category_id="1">Portail parent</category>
   <roles>
@@ -239,5 +239,19 @@ Cordialement,</body>
         </item>
       </items>
     </status>
-  </possible_status>
+  </possible_status><global_actions>
+    <action>
+      <id>1</id>
+      <name>Suppression</name>
+      <items>
+        <item type="remove" id="1" />
+      </items><triggers>
+        <trigger type="manual" id="d2f0f0ef-939a-4e24-ba73-5be37811792a">
+          <roles>
+            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+          </roles>
+        </trigger>
+      </triggers>
+    </action>
+  </global_actions>
 </workflow>

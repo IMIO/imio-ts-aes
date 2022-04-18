@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <workflow id="1" url="https://wcs.dev.publik.love/backoffice/workflows/1/">
-  <name>Plaines de vacances</name>
+  <name>Portail Parent - Plaines de vacances</name>
   <slug>plaines-de-vacances</slug>
   <category slug="portail-parent" category_id="1">Portail parent</category>
   <roles>

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <workflow id="3" url="https://wcs.dev.publik.love/backoffice/workflows/3/">
-  <name>Fiche d'inscription</name>
+  <name>Portail Parent - Fiche d'inscription</name>
   <slug>inscri</slug>
   <category slug="portail-parent" category_id="1">Portail parent</category>
   <roles>

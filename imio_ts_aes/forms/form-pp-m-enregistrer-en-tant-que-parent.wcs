@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <formdef id="5" url="https://wcs.dev.publik.love/backoffice/forms/5/">
   <name>M'enregistrer en tant que parent</name>
-  <url_name>m-enregistrer-en-tant-que-parent</url_name>
+  <url_name>pp-m-enregistrer-en-tant-que-parent</url_name>
   <description>&lt;p&gt;S'enregistrer dans le portail parent permet ensuite d'y inscrire ses enfants, de compl&amp;eacute;ter leur fiche sant&amp;eacute; et de les inscrire &amp;agrave; des activit&amp;eacute;s.&lt;/p&gt;</description>
   <internal_identifier>m-enregistrer-en-tant-que-parent</internal_identifier>
   <discussion>false</discussion>
@@ -15,7 +15,7 @@
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="1">Portail Parent</category>
-  <workflow slug="enregistrement-d-un-parent" workflow_id="7">Enregistrement d'un parent</workflow>
+  <workflow slug="enregistrement-d-un-parent" workflow_id="7">Portail Parent - Enregistrement parent</workflow>
   <max_field_id>21</max_field_id>
   <fields>
     <field>

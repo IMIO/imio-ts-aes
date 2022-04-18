@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <formdef id="2" url="https://wcs.dev.publik.love/backoffice/forms/2/">
   <name>Fiche d'inscription aux plaines</name>
-  <url_name>fiche-inscription-plaine</url_name>
+  <url_name>pp-fiche-inscription-plaine</url_name>
   <internal_identifier>fiche-d-inscription-aux-plaines</internal_identifier>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
@@ -14,7 +14,7 @@
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent-fiche-d-inscription" category_id="2">Portail Parent - Fiche d'inscription</category>
-  <workflow slug="inscri" workflow_id="3">Fiche d'inscription</workflow>
+  <workflow slug="inscri" workflow_id="3">Portail Parent - Fiche d'inscription</workflow>
   <max_field_id>10</max_field_id>
   <fields>
     <field>
@@ -36,6 +36,7 @@
       </prefill><display_mode type="str">radio</display_mode>
       <data_source>
         <type>portail_parent_enfants</type>
+        <value>webservice.aes_get_children_by_parent_nrn.get('data')</value>
       </data_source><in_filters type="bool">False</in_filters>
       <anonymise type="bool">True</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>

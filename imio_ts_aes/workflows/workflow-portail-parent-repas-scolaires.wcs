@@ -1,10 +1,9 @@
 <?xml version="1.0"?>
 <workflow id="10" url="https://wcs.dev.publik.love/backoffice/workflows/10/">
-  <name>aes - Inscription aux repas</name>
+  <name>Portail Parent - Repas scolaires</name>
   <slug>aes-inscription-aux-repas</slug>
   <category slug="portail-parent" category_id="1">Portail parent</category>
   <roles>
-    <role id="_debug">Debug</role>
     <role id="_receiver">Agents traitants</role>
   </roles><possible_status>
     <status>
@@ -56,14 +55,6 @@
             <type>python</type>
             <value>post_child_meal_response is True</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item type="choice" id="3">
-          <label>Debug</label>
-          <by>
-            <item role_id="_debug">_debug</item>
-          </by><status>1</status>
-          <require_confirmation>False</require_confirmation>
-          <ignore_form_errors>False</ignore_form_errors>
-          <set_marker_on_status>False</set_marker_on_status>
         </item><item type="choice" id="4">
           <label>Signaler la situation comme r&#233;gularis&#233;e sans notifier l'usager</label>
           <by>
@@ -81,9 +72,9 @@
       <visibility />
       <items>
         <item type="choice" id="1">
-          <label>debug</label>
+          <label>Retenter l'enregistrement</label>
           <by>
-            <item role_id="_debug">_debug</item>
+            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
           </by><status>1</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
@@ -98,6 +89,12 @@
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
+    </status><status>
+      <id>7</id>
+      <name>La situation est r&#233;gularis&#233;e</name>
+      <colour>99FF00</colour>
+      <visibility />
+      <items />
     </status><status>
       <id>3</id>
       <name>Repas correctement enregistr&#233;s</name>
@@ -124,74 +121,38 @@ Voici votre commande :
 {% for repas in form_var_menu_structured %}
     {{ repas.id|slice:"1:11" }} - {{ repas.text }}
 {% endfor %}</body>
-        </item><item type="jump" id="3">
-          <status>4</status>
-          <trigger>validate</trigger>
-          <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="editable" id="4">
-          <by>
-            <item role_id="_submitter">_submitter</item>
-          </by><status>1</status>
-          <label>Modifier la commande</label>
-          <backoffice_info_text>&lt;p&gt;Attention, la modification de la commande ne peut se faire que si la facture n'a pas encore &amp;eacute;t&amp;eacute; g&amp;eacute;n&amp;eacute;r&amp;eacute;e.&lt;/p&gt;</backoffice_info_text>
-          <condition>
-            <type>python</type>
-            <value>form_receipt_datetime.month == today.month and form_receipt_datetime.year == today.year and today.day &lt; 22</value>
-          </condition>
         </item>
       </items>
-    </status><status>
-      <id>4</id>
-      <name>R&#233;ponse de AES</name>
-      <colour>FFFFFF</colour>
-      <visibility />
-      <items>
-        <item type="jump" id="1">
-          <status>5</status>
-          <trigger>get_facturation</trigger>
-          <set_marker_on_status>False</set_marker_on_status>
-        </item>
-      </items>
-    </status><status>
-      <id>5</id>
-      <name>&#224; facturer.</name>
-      <colour>FFFFFF</colour>
-      <visibility />
-      <items />
-    </status><status>
-      <id>7</id>
-      <name>La situation est r&#233;gularis&#233;e</name>
-      <colour>99FF00</colour>
-      <visibility />
-      <items />
     </status>
-  </possible_status><variables>
+  </possible_status><global_actions>
+    <action>
+      <id>1</id>
+      <name>Suppression</name>
+      <items>
+        <item type="remove" id="1" />
+      </items><triggers>
+        <trigger type="manual" id="185b1862-0f7b-4b4e-ad01-fbc690351de3">
+          <roles>
+            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+          </roles>
+        </trigger>
+      </triggers>
+    </action>
+  </global_actions><variables>
     <formdef>
       <name>-</name>
       <fields>
         <field>
-          <label type="str">Test</label>
-          <type type="str">bool</type>
-          <required type="bool">False</required>
-          <hint type="str">Signaler que le formulaire est en test. (Certaines restrictions sont retir&#233;es dans ce mode)</hint>
-          <varname type="str">test</varname>
-          <display_locations>
-            <display_location>summary</display_location>
-          </display_locations><prefill>
-            <type>none</type>
-          </prefill><id type="str">1</id>
-        </field><field>
           <label type="str">Implantations scolaires</label>
           <type type="str">items</type>
           <required type="bool">False</required>
           <hint type="str">Filtrer les enfants en fonction des &#233;coles coch&#233;es. Si aucune &#233;cole n'est coch&#233;e, les enfants ne sont pas filtr&#233;s.</hint>
           <varname type="str">implantations_scolaires</varname>
           <display_locations />
-          <items />
           <min_choices type="int">0</min_choices>
           <max_choices type="int">0</max_choices>
           <data_source>
-            <type>aes_implantations_scolaires</type>
+            <type>portail-parent-implantations_scolaires</type>
           </data_source><in_filters type="bool">False</in_filters>
           <anonymise type="bool">True</anonymise>
           <display_disabled_items type="bool">False</display_disabled_items>

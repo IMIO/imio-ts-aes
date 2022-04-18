@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <formdef id="3" url="https://wcs.dev.publik.love/backoffice/forms/3/">
   <name>Plaines de vacances</name>
-  <url_name>plaines-de-vacances</url_name>
+  <url_name>pp-plaines-de-vacances</url_name>
   <internal_identifier>plaines-de-vacances</internal_identifier>
   <drafts_lifespan>2</drafts_lifespan>
   <discussion>false</discussion>
@@ -15,7 +15,7 @@
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="1">Portail Parent</category>
-  <workflow slug="plaines-de-vacances" workflow_id="1">Plaines de vacances</workflow>
+  <workflow slug="plaines-de-vacances" workflow_id="1">Portail Parent - Plaines de vacances</workflow>
   <max_field_id>64</max_field_id>
   <fields>
     <field>
@@ -102,6 +102,9 @@
     <option varname="modalite_paiement">Paiement en ligne</option>
     <option varname="modalite_paiement_display">Paiement en ligne</option>
     <option varname="modalite_paiement_structured" />
+    <option varname="mode_de_paiement">Paiement par virement</option>
+    <option varname="mode_de_paiement_display">Paiement par virement</option>
+    <option varname="mode_de_paiement_structured" />
     <option varname="nb_days_before_free_places">3</option>
     <option varname="numero_de_compte_iban" />
     <option varname="regie_de_paiement" />
