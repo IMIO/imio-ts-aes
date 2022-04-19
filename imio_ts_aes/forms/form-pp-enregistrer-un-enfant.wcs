@@ -141,7 +141,7 @@
         <type>none</type>
       </prefill><display_mode type="str">list</display_mode>
       <data_source>
-        <type>implantations_scolaires</type>
+        <type>portail-parent-implantations_scolaires</type>
         <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/places</value>
       </data_source><in_filters type="bool">False</in_filters>
       <anonymise type="bool">False</anonymise>
