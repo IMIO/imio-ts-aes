@@ -128,6 +128,12 @@
             </item><item>
               <name>lastname</name>
               <value>{{ form_var_enfant_nom }}</value>
+            </item><item>
+              <name>parent_zipcode</name>
+              <value>{{ form_user_var_zipcode }}</value>
+            </item><item>
+              <name>municipality_zipcodes</name>
+              <value>{{ commune_cp }}</value>
             </item>
           </post_data><response_type>json</response_type>
           <varname>enregistrement_enfant</varname>
