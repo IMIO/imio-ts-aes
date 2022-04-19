@@ -1,8 +1,9 @@
+<?xml version="1.0"?>
 <wscall id="portail_parent_fiche_sante_selections">
   <name>Portail Parent - Fiche sant&#233; - S&#233;lections</name>
   <slug>portail_parent_fiche_sante_selections</slug>
   <request>
-    <url>https://passerelle.dev.publik.love/passerelle-imio-ia-aes/aes/healtsheet-fields</url>
+    <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/healtsheet-fields</url>
     <request_signature_key />
     <method>GET</method>
     <qs_data />
