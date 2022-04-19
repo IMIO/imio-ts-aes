@@ -203,10 +203,28 @@
       <id>8</id>
       <name>Erreur lors du calcul du montant</name>
       <colour>FF0000</colour>
-      <visibility>
-        <role>_receiver</role>
-      </visibility><items>
-        <item type="choice" id="1">
+      <visibility />
+      <items>
+        <item type="sendmail" id="3">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to><subject>Erreur Portail Parent :  {{ form_name }} n&#176;{{ form_number }}</subject>
+          <body>Bonjour,
+
+Une erreur est survenue lorsque {{ form_user_var_first_name }} {{ form_user_var_last_name }} a voulu finaliser les inscriptions de ses enfants aux plaines de vacances.
+
+Veuillez consulter la demande.
+
+`Consulter la demande &lt;{{ form_url_backoffice }}&gt;`_
+
+Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le support d'iMio
+
+`Consulter la demande &lt;support.imio.be&gt;`_</body>
+        </item><item type="displaymsg" id="2">
+          <message>Nous rencontrons un probl&#232;me au niveau du paiement. Les r&#233;servations de place que vous venez d'effectuer sont confirm&#233;es. Votre administration communale reviendra vers vous pour effectuer le paiement.</message>
+          <level>error</level>
+          <position>top</position>
+        </item><item type="choice" id="1">
           <label>Calculer le total</label>
           <by>
             <item role_id="_receiver">_receiver</item>
@@ -223,9 +241,8 @@
       <id>2</id>
       <name>Ajout au panier</name>
       <colour>FFFFFF</colour>
-      <visibility>
-        <role>_receiver</role>
-      </visibility><items>
+      <visibility />
+      <items>
         <item type="webservice_call" id="1">
           <label>Ajout au panier</label>
           <url>{{ portal_url }}api/lingo/add-basket-item?NameId={{ form_user_name_identifier_0 }}</url>
