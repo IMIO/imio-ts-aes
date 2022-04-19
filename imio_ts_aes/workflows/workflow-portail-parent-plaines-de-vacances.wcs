@@ -190,7 +190,8 @@ Une fois que vous aurez inscrits tous vos enfants, vous pouvez `finaliser vos in
         <item type="sendmail" id="1">
           <to>
             <item role_id="_receiver">_receiver</item>
-          </to><body>Une erreur est survenue lors de l'inscription de {{ form_var_enfant }}.
+          </to><subject>Erreur Portail Parent :  {{ form_name }} n&#176;{{ form_number }}</subject>
+          <body>Une erreur est survenue lors de l'inscription de {{ form_var_enfant }}.
 
 Veuillez consulter la demande.
 
