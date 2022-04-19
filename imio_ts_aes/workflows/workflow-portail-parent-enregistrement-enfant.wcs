@@ -324,16 +324,6 @@ Bien cordialement,</body>
       <name>-</name>
       <fields>
         <field>
-          <label type="str">Enregistrement automatique dans AES ?</label>
-          <type type="str">bool</type>
-          <required type="bool">False</required>
-          <varname type="str">autosave</varname>
-          <display_locations>
-            <display_location>summary</display_location>
-          </display_locations><prefill>
-            <type>none</type>
-          </prefill><id type="str">1</id>
-        </field><field>
           <label type="str">Faut-il facturer le parent diff&#233;rement selon qu'il habite la commune ou non ?</label>
           <type type="str">item</type>
           <required type="bool">True</required>

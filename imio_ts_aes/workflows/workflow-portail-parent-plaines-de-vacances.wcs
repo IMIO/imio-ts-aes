@@ -252,16 +252,6 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <anonymise type="bool">False</anonymise>
           <display_disabled_items type="bool">False</display_disabled_items>
           <id type="str">4</id>
-        </field><field>
-          <label type="str">categorie_activite</label>
-          <type type="str">string</type>
-          <required type="bool">True</required>
-          <varname type="str">categorie_activite</varname>
-          <display_locations>
-            <display_location>validation</display_location>
-            <display_location>summary</display_location>
-          </display_locations><anonymise type="bool">True</anonymise>
-          <id type="str">3</id>
         </field>
       </fields>
     </formdef>
