@@ -93,18 +93,7 @@
       <colour>FFFFFF</colour>
       <visibility />
       <items>
-        <item type="set-backoffice-fields" id="2">
-          <label>Identifiant du type d'enfant</label>
-          <fields>
-            <field>
-              <field_id>bo7cd21660-67d9-42f7-a364-ebec2e10657b</field_id>
-              <value>="1" if form_option_child_type_facturation != "Oui" else [t.get("id") for t in webservice.aes_get_childtypes.get("data") if "hors" in t.get("text").lower()][0] if form_user_var_zipcode not in commune_cp else [t.get("id") for t in webservice.aes_get_childtypes.get("data") if "hors" not in t.get("text").lower() and "commune" in t.get("text").lower()][0]</value>
-            </field>
-          </fields><condition>
-            <type>django</type>
-            <value>False</value>
-          </condition>
-        </item><item type="webservice_call" id="5">
+        <item type="webservice_call" id="5">
           <label>Enregistrements de l'enfant dans AES</label>
           <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ form_user_var_aes_id }}/children/create</url>
           <method>POST</method>
@@ -134,6 +123,9 @@
             </item><item>
               <name>municipality_zipcodes</name>
               <value>{{ commune_cp }}</value>
+            </item><item>
+              <name>compute_price_category</name>
+              <value>{{ form_option_child_type_facturation_raw }}</value>
             </item>
           </post_data><response_type>json</response_type>
           <varname>enregistrement_enfant</varname>
