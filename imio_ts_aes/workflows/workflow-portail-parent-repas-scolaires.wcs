@@ -102,24 +102,22 @@
       <visibility />
       <items>
         <item type="register-comment" id="1">
-          <comment>Nous avons bien re&#231;u votre commande de repas pour : {{ form_var_enfant }}
-
-Voici votre commande :
-
+          <comment>&lt;p&gt;Nous avons bien re&#231;u votre commande de repas pour {{ form_var_enfant }}&lt;/p&gt;
+&lt;p&gt;Voici votre commande pour &lt;b&gt;{{ form_var_menu_structured.0.date|date:"F Y" }} :&lt;/b&gt;&lt;/p&gt;
+&lt;ul&gt;
 {% for repas in form_var_menu_structured %}
-    {{ repas.id|slice:"1:11" }} - {{ repas.text }}
-
-{% endfor %}</comment>
+    &lt;li&gt;Le {{ repas.date|date:"j" }} : {{ repas.text }}&lt;/li&gt;
+{% endfor %}
+&lt;/ul&gt;</comment>
         </item><item type="sendmail" id="2">
           <to>
             <item role_id="_submitter">_submitter</item>
           </to><subject>Commande de repas pour {{ form_var_enfant }}</subject>
-          <body>Nous avons bien re&#231;u votre commande de repas pour : {{ form_var_enfant }}
+          <body>Nous avons bien re&#231;u votre commande de repas pour {{ form_var_enfant }}.
 
-Voici votre commande :
-
+Voici votre commande pour **{{ form_var_menu_structured.0.date|date:"F Y" }}** :
 {% for repas in form_var_menu_structured %}
-    {{ repas.id|slice:"1:11" }} - {{ repas.text }}
+* Le {{ repas.date|date:"j" }} : {{ repas.text }}
 {% endfor %}</body>
         </item>
       </items>
