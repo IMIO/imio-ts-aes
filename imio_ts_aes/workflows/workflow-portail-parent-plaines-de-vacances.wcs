@@ -81,7 +81,7 @@
       </visibility><items>
         <item type="create_formdata" id="1">
           <draft>False</draft>
-          <formdef_slug>fiche-inscription-plaine</formdef_slug>
+          <formdef_slug>pp-fiche-inscription-plaine</formdef_slug>
           <map_fields_by_varname>False</map_fields_by_varname>
           <mappings>
             <mapping field_id="1">{{ form_var_enfant_id }}</mapping>
@@ -161,9 +161,9 @@ Une fois que vous aurez inscrits tous vos enfants, vous pouvez `finaliser vos in
 
 &lt;p&gt;&lt;a class="pk-button" href="{{ portal_url }}portail-parent/"&gt;Inscrire un autre enfant&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;Si vous avez inscrit tous vos enfants, vous pouvez &lt;a href="{{ eservices_url }}finaliser-les-inscriptions-aux-plaines"&gt;finaliser vos inscriptions&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Si vous avez inscrit tous vos enfants, vous pouvez &lt;a href="{{ eservices_url }}pp-finaliser-les-inscriptions-aux-plaines"&gt;finaliser vos inscriptions&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;a class="pk-button" href="{{ eservices_url }}finaliser-les-inscriptions-aux-plaines"&gt;Finaliser vos inscriptions&lt;/a&gt;&lt;/p&gt;</message>
+&lt;p&gt;&lt;a class="pk-button" href="{{ eservices_url }}pp-finaliser-les-inscriptions-aux-plaines"&gt;Finaliser vos inscriptions&lt;/a&gt;&lt;/p&gt;</message>
           <level>success</level>
           <position>bottom</position>
           <to>

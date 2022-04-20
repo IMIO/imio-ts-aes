@@ -18,10 +18,10 @@
           <fields>
             <field>
               <field_id>bob83465d0-0d08-48c2-abec-3fff36b18325</field_id>
-              <value>{% regroup forms|objects:"fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de validation" by var.enfant.structured.name as enfants %}{% for enfant in enfants %}{{ enfant.grouper }}{% if not forloop.last %},{% endif %}{% endfor %}</value>
+              <value>{% regroup forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de validation" by var.enfant.structured.name as enfants %}{% for enfant in enfants %}{{ enfant.grouper }}{% if not forloop.last %},{% endif %}{% endfor %}</value>
             </field><field>
               <field_id>bo05ae962d-cb56-4c1d-b44a-ccdefe25b71d</field_id>
-              <value>{% regroup forms|objects:"fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de validation" by submission_context as demandes %}{% for demande in demandes %}{{ demande.grouper.orig_formdata_id }}{% if not forloop.last %},{% endif %}{% endfor %}</value>
+              <value>{% regroup forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de validation" by submission_context as demandes %}{% for demande in demandes %}{{ demande.grouper.orig_formdata_id }}{% if not forloop.last %},{% endif %}{% endfor %}</value>
             </field><field>
               <field_id>bob83465d0-0d08-48c2-abec-3fff36b18325</field_id>
               <value>=",".join(set(form_var_enfants.split(",")))</value>
@@ -42,13 +42,13 @@
       <visibility />
       <items>
         <item type="external_workflow_global_action" id="1">
-          <slug>formdef:fiche-inscription-plaine</slug>
+          <slug>formdef:pp-fiche-inscription-plaine</slug>
           <trigger_id>action:validate</trigger_id>
           <target_mode>manual</target_mode>
-          <target_id>{{ forms|objects:"fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de validation" }}</target_id>
+          <target_id>{{ forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de validation" }}</target_id>
         </item><item type="register-comment" id="2">
           <comment>&lt;div&gt;Les inscriptions suivantes seront valid&#233;es :
-&lt;ul&gt;{% for registration in forms|objects:"fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de paiement" %}
+&lt;ul&gt;{% for registration in forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de paiement" %}
     &lt;li&gt;{{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }}&lt;/li&gt;
 {% endfor %}&lt;/ul&gt;&lt;/div&gt;</comment>
         </item><item type="displaymsg" id="4">
@@ -341,10 +341,10 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
         </item><item type="external_workflow_global_action" id="2">
-          <slug>formdef:fiche-inscription-plaine</slug>
+          <slug>formdef:pp-fiche-inscription-plaine</slug>
           <trigger_id>action:cancel</trigger_id>
           <target_mode>manual</target_mode>
-          <target_id>{{ forms|objects:"fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de paiement" }}</target_id>
+          <target_id>{{ forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de paiement" }}</target_id>
         </item>
       </items>
     </status><status>
@@ -482,10 +482,10 @@ Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en me
     &lt;li&gt;{{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }}&lt;/li&gt;
 {% endfor %}&lt;/ul&gt;&lt;/div&gt;</comment>
         </item><item type="external_workflow_global_action" id="2">
-          <slug>formdef:fiche-inscription-plaine</slug>
+          <slug>formdef:pp-fiche-inscription-plaine</slug>
           <trigger_id>action:closed</trigger_id>
           <target_mode>manual</target_mode>
-          <target_id>{{ forms|objects:"fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de paiement" }}</target_id>
+          <target_id>{{ forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de paiement" }}</target_id>
         </item><item type="jump" id="3">
           <status>15</status>
           <set_marker_on_status>False</set_marker_on_status>
@@ -508,10 +508,10 @@ Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en me
       <visibility />
       <items>
         <item type="external_workflow_global_action" id="1">
-          <slug>formdef:fiche-inscription-plaine</slug>
+          <slug>formdef:pp-fiche-inscription-plaine</slug>
           <trigger_id>action:cancel</trigger_id>
           <target_mode>manual</target_mode>
-          <target_id>{{ forms|objects:"fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de paiement" }}</target_id>
+          <target_id>{{ forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de paiement" }}</target_id>
         </item>
       </items>
     </status>

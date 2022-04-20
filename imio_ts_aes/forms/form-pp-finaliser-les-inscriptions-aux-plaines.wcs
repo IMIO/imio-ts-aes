@@ -26,13 +26,11 @@
       </display_locations><id type="str">3</id>
     </field><field>
       <label type="str">&lt;div&gt;{% if form_user_email %}
-&lt;ol&gt;
-{% for registration in forms|objects:"fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de validation" %}
-&lt;li&gt;{{ registration|get:"form_var_enfant_name" }} &#224; {{ registration|get:"form_var_plaine" }}&lt;/li&gt;
+	      &lt;ol&gt;{% for registration in forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de validation" %}
+	&lt;li&gt;{{ registration|get:"form_var_enfant_name" }} &#224; {{ registration|get:"form_var_plaine" }}&lt;/li&gt;
 {% endfor %}
 &lt;/ol&gt;
-{% else %}Pas d&amp;#39;utilisateur d&amp;eacute;tect&amp;eacute; - Peut-&amp;ecirc;tre &amp;ecirc;tes vous dans la fabrique de formulaires ?{% endif %}&lt;/div&gt;
-</label>
+{% else %}Pas d'utilisateur d&#233;tect&#233; - Peut-&#234;tre &#234;tes vous dans la fabrique de formulaires ?{% endif %}&lt;/div&gt;</label>
       <type type="str">comment</type>
       <display_locations />
       <id type="str">2</id>
