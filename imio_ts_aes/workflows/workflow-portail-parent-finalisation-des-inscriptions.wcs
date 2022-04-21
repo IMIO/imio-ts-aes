@@ -463,7 +463,16 @@ Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en me
       <colour>99FF99</colour>
       <visibility />
       <items>
-        <item type="register-comment" id="1">
+        <item type="sendmail" id="3">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>{{ form_name }} n&#176;{{ form_number }}</subject>
+          <body>Bonjour,
+
+Nous vous confirmons l'inscription de vos enfants aux plaines s&#233;lectionn&#233;es. Vous recevrez une facture pour r&#233;gler le montant pour courrier ou par email. N'h&#233;sitez pas &#224; revenir vers votre administration communale en cas de besoin.
+
+Cordialement,</body>
+        </item><item type="register-comment" id="1">
           <comment>La facture vous sera envoy&#233;e a posteriori.</comment>
         </item><item type="jump" id="2">
           <status>5</status>
