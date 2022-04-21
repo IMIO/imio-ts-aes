@@ -498,6 +498,19 @@ Cordialement,</body>
         </item><item type="jump" id="3">
           <status>15</status>
           <set_marker_on_status>False</set_marker_on_status>
+        </item><item type="sendmail" id="4">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>{{ form_name }} n&#176;{{ form_number }}</subject>
+          <body>Bonjour,
+
+Nous vous confirmons la bonne r&#233;ception de votre paiement. Les plaines auxquelles vous avez inscrits vos enfants sont bel est bien r&#233;serv&#233;es.
+
+Cordialement,</body>
+          <condition>
+            <type>django</type>
+            <value>form_option_mode_paiement != "Paiement diff&#233;r&#233;"</value>
+          </condition>
         </item>
       </items>
     </status><status>
