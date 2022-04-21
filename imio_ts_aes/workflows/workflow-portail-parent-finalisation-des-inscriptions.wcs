@@ -473,7 +473,7 @@ Nous vous confirmons l'inscription de vos enfants aux plaines s&#233;lectionn&#2
 
 Cordialement,</body>
         </item><item type="register-comment" id="1">
-          <comment>La facture vous sera envoy&#233;e a posteriori.</comment>
+          <comment>Le paiement des plaines r&#233;serv&#233;es se fera par le biais d'une facture qui vous sera envoy&#233;e email ou par courrier.</comment>
         </item><item type="jump" id="2">
           <status>5</status>
           <set_marker_on_status>False</set_marker_on_status>
