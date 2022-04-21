@@ -1910,7 +1910,7 @@
     </field><field>
       <label type="str">T&#233;l&#233;phone du m&#233;decin</label>
       <type type="str">string</type>
-      <required type="bool">False</required>
+      <required type="bool">True</required>
       <varname type="str">other_doctor_tel</varname>
       <display_locations>
         <display_location>validation</display_location>
@@ -2588,6 +2588,7 @@
   </fields><user-roles>
     <role slug="parent" role_id="9568ff2000794db8a6711bd2ff596ceb">Parent</role>
   </user-roles><roles>
+    <role slug="agent-traitant-portail-parent" role_id="d0b8282bf6114da680fa4c848da76167" role_key="_receiver">Agent traitant - Portail Parent</role>
     <role slug="debug" role_id="5162edec67c74e23bc26251709ab4101" role_key="_debug">Debug</role>
   </roles><options>
     <option varname="compte">BE80 0910 2100 5377</option>
