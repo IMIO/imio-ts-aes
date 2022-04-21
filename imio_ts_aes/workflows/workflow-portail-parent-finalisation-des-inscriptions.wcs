@@ -408,7 +408,7 @@ Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en me
 &lt;li&gt;B&#233;n&#233;ficiaire : &lt;b&gt;Ville de {{ commune_name }} - {{ administration_adresse }} &lt;/b&gt;&lt;/li&gt;
 &lt;li&gt;Num&#233;ro de compte b&#233;n&#233;ficiaire (IBAN) : &lt;b&gt;{{ form_option_iban }}&lt;/b&gt;&lt;/li&gt;
 &lt;li&gt;R&#233;f&#233;rence de la commande (communication libre) : &lt;b&gt;{{ form_workflow_form_calcul_var_communication|default:form_number }}&lt;/b&gt;&lt;/li&gt;
-&lt;li&gt;Montant de la commande : &lt;b&gt;{% firstof montant_response form_workflow_form_calcul_var_montant %} &#8364;&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;Montant de la commande : &lt;b&gt;{% firstof form_workflow_data_montant_response_cost|decimal:2 form_workflow_form_calcul_var_montant %} &#8364;&lt;/b&gt;&lt;/li&gt;
 &lt;/ul&gt;
 {% if form_workflow_form_calcul_var_info_complementaires %}&lt;p&gt;&lt;b&gt;Informations compl&#233;mentaires :&lt;/b&gt;&lt;br/&gt;{{ form_workflow_form_calcul_var_info_complementaires }}&lt;/p&gt;{% endif %}</message>
           <level>info</level>
