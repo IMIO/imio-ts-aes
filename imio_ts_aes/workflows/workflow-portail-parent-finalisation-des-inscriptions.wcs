@@ -487,7 +487,7 @@ Cordialement,</body>
       <items>
         <item type="register-comment" id="1">
           <comment>&lt;div&gt;Les inscriptions suivantes sont d&#233;sormais cl&#244;tur&#233;es :
-&lt;ul&gt;{% for registration in forms|objects:"poc-inscription-plaine-fiche"|filter_by_user:form_user|filter_by_status:"En attente de paiement" %}
+&lt;ul&gt;{% for registration in forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de paiement" %}
     &lt;li&gt;{{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }}&lt;/li&gt;
 {% endfor %}&lt;/ul&gt;&lt;/div&gt;</comment>
         </item><item type="external_workflow_global_action" id="2">
