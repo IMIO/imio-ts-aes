@@ -336,7 +336,7 @@
               <value>{{ form_workflow_data_doctor_response_odoo_id }}</value>
             </item><item>
               <name>contact_0</name>
-              <value>{% if form_workflow_data_contact_0_response_odoo_id %}{{ form_workflow_data_contact_0_response_odoo_id }} ; {{ form_var_contact_0_relation }}{% endif%}</value>
+              <value>{% if form_workflow_data_contact_0_response_odoo_id %}{{ form_workflow_data_contact_0_response_odoo_id }}{% else %}81{% endif %} ; {{ form_var_contact_0_relation }}</value>
             </item><item>
               <name>contact_1</name>
               <value>{% if form_workflow_data_contact_1_response_odoo_id %}{{ form_workflow_data_contact_1_response_odoo_id }} ; {{ form_var_contact_1_relation }}{% endif %}</value>
