@@ -164,11 +164,12 @@ Veuillez consulter la demande.
 
 Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le support d'iMio
 
-`Consulter la demande &lt;support.imio.be&gt;`_</body>
+`support.imio.be &lt;support.imio.be&gt;`_</body>
         </item><item type="choice" id="3">
           <label>Relancer l'inscription</label>
           <by>
             <item role_id="_receiver">_receiver</item>
+            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
           </by><status>1</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
@@ -243,7 +244,7 @@ Bien cordialement,</body>
       <items>
         <item type="webservice_call" id="1">
           <label>Ajouter le parent &#224; l'enfant</label>
-          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/children/{{ form_workflow_data_verification_existance_enfant_response_child.id }}/add_parent</url>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/children/{{ form_workflow_data_verification_existance_enfant_response_child.id }}/add-parent</url>
           <method>PATCH</method>
           <post>False</post>
           <post_data>
@@ -306,7 +307,7 @@ Bien cordialement,</body>
       </items><triggers>
         <trigger type="manual" id="6e23aefd-ef27-4389-9056-715d4e6279ec">
           <roles>
-            <item role_id="_receiver">_receiver</item>
+            <item role_id="_debug">_debug</item>
           </roles>
         </trigger>
       </triggers>
