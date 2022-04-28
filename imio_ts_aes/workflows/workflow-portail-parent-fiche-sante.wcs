@@ -219,7 +219,7 @@
               <value>{{ form_var_handicap_raw }}</value>
             </item><item>
               <name>level_handicap</name>
-              <value>{{ form_var_level_handicap }}</value>
+              <value>{{ form_var_level_handicap_raw }}</value>
             </item><item>
               <name>specific_regime_selection</name>
               <value>{{ form_var_has_specific_regime_raw|default:"" }}</value>
@@ -292,9 +292,6 @@
             </item><item>
               <name>disease_ids</name>
               <value>{{ form_var_diseases_raw }}</value>
-            </item><item>
-              <name>other_diseases</name>
-              <value>{{ form_var_other_diseases|default:"" }}</value>
             </item><item>
               <name>disease_0_gravity</name>
               <value>{{ form_var_disease_0_gravity|default:"" }}</value>

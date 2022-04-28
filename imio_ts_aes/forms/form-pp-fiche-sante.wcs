@@ -466,7 +466,7 @@
       </display_locations><prefill>
         <locked>False</locked>
         <type>string</type>
-        <value>{% for allergy_id in form_var_fiche_sante.allergy_ids%}{{ allergy_id|slugify }}{% if not forloop.last %}, {% endif %}{% endfor %}</value>
+        <value>{{form_var_fiche_sante.allergy_ids}}</value>
       </prefill><min_choices type="int">0</min_choices>
       <max_choices type="int">0</max_choices>
       <data_source>
@@ -529,11 +529,11 @@
       <prefill>
         <locked>False</locked>
         <type>string</type>
-        <value>{% for disease_id in form_var_fiche_sante.disease_ids %}{{ disease_id|slugify }}{% if not forloop.last %}, {% endif %}{% endfor %}</value>
+        <value>{{form_var_fiche_sante.disease_ids}}</value>
       </prefill><min_choices type="int">0</min_choices>
       <max_choices type="int">0</max_choices>
       <data_source>
-        <type>formula</type>
+        <type>aes_diseases</type>
         <value>form_var_fiche_sante_selections["disease_type"]</value>
       </data_source><in_filters type="bool">False</in_filters>
       <anonymise type="bool">True</anonymise>
@@ -2249,7 +2249,7 @@
       <prefill>
         <locked>False</locked>
         <type>string</type>
-        <value>{{ form_var_fiche_sante.allowed_contact_ids.0|get:"country_id"|get:"0" }}</value>
+        <value>{{ form_var_fiche_sante.allowed_contact_ids.0|get:"country_id"|get:"0"|default:20 }}</value>
       </prefill><display_mode type="str">list</display_mode>
       <data_source>
         <type>aes_countries</type>
