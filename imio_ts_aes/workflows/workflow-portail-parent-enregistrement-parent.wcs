@@ -107,7 +107,7 @@
               <value>{% firstof form_user_var_country "belgique" %}</value>
             </item><item>
               <name>street_number</name>
-              <value>{{ form_var_num_house|default:"" }}</value>
+              <value>{{ form_user_var_num_house|default:"" }}</value>
             </item>
           </post_data><response_type>json</response_type>
           <varname>creation_parent</varname>
