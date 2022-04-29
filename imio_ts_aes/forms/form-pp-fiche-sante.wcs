@@ -15,7 +15,7 @@
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="1">Portail Parent</category>
   <workflow slug="aes-enregistrement-fiche-sante" workflow_id="6">Portail Parent - Fiche sant&#233;</workflow>
-  <max_field_id>654</max_field_id>
+  <max_field_id>656</max_field_id>
   <fields>
     <field>
       <label type="str">Informations g&#233;n&#233;rales</label>
@@ -560,21 +560,28 @@
       <type type="str">page</type>
       <condition>
         <type>django</type>
-        <value>script.pp_how_many_encoded_diseases &gt; 0 and 'diseases' in form_option_questions_raw</value>
+        <value>form_var_diseases or form_var_other_diseases</value>
       </condition><id type="str">500</id>
     </field><field>
-      <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases "get_disease_from_index" "form_var_diseases_raw" "form_var_other_diseases" "0"]&lt;/h3&gt;
+      <label type="str">D&#233;tails des maladies</label>
+      <type type="str">title</type>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><id type="str">656</id>
+    </field><field>
+      <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases &amp;quot;get_disease_from_index&amp;quot; &amp;quot;form_var_diseases_raw&amp;quot; &amp;quot;form_var_other_diseases&amp;quot; &amp;quot;0&amp;quot;]&lt;/h3&gt;
 </label>
       <type type="str">comment</type>
-      <display_locations />
+      <condition>
+        <type>django</type>
+        <value>False</value>
+      </condition><display_locations />
       <id type="str">521</id>
     </field><field>
       <label type="str">Gravit&#233;</label>
       <type type="str">string</type>
-      <condition>
-        <type>django</type>
-        <value>script.pp_how_many_encoded_diseases &gt; 0</value>
-      </condition><required type="bool">True</required>
+      <required type="bool">False</required>
       <varname type="str">disease_0_gravity</varname>
       <display_locations>
         <display_location>validation</display_location>
@@ -589,10 +596,7 @@
     </field><field>
       <label type="str">Traitement</label>
       <type type="str">text</type>
-      <condition>
-        <type>django</type>
-        <value>script.pp_how_many_encoded_diseases &gt; 0</value>
-      </condition><required type="bool">True</required>
+      <required type="bool">False</required>
       <varname type="str">disease_0_treatment</varname>
       <display_locations>
         <display_location>validation</display_location>
@@ -605,18 +609,21 @@
       </prefill><pre type="bool">False</pre>
       <id type="str">508</id>
     </field><field>
-      <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases "get_disease_from_index" "form_var_diseases_raw" "form_var_other_diseases" "1"]&lt;/h3&gt;
+      <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases &amp;quot;get_disease_from_index&amp;quot; &amp;quot;form_var_diseases_raw&amp;quot; &amp;quot;form_var_other_diseases&amp;quot; &amp;quot;1&amp;quot;]&lt;/h3&gt;
 </label>
       <type type="str">comment</type>
-      <display_locations />
+      <condition>
+        <type>django</type>
+        <value>False</value>
+      </condition><display_locations />
       <id type="str">502</id>
     </field><field>
       <label type="str">Gravit&#233;</label>
       <type type="str">string</type>
       <condition>
         <type>django</type>
-        <value>script.pp_how_many_encoded_diseases &gt; 1</value>
-      </condition><required type="bool">True</required>
+        <value>False</value>
+      </condition><required type="bool">False</required>
       <varname type="str">disease_1_gravity</varname>
       <display_locations>
         <display_location>validation</display_location>
@@ -633,8 +640,8 @@
       <type type="str">text</type>
       <condition>
         <type>django</type>
-        <value>script.pp_how_many_encoded_diseases &gt; 1</value>
-      </condition><required type="bool">True</required>
+        <value>False</value>
+      </condition><required type="bool">False</required>
       <varname type="str">disease_1_treatment</varname>
       <display_locations>
         <display_location>validation</display_location>
@@ -647,18 +654,21 @@
       </prefill><pre type="bool">False</pre>
       <id type="str">514</id>
     </field><field>
-      <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases "get_disease_from_index" "form_var_diseases_raw" "form_var_other_diseases" "2"]&lt;/h3&gt;
+      <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases &amp;quot;get_disease_from_index&amp;quot; &amp;quot;form_var_diseases_raw&amp;quot; &amp;quot;form_var_other_diseases&amp;quot; &amp;quot;2&amp;quot;]&lt;/h3&gt;
 </label>
       <type type="str">comment</type>
-      <display_locations />
+      <condition>
+        <type>django</type>
+        <value>False</value>
+      </condition><display_locations />
       <id type="str">506</id>
     </field><field>
       <label type="str">Gravit&#233;</label>
       <type type="str">string</type>
       <condition>
         <type>django</type>
-        <value>script.pp_how_many_encoded_diseases &gt; 2</value>
-      </condition><required type="bool">True</required>
+        <value>False</value>
+      </condition><required type="bool">False</required>
       <varname type="str">disease_2_gravity</varname>
       <display_locations>
         <display_location>validation</display_location>
@@ -675,8 +685,8 @@
       <type type="str">text</type>
       <condition>
         <type>django</type>
-        <value>script.pp_how_many_encoded_diseases &gt; 2</value>
-      </condition><required type="bool">True</required>
+        <value>False</value>
+      </condition><required type="bool">False</required>
       <varname type="str">disease_2_treatment</varname>
       <display_locations>
         <display_location>validation</display_location>
@@ -689,18 +699,21 @@
       </prefill><pre type="bool">False</pre>
       <id type="str">515</id>
     </field><field>
-      <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases "get_disease_from_index" "form_var_diseases_raw" "form_var_other_diseases" "3"]&lt;/h3&gt;
+      <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases &amp;quot;get_disease_from_index&amp;quot; &amp;quot;form_var_diseases_raw&amp;quot; &amp;quot;form_var_other_diseases&amp;quot; &amp;quot;3&amp;quot;]&lt;/h3&gt;
 </label>
       <type type="str">comment</type>
-      <display_locations />
+      <condition>
+        <type>django</type>
+        <value>False</value>
+      </condition><display_locations />
       <id type="str">505</id>
     </field><field>
       <label type="str">Gravit&#233;</label>
       <type type="str">string</type>
       <condition>
         <type>django</type>
-        <value>script.pp_how_many_encoded_diseases &gt; 3</value>
-      </condition><required type="bool">True</required>
+        <value>False</value>
+      </condition><required type="bool">False</required>
       <varname type="str">disease_3_gravity</varname>
       <display_locations>
         <display_location>validation</display_location>
@@ -717,8 +730,8 @@
       <type type="str">text</type>
       <condition>
         <type>django</type>
-        <value>script.pp_how_many_encoded_diseases &gt; 3</value>
-      </condition><required type="bool">True</required>
+        <value>False</value>
+      </condition><required type="bool">False</required>
       <varname type="str">disease_3_treatment</varname>
       <display_locations>
         <display_location>validation</display_location>
@@ -731,18 +744,21 @@
       </prefill><pre type="bool">False</pre>
       <id type="str">516</id>
     </field><field>
-      <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases "get_disease_from_index" "form_var_diseases_raw" "form_var_other_diseases" "4"]&lt;/h3&gt;
+      <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases &amp;quot;get_disease_from_index&amp;quot; &amp;quot;form_var_diseases_raw&amp;quot; &amp;quot;form_var_other_diseases&amp;quot; &amp;quot;4&amp;quot;]&lt;/h3&gt;
 </label>
       <type type="str">comment</type>
-      <display_locations />
+      <condition>
+        <type>django</type>
+        <value>False</value>
+      </condition><display_locations />
       <id type="str">503</id>
     </field><field>
       <label type="str">Gravit&#233;</label>
       <type type="str">string</type>
       <condition>
         <type>django</type>
-        <value>script.pp_how_many_encoded_diseases &gt; 4</value>
-      </condition><required type="bool">True</required>
+        <value>False</value>
+      </condition><required type="bool">False</required>
       <varname type="str">disease_4_gravity</varname>
       <display_locations>
         <display_location>validation</display_location>
@@ -759,8 +775,8 @@
       <type type="str">text</type>
       <condition>
         <type>django</type>
-        <value>script.pp_how_many_encoded_diseases &gt; 4</value>
-      </condition><required type="bool">True</required>
+        <value>False</value>
+      </condition><required type="bool">False</required>
       <varname type="str">disease_4_treatment</varname>
       <display_locations>
         <display_location>validation</display_location>
@@ -773,18 +789,21 @@
       </prefill><pre type="bool">False</pre>
       <id type="str">517</id>
     </field><field>
-      <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases "get_disease_from_index" "form_var_diseases_raw" "form_var_other_diseases" "5"]&lt;/h3&gt;
+      <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases &amp;quot;get_disease_from_index&amp;quot; &amp;quot;form_var_diseases_raw&amp;quot; &amp;quot;form_var_other_diseases&amp;quot; &amp;quot;5&amp;quot;]&lt;/h3&gt;
 </label>
       <type type="str">comment</type>
-      <display_locations />
+      <condition>
+        <type>django</type>
+        <value>False</value>
+      </condition><display_locations />
       <id type="str">504</id>
     </field><field>
       <label type="str">Gravit&#233;</label>
       <type type="str">string</type>
       <condition>
         <type>django</type>
-        <value>script.pp_how_many_encoded_diseases &gt; 5</value>
-      </condition><required type="bool">True</required>
+        <value>False</value>
+      </condition><required type="bool">False</required>
       <varname type="str">disease_5_gravity</varname>
       <display_locations>
         <display_location>validation</display_location>
@@ -801,8 +820,8 @@
       <type type="str">text</type>
       <condition>
         <type>django</type>
-        <value>script.pp_how_many_encoded_diseases &gt; 5</value>
-      </condition><required type="bool">True</required>
+        <value>False</value>
+      </condition><required type="bool">False</required>
       <varname type="str">disease_5_treatment</varname>
       <display_locations>
         <display_location>validation</display_location>
