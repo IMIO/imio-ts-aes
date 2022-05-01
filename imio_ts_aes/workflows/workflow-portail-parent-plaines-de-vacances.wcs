@@ -154,10 +154,24 @@
 `Consulter ma demande &lt;{{ form_url }}&gt;`_
 
 Une fois que vous aurez inscrits tous vos enfants, vous pouvez `finaliser vos inscriptions &lt;{{ portal_url }}portail-parent/&gt;`_.</body>
+        </item><item type="displaymsg" id="4">
+          <message>&lt;p&gt;Les inscriptions pour les semaines suivantes n'ont pu aboutir :&lt;/p&gt;&lt;ul&gt; {% for error in form_workflow_data_registration_response_error %}
+&lt;li&gt;Semaine du {{ error.start_date|date }} au {{ error.end_date|date }}&lt;/li&gt;
+{% endfor %}&lt;/ul&gt;</message>
+          <level>warning</level>
+          <position>bottom</position>
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><condition>
+            <type>django</type>
+            <value>form_workflow_data_registration_response_error</value>
+          </condition>
         </item><item type="displaymsg" id="2">
-          <message>{{ form_var_enfant }} a bien &#233;t&#233; inscrit !
+          <message>&lt;p&gt;{{ form_var_enfant }} a bien &#233;t&#233; inscrit pour les semaines suivantes  :&lt;/p&gt;&lt;ul&gt; {% for success in form_workflow_data_registration_response_success %}
+&lt;li&gt;Semaine du {{ success.start_date|date }} au {{ success.end_date|date }}&lt;/li&gt;
+{% endfor %}&lt;/ul&gt;
 
-&lt;p&gt;Vous pouvez &lt;a href="{{ eservices_url }}portail-parent/plaines-de-vacances/?enfant="&gt;inscrire un autre enfant&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Vous pouvez &lt;a href="{{ portal_url }}portail-parent/"&gt;inscrire un autre enfant&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;a class="pk-button" href="{{ portal_url }}portail-parent/"&gt;Inscrire un autre enfant&lt;/a&gt;&lt;/p&gt;
 
@@ -179,6 +193,18 @@ Une fois que vous aurez inscrits tous vos enfants, vous pouvez `finaliser vos in
             <type>django</type>
             <value>form_option_mode_de_paiement == "Paiement en ligne"</value>
           </condition>
+        </item><item type="register-comment" id="5">
+          <comment>&lt;p&gt;{{ form_var_enfant }} a bien &#233;t&#233; inscrit pour les semaines suivantes  :&lt;/p&gt;&lt;ul&gt; {% for success in form_workflow_data_registration_response_success %}
+&lt;li&gt;Semaine du {{ success.start_date|date }} au {{ success.end_date|date }}&lt;/li&gt;
+{% endfor %}&lt;/ul&gt;
+
+{% if form_workflow_data_registration_response_error %}&lt;p&gt;Les inscriptions pour les semaines suivantes n'ont pu aboutir :&lt;/p&gt;&lt;ul&gt; {% for error in form_workflow_data_registration_response_error %}
+&lt;li&gt;Semaine du {{ error.start_date|date }} au {{ error.end_date|date }}&lt;/li&gt;
+{% endfor %}&lt;/ul&gt;{% endif %}</comment>
+          <to>
+            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+            <item role_id="_receiver">_receiver</item>
+          </to>
         </item>
       </items>
     </status><status>
@@ -204,6 +230,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <label>Relancer les inscriptions</label>
           <by>
             <item role_id="_receiver">_receiver</item>
+            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
           </by><status>2</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Une fois le probl&amp;egrave;me corrig&amp;eacute;, il est possible par ce biais de relancer les inscriptions dans AES.&lt;/p&gt;
@@ -217,7 +244,21 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
       <name>Aucune inscription n'a pu aboutir</name>
       <colour>FFFFFF</colour>
       <visibility />
-      <items />
+      <items>
+        <item type="choice" id="1">
+          <label>Retenter les inscriptions</label>
+          <by>
+            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+          </by><status>2</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item type="register-comment" id="2">
+          <comment>&lt;div class="pk-error"&gt;&lt;p&gt;Les inscriptions pour les semaines suivantes n'ont pu aboutir :&lt;/p&gt;&lt;ul&gt; {% for error in form_workflow_data_registration_response_error %}
+&lt;li&gt;Semaine du {{ error.start_date|date }} au {{ error.end_date|date }}&lt;/li&gt;
+{% endfor %}&lt;/ul&gt;&lt;/div&gt;</comment>
+        </item>
+      </items>
     </status>
   </possible_status><global_actions>
     <action>

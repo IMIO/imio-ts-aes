@@ -38,7 +38,8 @@
         <display_location>validation</display_location>
         <display_location>summary</display_location>
         <display_location>listings</display_location>
-      </display_locations><prefill>
+      </display_locations><extra_css_class type="str">hidden</extra_css_class>
+      <prefill>
         <locked>True</locked>
         <type>string</type>
         <value>{{ form_var_id_enfant }}</value>
