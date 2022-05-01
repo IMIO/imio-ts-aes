@@ -29,21 +29,6 @@
         <display_location>summary</display_location>
       </display_locations><id type="str">23</id>
     </field><field>
-      <label type="str">Nom de l'enfant</label>
-      <type type="str">string</type>
-      <required type="bool">True</required>
-      <varname type="str">enfant_nom</varname>
-      <display_locations>
-        <display_location>validation</display_location>
-        <display_location>summary</display_location>
-        <display_location>listings</display_location>
-      </display_locations><extra_css_class type="str">grid-1-4</extra_css_class>
-      <prefill>
-        <locked>False</locked>
-        <type>none</type>
-      </prefill><anonymise type="bool">True</anonymise>
-      <id type="str">16</id>
-    </field><field>
       <label type="str">Pr&#233;nom de l'enfant</label>
       <type type="str">string</type>
       <required type="bool">True</required>
@@ -58,6 +43,21 @@
         <type>none</type>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">17</id>
+    </field><field>
+      <label type="str">Nom de l'enfant</label>
+      <type type="str">string</type>
+      <required type="bool">True</required>
+      <varname type="str">enfant_nom</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+        <display_location>listings</display_location>
+      </display_locations><extra_css_class type="str">grid-1-4</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>none</type>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">16</id>
     </field><field>
       <label type="str">Date de naissance</label>
       <type type="str">date</type>
@@ -175,8 +175,8 @@
     <role slug="debug" role_id="5162edec67c74e23bc26251709ab4101" role_key="_debug">Debug</role>
   </roles><options>
     <option varname="autosave" />
-    <option varname="child_type_facturation">non</option>
-    <option varname="child_type_facturation_display">Non</option>
+    <option varname="child_type_facturation">oui</option>
+    <option varname="child_type_facturation_display">Oui</option>
     <option varname="child_type_facturation_structured" />
     <option varname="child_type_id_default_value">1</option>
   </options><custom_views />

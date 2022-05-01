@@ -195,7 +195,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <comment>&lt;div&gt;
 &lt;p&gt;
 &lt;a class="pk-button" href="{{ portal_url }}portail_parent/"&gt;Page d'accueil&lt;/a&gt;
-&lt;a class="pk-button" href="{{ eservices_url }}enregistrer-un-enfant/"&gt;Enregister un autre enfant&lt;/a&gt;
+&lt;a class="pk-button" href="{{ eservices_url }}pp-enregistrer-un-enfant/"&gt;Enregister un autre enfant&lt;/a&gt;
 &lt;/p&gt;
 &lt;/div&gt;</comment>
           <to>
@@ -216,7 +216,7 @@ Retourner sur le &lt;a href="{{ portal_user_url }}portail_parent/"&gt;portail pa
         </item><item type="sendmail" id="3">
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><subject>Portail parent : Confirmation de votre enregistrement.</subject>
+          </to><subject>Portail parent : Confirmation de votre enregistrement</subject>
           <body>{{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }},
 
 L'inscription de {{form_var_enfant_prenom}} dans notre portail parent a &#233;t&#233; correctement r&#233;alis&#233;e.
