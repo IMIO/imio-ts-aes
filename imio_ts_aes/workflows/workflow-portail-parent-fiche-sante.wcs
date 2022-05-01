@@ -367,6 +367,9 @@
             </item><item>
               <name>medication_9</name>
               <value>{{ form_var_medication_9_name }} - {{ form_var_medication_9_quantity }} - {{ form_var_medication_9_period }} - {{ form_var_medication_9_self_medication_raw }}</value>
+            </item><item>
+              <name>comment</name>
+              <value>{{ form_var_precisions_supp|default:"" }}</value>
             </item>
           </post_data><response_type>json</response_type>
           <varname>enregistrement_fiche_sante</varname>
