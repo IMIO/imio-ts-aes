@@ -254,7 +254,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item><item type="register-comment" id="2">
-          <comment>&lt;div class="pk-error"&gt;&lt;p&gt;Les inscriptions pour les semaines suivantes n'ont pu aboutir :&lt;/p&gt;&lt;ul&gt; {% for error in form_workflow_data_registration_response_error %}
+          <comment>&lt;div class="pk-error"&gt;&lt;p&gt;Les inscriptions pour les semaines suivantes n'ont pu aboutir car l'enfant y est d&#233;j&#224; inscrit ou il n'y a plus de places :&lt;/p&gt;&lt;ul&gt; {% for error in form_workflow_data_registration_response_error %}
 &lt;li&gt;Semaine du {{ error.start_date|date }} au {{ error.end_date|date }}&lt;/li&gt;
 {% endfor %}&lt;/ul&gt;&lt;/div&gt;</comment>
         </item>
