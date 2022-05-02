@@ -2055,12 +2055,12 @@
         </post_condition><post_condition>
           <condition>
             <type>python</type>
-            <value>(form_var_contact_0_name is None and form_var_contact_0_relation is None) or (form_var_contact_0_name is not None and form_var_contact_0_relation is not None)</value>
+            <value>(form_var_contact_0_name is None and form_var_contact_0_tel is None) or (form_var_contact_0_name is not None and form_var_contact_0_tel is not None)</value>
           </condition><error_message>Veuillez compl&#233;ter le premier contact ou le laisser vide.</error_message>
         </post_condition><post_condition>
           <condition>
             <type>python</type>
-            <value>(form_var_contact_1_name is None and form_var_contact_1_relation is None) or (form_var_contact_1_name is not None and form_var_contact_1_relation is not None)</value>
+            <value>(form_var_contact_1_name is None and form_var_contact_1_tel is None) or (form_var_contact_1_name is not None and form_var_contact_1_tel is not None)</value>
           </condition><error_message>Veuillez compl&#233;ter le deuxi&#232;me contact ou le laisser vide.</error_message>
         </post_condition>
       </post_conditions><id type="str">547</id>
