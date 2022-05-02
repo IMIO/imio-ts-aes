@@ -407,7 +407,11 @@
       <name>Fiche sant&#233; est enregistr&#233;e</name>
       <colour>00FF00</colour>
       <visibility />
-      <items />
+      <items>
+        <item type="register-comment" id="1">
+          <comment>&lt;p&gt;&lt;a class="pk-button" href="{{ portal_url }}portail-parent/"&gt;Retourner sur le Portail Parent&lt;/a&gt;&lt;/p&gt;</comment>
+        </item>
+      </items>
     </status>
   </possible_status><global_actions>
     <action>
