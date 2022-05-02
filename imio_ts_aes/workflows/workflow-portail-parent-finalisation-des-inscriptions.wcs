@@ -51,50 +51,23 @@
 &lt;ul&gt;{% for registration in forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de paiement" %}
     &lt;li&gt;{{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }}&lt;/li&gt;
 {% endfor %}&lt;/ul&gt;&lt;/div&gt;</comment>
-        </item><item type="displaymsg" id="4">
-          <message>&lt;p&gt;Merci de proc&#233;der au paiement des inscriptions end&#233;ans les 3 jours pour que celles-ci soient effectives.&lt;/p&gt;
-
-&lt;p&gt;&lt;a class="pk-button" href="{{ portal_url }}panier"&gt;Payer&lt;/a&gt;&lt;/p&gt;</message>
-          <level>info</level>
-          <position>top</position>
-          <to>
-            <item role_id="_submitter">_submitter</item>
-          </to><condition>
+        </item><item type="jump" id="5">
+          <status>11</status>
+          <condition>
             <type>django</type>
-            <value>form_option_regie_de_paiement == "Paiement en ligne"</value>
-          </condition>
-        </item><item type="displaymsg" id="5">
-          <message>Nous vous confirmons les inscriptions effectu&#233;es. Les places sont r&#233;serv&#233;es pour le moment. Vous recevrez prochainement un email contenant les modalit&#233;s de paiement par virement bancaire. Une fois le paiement effectu&#233; et valid&#233; par nos services, les places seront d&#233;finitivement r&#233;serv&#233;es. Si le paiement n'a pas &#233;t&#233; effectu&#233; dans les d&#233;lais impartis, les places seront lib&#233;r&#233;es.</message>
-          <level>success</level>
-          <position>top</position>
-          <to>
-            <item role_id="_submitter">_submitter</item>
-          </to><condition>
-            <type>django</type>
-            <value>form_option_regie_de_paiement == "Paiement par virement"</value>
-          </condition>
-        </item><item type="displaymsg" id="6">
-          <message>Nous vous confirmons les inscriptions effectu&#233;es. Les places sont r&#233;serv&#233;es. Les plaines seront factur&#233;es a posteriori.</message>
-          <level>success</level>
-          <position>top</position>
-          <to>
-            <item role_id="_submitter">_submitter</item>
-          </to><condition>
-            <type>django</type>
-            <value>form_option_regie_de_paiement == "Paiement diff&#233;r&#233;"</value>
-          </condition>
-        </item><item type="jump" id="3">
+            <value>form_option_mode_paiement == "Paiement diff&#233;r&#233;"</value>
+          </condition><set_marker_on_status>False</set_marker_on_status>
+        </item><item type="jump" id="4">
           <status>1</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
     </status><status>
       <id>1</id>
-      <name>Demande du montant</name>
-      <colour>FFFFFF</colour>
-      <visibility>
-        <role>_receiver</role>
-      </visibility><items>
+      <name>En attente des informations de paiement</name>
+      <colour>0099FF</colour>
+      <visibility />
+      <items>
         <item type="webservice_call" id="1">
           <label>Calcul du montant</label>
           <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/registrations/cost</url>
@@ -184,18 +157,22 @@
             <type>django</type>
             <value>form_option_mode_paiement == "Paiement en ligne"</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="5">
-          <status>11</status>
-          <condition>
-            <type>django</type>
-            <value>form_option_mode_paiement == "Paiement diff&#233;r&#233;"</value>
-          </condition><set_marker_on_status>False</set_marker_on_status>
         </item><item type="jumponsubmit" id="6">
           <status>9</status>
           <set_marker_on_status>False</set_marker_on_status>
           <condition>
             <type>django</type>
             <value>form_option_calcul_montant == "Calculer le montant manuellement" and form_option_mode_paiement == "Paiement par virement"</value>
+          </condition>
+        </item><item type="displaymsg" id="7">
+          <message>Nous vous confirmons les inscriptions effectu&#233;es. Les places sont r&#233;serv&#233;es pour le moment. Vous recevrez prochainement un email contenant les modalit&#233;s de paiement par virement bancaire. Une fois le paiement effectu&#233; et valid&#233; par nos services, les places seront d&#233;finitivement r&#233;serv&#233;es. Si le paiement n'a pas &#233;t&#233; effectu&#233; dans les d&#233;lais impartis, les places seront lib&#233;r&#233;es.</message>
+          <level>success</level>
+          <position>top</position>
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><condition>
+            <type>django</type>
+            <value>form_option_mode_paiement == "Paiement par virement"</value>
           </condition>
         </item>
       </items>
@@ -286,7 +263,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
       <visibility />
       <items>
         <item type="displaymsg" id="1">
-          <message>&lt;p&gt;Veuillez r&#233;gler &lt;a href="{{ portal_url }}panier/"&gt;votre panier&lt;/a&gt; afin de finaliser les inscriptions.&lt;/p&gt;
+          <message>&lt;p&gt;Veuillez r&#233;gler &lt;a href="{{ portal_url }}panier/"&gt;votre panier&lt;/a&gt; afin de finaliser les inscriptions end&#233;ans les 3 jours pour que celles-ci soient effectives..&lt;/p&gt;
 
 &lt;p&gt;&lt;a href="{{ portal_url }}panier/" class="pk-button"&gt;R&#233;gler mon panier&lt;/a&gt;&lt;/p&gt;</message>
           <level>info</level>
@@ -521,6 +498,16 @@ Cordialement,</body>
       <items>
         <item type="register-comment" id="1">
           <comment>Vos inscriptions sont finalis&#233;es. Merci d'avoir utilis&#233; nos services.</comment>
+        </item><item type="displaymsg" id="2">
+          <message>Nous vous confirmons les inscriptions effectu&#233;es. Les places sont r&#233;serv&#233;es. Les plaines seront factur&#233;es a posteriori.</message>
+          <level>success</level>
+          <position>top</position>
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><condition>
+            <type>django</type>
+            <value>form_option_mode_paiement == "Paiement diff&#233;r&#233;"</value>
+          </condition>
         </item>
       </items>
     </status><status>
