@@ -4,7 +4,7 @@
   <slug>aes-enregistrement-fiche-sante</slug>
   <category slug="portail-parent" category_id="1">Portail parent</category>
   <roles>
-    <role id="_receiver">Agent traitent</role>
+    <role id="_receiver">Agent traitant</role>
   </roles><possible_status>
     <status>
       <id>1</id>
@@ -57,16 +57,33 @@
             </item>
           </post_data><response_type>json</response_type>
           <varname>doctor</varname>
-          <action_on_app_error>:pass</action_on_app_error>
-          <action_on_4xx>:stop</action_on_4xx>
-          <action_on_5xx>:stop</action_on_5xx>
-          <action_on_bad_data>:pass</action_on_bad_data>
-          <action_on_network_errors>:stop</action_on_network_errors>
+          <action_on_app_error>9</action_on_app_error>
+          <action_on_4xx>9</action_on_4xx>
+          <action_on_5xx>9</action_on_5xx>
+          <action_on_bad_data>9</action_on_bad_data>
+          <action_on_network_errors>9</action_on_network_errors>
           <notify_on_errors>False</notify_on_errors>
           <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
         </item><item type="jump" id="2">
           <status>7</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>9</id>
+      <name>Erreur m&#233;decin</name>
+      <colour>FF0000</colour>
+      <visibility>
+        <role>_receiver</role>
+      </visibility><items>
+        <item type="choice" id="1">
+          <label>Retenter l'enregistrement du m&#233;decin</label>
+          <by>
+            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+          </by><status>5</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
@@ -113,10 +130,10 @@
           </post_data><response_type>json</response_type>
           <varname>contact_0</varname>
           <action_on_app_error>:pass</action_on_app_error>
-          <action_on_4xx>:stop</action_on_4xx>
-          <action_on_5xx>:stop</action_on_5xx>
+          <action_on_4xx>8</action_on_4xx>
+          <action_on_5xx>8</action_on_5xx>
           <action_on_bad_data>:pass</action_on_bad_data>
-          <action_on_network_errors>:stop</action_on_network_errors>
+          <action_on_network_errors>8</action_on_network_errors>
           <notify_on_errors>False</notify_on_errors>
           <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
@@ -161,10 +178,10 @@
           </post_data><response_type>json</response_type>
           <varname>contact_1</varname>
           <action_on_app_error>:pass</action_on_app_error>
-          <action_on_4xx>:stop</action_on_4xx>
-          <action_on_5xx>:stop</action_on_5xx>
+          <action_on_4xx>8</action_on_4xx>
+          <action_on_5xx>8</action_on_5xx>
           <action_on_bad_data>:pass</action_on_bad_data>
-          <action_on_network_errors>:stop</action_on_network_errors>
+          <action_on_network_errors>8</action_on_network_errors>
           <notify_on_errors>False</notify_on_errors>
           <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
@@ -174,14 +191,6 @@
           </condition>
         </item><item type="jump" id="3">
           <status>2</status>
-          <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="choice" id="4">
-          <label>Erreur contact</label>
-          <by>
-            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
-          </by><status>8</status>
-          <require_confirmation>False</require_confirmation>
-          <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
