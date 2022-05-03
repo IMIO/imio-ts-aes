@@ -26,11 +26,15 @@
       </display_locations><id type="str">3</id>
     </field><field>
       <label type="str">&lt;div&gt;{% if form_user_email %}
-	      &lt;ol&gt;{% for registration in forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de validation" %}
-	&lt;li&gt;{{ registration|get:"form_var_enfant_name" }} &#224; {{ registration|get:"form_var_plaine" }}&lt;/li&gt;
-{% endfor %}
-&lt;/ol&gt;
-{% else %}Pas d'utilisateur d&#233;tect&#233; - Peut-&#234;tre &#234;tes vous dans la fabrique de formulaires ?{% endif %}&lt;/div&gt;</label>
+
+    &lt;ol&gt;{% for registration in forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de validation" %}
+    &lt;li&gt;{{ registration|get:"form_var_enfant_name" }} &#224; {{ registration|get:"form_var_plaine" }}&lt;/li&gt;
+    {% empty %}
+    &lt;p class="pk-error"&gt;Il semble que vous n'ayez pas encore inscrit vos enfants aux plaines de vacances. Veuillez &lt;a href="{{ portal_url }}portail-parent" rel="nofollow"&gt;retourner sur le Portail Parent&lt;/a&gt; pour r&#233;aliser ces inscriptions.&lt;/p&gt;
+    &lt;p&gt;&lt;a class="pk-button" href="{{ portal_url }}portail-parent" rel="nofollow"&gt;Retourner sur le Portail Parent&lt;/a&gt;&lt;/p&gt;
+    {% endfor %}&lt;/ol&gt;
+
+{% else %}&lt;p&gt;Pas d'utilisateur d&#233;tect&#233; - Peut-&#234;tre &#234;tes vous dans la fabrique de formulaires ?&lt;/p&gt;{% endif %}&lt;/div&gt;</label>
       <type type="str">comment</type>
       <display_locations />
       <id type="str">2</id>

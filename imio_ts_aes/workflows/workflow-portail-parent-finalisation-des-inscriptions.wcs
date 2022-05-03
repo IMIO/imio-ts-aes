@@ -32,6 +32,12 @@
           </fields>
         </item><item type="jump" id="2">
           <status>3</status>
+          <condition>
+            <type>django</type>
+            <value>form_var_enfants</value>
+          </condition><set_marker_on_status>False</set_marker_on_status>
+        </item><item type="jump" id="3">
+          <status>18</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
@@ -521,6 +527,19 @@ Cordialement,</body>
           <trigger_id>action:cancel</trigger_id>
           <target_mode>manual</target_mode>
           <target_id>{{ forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de paiement" }}</target_id>
+        </item>
+      </items>
+    </status><status>
+      <id>18</id>
+      <name>Aucune inscription n'a &#233;t&#233; trouv&#233;e</name>
+      <colour>FF0000</colour>
+      <visibility />
+      <items>
+        <item type="displaymsg" id="1">
+          <message>&lt;p&gt;Il semble que vous n'ayez pas encore inscrit vos enfants aux plaines de vacances. Veuillez &lt;a href="{{ portal_url }}portail-parent"&gt;retourner sur le Portail Parent&lt;/a&gt; pour r&#233;aliser ces inscriptions.&lt;/p&gt;
+&lt;p&gt;&lt;a class="pk-button" href="{{ portal_url }}portail-parent"&gt;Retourner sur le Portail Parent&lt;/a&gt;&lt;/p&gt;</message>
+          <level>error</level>
+          <position>top</position>
         </item>
       </items>
     </status>
