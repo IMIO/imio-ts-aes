@@ -15,7 +15,7 @@
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="1">Portail Parent</category>
   <workflow slug="aes-inscription-aux-repas" workflow_id="10">Portail Parent - Repas scolaires</workflow>
-  <max_field_id>55</max_field_id>
+  <max_field_id>56</max_field_id>
   <fields>
     <field>
       <label type="str">S&#233;lection des repas</label>
@@ -36,7 +36,8 @@
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
-      </display_locations><prefill>
+      </display_locations><extra_css_class type="str">hidden</extra_css_class>
+      <prefill>
         <locked>True</locked>
         <type>string</type>
         <value>{{ form_var_id_enfant }}</value>
@@ -47,6 +48,16 @@
       <anonymise type="bool">False</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <id type="str">54</id>
+    </field><field>
+      <label type="str">&lt;p&gt;Vous inscrivez &lt;span class="varname"&gt;{{ form_var_enfant }}&lt;/span&gt; aux plaines de vacances.&lt;/p&gt;
+</label>
+      <type type="str">comment</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_enfant</value>
+      </condition><extra_css_class type="str">pk-information</extra_css_class>
+      <display_locations />
+      <id type="str">56</id>
     </field><field>
       <label type="str">Menu</label>
       <type type="str">items</type>
