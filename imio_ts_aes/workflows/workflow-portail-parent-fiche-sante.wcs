@@ -149,7 +149,7 @@
           <post_data>
             <item>
               <name>country_id</name>
-              <value>{{ form_var_contact_1_country_raw }}</value>
+              <value>{{ form_var_contact_1_country_raw|default:20 }}</value>
             </item><item>
               <name>firstname</name>
               <value>{{ form_var_contact_1_firstname|default:"" }}</value>
@@ -167,10 +167,10 @@
               <value>{{ form_var_contact_1_tel }}</value>
             </item><item>
               <name>street</name>
-              <value>{{ form_var_contact_1_street }} {{ form_var_contact_1_number|default:"" }}{{ form_var_contact_1_box|default:"" }}</value>
+              <value>{{ form_var_contact_1_street|default:"" }} {{ form_var_contact_1_number|default:"" }}{{ form_var_contact_1_box|default:"" }}</value>
             </item><item>
               <name>zipcode</name>
-              <value>{{ form_var_contact_1_zip_code }}</value>
+              <value>{{ form_var_contact_1_zip_code|default:"" }}</value>
             </item><item>
               <name>mobile</name>
               <value>{{ form_var_contact_1_tel }}</value>
@@ -200,8 +200,14 @@
       <colour>FF0000</colour>
       <visibility />
       <items>
-        <item type="jump" id="1">
-          <status>7</status>
+        <item type="choice" id="2">
+          <label>Retenter l'enregistrement des contacts</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+          </by><status>7</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
