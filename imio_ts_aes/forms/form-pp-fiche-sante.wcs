@@ -2245,7 +2245,7 @@
         <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.allowed_contact_ids.0|get:"city"|get:0|default:"" }}</value>
-      </prefill><display_mode type="str">list</display_mode>
+      </prefill><display_mode type="str">autocomplete</display_mode>
       <data_source>
         <type>portail_parent_localites</type>
       </data_source><in_filters type="bool">False</in_filters>
@@ -2453,7 +2453,7 @@
         <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.allowed_contact_ids.1|get:"city"|default:"" }}</value>
-      </prefill><display_mode type="str">list</display_mode>
+      </prefill><display_mode type="str">autocomplete</display_mode>
       <data_source>
         <type>portail_parent_localites</type>
       </data_source><in_filters type="bool">False</in_filters>
