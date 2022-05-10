@@ -112,7 +112,9 @@
       <prefill>
         <locked>False</locked>
         <type>none</type>
-      </prefill><anonymise type="bool">True</anonymise>
+      </prefill><validation>
+        <type>nrn-be</type>
+      </validation><anonymise type="bool">True</anonymise>
       <id type="str">20</id>
     </field><field>
       <label type="str">&lt;div&gt;{% if webservice.aes_is_registered_child %}&lt;div class="pk-error"&gt;&lt;p&gt;Votre enfant existe d&amp;eacute;j&amp;agrave; dans notre base de donn&amp;eacute;es. V&amp;eacute;rifiez tout d'abord s'il est pr&amp;eacute;sent dans la liste de vos enfants sur &lt;a href="{{ portal_url }}portail_parent" target="_blank"&gt;la page d'accueil du Portail Parent&lt;/a&gt;.&lt;/p&gt;
