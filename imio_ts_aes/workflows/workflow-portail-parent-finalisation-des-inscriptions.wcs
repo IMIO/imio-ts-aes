@@ -275,7 +275,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <level>info</level>
           <position>top</position>
         </item><item type="jump" id="2">
-          <status>5</status>
+          <status>19</status>
           <trigger>paid</trigger>
           <set_marker_on_status>False</set_marker_on_status>
         </item><item type="jump" id="3">
@@ -366,6 +366,46 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
         </item><item type="jump" id="2">
           <status>5</status>
           <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>19</id>
+      <name>R&#233;ception du paiement</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item type="webservice_call" id="1">
+          <label>Encoder le paiement dans AES</label>
+          <url>{{ passerelle_url}}passerelle-imio-ia-aes/aes/payment/create</url>
+          <method>POST</method>
+          <post>False</post>
+          <post_data>
+            <item>
+              <name>parent_id</name>
+              <value>{{ form_user_var_aes_id|add:0 }}</value>
+            </item><item>
+              <name>amount</name>
+              <value>{{ form_workflow_data_montant_response_cost|decimal:2 }}</value>
+            </item><item>
+              <name>comment</name>
+              <value>{{ form_display_name }}</value>
+            </item>
+          </post_data><response_type>json</response_type>
+          <varname>encode_paiement</varname>
+          <action_on_app_error>:pass</action_on_app_error>
+          <action_on_4xx>:stop</action_on_4xx>
+          <action_on_5xx>:stop</action_on_5xx>
+          <action_on_bad_data>:pass</action_on_bad_data>
+          <action_on_network_errors>:stop</action_on_network_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <record_on_errors>True</record_on_errors>
+          <record_errors>False</record_errors>
+        </item><item type="jump" id="2">
+          <status>5</status>
+          <condition>
+            <type>django</type>
+            <value>form_workflow_data_encode_paiement_response_success|length</value>
+          </condition><set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
     </status><status>
