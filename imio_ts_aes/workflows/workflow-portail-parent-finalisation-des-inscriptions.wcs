@@ -282,7 +282,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <status>13</status>
           <condition>
             <type>django</type>
-            <value>form_option_non_auto_annulation</value>
+            <value>not form_option_non_auto_annulation</value>
           </condition><trigger>cancelled</trigger>
           <set_marker_on_status>False</set_marker_on_status>
         </item><item type="choice" id="4">
