@@ -940,7 +940,9 @@
         <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.0.quantity }}</value>
-      </prefill><anonymise type="bool">True</anonymise>
+      </prefill><validation>
+        <type>digits</type>
+      </validation><anonymise type="bool">True</anonymise>
       <id type="str">592</id>
     </field><field>
       <label type="str">P&#233;riodes de prise</label>
@@ -1028,7 +1030,9 @@
         <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.1.quantity }}</value>
-      </prefill><anonymise type="bool">True</anonymise>
+      </prefill><validation>
+        <type>digits</type>
+      </validation><anonymise type="bool">True</anonymise>
       <id type="str">597</id>
     </field><field>
       <label type="str">P&#233;riodes de prise</label>
@@ -1116,7 +1120,9 @@
         <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.2.quantity }}</value>
-      </prefill><anonymise type="bool">True</anonymise>
+      </prefill><validation>
+        <type>digits</type>
+      </validation><anonymise type="bool">True</anonymise>
       <id type="str">602</id>
     </field><field>
       <label type="str">P&#233;riodes de prise</label>
@@ -1204,7 +1210,9 @@
         <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.3.quantity }}</value>
-      </prefill><anonymise type="bool">True</anonymise>
+      </prefill><validation>
+        <type>digits</type>
+      </validation><anonymise type="bool">True</anonymise>
       <id type="str">607</id>
     </field><field>
       <label type="str">P&#233;riodes de prise</label>
@@ -1310,7 +1318,9 @@
         <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.4.period }}</value>
-      </prefill><anonymise type="bool">True</anonymise>
+      </prefill><validation>
+        <type>digits</type>
+      </validation><anonymise type="bool">True</anonymise>
       <id type="str">613</id>
     </field><field>
       <label type="str">Votre enfant peut-il prendre ce m&#233;dicament seul ?</label>
@@ -1380,7 +1390,9 @@
         <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.5.quantity }}</value>
-      </prefill><anonymise type="bool">True</anonymise>
+      </prefill><validation>
+        <type>digits</type>
+      </validation><anonymise type="bool">True</anonymise>
       <id type="str">617</id>
     </field><field>
       <label type="str">P&#233;riodes de prise</label>
@@ -1468,7 +1480,9 @@
         <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.6.quantity }}</value>
-      </prefill><anonymise type="bool">True</anonymise>
+      </prefill><validation>
+        <type>digits</type>
+      </validation><anonymise type="bool">True</anonymise>
       <id type="str">622</id>
     </field><field>
       <label type="str">P&#233;riodes de prise</label>
@@ -1537,7 +1551,7 @@
       <prefill>
         <locked>False</locked>
         <type>string</type>
-        <value>{{ form_var_fiche_sante.medication_ids.6.name }}</value>
+        <value>{{ form_var_fiche_sante.medication_ids.7.name }}</value>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">626</id>
     </field><field>
@@ -1555,8 +1569,10 @@
       <prefill>
         <locked>False</locked>
         <type>string</type>
-        <value>{{ form_var_fiche_sante.medication_ids.6.quantity }}</value>
-      </prefill><anonymise type="bool">True</anonymise>
+        <value>{{ form_var_fiche_sante.medication_ids.7.quantity }}</value>
+      </prefill><validation>
+        <type>digits</type>
+      </validation><anonymise type="bool">True</anonymise>
       <id type="str">627</id>
     </field><field>
       <label type="str">P&#233;riodes de prise</label>
@@ -1573,7 +1589,7 @@
       <prefill>
         <locked>False</locked>
         <type>string</type>
-        <value>{{ form_var_fiche_sante.medication_ids.6.period }}</value>
+        <value>{{ form_var_fiche_sante.medication_ids.7.period }}</value>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">628</id>
     </field><field>
@@ -1591,7 +1607,7 @@
       <prefill>
         <locked>False</locked>
         <type>string</type>
-        <value>{{ form_var_fiche_sante.medication_ids.6.self_medication }}</value>
+        <value>{{ form_var_fiche_sante.medication_ids.7.self_medication }}</value>
       </prefill><display_mode type="str">radio</display_mode>
       <data_source>
         <type>formula</type>
@@ -1644,7 +1660,9 @@
         <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.8.quantity }}</value>
-      </prefill><anonymise type="bool">True</anonymise>
+      </prefill><validation>
+        <type>digits</type>
+      </validation><anonymise type="bool">True</anonymise>
       <id type="str">632</id>
     </field><field>
       <label type="str">P&#233;riodes de prise</label>
@@ -1732,7 +1750,9 @@
         <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.9.quantity }}</value>
-      </prefill><anonymise type="bool">True</anonymise>
+      </prefill><validation>
+        <type>digits</type>
+      </validation><anonymise type="bool">True</anonymise>
       <id type="str">637</id>
     </field><field>
       <label type="str">P&#233;riodes de prise</label>
