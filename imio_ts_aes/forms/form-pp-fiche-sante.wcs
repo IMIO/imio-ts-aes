@@ -15,12 +15,15 @@
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="1">Portail Parent</category>
   <workflow slug="aes-enregistrement-fiche-sante" workflow_id="6">Portail Parent - Fiche sant&#233;</workflow>
-  <max_field_id>656</max_field_id>
+  <max_field_id>658</max_field_id>
   <fields>
     <field>
       <label type="str">Informations g&#233;n&#233;rales</label>
       <type type="str">page</type>
-      <id type="str">522</id>
+      <condition>
+        <type>django</type>
+        <value>request.GET.enfant|default:""</value>
+      </condition><id type="str">522</id>
     </field><field>
       <label type="str">Enfant</label>
       <type type="str">computed</type>
@@ -423,6 +426,28 @@
       <anonymise type="bool">False</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <id type="str">528</id>
+    </field><field>
+      <label type="str">Erreur</label>
+      <type type="str">page</type>
+      <condition>
+        <type>django</type>
+        <value>not form_var_enfant_id</value>
+      </condition><post_conditions>
+        <post_condition>
+          <condition>
+            <type>django</type>
+            <value>False</value>
+          </condition><error_message>Veuillez retouner sur le Portail Parent.</error_message>
+        </post_condition>
+      </post_conditions><id type="str">657</id>
+    </field><field>
+      <label type="str">&lt;p class="pk-error"&gt;Il semble qu'aucun enfant n'ait &#233;t&#233; s&#233;lectionn&#233;. Veuillez retourner sur le Portail Parent s&#233;lectionner la fiche sant&#233; d'un enfant.&lt;/p&gt;
+
+&lt;p&gt;&lt;a class="pk-button" href="{{ portal_url }}portail-parent/" rel="nofollow"&gt;Retourner sur le Portail Parent&lt;/a&gt;&lt;/p&gt;
+</label>
+      <type type="str">comment</type>
+      <display_locations />
+      <id type="str">658</id>
     </field><field>
       <label type="str">Allergies</label>
       <type type="str">page</type>
