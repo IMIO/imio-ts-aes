@@ -22,7 +22,7 @@
       <type type="str">page</type>
       <condition>
         <type>django</type>
-        <value>request.GET.enfant|default:""</value>
+        <value>request.GET.enfant|default:"" or form_var_enfant_id</value>
       </condition><id type="str">522</id>
     </field><field>
       <label type="str">Enfant</label>
