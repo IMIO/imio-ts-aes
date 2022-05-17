@@ -54,6 +54,9 @@
             </item><item>
               <name>zip</name>
               <value>{{ form_var_other_doctor_zipcode }}</value>
+            </item><item>
+              <name>city</name>
+              <value>{{ form_var_other_doctor_city }}</value>
             </item>
           </post_data><response_type>json</response_type>
           <varname>doctor</varname>
