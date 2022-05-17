@@ -8,7 +8,7 @@ JSON_CELL_TYPES.update(
          "additional-data": [
             {
                "key": "homepage_data",
-               "url": "{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ json.aes_id }}/homepage/"
+               "url": "{% if json.aes_id %}{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ json.aes_id }}/homepage/{% endif %}"
             }
          ]
       }
