@@ -521,7 +521,7 @@ Cordialement,</body>
           </to><subject>{{ form_name }} n&#176;{{ form_number }}</subject>
           <body>Bonjour,
 
-Nous vous confirmons la bonne r&#233;ception de votre paiement. Les plaines auxquelles vous avez inscrits vos enfants sont bel est bien r&#233;serv&#233;es.
+Nous vous confirmons la bonne r&#233;ception de votre paiement. Les plaines auxquelles vous avez inscrits vos enfants sont bel et bien r&#233;serv&#233;es.
 
 Cordialement,</body>
           <condition>
