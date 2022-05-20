@@ -61,6 +61,44 @@
         </item>
       </items>
     </status><status>
+      <id>5</id>
+      <name>Erreur dans la recherche</name>
+      <colour>FF0000</colour>
+      <visibility />
+      <items>
+        <item type="displaymsg" id="2">
+          <message>Une erreur est survenue lors de la recherche d'un parent. Celui-ci n'a donc pas pu &#234;tre retrouv&#233; ou cr&#233;&#233; dans iA.AES, et ne peut poursuivre les inscriptions de ses enfants.</message>
+          <level>error</level>
+          <position>top</position>
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to>
+        </item><item type="sendmail" id="3">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to><subject>Erreur lors de la recherche d'un parent, formulaire {{ form_name }} n&#176;{{ form_number }}</subject>
+          <body>Une erreur est survenue lors de la recherche d'un parent. Celui-ci n'a donc pas pu &#234;tre retrouv&#233; ou cr&#233;&#233; dans iA.AES, et ne peut poursuivre les inscriptions de ses enfants.
+
+Veuillez consulter la demande.
+
+`Consulter la demande &lt;{{ form_url_backoffice }}&gt;`_
+
+Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le support d'iMio
+
+`Contacter le support &lt;support.imio.be&gt;`_</body>
+        </item><item type="choice" id="1">
+          <label>Rechercher le parent</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>1</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Cette action relance la recherche du parent. &amp;Agrave; n&amp;#39;utiliser que si les probl&amp;egrave;mes rencontr&amp;eacute;s ont &amp;eacute;t&amp;eacute; r&amp;eacute;solus.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
       <id>2</id>
       <name>Cr&#233;ation du parent</name>
       <colour>FFFFFF</colour>
@@ -143,44 +181,6 @@
         </item>
       </items>
     </status><status>
-      <id>5</id>
-      <name>Erreur dans la recherche</name>
-      <colour>FF0000</colour>
-      <visibility />
-      <items>
-        <item type="displaymsg" id="2">
-          <message>Une erreur est survenue lors de la recherche d'un parent. Celui-ci n'a donc pas pu &#234;tre retrouv&#233; ou cr&#233;&#233; dans iA.AES, et ne peut poursuivre les inscriptions de ses enfants.</message>
-          <level>error</level>
-          <position>top</position>
-          <to>
-            <item role_id="_receiver">_receiver</item>
-          </to>
-        </item><item type="sendmail" id="3">
-          <to>
-            <item role_id="_receiver">_receiver</item>
-          </to><subject>Erreur lors de la recherche d'un parent, formulaire {{ form_name }} n&#176;{{ form_number }}</subject>
-          <body>Une erreur est survenue lors de la recherche d'un parent. Celui-ci n'a donc pas pu &#234;tre retrouv&#233; ou cr&#233;&#233; dans iA.AES, et ne peut poursuivre les inscriptions de ses enfants.
-
-Veuillez consulter la demande.
-
-`Consulter la demande &lt;{{ form_url_backoffice }}&gt;`_
-
-Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le support d'iMio
-
-`Contacter le support &lt;support.imio.be&gt;`_</body>
-        </item><item type="choice" id="1">
-          <label>Rechercher le parent</label>
-          <by>
-            <item role_id="_receiver">_receiver</item>
-          </by><status>1</status>
-          <require_confirmation>False</require_confirmation>
-          <backoffice_info_text>&lt;p&gt;Cette action relance la recherche du parent. &amp;Agrave; n&amp;#39;utiliser que si les probl&amp;egrave;mes rencontr&amp;eacute;s ont &amp;eacute;t&amp;eacute; r&amp;eacute;solus.&lt;/p&gt;
-</backoffice_info_text>
-          <ignore_form_errors>False</ignore_form_errors>
-          <set_marker_on_status>False</set_marker_on_status>
-        </item>
-      </items>
-    </status><status>
       <id>6</id>
       <name>Erreur lors de l'enregistrement</name>
       <colour>FF0000</colour>
@@ -210,7 +210,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <label>Cr&#233;er le parent</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-          </by><status>2</status>
+          </by><status>1</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Une fois la source du probl&amp;egrave;me r&amp;eacute;solu, vous pouvez retenter de cr&amp;eacute;er le parent dans iA.AES.&lt;/p&gt;
 </backoffice_info_text>

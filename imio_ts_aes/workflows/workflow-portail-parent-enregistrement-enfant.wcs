@@ -88,6 +88,22 @@
         </item>
       </items>
     </status><status>
+      <id>11</id>
+      <name>Erreur - deux enfants trouv&#233;s</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item type="choice" id="1">
+          <label>Rejouer</label>
+          <by>
+            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+          </by><status>6</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
       <id>1</id>
       <name>Enregistrement de l'enfant</name>
       <colour>FFFFFF</colour>
@@ -143,48 +159,6 @@
         </item>
       </items>
     </status><status>
-      <id>2</id>
-      <name>&#201;chec lors de l'enregistrement</name>
-      <colour>FF0000</colour>
-      <visibility />
-      <items>
-        <item type="displaymsg" id="5">
-          <message>Une erreur est survenue lors de la cr&#233;ation de l'enfant. Son parent ne peut donc poursuivre les inscriptions de ses enfants.</message>
-          <level>error</level>
-          <position>top</position>
-        </item><item type="sendmail" id="2">
-          <to>
-            <item role_id="_receiver">_receiver</item>
-          </to><subject>Portail parent Erreur : Probl&#232;me d'enregistrement d'un enfant ({{ site_name }})</subject>
-          <body>Une erreur est survenue lors de la cr&#233;ation d'un enfant. Celui-ci n'existait pas dans iA.AES et n'a pu &#234;tre cr&#233;&#233;. Il ne peut donc poursuivre les inscriptions de ses enfants.
-
-Veuillez consulter la demande.
-
-`Consulter la demande &lt;{{ form_url_backoffice }}&gt;`_
-
-Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le support d'iMio
-
-`support.imio.be &lt;support.imio.be&gt;`_</body>
-        </item><item type="choice" id="3">
-          <label>Relancer l'inscription</label>
-          <by>
-            <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
-          </by><status>1</status>
-          <require_confirmation>False</require_confirmation>
-          <ignore_form_errors>False</ignore_form_errors>
-          <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="choice" id="4">
-          <label>Noter la demande comme r&#233;gularis&#233;e</label>
-          <by>
-            <item role_id="_receiver">_receiver</item>
-          </by><status>8</status>
-          <require_confirmation>False</require_confirmation>
-          <ignore_form_errors>False</ignore_form_errors>
-          <set_marker_on_status>False</set_marker_on_status>
-        </item>
-      </items>
-    </status><status>
       <id>3</id>
       <name>Votre enfant est bien enregistr&#233;</name>
       <colour>00FF00</colour>
@@ -231,6 +205,48 @@ Bien cordialement,</body>
         </item>
       </items>
     </status><status>
+      <id>2</id>
+      <name>&#201;chec lors de l'enregistrement</name>
+      <colour>FF0000</colour>
+      <visibility />
+      <items>
+        <item type="displaymsg" id="5">
+          <message>Une erreur est survenue lors de la cr&#233;ation de l'enfant. Son parent ne peut donc poursuivre les inscriptions de ses enfants.</message>
+          <level>error</level>
+          <position>top</position>
+        </item><item type="sendmail" id="2">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to><subject>Portail parent Erreur : Probl&#232;me d'enregistrement d'un enfant ({{ site_name }})</subject>
+          <body>Une erreur est survenue lors de la cr&#233;ation d'un enfant. Celui-ci n'existait pas dans iA.AES et n'a pu &#234;tre cr&#233;&#233;. Il ne peut donc poursuivre les inscriptions de ses enfants.
+
+Veuillez consulter la demande.
+
+`Consulter la demande &lt;{{ form_url_backoffice }}&gt;`_
+
+Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le support d'iMio
+
+`support.imio.be &lt;support.imio.be&gt;`_</body>
+        </item><item type="choice" id="3">
+          <label>Relancer l'inscription</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+          </by><status>6</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item type="choice" id="4">
+          <label>Noter la demande comme r&#233;gularis&#233;e</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>8</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
       <id>8</id>
       <name>La situation est r&#233;gularis&#233;e</name>
       <colour>99FF00</colour>
@@ -250,7 +266,7 @@ Bien cordialement,</body>
           <post_data>
             <item>
               <name>parent_id</name>
-              <value>{{ form_user_aes_id }}</value>
+              <value>{{ form_user_var_aes_id }}</value>
             </item>
           </post_data><response_type>json</response_type>
           <varname>ajout_parent</varname>
@@ -281,22 +297,6 @@ Bien cordialement,</body>
       <colour>00FF00</colour>
       <visibility />
       <items />
-    </status><status>
-      <id>11</id>
-      <name>Erreur - deux enfants trouv&#233;s</name>
-      <colour>FFFFFF</colour>
-      <visibility />
-      <items>
-        <item type="choice" id="1">
-          <label>Rejouer</label>
-          <by>
-            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
-          </by><status>6</status>
-          <require_confirmation>False</require_confirmation>
-          <ignore_form_errors>False</ignore_form_errors>
-          <set_marker_on_status>False</set_marker_on_status>
-        </item>
-      </items>
     </status>
   </possible_status><global_actions>
     <action>
