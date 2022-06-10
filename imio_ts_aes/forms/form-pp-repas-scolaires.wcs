@@ -49,7 +49,7 @@
       <display_disabled_items type="bool">False</display_disabled_items>
       <id type="str">54</id>
     </field><field>
-      <label type="str">&lt;p&gt;Vous inscrivez &lt;span class="varname"&gt;{{ form_var_enfant }}&lt;/span&gt; aux plaines de vacances.&lt;/p&gt;
+      <label type="str">&lt;p&gt;Vous inscrivez &lt;span class="varname"&gt;{{ form_var_enfant }}&lt;/span&gt; aux repas scolaires.&lt;/p&gt;
 </label>
       <type type="str">comment</type>
       <condition>
