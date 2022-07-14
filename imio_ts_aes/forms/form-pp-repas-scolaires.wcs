@@ -29,7 +29,7 @@
       <freeze_on_initial_value type="bool">True</freeze_on_initial_value>
       <id type="str">53</id>
     </field><field>
-      <label type="str">Choisissez l'enfant &#224; inscrire aux plaines</label>
+      <label type="str">Choisissez l'enfant &#224; inscrire aux repas scolaires</label>
       <type type="str">item</type>
       <required type="bool">True</required>
       <varname type="str">enfant</varname>
@@ -49,7 +49,7 @@
       <display_disabled_items type="bool">False</display_disabled_items>
       <id type="str">54</id>
     </field><field>
-      <label type="str">&lt;p&gt;Vous inscrivez &lt;span class="varname"&gt;{{ form_var_enfant }}&lt;/span&gt; aux plaines de vacances.&lt;/p&gt;
+      <label type="str">&lt;p&gt;Vous inscrivez &lt;span class="varname"&gt;{{ form_var_enfant }}&lt;/span&gt; aux repas scolaires.&lt;/p&gt;
 </label>
       <type type="str">comment</type>
       <condition>
@@ -71,7 +71,8 @@
       <prefill>
         <locked>False</locked>
         <type>none</type>
-      </prefill><min_choices type="int">0</min_choices>
+      </prefill><display_mode type="str">checkboxes</display_mode>
+      <min_choices type="int">0</min_choices>
       <max_choices type="int">0</max_choices>
       <data_source>
         <type>portail_parent_repas_scolaires</type>
