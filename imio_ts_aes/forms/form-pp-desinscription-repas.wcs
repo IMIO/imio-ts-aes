@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<formdef id="15" url="https://wcs.dev.publik.love/backoffice/forms/15/">
+  <name>D&#233;sinscription Repas scolaires</name>
+  <url_name>pp-desinscription-repas</url_name>
+  <internal_identifier>desinscription-repas-scolaires</internal_identifier>
+  <discussion>false</discussion>
+  <detailed_emails>true</detailed_emails>
+  <disabled>false</disabled>
+  <only_allow_one>false</only_allow_one>
+  <enable_tracking_codes>false</enable_tracking_codes>
+  <confirmation>true</confirmation>
+  <always_advertise>false</always_advertise>
+  <include_download_all_button>false</include_download_all_button>
+  <has_captcha>false</has_captcha>
+  <skip_from_360_view>false</skip_from_360_view>
+  <category slug="portail-parent" category_id="1">Portail Parent</category>
+  <workflow slug="portail-parent-repas-scolaires-desinscription" workflow_id="13">Portail Parent - Repas scolaires - D&#233;sinscription</workflow>
+  <max_field_id>5</max_field_id>
+  <fields>
+    <field>
+      <label type="str">S&#233;lection des repas</label>
+      <type type="str">page</type>
+      <id type="str">1</id>
+    </field><field>
+      <label type="str">Identifiant de l'enfant</label>
+      <type type="str">computed</type>
+      <varname type="str">id_enfant</varname>
+      <value_template type="str">{{request.GET.enfant|default:""}}</value_template>
+      <freeze_on_initial_value type="bool">True</freeze_on_initial_value>
+      <id type="str">2</id>
+    </field><field>
+      <label type="str">Choisissez l'enfant &#224; d&#233;sinscrire aux repas scolaires</label>
+      <type type="str">item</type>
+      <required type="bool">True</required>
+      <varname type="str">enfant</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">hidden</extra_css_class>
+      <prefill>
+        <locked>True</locked>
+        <type>string</type>
+        <value>{{ form_var_id_enfant }}</value>
+      </prefill><display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>portail_parent_enfants</type>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">3</id>
+    </field><field>
+      <label type="str">&lt;p&gt;Vous d&#233;sinscrivez &lt;span class="varname"&gt;{{ form_var_enfant }}&lt;/span&gt; des repas scolaires.&lt;/p&gt;
+</label>
+      <type type="str">comment</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_enfant</value>
+      </condition><extra_css_class type="str">pk-information</extra_css_class>
+      <display_locations />
+      <id type="str">4</id>
+    </field><field>
+      <label type="str">Repas</label>
+      <type type="str">items</type>
+      <required type="bool">True</required>
+      <varname type="str">repas</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><display_mode type="str">checkboxes</display_mode>
+      <min_choices type="int">1</min_choices>
+      <max_choices type="int">0</max_choices>
+      <data_source>
+        <type>json</type>
+        <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/children/{{ form_var_id_enfant }}/registrations</value>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">True</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">5</id>
+    </field>
+  </fields><user-roles>
+    <role role_id="logged-users">logged-users</role>
+  </user-roles><roles>
+    <role slug="agent-traitant-portail-parent" role_id="d0b8282bf6114da680fa4c848da76167" role_key="_receiver">Agent traitant - Portail Parent</role>
+  </roles><options />
+  <custom_views />
+  <geolocations />
+</formdef>
