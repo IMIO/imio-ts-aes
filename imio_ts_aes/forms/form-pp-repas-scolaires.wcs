@@ -15,7 +15,7 @@
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="1">Portail Parent</category>
   <workflow slug="aes-inscription-aux-repas" workflow_id="10">Portail Parent - Repas scolaires</workflow>
-  <max_field_id>57</max_field_id>
+  <max_field_id>59</max_field_id>
   <fields>
     <field>
       <label type="str">S&#233;lection des repas</label>
@@ -67,7 +67,11 @@
         <display_location>validation</display_location>
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">hidden</extra_css_class>
-      <display_mode type="str">checkboxes</display_mode>
+      <prefill>
+        <locked>False</locked>
+        <type>formula</type>
+        <value>[repas["id"] for repas in data_source.portail_parent_inscriptions_aux_repas]</value>
+      </prefill><display_mode type="str">checkboxes</display_mode>
       <min_choices type="int">1</min_choices>
       <max_choices type="int">0</max_choices>
       <data_source>
