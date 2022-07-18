@@ -25,19 +25,19 @@
       <items>
         <item type="webservice_call" id="1">
           <label>Enregistrements des occurences s&#233;lectionn&#233;es</label>
-          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/menus/registration</url>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/menus/registrations</url>
           <method>POST</method>
           <post>False</post>
           <post_data>
             <item>
-              <name>school_implantation_id</name>
-              <value>{{ form_var_enfant_school_implantation }}</value>
-            </item><item>
               <name>child_id</name>
               <value>{{ form_var_id_enfant }}</value>
             </item><item>
               <name>meals</name>
-              <value>{{ form_var_menu_structured }}</value>
+              <value>{{ form_var_repas_structured }}</value>
+            </item><item>
+              <name>parent_id</name>
+              <value>{{ form_user_var_aes_id }}</value>
             </item>
           </post_data><response_type>json</response_type>
           <varname>post_child_meal</varname>
@@ -52,8 +52,8 @@
         </item><item type="jump" id="2">
           <status>3</status>
           <condition>
-            <type>python</type>
-            <value>post_child_meal_response is True</value>
+            <type>django</type>
+            <value>form_workflow_data_post_child_meal_status == 200</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
         </item><item type="choice" id="4">
           <label>Signaler la situation comme r&#233;gularis&#233;e sans notifier l'usager</label>
@@ -103,9 +103,9 @@
       <items>
         <item type="register-comment" id="1">
           <comment>&lt;p&gt;Nous avons bien re&#231;u votre commande de repas pour {{ form_var_enfant }}&lt;/p&gt;
-&lt;p&gt;Voici votre commande pour &lt;b&gt;{{ form_var_menu_structured.0.date|date:"F Y" }} :&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;Voici votre commande pour &lt;b&gt;{{ form_var_repas_structured.0.date|date:"F Y" }} :&lt;/b&gt;&lt;/p&gt;
 &lt;ul&gt;
-{% for repas in form_var_menu_structured %}
+{% for repas in form_var_repas_structured %}
     &lt;li&gt;Le {{ repas.date|date:"j" }} : {{ repas.text }}&lt;/li&gt;
 {% endfor %}
 &lt;/ul&gt;</comment>
@@ -115,8 +115,8 @@
           </to><subject>Commande de repas pour {{ form_var_enfant }}</subject>
           <body>Nous avons bien re&#231;u votre commande de repas pour {{ form_var_enfant }}.
 
-Voici votre commande pour **{{ form_var_menu_structured.0.date|date:"F Y" }}** :
-{% for repas in form_var_menu_structured %}
+Voici votre commande pour **{{ form_var_repas_structured.0.date|date:"F Y" }}** :
+{% for repas in form_var_repas_structured %}
 * Le {{ repas.date|date:"j" }} : {{ repas.text }}
 {% endfor %}</body>
         </item>
@@ -147,6 +147,7 @@ Voici votre commande pour **{{ form_var_menu_structured.0.date|date:"F Y" }}** :
           <hint type="str">Filtrer les enfants en fonction des &#233;coles coch&#233;es. Si aucune &#233;cole n'est coch&#233;e, les enfants ne sont pas filtr&#233;s.</hint>
           <varname type="str">implantations_scolaires</varname>
           <display_locations />
+          <display_mode type="str">checkboxes</display_mode>
           <min_choices type="int">0</min_choices>
           <max_choices type="int">0</max_choices>
           <data_source>

@@ -15,7 +15,7 @@
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="1">Portail Parent</category>
   <workflow slug="aes-inscription-aux-repas" workflow_id="10">Portail Parent - Repas scolaires</workflow>
-  <max_field_id>56</max_field_id>
+  <max_field_id>57</max_field_id>
   <fields>
     <field>
       <label type="str">S&#233;lection des repas</label>
@@ -62,17 +62,13 @@
       <label type="str">Menu</label>
       <type type="str">items</type>
       <required type="bool">True</required>
-      <hint type="str">calendrier</hint>
-      <varname type="str">menu</varname>
+      <varname type="str">repas</varname>
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
-      </display_locations><extra_css_class type="str">calendrier</extra_css_class>
-      <prefill>
-        <locked>False</locked>
-        <type>none</type>
-      </prefill><display_mode type="str">checkboxes</display_mode>
-      <min_choices type="int">0</min_choices>
+      </display_locations><extra_css_class type="str">hidden</extra_css_class>
+      <display_mode type="str">checkboxes</display_mode>
+      <min_choices type="int">1</min_choices>
       <max_choices type="int">0</max_choices>
       <data_source>
         <type>portail_parent_repas_scolaires</type>
@@ -81,6 +77,12 @@
       <anonymise type="bool">True</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <id type="str">39</id>
+    </field><field>
+      <label type="str">Repas</label>
+      <type type="str">comment</type>
+      <extra_css_class type="str">template-portail_parent_repas</extra_css_class>
+      <display_locations />
+      <id type="str">57</id>
     </field>
   </fields><user-roles>
     <role slug="parent" role_id="9568ff2000794db8a6711bd2ff596ceb">Parent</role>
