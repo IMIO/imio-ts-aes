@@ -15,7 +15,7 @@
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="1">Portail Parent</category>
   <workflow slug="aes-inscription-aux-repas" workflow_id="10">Portail Parent - Repas scolaires</workflow>
-  <max_field_id>59</max_field_id>
+  <max_field_id>57</max_field_id>
   <fields>
     <field>
       <label type="str">S&#233;lection des repas</label>
