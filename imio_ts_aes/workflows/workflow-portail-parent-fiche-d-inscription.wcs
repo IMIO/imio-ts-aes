@@ -118,7 +118,7 @@ Un parent a voulu annuler une inscription aux plaines, mais celle-ci est tomb&#2
 
 Si vous n'avez pu r&#233;soudre le probl&#232;me, vous pouvez contacter le support d'iMio.
 
-`Contacter le support d'iMio &lt;support.imio.be&gt;`_</comment>
+&lt;a href="support.imio.be"&gt;Contacter le support d'iMio&lt;/a&gt;</comment>
           <to>
             <item role_id="_receiver">_receiver</item>
           </to>
@@ -220,12 +220,12 @@ Si vous n'avez pu r&#233;soudre le probl&#232;me, vous pouvez contacter le suppo
           <required type="bool">True</required>
           <varname type="str">mode_de_paiement</varname>
           <display_locations />
+          <display_mode type="str">radio</display_mode>
           <items>
             <item>Paiement en ligne</item>
             <item>Paiement par virement</item>
             <item>Paiement diff&#233;r&#233;</item>
-          </items><display_mode type="str">radio</display_mode>
-          <in_filters type="bool">False</in_filters>
+          </items><in_filters type="bool">False</in_filters>
           <anonymise type="bool">False</anonymise>
           <display_disabled_items type="bool">False</display_disabled_items>
           <id type="str">1</id>
