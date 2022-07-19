@@ -20,7 +20,7 @@
           <post_data>
             <item>
               <name>meals</name>
-              <value>{{ form_var_repas_raw }}</value>
+              <value>{{ form_var_repas_structured }}</value>
             </item>
           </post_data><response_type>json</response_type>
           <varname>unregistration</varname>
