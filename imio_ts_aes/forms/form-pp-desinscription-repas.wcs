@@ -59,7 +59,7 @@
       <display_locations />
       <id type="str">4</id>
     </field><field>
-      <label type="str">Repas</label>
+      <label type="str">Cochez les dates desquelles vous souhaitez d&#233;sinscrire votre enfant des repas scolaires :</label>
       <type type="str">items</type>
       <required type="bool">True</required>
       <varname type="str">repas</varname>
