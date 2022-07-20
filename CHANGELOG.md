@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.1.0
+------------------
+
+- [MPP-340] Changed: New meal calendar [nhislaire]
+- [MPP-341] Add: meal unregistration [nhislaire]
+
 1.0.0
 ------------------
 
