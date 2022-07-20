@@ -49,14 +49,15 @@
       <display_disabled_items type="bool">False</display_disabled_items>
       <id type="str">54</id>
     </field><field>
-      <label type="str">&lt;p&gt;Vous inscrivez &lt;span class="varname"&gt;{{ form_var_enfant }}&lt;/span&gt; aux repas scolaires.&lt;/p&gt;
+      <label type="str">&lt;div class="pk-information"&gt;&lt;p&gt;Vous inscrivez &lt;span class="varname"&gt;{{ form_var_enfant }}&lt;/span&gt; aux repas scolaires.&lt;/p&gt;&lt;/div&gt;
+
+&lt;p&gt;Pour inscrire votre enfant, cliquez sur le type de repas de votre choix. Ne cochez rien s&amp;#39;il ne doit pas &amp;ecirc;tre inscrit pour une ou plusieurs dates. Vous pourrez encore modifier votre choix jusqu&amp;#39;&amp;agrave; la fin des inscriptions de ce mois-ci.&lt;/p&gt;
 </label>
       <type type="str">comment</type>
       <condition>
         <type>django</type>
         <value>form_var_enfant</value>
-      </condition><extra_css_class type="str">pk-information</extra_css_class>
-      <display_locations />
+      </condition><display_locations />
       <id type="str">56</id>
     </field><field>
       <label type="str">Menu</label>
