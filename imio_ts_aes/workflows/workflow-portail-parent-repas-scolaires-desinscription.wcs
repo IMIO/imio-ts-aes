@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<workflow id="13" url="https://wcs.dev.publik.love/backoffice/workflows/13/">
+  <name>Portail Parent - Repas scolaires - D&#233;sinscription</name>
+  <slug>portail-parent-repas-scolaires-desinscription</slug>
+  <category slug="portail-parent" category_id="1">Portail parent</category>
+  <roles>
+    <role id="_receiver">Agent traitant</role>
+  </roles><possible_status>
+    <status>
+      <id>1</id>
+      <name>D&#233;sinscription</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item type="webservice_call" id="1">
+          <label>D&#233;sinscription</label>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/children/registrations/delete</url>
+          <method>POST</method>
+          <post>False</post>
+          <post_data>
+            <item>
+              <name>meals</name>
+              <value>{{ form_var_repas_structured }}</value>
+            </item>
+          </post_data><response_type>json</response_type>
+          <varname>unregistration</varname>
+          <action_on_app_error>3</action_on_app_error>
+          <action_on_4xx>3</action_on_4xx>
+          <action_on_5xx>3</action_on_5xx>
+          <action_on_bad_data>3</action_on_bad_data>
+          <action_on_network_errors>3</action_on_network_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <record_on_errors>True</record_on_errors>
+          <record_errors>False</record_errors>
+        </item><item type="jump" id="2">
+          <status>2</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>2</id>
+      <name>D&#233;sinscription enregistr&#233;e</name>
+      <colour>00FF00</colour>
+      <visibility />
+      <items>
+        <item type="sendmail" id="2">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to><subject>{{ form_name }} : d&#233;sinscription des repas pour {{ form_var_enfant }}</subject>
+          <body>Bonjour,
+
+Le parent {{ form_user_display_name }} a d&#233;sinscrit son enfant {{ form_var_enfant }} pour les dates suivantes :
+
+{% for repas in form_var_repas_structured %}
+* {{ repas.text }}
+{% endfor %}
+
+Cordialement,</body>
+          <condition>
+            <type>django</type>
+            <value>"oui" in form_option_notifier_service|lower</value>
+          </condition>
+        </item><item type="sendmail" id="3">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>{{ form_name }} n&#176;{{ form_number }}</subject>
+          <body>Bonjour,
+
+Nous avons bien re&#231;u votre demande de d&#233;sinscription de repas pour {{ form_var_enfant }}.
+
+{% for repas in form_var_repas_structured %}
+* {{ repas.text }}
+{% endfor %}
+
+Cordialement,</body>
+        </item><item type="displaymsg" id="1">
+          <message>La d&#233;sinscription de {{ form_var_enfant }} a bien &#233;t&#233; enregistr&#233;e pour les repas suivants :
+&lt;ul&gt;{% for repas in form_var_repas_structured %}
+&lt;li&gt;{{ repas.text }}&lt;/li&gt;
+{% endfor %}&lt;/ul&gt;</message>
+          <level>success</level>
+          <position>top</position>
+        </item>
+      </items>
+    </status><status>
+      <id>3</id>
+      <name>Erreur lors de la d&#233;sinscription</name>
+      <colour>FF0000</colour>
+      <visibility />
+      <items>
+        <item type="displaymsg" id="4">
+          <position>top</position>
+        </item><item type="sendmail" id="3">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to><subject>Erreur Portail Parent :  {{ form_name }} n&#176;{{ form_number }}</subject>
+          <body>Une erreur est survenue lors de la d&#233;sinscription de {{ form_var_enfant }} des repas.
+
+Veuillez consulter la demande.
+
+`Consulter la demande &lt;{{ form_url_backoffice }}&gt;`_
+
+Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le support d'iMio
+
+`Contacter le support &lt;support.imio.be&gt;`_</body>
+        </item><item type="choice" id="1">
+          <label>Relancer la d&#233;sinscription</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+            <item role_id="_submitter">_submitter</item>
+            <item role_id="logged-users">logged-users</item>
+          </by><status>1</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Si les probl&amp;egrave;mes ont &amp;eacute;t&amp;eacute; r&amp;eacute;solus, cette action permet de relancer la d&amp;eacute;sinscription dans AES.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item type="choice" id="2">
+          <label>Signaler la d&#233;sincription comme effective</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>2</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Si la demande de d&amp;eacute;sinscription a &amp;eacute;&amp;eacute;t enregstr&amp;eacute;e manuellement dans AES, cette action terminera la demande.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+  </possible_status><variables>
+    <formdef>
+      <name>-</name>
+      <fields>
+        <field>
+          <label type="str">Faut-il notifier le service lors d'une d&#233;sinscription ?</label>
+          <type type="str">item</type>
+          <required type="bool">True</required>
+          <hint type="str">Si "Oui", un courriel sera envoy&#233; aux agents traitants pour chaque nouvelle demande de d&#233;sinscription.</hint>
+          <varname type="str">notifier_service</varname>
+          <display_locations />
+          <display_mode type="str">radio</display_mode>
+          <items>
+            <item>Oui</item>
+            <item>Non</item>
+          </items><in_filters type="bool">False</in_filters>
+          <anonymise type="bool">False</anonymise>
+          <display_disabled_items type="bool">False</display_disabled_items>
+          <id type="str">1</id>
+        </field>
+      </fields>
+    </formdef>
+  </variables>
+</workflow>

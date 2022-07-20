@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<datasource id="24" url="">
+  <name>Portail Parent - Inscriptions aux repas</name>
+  <slug>portail_parent_inscriptions_aux_repas</slug>
+  <description>Liste des inscriptions aux repas pour un enfant pour un mois donn&#233;. Le mois sera soit le mois courant, soit le mois suivant, soit le mois d'apr&#232;s.</description>
+  <data_source>
+    <type>json</type>
+    <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/children/{{ form_var_id_enfant }}/registrations{% if form_option_mois %}?month={{ form_option_mois_raw }}{% endif %}</value>
+  </data_source>
+</datasource>
