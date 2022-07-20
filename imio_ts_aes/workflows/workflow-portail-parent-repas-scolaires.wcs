@@ -113,12 +113,16 @@
           <to>
             <item role_id="_submitter">_submitter</item>
           </to><subject>Commande de repas pour {{ form_var_enfant }}</subject>
-          <body>Nous avons bien re&#231;u votre commande de repas pour {{ form_var_enfant }}.
+          <body>Bonjour,
+
+Nous avons bien re&#231;u votre commande de repas pour {{ form_var_enfant }}.
 
 Voici votre commande pour **{{ form_var_repas_structured.0.date|date:"F Y" }}** :
 {% for repas in form_var_repas_structured %}
 * Le {{ repas.date|date:"j" }} : {{ repas.text }}
-{% endfor %}</body>
+{% endfor %}
+
+Cordialement,</body>
         </item>
       </items>
     </status>
