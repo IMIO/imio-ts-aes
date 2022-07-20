@@ -74,7 +74,7 @@ Nous avons bien re&#231;u votre demande de d&#233;sinscription de repas pour {{ 
 
 Cordialement,</body>
         </item><item type="displaymsg" id="1">
-          <message>{{ form_var_enfant }} a bien &#233;t&#233; d&#233;sinscrit des repas suivants :
+          <message>La d&#233;sinscription de {{ form_var_enfant }} a bien &#233;t&#233; enregistr&#233;e pour les repas suivants :
 &lt;ul&gt;{% for repas in form_var_repas_structured %}
 &lt;li&gt;{{ repas.text }}&lt;/li&gt;
 {% endfor %}&lt;/ul&gt;</message>
