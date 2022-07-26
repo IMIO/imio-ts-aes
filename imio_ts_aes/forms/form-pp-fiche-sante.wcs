@@ -62,7 +62,8 @@
         <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.blood_type|default:"unknown" }}</value>
-      </prefill><items>
+      </prefill><display_mode type="str">list</display_mode>
+      <items>
         <item>O+</item>
         <item>A+</item>
         <item>B+</item>
@@ -72,8 +73,7 @@
         <item>B-</item>
         <item>AB-</item>
         <item>inconnu</item>
-      </items><display_mode type="str">list</display_mode>
-      <data_source>
+      </items><data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["blood_type"]</value>
       </data_source><in_filters type="bool">False</in_filters>
@@ -96,11 +96,11 @@
         <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.tetanus_selection }}</value>
-      </prefill><items>
+      </prefill><display_mode type="str">radio</display_mode>
+      <items>
         <item>Oui</item>
         <item>Non</item>
-      </items><display_mode type="str">radio</display_mode>
-      <data_source>
+      </items><data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["tetanus_selection"]</value>
       </data_source><in_filters type="bool">False</in_filters>
@@ -227,8 +227,8 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.swim_level }}</value>
-      </prefill><items />
-      <display_mode type="str">radio</display_mode>
+      </prefill><display_mode type="str">radio</display_mode>
+      <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["swim_level"]</value>
@@ -251,8 +251,8 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.handicap_selection }}</value>
-      </prefill><items />
-      <display_mode type="str">radio</display_mode>
+      </prefill><display_mode type="str">radio</display_mode>
+      <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["handicap_selection"]</value>
@@ -274,8 +274,8 @@
       </display_locations><prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.level_handicap }}</value>
-      </prefill><items />
-      <display_mode type="str">radio</display_mode>
+      </prefill><display_mode type="str">radio</display_mode>
+      <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["level_handicap"]</value>
@@ -316,8 +316,8 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.activity_no_available_selection }}</value>
-      </prefill><items />
-      <display_mode type="str">radio</display_mode>
+      </prefill><display_mode type="str">radio</display_mode>
+      <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["activity_no_available_selection"]</value>
@@ -375,8 +375,8 @@
       </display_locations><prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.specific_regime_selection }}</value>
-      </prefill><items />
-      <display_mode type="str">radio</display_mode>
+      </prefill><display_mode type="str">radio</display_mode>
+      <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["specific_regime_selection"]</value>
@@ -441,7 +441,7 @@
         </post_condition>
       </post_conditions><id type="str">657</id>
     </field><field>
-      <label type="str">&lt;p class="pk-error"&gt;Il semble qu'aucun enfant n'ait &#233;t&#233; s&#233;lectionn&#233;. Veuillez retourner sur le Portail Parent s&#233;lectionner la fiche sant&#233; d'un enfant.&lt;/p&gt;
+      <label type="str">&lt;p class="pk-error"&gt;Il semble qu&amp;#39;aucun enfant n&amp;#39;ait &amp;eacute;t&amp;eacute; s&amp;eacute;lectionn&amp;eacute;. Veuillez retourner sur le Portail Parent s&amp;eacute;lectionner la fiche sant&amp;eacute; d&amp;#39;un enfant.&lt;/p&gt;
 
 &lt;p&gt;&lt;a class="pk-button" href="{{ portal_url }}portail-parent/" rel="nofollow"&gt;Retourner sur le Portail Parent&lt;/a&gt;&lt;/p&gt;
 </label>
@@ -466,11 +466,11 @@
       </display_locations><prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.allergy_selection }}</value>
-      </prefill><items>
+      </prefill><display_mode type="str">radio</display_mode>
+      <items>
         <item>Oui</item>
         <item>Non</item>
-      </items><display_mode type="str">radio</display_mode>
-      <data_source>
+      </items><data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["allergy_selection"]</value>
       </data_source><in_filters type="bool">False</in_filters>
@@ -492,7 +492,8 @@
         <locked>False</locked>
         <type>string</type>
         <value>{{form_var_fiche_sante.allergy_ids}}</value>
-      </prefill><min_choices type="int">0</min_choices>
+      </prefill><display_mode type="str">checkboxes</display_mode>
+      <min_choices type="int">0</min_choices>
       <max_choices type="int">0</max_choices>
       <data_source>
         <type>formula</type>
@@ -555,7 +556,8 @@
         <locked>False</locked>
         <type>string</type>
         <value>{{form_var_fiche_sante.disease_ids}}</value>
-      </prefill><min_choices type="int">0</min_choices>
+      </prefill><display_mode type="str">checkboxes</display_mode>
+      <min_choices type="int">0</min_choices>
       <max_choices type="int">0</max_choices>
       <data_source>
         <type>aes_diseases</type>
@@ -877,8 +879,8 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.self_medication }}</value>
-      </prefill><items />
-      <display_mode type="str">radio</display_mode>
+      </prefill><display_mode type="str">radio</display_mode>
+      <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["self_medication"]</value>
@@ -1834,8 +1836,8 @@
         <display_location>summary</display_location>
       </display_locations><prefill>
         <type>none</type>
-      </prefill><items />
-      <display_mode type="str">radio</display_mode>
+      </prefill><display_mode type="str">radio</display_mode>
+      <items />
       <data_source>
         <type>aes_oui_non</type>
       </data_source><in_filters type="bool">False</in_filters>
