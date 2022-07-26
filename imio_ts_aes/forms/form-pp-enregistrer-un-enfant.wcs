@@ -88,11 +88,11 @@
       <prefill>
         <locked>False</locked>
         <type>none</type>
-      </prefill><items>
+      </prefill><display_mode type="str">radio</display_mode>
+      <items>
         <item>Oui</item>
         <item>Non</item>
-      </items><display_mode type="str">radio</display_mode>
-      <in_filters type="bool">False</in_filters>
+      </items><in_filters type="bool">False</in_filters>
       <anonymise type="bool">False</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <id type="str">31</id>

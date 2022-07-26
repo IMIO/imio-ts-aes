@@ -73,7 +73,8 @@
       <prefill>
         <locked>False</locked>
         <type>none</type>
-      </prefill><min_choices type="int">0</min_choices>
+      </prefill><display_mode type="str">checkboxes</display_mode>
+      <min_choices type="int">0</min_choices>
       <max_choices type="int">0</max_choices>
       <data_source>
         <type>formula</type>
@@ -103,8 +104,8 @@
     <option varname="modalite_paiement">Paiement en ligne</option>
     <option varname="modalite_paiement_display">Paiement en ligne</option>
     <option varname="modalite_paiement_structured" />
-    <option varname="mode_de_paiement">Paiement par virement</option>
-    <option varname="mode_de_paiement_display">Paiement par virement</option>
+    <option varname="mode_de_paiement">Paiement en ligne</option>
+    <option varname="mode_de_paiement_display">Paiement en ligne</option>
     <option varname="mode_de_paiement_structured" />
     <option varname="nb_days_before_free_places">3</option>
     <option varname="numero_de_compte_iban" />

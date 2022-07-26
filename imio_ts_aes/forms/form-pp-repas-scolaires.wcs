@@ -3,6 +3,7 @@
   <name>Repas scolaires</name>
   <url_name>pp-repas-scolaires</url_name>
   <internal_identifier>repas-scolaires</internal_identifier>
+  <drafts_lifespan>2</drafts_lifespan>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
   <disabled>false</disabled>
@@ -15,7 +16,7 @@
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="1">Portail Parent</category>
   <workflow slug="aes-inscription-aux-repas" workflow_id="10">Portail Parent - Repas scolaires</workflow>
-  <max_field_id>57</max_field_id>
+  <max_field_id>59</max_field_id>
   <fields>
     <field>
       <label type="str">S&#233;lection des repas</label>
@@ -100,8 +101,8 @@
     <option varname="implantations_scolaires" />
     <option varname="implantations_scolaires_display" />
     <option varname="implantations_scolaires_structured" />
-    <option varname="mois">1</option>
-    <option varname="mois_display">Mois prochain</option>
+    <option varname="mois">0</option>
+    <option varname="mois_display">Mois courant</option>
     <option varname="mois_structured" />
     <option varname="test" />
   </options><custom_views />

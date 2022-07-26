@@ -51,6 +51,7 @@
     <option varname="mode_paiement">Paiement en ligne</option>
     <option varname="mode_paiement_display">Paiement en ligne</option>
     <option varname="mode_paiement_structured" />
+    <option varname="non_auto_annulation" />
     <option varname="regie_de_paiement">portail_parent</option>
     <option varname="regie_de_paiement_display">Portail Parent</option>
     <option varname="regie_de_paiement_structured" />
