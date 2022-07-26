@@ -14,7 +14,7 @@
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="1">Portail Parent</category>
-  <workflow slug="aes-enregistrement-enfant" workflow_id="5">Portail Parent - Enregistrement enfant</workflow>
+  <workflow slug="portail-parent-enregistrement-enfant" workflow_id="14">Portail Parent - Enregistrement enfant</workflow>
   <max_field_id>31</max_field_id>
   <fields>
     <field>

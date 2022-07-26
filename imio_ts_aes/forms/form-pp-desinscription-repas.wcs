@@ -14,7 +14,7 @@
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="1">Portail Parent</category>
-  <workflow slug="portail-parent-repas-scolaires-desinscription" workflow_id="13">Portail Parent - Repas scolaires - D&#233;sinscription</workflow>
+  <workflow slug="portail-parent-repas-scolaires-desinscription" workflow_id="21">Portail Parent - Repas scolaires - D&#233;sinscription</workflow>
   <max_field_id>5</max_field_id>
   <fields>
     <field>

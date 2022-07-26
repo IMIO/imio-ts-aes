@@ -15,7 +15,7 @@
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="1">Portail Parent</category>
-  <workflow slug="plaines-de-vacances" workflow_id="1">Portail Parent - Plaines de vacances</workflow>
+  <workflow slug="portail-parent-plaines-de-vacances" workflow_id="19">Portail Parent - Plaines de vacances</workflow>
   <max_field_id>64</max_field_id>
   <fields>
     <field>

@@ -14,7 +14,7 @@
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="1">Portail Parent</category>
-  <workflow slug="aes-enregistrement-fiche-sante" workflow_id="6">Portail Parent - Fiche sant&#233;</workflow>
+  <workflow slug="portail-parent-fiche-sante" workflow_id="17">Portail Parent - Fiche sant&#233;</workflow>
   <max_field_id>658</max_field_id>
   <fields>
     <field>

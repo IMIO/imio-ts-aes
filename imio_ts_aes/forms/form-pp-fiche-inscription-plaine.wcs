@@ -14,7 +14,7 @@
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent-fiche-d-inscription" category_id="2">Portail Parent - Fiche d'inscription</category>
-  <workflow slug="inscri" workflow_id="3">Portail Parent - Fiche d'inscription</workflow>
+  <workflow slug="portail-parent-fiche-d-inscription-aux-plaines" workflow_id="16">Portail Parent - Fiche d'inscription aux plaines</workflow>
   <max_field_id>10</max_field_id>
   <fields>
     <field>
@@ -89,6 +89,9 @@
     <option varname="categorie_activites">Plaine</option>
     <option varname="first_date_plain">01/06/2022</option>
     <option varname="last_date_plain">31/07/2022</option>
+    <option varname="mode_de_paiement">Paiement en ligne</option>
+    <option varname="mode_de_paiement_display">Paiement en ligne</option>
+    <option varname="mode_de_paiement_structured" />
   </options><custom_views />
   <geolocations />
   <digest_templates>
