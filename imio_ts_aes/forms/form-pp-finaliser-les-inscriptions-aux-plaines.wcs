@@ -14,7 +14,7 @@
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="1">Portail Parent</category>
-  <workflow slug="finalisation-des-inscriptions" workflow_id="2">Portail Parent - Finalisation des inscriptions</workflow>
+  <workflow slug="portail-parent-finalisation-des-inscriptions" workflow_id="18">Portail Parent - Finalisation des inscriptions</workflow>
   <max_field_id>3</max_field_id>
   <fields>
     <field>
@@ -51,6 +51,7 @@
     <option varname="mode_paiement">Paiement en ligne</option>
     <option varname="mode_paiement_display">Paiement en ligne</option>
     <option varname="mode_paiement_structured" />
+    <option varname="non_auto_annulation" />
     <option varname="regie_de_paiement">portail_parent</option>
     <option varname="regie_de_paiement_display">Portail Parent</option>
     <option varname="regie_de_paiement_structured" />

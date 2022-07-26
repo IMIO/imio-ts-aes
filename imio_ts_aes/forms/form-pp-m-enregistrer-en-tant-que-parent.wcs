@@ -15,7 +15,7 @@
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="1">Portail Parent</category>
-  <workflow slug="enregistrement-d-un-parent" workflow_id="7">Portail Parent - Enregistrement parent</workflow>
+  <workflow slug="portail-parent-enregistrement-parent" workflow_id="15">Portail Parent - Enregistrement parent</workflow>
   <max_field_id>21</max_field_id>
   <fields>
     <field>

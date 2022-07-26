@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<workflow id="1" url="https://wcs.dev.publik.love/backoffice/workflows/1/">
+<workflow id="19" url="https://wcs.dev.publik.love/backoffice/workflows/19/">
   <name>Portail Parent - Plaines de vacances</name>
-  <slug>plaines-de-vacances</slug>
+  <slug>portail-parent-plaines-de-vacances</slug>
   <category slug="portail-parent" category_id="1">Portail parent</category>
   <roles>
     <role id="_receiver">Agent traitant</role>
@@ -61,13 +61,13 @@
           <notify_on_errors>False</notify_on_errors>
           <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
-        </item><item type="jump" id="3">
+        </item><item type="jump" id="2">
           <status>7</status>
           <condition>
             <type>django</type>
             <value>form_workflow_data_registration_response_success|length == 0</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="2">
+        </item><item type="jump" id="3">
           <status>3</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -154,7 +154,7 @@
 `Consulter ma demande &lt;{{ form_url }}&gt;`_
 
 Une fois que vous aurez inscrits tous vos enfants, vous pouvez `finaliser vos inscriptions &lt;{{ portal_url }}portail-parent/&gt;`_.</body>
-        </item><item type="displaymsg" id="4">
+        </item><item type="displaymsg" id="2">
           <message>&lt;p&gt;Les inscriptions pour les semaines suivantes n'ont pu aboutir :&lt;/p&gt;&lt;ul&gt; {% for error in form_workflow_data_registration_response_error %}
 &lt;li&gt;Semaine du {{ error.start_date|date }} au {{ error.end_date|date }}&lt;/li&gt;
 {% endfor %}&lt;/ul&gt;</message>
@@ -166,7 +166,7 @@ Une fois que vous aurez inscrits tous vos enfants, vous pouvez `finaliser vos in
             <type>django</type>
             <value>form_workflow_data_registration_response_error</value>
           </condition>
-        </item><item type="displaymsg" id="2">
+        </item><item type="displaymsg" id="3">
           <message>&lt;p&gt;{{ form_var_enfant }} a bien &#233;t&#233; inscrit pour les semaines suivantes  :&lt;/p&gt;&lt;ul&gt; {% for success in form_workflow_data_registration_response_success %}
 &lt;li&gt;Semaine du {{ success.start_date|date }} au {{ success.end_date|date }}&lt;/li&gt;
 {% endfor %}&lt;/ul&gt;
@@ -183,7 +183,7 @@ Une fois que vous aurez inscrits tous vos enfants, vous pouvez `finaliser vos in
           <to>
             <item role_id="_submitter">_submitter</item>
           </to>
-        </item><item type="displaymsg" id="3">
+        </item><item type="displaymsg" id="4">
           <message>Vous avez trois jours pour finaliser les inscriptions de vos enfants. Au-del&#224; de ce d&#233;lai, ils seront d&#233;sincrits.</message>
           <level>error</level>
           <position>bottom</position>
@@ -267,7 +267,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
       <items>
         <item type="remove" id="1" />
       </items><triggers>
-        <trigger type="manual" id="4d63a502-426e-4421-bf51-7dae02b2b9cf">
+        <trigger type="manual" id="d169c805-50fd-441a-b4e0-439ee617deea">
           <roles>
             <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
           </roles>
@@ -285,12 +285,12 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <hint type="str">Si Paiement en ligne, le parent sera notifi&#233; qu'il n'a que trois jours pour finaliser ses d&#233;marches avant d&#233;sinscription.</hint>
           <varname type="str">mode_de_paiement</varname>
           <display_locations />
+          <display_mode type="str">radio</display_mode>
           <items>
             <item>Paiement en ligne</item>
             <item>Paiement par virement</item>
             <item>Paiement diff&#233;r&#233;</item>
-          </items><display_mode type="str">radio</display_mode>
-          <in_filters type="bool">False</in_filters>
+          </items><in_filters type="bool">False</in_filters>
           <anonymise type="bool">False</anonymise>
           <display_disabled_items type="bool">False</display_disabled_items>
           <id type="str">4</id>
