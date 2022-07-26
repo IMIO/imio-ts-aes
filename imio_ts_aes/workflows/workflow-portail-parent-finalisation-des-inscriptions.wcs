@@ -428,7 +428,7 @@ Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en me
 * B&#233;n&#233;ficiaire : **Ville de {{ commune_name }} - {{ administration_adresse }}**
 * Num&#233;ro de compte b&#233;n&#233;ficiaire (IBAN) : **{{ form_option_iban }}**
 * R&#233;f&#233;rence de la commande (communication libre) : **{{ form_workflow_form_calcul_var_communication|default:form_number }}**
-* Montant de la commande : **{% if form_workflow_data_montant_response_cost %}{{ form_workflow_data_montant_response_cost|decimal:2 }}{% else %}{{ form_workflow_form_calcul_var_montant|decimal:2 }}{% endif %} &#8364;**
+* Montant de la commande : **{% if form_workflow_form_calcul_var_montant %}{{ form_workflow_form_calcul_var_montant|decimal:2 }}{% else %}{{ form_workflow_data_montant_response_cost|decimal:2 }}{% endif %}  &#8364;**
 
 {{ form_workflow_form_calcul_var_info_complementaires }}</body>
         </item><item type="displaymsg" id="2">
@@ -438,13 +438,14 @@ Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en me
 &lt;li&gt;B&#233;n&#233;ficiaire : &lt;b&gt;Ville de {{ commune_name }} - {{ administration_adresse }} &lt;/b&gt;&lt;/li&gt;
 &lt;li&gt;Num&#233;ro de compte b&#233;n&#233;ficiaire (IBAN) : &lt;b&gt;{{ form_option_iban }}&lt;/b&gt;&lt;/li&gt;
 &lt;li&gt;R&#233;f&#233;rence de la commande (communication libre) : &lt;b&gt;{{ form_workflow_form_calcul_var_communication|default:form_number }}&lt;/b&gt;&lt;/li&gt;
-&lt;li&gt;Montant de la commande : &lt;b&gt;{% if form_workflow_data_montant_response_cost %}{{ form_workflow_data_montant_response_cost|decimal:2 }}{% else %}{{ form_workflow_form_calcul_var_montant|decimal:2 }}{% endif %} &#8364;&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;Montant de la commande : &lt;b&gt;{% if form_workflow_form_calcul_var_montant %}{{ form_workflow_form_calcul_var_montant|decimal:2 }}{% else %}{{ form_workflow_data_montant_response_cost|decimal:2 }}{% endif %}  &#8364;&lt;/b&gt;&lt;/li&gt;
 &lt;/ul&gt;
 {% if form_workflow_form_calcul_var_info_complementaires %}&lt;p&gt;&lt;b&gt;Informations compl&#233;mentaires :&lt;/b&gt;&lt;br/&gt;{{ form_workflow_form_calcul_var_info_complementaires }}&lt;/p&gt;{% endif %}</message>
           <level>info</level>
           <position>top</position>
           <to>
             <item role_id="_submitter">_submitter</item>
+            <item role_id="_receiver">_receiver</item>
           </to>
         </item><item type="register-comment" id="3">
           <comment>Vos inscriptions ont bien &#233;t&#233; enregistr&#233;es.</comment>
@@ -521,7 +522,7 @@ Cordialement,</body>
           </to><subject>{{ form_name }} n&#176;{{ form_number }}</subject>
           <body>Bonjour,
 
-Nous vous confirmons la bonne r&#233;ception de votre paiement. Les plaines auxquelles vous avez inscrits vos enfants sont bel est bien r&#233;serv&#233;es.
+Nous vous confirmons la bonne r&#233;ception de votre paiement. Les plaines auxquelles vous avez inscrits vos enfants sont bel et bien r&#233;serv&#233;es.
 
 Cordialement,</body>
           <condition>
@@ -621,12 +622,12 @@ Cordialement,</body>
           <required type="bool">True</required>
           <varname type="str">mode_paiement</varname>
           <display_locations />
+          <display_mode type="str">radio</display_mode>
           <items>
             <item>Paiement en ligne</item>
             <item>Paiement par virement</item>
             <item>Paiement diff&#233;r&#233;</item>
-          </items><display_mode type="str">radio</display_mode>
-          <in_filters type="bool">False</in_filters>
+          </items><in_filters type="bool">False</in_filters>
           <anonymise type="bool">False</anonymise>
           <display_disabled_items type="bool">False</display_disabled_items>
           <id type="str">1</id>
@@ -644,8 +645,8 @@ Cordialement,</body>
           <hint type="str">Celle-ci d&#233;fini le panier sp&#233;cifique pour les plaines.</hint>
           <varname type="str">regie_de_paiement</varname>
           <display_locations />
-          <items />
           <display_mode type="str">radio</display_mode>
+          <items />
           <data_source>
             <type>json</type>
             <value>{{portal_url}}/api/lingo/regies</value>
@@ -684,11 +685,11 @@ Cordialement,</body>
           <hint type="str">Quand le paiement doit &#234;tre fait par virement, il faut indiquer comment le montant est calcul&#233;.</hint>
           <varname type="str">calcul_montant</varname>
           <display_locations />
+          <display_mode type="str">radio</display_mode>
           <items>
             <item>Demander le montant &#224; AES</item>
             <item>Calculer le montant manuellement</item>
-          </items><display_mode type="str">radio</display_mode>
-          <in_filters type="bool">False</in_filters>
+          </items><in_filters type="bool">False</in_filters>
           <anonymise type="bool">False</anonymise>
           <display_disabled_items type="bool">False</display_disabled_items>
           <id type="str">4</id>

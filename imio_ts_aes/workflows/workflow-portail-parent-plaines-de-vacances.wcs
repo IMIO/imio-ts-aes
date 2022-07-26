@@ -285,12 +285,12 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <hint type="str">Si Paiement en ligne, le parent sera notifi&#233; qu'il n'a que trois jours pour finaliser ses d&#233;marches avant d&#233;sinscription.</hint>
           <varname type="str">mode_de_paiement</varname>
           <display_locations />
+          <display_mode type="str">radio</display_mode>
           <items>
             <item>Paiement en ligne</item>
             <item>Paiement par virement</item>
             <item>Paiement diff&#233;r&#233;</item>
-          </items><display_mode type="str">radio</display_mode>
-          <in_filters type="bool">False</in_filters>
+          </items><in_filters type="bool">False</in_filters>
           <anonymise type="bool">False</anonymise>
           <display_disabled_items type="bool">False</display_disabled_items>
           <id type="str">4</id>
