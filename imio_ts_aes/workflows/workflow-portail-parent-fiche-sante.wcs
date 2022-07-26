@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<workflow id="6" url="https://wcs.dev.publik.love/backoffice/workflows/6/">
+<workflow id="17" url="https://wcs.dev.publik.love/backoffice/workflows/17/">
   <name>Portail Parent - Fiche sant&#233;</name>
-  <slug>aes-enregistrement-fiche-sante</slug>
+  <slug>portail-parent-fiche-sante</slug>
   <category slug="portail-parent" category_id="1">Portail parent</category>
   <roles>
     <role id="_receiver">Agent traitant</role>
@@ -203,7 +203,7 @@
       <colour>FF0000</colour>
       <visibility />
       <items>
-        <item type="choice" id="2">
+        <item type="choice" id="1">
           <label>Retenter l'enregistrement des contacts</label>
           <by>
             <item role_id="_receiver">_receiver</item>
@@ -220,7 +220,7 @@
       <colour>66FF00</colour>
       <visibility />
       <items>
-        <item type="webservice_call" id="2">
+        <item type="webservice_call" id="1">
           <label>Enregistrement dans AES</label>
           <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/children/{{ form_var_enfant_id }}/healthsheet/update</url>
           <method>PUT</method>
@@ -399,7 +399,7 @@
           <notify_on_errors>False</notify_on_errors>
           <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
-        </item><item type="jump" id="3">
+        </item><item type="jump" id="2">
           <status>4</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -438,7 +438,7 @@
       <items>
         <item type="remove" id="1" />
       </items><triggers>
-        <trigger type="manual" id="304a06d1-461a-4d59-b913-c6fe172fc865">
+        <trigger type="manual" id="b2d7dd83-ae14-4d6f-80db-6e1880047568">
           <roles>
             <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
           </roles>

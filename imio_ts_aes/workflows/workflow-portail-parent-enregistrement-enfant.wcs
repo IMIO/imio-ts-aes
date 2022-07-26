@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<workflow id="5" url="https://wcs.dev.publik.love/backoffice/workflows/5/">
+<workflow id="14" url="https://wcs.dev.publik.love/backoffice/workflows/14/">
   <name>Portail Parent - Enregistrement enfant</name>
-  <slug>aes-enregistrement-enfant</slug>
+  <slug>portail-parent-enregistrement-enfant</slug>
   <category slug="portail-parent" category_id="1">Portail parent</category>
   <roles>
     <role id="_debug">Debug</role>
@@ -82,7 +82,7 @@
         <role>_receiver</role>
         <role>_debug</role>
       </visibility><items>
-        <item type="jump" id="4">
+        <item type="jump" id="1">
           <status>9</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -109,7 +109,7 @@
       <colour>FFFFFF</colour>
       <visibility />
       <items>
-        <item type="webservice_call" id="5">
+        <item type="webservice_call" id="1">
           <label>Enregistrements de l'enfant dans AES</label>
           <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ form_user_var_aes_id }}/children/create</url>
           <method>POST</method>
@@ -153,7 +153,7 @@
           <notify_on_errors>False</notify_on_errors>
           <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
-        </item><item type="jump" id="7">
+        </item><item type="jump" id="2">
           <status>3</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -165,7 +165,7 @@
       <forced_endpoint>true</forced_endpoint>
       <visibility />
       <items>
-        <item type="register-comment" id="5">
+        <item type="register-comment" id="1">
           <comment>&lt;div&gt;
 &lt;p&gt;
 &lt;a class="pk-button" href="{{ portal_url }}portail_parent/"&gt;Page d'accueil&lt;/a&gt;
@@ -210,7 +210,7 @@ Bien cordialement,</body>
       <colour>FF0000</colour>
       <visibility />
       <items>
-        <item type="displaymsg" id="5">
+        <item type="displaymsg" id="1">
           <message>Une erreur est survenue lors de la cr&#233;ation de l'enfant. Son parent ne peut donc poursuivre les inscriptions de ses enfants.</message>
           <level>error</level>
           <position>top</position>
@@ -305,7 +305,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
       <items>
         <item type="remove" id="1" />
       </items><triggers>
-        <trigger type="manual" id="6e23aefd-ef27-4389-9056-715d4e6279ec">
+        <trigger type="manual" id="61aa72c2-a964-4143-9c95-a161e7ebba10">
           <roles>
             <item role_id="_debug">_debug</item>
           </roles>

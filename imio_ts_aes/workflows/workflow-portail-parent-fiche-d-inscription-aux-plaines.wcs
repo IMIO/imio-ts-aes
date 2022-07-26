@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<workflow id="3" url="https://wcs.dev.publik.love/backoffice/workflows/3/">
-  <name>Portail Parent - Fiche d'inscription</name>
-  <slug>inscri</slug>
+<workflow id="16" url="https://wcs.dev.publik.love/backoffice/workflows/16/">
+  <name>Portail Parent - Fiche d'inscription aux plaines</name>
+  <slug>portail-parent-fiche-d-inscription-aux-plaines</slug>
   <category slug="portail-parent" category_id="1">Portail parent</category>
   <roles>
     <role id="_receiver">Agent traitant</role>
@@ -164,7 +164,7 @@ Si vous n'avez pu r&#233;soudre le probl&#232;me, vous pouvez contacter le suppo
           </condition><set_marker_on_status>False</set_marker_on_status>
         </item>
       </items><triggers>
-        <trigger type="webservice" id="494fe477-c51c-4112-944c-21165d35ffd6">
+        <trigger type="webservice" id="a1b0b712-fdc6-4f90-8ee5-f00d656e23b7">
           <identifier>validate</identifier>
         </trigger>
       </triggers>
@@ -180,7 +180,7 @@ Si vous n'avez pu r&#233;soudre le probl&#232;me, vous pouvez contacter le suppo
           </condition><set_marker_on_status>False</set_marker_on_status>
         </item>
       </items><triggers>
-        <trigger type="webservice" id="e24200cb-7ad6-4044-82bf-825175c007ef">
+        <trigger type="webservice" id="8b29537b-d911-4dbd-b7ea-9bf80bf4f577">
           <identifier>closed</identifier>
         </trigger>
       </triggers>
@@ -193,7 +193,7 @@ Si vous n'avez pu r&#233;soudre le probl&#232;me, vous pouvez contacter le suppo
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items><triggers>
-        <trigger type="webservice" id="660c7988-49c3-43e4-ae10-c19180e9a088">
+        <trigger type="webservice" id="d9b73f03-0962-404b-9894-1eea457cb83c">
           <identifier>cancel</identifier>
         </trigger>
       </triggers>
@@ -203,7 +203,7 @@ Si vous n'avez pu r&#233;soudre le probl&#232;me, vous pouvez contacter le suppo
       <items>
         <item type="remove" id="1" />
       </items><triggers>
-        <trigger type="manual" id="a4c645dd-7e1a-4ab0-b479-48a9ff4a1f31">
+        <trigger type="manual" id="8db2c86f-e855-4267-874e-9cd3d559143a">
           <roles>
             <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
           </roles>
@@ -244,6 +244,7 @@ Si vous n'avez pu r&#233;soudre le probl&#232;me, vous pouvez contacter le suppo
           <display_locations>
             <display_location>summary</display_location>
           </display_locations><display_mode type="str">list</display_mode>
+          <items />
           <data_source>
             <type>formula</type>
             <value>[activity for activities in [week['activities'] for week in webservice.aes_get_available_plaines] for activity in activities]</value>

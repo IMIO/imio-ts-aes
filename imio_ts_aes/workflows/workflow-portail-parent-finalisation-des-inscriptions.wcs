@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<workflow id="2" url="https://wcs.dev.publik.love/backoffice/workflows/2/">
+<workflow id="18" url="https://wcs.dev.publik.love/backoffice/workflows/18/">
   <name>Portail Parent - Finalisation des inscriptions</name>
-  <slug>finalisation-des-inscriptions</slug>
+  <slug>portail-parent-finalisation-des-inscriptions</slug>
   <category slug="portail-parent" category_id="1">Portail parent</category>
   <roles>
     <role id="_receiver">Agent traitant</role>
@@ -57,7 +57,7 @@
 &lt;ul&gt;{% for registration in forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de paiement" %}
     &lt;li&gt;{{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }}&lt;/li&gt;
 {% endfor %}&lt;/ul&gt;&lt;/div&gt;</comment>
-        </item><item type="jump" id="5">
+        </item><item type="jump" id="3">
           <status>11</status>
           <condition>
             <type>django</type>
@@ -116,7 +116,6 @@
                 <varname type="str">montant</varname>
                 <display_locations />
                 <prefill>
-                  <locked>False</locked>
                   <type>none</type>
                 </prefill><validation>
                   <error_message>Ne pr&#233;cisez pas la monnaie.</error_message>
@@ -132,7 +131,6 @@
                 <varname type="str">communication</varname>
                 <display_locations />
                 <prefill>
-                  <locked>False</locked>
                   <type>none</type>
                 </prefill><anonymise type="bool">True</anonymise>
                 <id type="str">2</id>
@@ -144,7 +142,6 @@
                 <varname type="str">info_complementaires</varname>
                 <display_locations />
                 <prefill>
-                  <locked>False</locked>
                   <type>none</type>
                 </prefill><pre type="bool">False</pre>
                 <id type="str">4</id>
@@ -163,14 +160,14 @@
             <type>django</type>
             <value>form_option_mode_paiement == "Paiement en ligne"</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jumponsubmit" id="6">
+        </item><item type="jumponsubmit" id="5">
           <status>9</status>
           <set_marker_on_status>False</set_marker_on_status>
           <condition>
             <type>django</type>
             <value>form_option_calcul_montant == "Calculer le montant manuellement" and form_option_mode_paiement == "Paiement par virement"</value>
           </condition>
-        </item><item type="displaymsg" id="7">
+        </item><item type="displaymsg" id="6">
           <message>Nous vous confirmons les inscriptions effectu&#233;es. Les places sont r&#233;serv&#233;es pour le moment. Vous recevrez prochainement un email contenant les modalit&#233;s de paiement par virement bancaire. Une fois le paiement effectu&#233; et valid&#233; par nos services, les places seront d&#233;finitivement r&#233;serv&#233;es. Si le paiement n'a pas &#233;t&#233; effectu&#233; dans les d&#233;lais impartis, les places seront lib&#233;r&#233;es.</message>
           <level>success</level>
           <position>top</position>
@@ -188,7 +185,7 @@
       <colour>FF0000</colour>
       <visibility />
       <items>
-        <item type="sendmail" id="3">
+        <item type="sendmail" id="1">
           <to>
             <item role_id="_receiver">_receiver</item>
           </to><subject>Erreur Portail Parent :  {{ form_name }} n&#176;{{ form_number }}</subject>
@@ -207,7 +204,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <message>Nous rencontrons un probl&#232;me au niveau du paiement. Les r&#233;servations de place que vous venez d'effectuer sont confirm&#233;es. Votre administration communale reviendra vers vous pour effectuer le paiement.</message>
           <level>error</level>
           <position>top</position>
-        </item><item type="choice" id="1">
+        </item><item type="choice" id="3">
           <label>Calculer le total</label>
           <by>
             <item role_id="_receiver">_receiver</item>
@@ -494,7 +491,7 @@ Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en me
       <colour>99FF99</colour>
       <visibility />
       <items>
-        <item type="sendmail" id="3">
+        <item type="sendmail" id="1">
           <to>
             <item role_id="_submitter">_submitter</item>
           </to><subject>{{ form_name }} n&#176;{{ form_number }}</subject>
@@ -503,9 +500,9 @@ Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en me
 Nous vous confirmons l'inscription de vos enfants aux plaines s&#233;lectionn&#233;es. Vous recevrez une facture pour r&#233;gler le montant par courrier ou par email. N'h&#233;sitez pas &#224; revenir vers votre administration communale en cas de besoin.
 
 Cordialement,</body>
-        </item><item type="register-comment" id="1">
+        </item><item type="register-comment" id="2">
           <comment>Le paiement des plaines r&#233;serv&#233;es se fera par le biais d'une facture qui vous sera envoy&#233;e email ou par courrier.</comment>
-        </item><item type="jump" id="2">
+        </item><item type="jump" id="3">
           <status>5</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -516,7 +513,7 @@ Cordialement,</body>
       <colour>99FF00</colour>
       <visibility />
       <items>
-        <item type="sendmail" id="4">
+        <item type="sendmail" id="1">
           <to>
             <item role_id="_submitter">_submitter</item>
           </to><subject>{{ form_name }} n&#176;{{ form_number }}</subject>
@@ -534,12 +531,12 @@ Cordialement,</body>
           <trigger_id>action:closed</trigger_id>
           <target_mode>manual</target_mode>
           <target_id>{{ forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de paiement" }}</target_id>
-        </item><item type="register-comment" id="1">
+        </item><item type="register-comment" id="3">
           <comment>&lt;div&gt;Les inscriptions suivantes sont d&#233;sormais cl&#244;tur&#233;es :
 &lt;ul&gt;{% for registration in forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de paiement" %}
     &lt;li&gt;{{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }}&lt;/li&gt;
 {% endfor %}&lt;/ul&gt;&lt;/div&gt;</comment>
-        </item><item type="jump" id="3">
+        </item><item type="jump" id="4">
           <status>15</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -598,7 +595,7 @@ Cordialement,</body>
       <items>
         <item type="remove" id="1" />
       </items><triggers>
-        <trigger type="manual" id="d5630034-e02b-416f-8b2b-3e07afc900e9">
+        <trigger type="manual" id="58744480-1a3b-487d-963e-06239281e87d">
           <roles>
             <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
           </roles>
