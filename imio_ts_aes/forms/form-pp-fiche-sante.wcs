@@ -427,7 +427,7 @@
       <display_disabled_items type="bool">False</display_disabled_items>
       <id type="str">528</id>
     </field><field>
-      <label type="str">Erreur</label>
+      <label type="str">V&#233;rification</label>
       <type type="str">page</type>
       <condition>
         <type>django</type>
