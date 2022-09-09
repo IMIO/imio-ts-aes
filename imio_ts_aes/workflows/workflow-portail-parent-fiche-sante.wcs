@@ -35,7 +35,7 @@
               <value>{{ form_var_other_doctor_firstname }}</value>
             </item><item>
               <name>lastname</name>
-              <value>{{ form_var_other_doctor_lastname }}</value>
+              <value>{{ form_var_other_doctor_name }}</value>
             </item><item>
               <name>street</name>
               <value>{{ form_var_other_doctor_street }}</value>
