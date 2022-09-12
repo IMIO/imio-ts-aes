@@ -272,10 +272,10 @@
         <display_location>validation</display_location>
         <display_location>summary</display_location>
       </display_locations><prefill>
+        <locked>False</locked>
         <type>string</type>
-        <value>{{ form_var_fiche_sante.level_handicap }}</value>
+        <value>{% if form_var_fiche_sante.level_handicap %}{{ form_var_fiche_sante.level_handicap }}{% endif %}</value>
       </prefill><display_mode type="str">radio</display_mode>
-      <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["level_handicap"]</value>
@@ -298,7 +298,7 @@
       <prefill>
         <locked>False</locked>
         <type>string</type>
-        <value>{{ form_var_fiche_sante.type_handicap }}</value>
+        <value>{% if form_var_fiche_sante.type_handicap %}{{ form_var_fiche_sante.type_handicap }}{% endif %}</value>
       </prefill><pre type="bool">False</pre>
       <id type="str">363</id>
     </field><field>
@@ -427,7 +427,7 @@
       <display_disabled_items type="bool">False</display_disabled_items>
       <id type="str">528</id>
     </field><field>
-      <label type="str">Erreur</label>
+      <label type="str">V&#233;rification</label>
       <type type="str">page</type>
       <condition>
         <type>django</type>
