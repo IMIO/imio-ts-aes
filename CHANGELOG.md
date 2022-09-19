@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.2.0
+------------------
+- [MPP-364] Added: meal unregistration deadline [nhislaire]
+
 1.1.0
 ------------------
 

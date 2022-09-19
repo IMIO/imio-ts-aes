@@ -71,7 +71,7 @@
       <max_choices type="int">0</max_choices>
       <data_source>
         <type>json</type>
-        <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/children/{{ form_var_id_enfant }}/registrations</value>
+        <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/children/{{ form_var_id_enfant }}/registrations?days_in_delay={{ form_option_delai_en_jours|default_if_none:1 }}&amp;no_later_than={{ form_option_heure_limite|default_if_none:"00:00" }}</value>
       </data_source><in_filters type="bool">False</in_filters>
       <anonymise type="bool">True</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
@@ -81,7 +81,12 @@
     <role role_id="logged-users">logged-users</role>
   </user-roles><roles>
     <role slug="agent-traitant-portail-parent" role_id="d0b8282bf6114da680fa4c848da76167" role_key="_receiver">Agent traitant - Portail Parent</role>
-  </roles><options />
-  <custom_views />
+  </roles><options>
+    <option varname="delai_en_jours">1</option>
+    <option varname="heure_limite">11:00</option>
+    <option varname="notifier_service">Non</option>
+    <option varname="notifier_service_display">Non</option>
+    <option varname="notifier_service_structured" />
+  </options><custom_views />
   <geolocations />
 </formdef>
