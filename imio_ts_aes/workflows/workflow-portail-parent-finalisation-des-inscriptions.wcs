@@ -275,11 +275,18 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <status>19</status>
           <trigger>paid</trigger>
           <set_marker_on_status>False</set_marker_on_status>
+        </item><item type="jump" id="5">
+          <status>20</status>
+          <condition>
+            <type>django</type>
+            <value>not form_option_non_auto_annulation and form_previous_status != "Alerte non paiement"</value>
+          </condition><timeout>172800</timeout>
+          <set_marker_on_status>False</set_marker_on_status>
         </item><item type="jump" id="3">
           <status>13</status>
           <condition>
             <type>django</type>
-            <value>not form_option_non_auto_annulation</value>
+            <value>not form_option_non_auto_annulation and form_previous_status == "Alerte non paiement"</value>
           </condition><trigger>cancelled</trigger>
           <set_marker_on_status>False</set_marker_on_status>
         </item><item type="choice" id="4">
@@ -292,9 +299,31 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="5">
-          <status>13</status>
-          <timeout>259200</timeout>
+        </item>
+      </items>
+    </status><status>
+      <id>20</id>
+      <name>Alerte non paiement</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item type="sendmail" id="1">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>Alerte avant annulation - Finalisation de vos inscriptions n&#176;{{ form_number }}</subject>
+          <body>Bonjour,
+
+Nous vous informons que nous n'avons pas re&#231;u le paiement pour valider les inscriptions aux plaines suivantes :
+
+{% for registration in forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de paiement" %}
+* {{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }}, num&#233;ro d'inscription {{ registration|get:"form_var_inscription" }}
+{% endfor %}
+
+Merci de r&#233;gler votre panier avant le {{ form_last_update_datetime|add_hours:18|date:"d/m/Y &#224; H:i" }}. Pass&#233; ce d&#233;lai, les inscriptions seront annul&#233;es.
+
+Cordialement,</body>
+        </item><item type="jump" id="2">
+          <status>4</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
@@ -327,6 +356,21 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <notify_on_errors>False</notify_on_errors>
           <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
+        </item><item type="sendmail" id="3">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>Annulation des inscriptions aux plaines de vacances</subject>
+          <body>Bonjour,
+
+Nous vous informons que les r&#233;servations pour les plaines suivantes ont &#233;t&#233; annul&#233;es :
+
+{% for registration in forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de paiement" %}
+* {{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }}
+{% endfor %}
+
+S'il s'agit d'une erreur car vous aviez bien effectu&#233; le paiement de ces plaines, merci de contacter le service ATL de votre administration communale.
+
+Cordialement,</body>
         </item><item type="external_workflow_global_action" id="2">
           <slug>formdef:pp-fiche-inscription-plaine</slug>
           <trigger_id>action:cancel</trigger_id>
