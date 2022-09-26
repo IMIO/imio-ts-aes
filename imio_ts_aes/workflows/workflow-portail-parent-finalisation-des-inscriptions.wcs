@@ -325,6 +325,8 @@ Nous vous informons que nous n'avons pas re&#231;u le paiement pour valider les 
 
 Merci de r&#233;gler votre panier avant le {{ form_last_update_datetime|add_days:1|date:"d/m/Y &#224; H:i" }}. Pass&#233; ce d&#233;lai, les inscriptions seront annul&#233;es.
 
+`Consulter votre demande &lt;{{ form_url }}&gt;`_
+
 Cordialement,</body>
         </item><item type="jump" id="2">
           <status>4</status>
