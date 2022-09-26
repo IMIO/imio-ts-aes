@@ -282,12 +282,16 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
             <value>not form_option_non_auto_annulation and form_previous_status != "Alerte non paiement"</value>
           </condition><timeout>172800</timeout>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="3">
+        </item><item type="jump" id="6">
           <status>13</status>
           <condition>
             <type>django</type>
             <value>not form_option_non_auto_annulation and form_previous_status == "Alerte non paiement"</value>
-          </condition><trigger>cancelled</trigger>
+          </condition><timeout>86400</timeout>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item type="jump" id="3">
+          <status>13</status>
+          <trigger>cancelled</trigger>
           <set_marker_on_status>False</set_marker_on_status>
         </item><item type="choice" id="4">
           <label>Payer au guichet</label>
