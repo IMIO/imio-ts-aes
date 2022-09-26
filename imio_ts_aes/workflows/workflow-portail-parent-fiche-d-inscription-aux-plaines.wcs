@@ -29,12 +29,19 @@
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+        </item><item type="jump" id="4">
+          <status>8</status>
+          <condition>
+            <type>django</type>
+            <value>form_option_mode_paiement == "Paiement en ligne"</value>
+          </condition><timeout>172800</timeout>
+          <set_marker_on_status>False</set_marker_on_status>
         </item><item type="jump" id="3">
           <status>6</status>
           <condition>
             <type>django</type>
-            <value>form_option_mode_paiement == "Paiement en ligne"</value>
-          </condition><timeout>259200</timeout>
+            <value>form_option_mode_paiement == "Paiement en ligne" and form_previous_status == "Alerte - un jour restant pour finaliser"</value>
+          </condition><timeout>86400</timeout>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
@@ -149,7 +156,48 @@ Si vous n'avez pu r&#233;soudre le probl&#232;me, vous pouvez contacter le suppo
       <name>Inscription annul&#233;e</name>
       <colour>999999</colour>
       <visibility />
-      <items />
+      <items>
+        <item type="sendmail" id="1">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>D&#233;sinscription confirm&#233;e</subject>
+          <body>Bonjour,
+
+{{ form_var_enfant }} est maintenant d&#233;sinscrit&#183;e de la plaine {{ form_var_plaine }}.
+
+Cordialement,</body>
+          <condition>
+            <type>django</type>
+            <value>form_option_mode_paiement == "Paiement en ligne"</value>
+          </condition>
+        </item>
+      </items>
+    </status><status>
+      <id>8</id>
+      <name>Alerte - un jour restant pour finaliser</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item type="sendmail" id="2">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>Alerte avant annulation - Veuillez finaliser vos inscriptions aux plaines de vacances</subject>
+          <body>Bonjour,
+
+Vous n'avez pas finalis&#233; vos inscriptions aux plaines de vacances.
+
+Sans action de votre part avant le {{ form_last_update_datetime|add_days:1|date:"d/m/Y &#224; H:i" }}, {{ form_var_enfant }} sera d&#233;sinscrit&#183;e de la plaine "{{ form_var_plaine }}".
+
+Attention, avant de finaliser vos inscriptions, veillez &#224; ce que tous vos enfants soient bien inscrits.
+
+`Aller sur le Portail Parent&lt;{{ portal_url }}portail-parent/&gt;`_
+
+Cordialement,</body>
+        </item><item type="jump" id="1">
+          <status>1</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
     </status>
   </possible_status><global_actions>
     <action>
