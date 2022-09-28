@@ -40,7 +40,7 @@
           <status>6</status>
           <condition>
             <type>django</type>
-            <value>form_option_de_mode_paiement == "Paiement en ligne" and form_previous_status == "Alerte - un jour restant pour finaliser"</value>
+            <value>form_option_mode_de_paiement == "Paiement en ligne" and form_previous_status == "Alerte - un jour restant pour finaliser"</value>
           </condition><timeout>86400</timeout>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -168,7 +168,7 @@ Si vous n'avez pu r&#233;soudre le probl&#232;me, vous pouvez contacter le suppo
 Cordialement,</body>
           <condition>
             <type>django</type>
-            <value>form_option_de_mode_paiement == "Paiement en ligne"</value>
+            <value>form_option_mode_de_paiement == "Paiement en ligne"</value>
           </condition>
         </item>
       </items>
