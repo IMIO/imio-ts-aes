@@ -190,7 +190,7 @@ Sans action de votre part avant le {{ form_last_update_datetime|add_days:1|date:
 
 Attention, avant de finaliser vos inscriptions, veillez &#224; ce que tous vos enfants soient bien inscrits.
 
-`Aller sur le Portail Parent&lt;{{ portal_url }}portail-parent/&gt;`_
+`Aller sur le Portail Parent &lt;{{ portal_url }}portail-parent/&gt;`_
 
 Cordialement,</body>
         </item><item type="jump" id="1">
