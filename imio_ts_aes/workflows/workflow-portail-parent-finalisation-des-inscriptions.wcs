@@ -323,7 +323,7 @@ Nous vous informons que nous n'avons pas re&#231;u le paiement pour valider les 
 * {{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }}, num&#233;ro d'inscription {{ registration|get:"form_var_inscription" }}
 {% endfor %}
 
-Merci de r&#233;gler votre panier avant le {{ form_last_update_datetime|add_days:1|date:"d/m/Y &#224; H:i" }}. Pass&#233; ce d&#233;lai, les inscriptions seront annul&#233;es.
+Merci de r&#233;gler votre panier avant le {{ form_last_update_datetime|add_hours:24|date:"d/m/Y &#224; H:i" }}. Pass&#233; ce d&#233;lai, les inscriptions seront annul&#233;es.
 
 `Consulter votre demande &lt;{{ form_url }}&gt;`_
 

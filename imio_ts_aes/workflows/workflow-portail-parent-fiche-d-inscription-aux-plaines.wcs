@@ -186,7 +186,7 @@ Cordialement,</body>
 
 Vous n'avez pas finalis&#233; vos inscriptions aux plaines de vacances.
 
-Sans action de votre part avant le {{ form_last_update_datetime|add_days:1|date:"d/m/Y &#224; H:i" }}, {{ form_var_enfant }} sera d&#233;sinscrit&#183;e de la plaine "{{ form_var_plaine }}".
+Sans action de votre part avant le {{ form_last_update_datetime|add_hours:24|date:"d/m/Y &#224; H:i" }}, {{ form_var_enfant }} sera d&#233;sinscrit&#183;e de la plaine "{{ form_var_plaine }}".
 
 Attention, avant de finaliser vos inscriptions, veillez &#224; ce que tous vos enfants soient bien inscrits.
 
