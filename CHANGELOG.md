@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.3.1
+------------------
+- [MPP-382] Removed: combo agent site structure
+
 1.3.0
 ------------------
 - [MPP-362] Added: alert before registration cancellation when parent does not pay"
