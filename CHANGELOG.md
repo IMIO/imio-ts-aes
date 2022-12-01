@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.3.2
+------------------
+- Changed: deadline for meal unregistration can now be current day
+
 1.3.1
 ------------------
 - [MPP-382] Removed: combo agent site structure

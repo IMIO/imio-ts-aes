@@ -151,7 +151,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <label type="str">D&#233;lai, en jours</label>
           <type type="str">string</type>
           <required type="bool">True</required>
-          <hint type="str">Indiquez un chiffre &#233;gal ou sup&#233;rieur &#224; 1. Indiquez 1 pour la veille, 2 pour l'avant-veille, etc.</hint>
+          <hint type="str">Indiquez un chiffre &#233;gal ou sup&#233;rieur &#224; 1. Indiquez 0 pour le jour m&#234;me, 1 pour la veille, 2 pour l'avant-veille, etc.</hint>
           <varname type="str">delai_en_jours</varname>
           <display_locations />
           <validation>
