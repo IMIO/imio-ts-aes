@@ -4,6 +4,7 @@ Changelog
 1.3.3
 ------------------
 - [MPP-385] Updated: ask for user's phone number
+- [MPP-384] Changed: cancel plain reservations after 3 days without validation also if bank transfer is configured
 
 
 1.3.2
