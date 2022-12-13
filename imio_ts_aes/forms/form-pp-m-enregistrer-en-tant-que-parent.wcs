@@ -16,7 +16,7 @@
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="1">Portail Parent</category>
   <workflow slug="portail-parent-enregistrement-parent" workflow_id="15">Portail Parent - Enregistrement parent</workflow>
-  <max_field_id>21</max_field_id>
+  <max_field_id>22</max_field_id>
   <fields>
     <field>
       <label type="str">&lt;p&gt;En m&amp;#39;enregistrant en tant que parent, j&amp;#39;accepte que mes informations personnelles soient utilis&amp;eacute;es&lt;br&gt;
@@ -63,6 +63,22 @@ enfants aux activit&amp;eacute;s extra-scolaires, aux repas scolaires et &amp;ag
         <type>none</type>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">21</id>
+    </field><field>
+      <label type="str">Num&#233;ro de t&#233;l&#233;phone</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>not form_user_var_phone</value>
+      </condition><required type="bool">True</required>
+      <hint type="str">Ce num&#233;ro de t&#233;l&#233;phone sera ajout&#233; &#224; votre profil.</hint>
+      <varname type="str">telephone</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><validation>
+        <type>phone</type>
+      </validation><anonymise type="bool">True</anonymise>
+      <id type="str">22</id>
     </field>
   </fields><user-roles>
     <role role_id="logged-users">logged-users</role>

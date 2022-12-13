@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.3.3
+------------------
+- [MPP-385] Updated: ask for user's phone number
+
+
 1.3.2
 ------------------
 - Changed: deadline for meal unregistration can now be current day

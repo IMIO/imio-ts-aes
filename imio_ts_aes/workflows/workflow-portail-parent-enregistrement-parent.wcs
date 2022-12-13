@@ -12,7 +12,17 @@
       <colour>FFFFFF</colour>
       <visibility />
       <items>
-        <item type="jump" id="1">
+        <item type="update_user_profile" id="2">
+          <fields>
+            <field>
+              <field_id>phone</field_id>
+              <value>{{ form_var_telephone }}</value>
+            </field>
+          </fields><condition>
+            <type>django</type>
+            <value>form_var_telephone</value>
+          </condition>
+        </item><item type="jump" id="1">
           <status>1</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
