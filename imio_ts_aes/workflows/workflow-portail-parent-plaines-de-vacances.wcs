@@ -191,7 +191,7 @@ Une fois que vous aurez inscrits tous vos enfants, vous pouvez `finaliser vos in
             <item role_id="_submitter">_submitter</item>
           </to><condition>
             <type>django</type>
-            <value>form_option_mode_de_paiement == "Paiement en ligne"</value>
+            <value>form_option_mode_de_paiement == "Paiement en ligne" or form_option_mode_de_paiement == "Paiement par virement"</value>
           </condition>
         </item><item type="register-comment" id="5">
           <comment>&lt;p&gt;{{ form_var_enfant }} a bien &#233;t&#233; inscrit&#183;e pour les semaines suivantes  :&lt;/p&gt;&lt;ul&gt; {% for success in form_workflow_data_registration_response_success %}
