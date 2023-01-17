@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.4.0
+------------------
+- [MPP-386] Added: agent-manageable options to lock plains registration to local citizens
+- [MPP-384] Fixed: warn user about 3 days cancelation if bank transfer is activated
+
 1.3.3
 ------------------
 - [MPP-385] Updated: ask for user's phone number
@@ -17,7 +22,7 @@ Changelog
 
 1.3.0
 ------------------
-- [MPP-362] Added: alert before registration cancellation when parent does not pay"
+- [MPP-362] Added: alert before registration cancellation when parent does not pay
 
 1.2.0
 ------------------

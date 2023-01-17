@@ -16,9 +16,30 @@
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="1">Portail Parent</category>
   <workflow slug="portail-parent-plaines-de-vacances" workflow_id="19">Portail Parent - Plaines de vacances</workflow>
-  <max_field_id>64</max_field_id>
+  <max_field_id>66</max_field_id>
   <fields>
     <field>
+      <label type="str">Inscription r&#233;serv&#233;e aux habitants</label>
+      <type type="str">page</type>
+      <condition>
+        <type>django</type>
+        <value>form_user_var_zipcode not in commune_cp and form_option_ouvertes_aux_habitants == "Oui"</value>
+      </condition><post_conditions>
+        <post_condition>
+          <condition>
+            <type>django</type>
+            <value>form_user_var_zipcode in commune_cp and form_option_ouvertes_aux_habitants != "Oui"</value>
+          </condition><error_message>Veuillez attendre l'ouverture des inscriptions &#224; tous.</error_message>
+        </post_condition>
+      </post_conditions><id type="str">65</id>
+    </field><field>
+      <label type="str">&lt;p&gt;{{ form_option_message_aux_non_residents|default:"Veuillez attendre l'ouverture des plaines &#224; tous" }}&lt;/p&gt;
+</label>
+      <type type="str">comment</type>
+      <extra_css_class type="str">pk-attention</extra_css_class>
+      <display_locations />
+      <id type="str">66</id>
+    </field><field>
       <label type="str">Inscription</label>
       <type type="str">page</type>
       <id type="str">64</id>
@@ -91,9 +112,7 @@
       <display_locations />
       <id type="str">54</id>
     </field>
-  </fields><user-roles>
-    <role slug="parent" role_id="9568ff2000794db8a6711bd2ff596ceb">Parent</role>
-  </user-roles><roles>
+  </fields><roles>
     <role slug="debug" role_id="5162edec67c74e23bc26251709ab4101" role_key="_debug">Debug</role>
   </roles><options>
     <option varname="categorie_activite">Plaine</option>
@@ -101,14 +120,21 @@
     <option varname="commentaire">Pour toute personne de Staging2, &#233;manant du CPAS, merci de bien vouloir d&#8217;abord contacter ce dernier en premier lieu.</option>
     <option varname="first_date_plain">01/01/2022</option>
     <option varname="last_date_plain">31/12/2022</option>
+    <option varname="message_aux_non_residents">Les inscriptions ne sont ouvertes que pour les Sprimontais jusqu'au 21 janvier 2023 &#224; 9h</option>
     <option varname="modalite_paiement">Paiement en ligne</option>
     <option varname="modalite_paiement_display">Paiement en ligne</option>
     <option varname="modalite_paiement_structured" />
     <option varname="mode_de_paiement">Paiement en ligne</option>
     <option varname="mode_de_paiement_display">Paiement en ligne</option>
     <option varname="mode_de_paiement_structured" />
+    <option varname="mode_paiement" />
+    <option varname="mode_paiement_display" />
+    <option varname="mode_paiement_structured" />
     <option varname="nb_days_before_free_places">3</option>
     <option varname="numero_de_compte_iban" />
+    <option varname="ouvertes_aux_habitants">Oui</option>
+    <option varname="ouvertes_aux_habitants_display">Oui</option>
+    <option varname="ouvertes_aux_habitants_structured" />
     <option varname="regie_de_paiement" />
     <option varname="regie_de_paiement_display" />
     <option varname="regie_de_paiement_structured" />

@@ -294,6 +294,30 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <anonymise type="bool">False</anonymise>
           <display_disabled_items type="bool">False</display_disabled_items>
           <id type="str">4</id>
+        </field><field>
+          <label type="str">N'ouvrir les plaines de vacances qu'aux habitants de la commune.</label>
+          <type type="str">item</type>
+          <required type="bool">True</required>
+          <varname type="str">ouvertes_aux_habitants</varname>
+          <display_locations />
+          <display_mode type="str">radio</display_mode>
+          <items>
+            <item>Oui</item>
+            <item>Ouvrir les plaines &#224; tous</item>
+          </items><in_filters type="bool">False</in_filters>
+          <anonymise type="bool">False</anonymise>
+          <display_disabled_items type="bool">False</display_disabled_items>
+          <id type="str">5</id>
+        </field><field>
+          <label type="str">Message &#224; afficher aux non-r&#233;sidents</label>
+          <type type="str">string</type>
+          <required type="bool">True</required>
+          <hint type="str">Par exemple : "Les inscriptions ne sont ouvertes que pour les Sprimontais jusqu'au 21 janvier 2023 &#224; 9h".</hint>
+          <varname type="str">message_aux_non_residents</varname>
+          <display_locations />
+          <extra_css_class type="str">grid-1-1</extra_css_class>
+          <anonymise type="bool">True</anonymise>
+          <id type="str">6</id>
         </field>
       </fields>
     </formdef>
