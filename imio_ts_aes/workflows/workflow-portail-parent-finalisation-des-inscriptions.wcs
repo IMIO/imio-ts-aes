@@ -142,8 +142,10 @@
                 <varname type="str">info_complementaires</varname>
                 <display_locations />
                 <prefill>
-                  <type>none</type>
-                </prefill><pre type="bool">False</pre>
+                  <locked>False</locked>
+                  <type>string</type>
+                  <value>{{ form_option_preremplir_info_complementaires }}</value>
+                </prefill><display_mode type="str">plain</display_mode>
                 <id type="str">4</id>
               </field>
             </fields>
@@ -740,6 +742,16 @@ Cordialement,</body>
           <anonymise type="bool">False</anonymise>
           <display_disabled_items type="bool">False</display_disabled_items>
           <id type="str">4</id>
+        </field><field>
+          <label type="str">Pr&#233;remplir les informations compl&#233;mentaires</label>
+          <type type="str">text</type>
+          <required type="bool">False</required>
+          <hint type="str">Ce texte ira pr&#233;remplir le champ "informations compl&#233;mentaires" du formulaire que les agents traitants doivent compl&#233;ter lors du paiement par virement.</hint>
+          <varname type="str">preremplir_info_complementaires</varname>
+          <display_locations />
+          <extra_css_class type="str">grid-1-1</extra_css_class>
+          <display_mode type="str">plain</display_mode>
+          <id type="str">9</id>
         </field>
       </fields>
     </formdef>
