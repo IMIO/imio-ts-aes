@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.4.1
+------------------
+- [MPP-383] Fixed: manage error if adding parent to child fails"
+
 1.4.0
 ------------------
 - [MPP-386] Added: agent-manageable options to lock plains registration to local citizens
