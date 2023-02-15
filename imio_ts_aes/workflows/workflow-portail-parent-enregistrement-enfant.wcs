@@ -75,19 +75,6 @@
         </item>
       </items>
     </status><status>
-      <id>7</id>
-      <name>L'enfant existe d&#233;j&#224;</name>
-      <colour>FF9900</colour>
-      <visibility>
-        <role>_receiver</role>
-        <role>_debug</role>
-      </visibility><items>
-        <item type="jump" id="1">
-          <status>9</status>
-          <set_marker_on_status>False</set_marker_on_status>
-        </item>
-      </items>
-    </status><status>
       <id>11</id>
       <name>Erreur - deux enfants trouv&#233;s</name>
       <colour>FFFFFF</colour>
@@ -155,6 +142,19 @@
           <record_errors>False</record_errors>
         </item><item type="jump" id="2">
           <status>3</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>7</id>
+      <name>L'enfant existe d&#233;j&#224;</name>
+      <colour>FF9900</colour>
+      <visibility>
+        <role>_receiver</role>
+        <role>_debug</role>
+      </visibility><items>
+        <item type="jump" id="1">
+          <status>9</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
@@ -324,6 +324,14 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
             <item role_id="_debug">_debug</item>
           </by><status>6</status>
           <require_confirmation>True</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item type="choice" id="4">
+          <label>Noter la demande comme r&#233;gularis&#233;e</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>8</status>
+          <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>

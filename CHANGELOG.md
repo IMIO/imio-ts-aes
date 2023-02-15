@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.4.2
+------------------
+- [MPP-383] Fixed: failed parent adding to child can be regularized
+
 1.4.1
 ------------------
 - [MPP-383] Fixed: manage error if adding parent to child fails"
