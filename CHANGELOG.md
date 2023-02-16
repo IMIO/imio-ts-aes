@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.4.3
+------------------
+- [MPP-420] Fixed: failed parent self-registration can be regularized
+
 1.4.2
 ------------------
 - [MPP-383] Fixed: failed parent adding to child can be regularized
