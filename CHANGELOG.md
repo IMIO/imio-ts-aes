@@ -4,6 +4,7 @@ Changelog
 1.4.3
 ------------------
 - [MPP-420] Fixed: failed parent self-registration can be regularized
+- [MPP-407] Fixed: set unsuccessful plains registrations status as final
 
 1.4.2
 ------------------
