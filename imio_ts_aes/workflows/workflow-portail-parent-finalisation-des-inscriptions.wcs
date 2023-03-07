@@ -603,16 +603,16 @@ Cordialement,</body>
             <type>django</type>
             <value>form_option_mode_paiement != "Paiement diff&#233;r&#233;"</value>
           </condition>
-        </item><item type="external_workflow_global_action" id="2">
-          <slug>formdef:pp-fiche-inscription-plaine</slug>
-          <trigger_id>action:closed</trigger_id>
-          <target_mode>manual</target_mode>
-          <target_id>{{ forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de paiement" }}</target_id>
         </item><item type="register-comment" id="3">
           <comment>&lt;div&gt;Les inscriptions suivantes sont d&#233;sormais cl&#244;tur&#233;es :
 &lt;ul&gt;{% for registration in forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de paiement" %}
     &lt;li&gt;{{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }}&lt;/li&gt;
 {% endfor %}&lt;/ul&gt;&lt;/div&gt;</comment>
+        </item><item type="external_workflow_global_action" id="2">
+          <slug>formdef:pp-fiche-inscription-plaine</slug>
+          <trigger_id>action:closed</trigger_id>
+          <target_mode>manual</target_mode>
+          <target_id>{{ forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de paiement" }}</target_id>
         </item><item type="jump" id="4">
           <status>15</status>
           <set_marker_on_status>False</set_marker_on_status>
