@@ -593,7 +593,10 @@ Cordialement,</body>
           </to><subject>{{ form_name }} n&#176;{{ form_number }}</subject>
           <body>Bonjour,
 
-Nous vous confirmons la bonne r&#233;ception de votre paiement. Les plaines auxquelles vous avez inscrits vos enfants sont bel et bien r&#233;serv&#233;es.
+Nous vous confirmons la bonne r&#233;ception de votre paiement. Les inscriptions suivantes sont d&#233;sormais cl&#244;tur&#233;es :
+{% for registration in forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de paiement" %}
+ * {{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }}
+{% endfor %}
 
 Cordialement,</body>
           <condition>
