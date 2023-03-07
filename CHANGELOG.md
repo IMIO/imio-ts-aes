@@ -4,6 +4,7 @@ Changelog
 1.5.0
 ------------------
 - [MPP-403] Added: fetch parent's plain's structured communication
+- [MPP-404] Added: default complementary infos
 
 1.4.3
 ------------------
