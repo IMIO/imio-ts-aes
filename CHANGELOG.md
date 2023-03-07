@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.5.0
+------------------
+- [MPP-403] Added: fetch parent's plain's structured communication
+
 1.4.3
 ------------------
 - [MPP-420] Fixed: failed parent self-registration can be regularized

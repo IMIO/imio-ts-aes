@@ -98,10 +98,30 @@
             <type>django</type>
             <value>form_option_mode_paiement == "Paiement en ligne" or form_option_calcul_montant == "Demander le montant &#224; AES"</value>
           </condition>
+        </item><item type="webservice_call" id="7">
+          <label>Recherche de la communication structur&#233;e</label>
+          <method>GET</method>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ form_user_var_aes_id }}/plain-structured-communication/</url>
+          <post>False</post>
+          <response_type>json</response_type>
+          <varname>communication_structuree</varname>
+          <action_on_app_error>:stop</action_on_app_error>
+          <action_on_4xx>:stop</action_on_4xx>
+          <action_on_5xx>:stop</action_on_5xx>
+          <action_on_bad_data>:pass</action_on_bad_data>
+          <action_on_network_errors>:stop</action_on_network_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <record_on_errors>True</record_on_errors>
+          <record_errors>False</record_errors>
+          <condition>
+            <type>django</type>
+            <value>form_option_mode_paiement == "Paiement par virement"</value>
+          </condition>
         </item><item type="form" id="2">
           <by>
             <item role_id="_receiver">_receiver</item>
           </by><varname>calcul</varname>
+          <hide_submit_button>False</hide_submit_button>
           <condition>
             <type>django</type>
             <value>form_option_calcul_montant == "Calculer le montant manuellement" and form_option_mode_paiement == "Paiement par virement"</value>
@@ -131,7 +151,9 @@
                 <varname type="str">communication</varname>
                 <display_locations />
                 <prefill>
-                  <type>none</type>
+                  <locked>False</locked>
+                  <type>string</type>
+                  <value>{{ communication_structuree }}</value>
                 </prefill><anonymise type="bool">True</anonymise>
                 <id type="str">2</id>
               </field><field>
@@ -474,7 +496,7 @@ Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en me
 
 * B&#233;n&#233;ficiaire : **Ville de {{ commune_name }} - {{ administration_adresse }}**
 * Num&#233;ro de compte b&#233;n&#233;ficiaire (IBAN) : **{{ form_option_iban }}**
-* R&#233;f&#233;rence de la commande (communication libre) : **{{ form_workflow_form_calcul_var_communication|default:form_number }}**
+{% if communication_structuree %}* R&#233;f&#233;rence de la commande (communication structur&#233;e) : **{% firstof form_workflow_form_calcul_var_communication communication_structuree %}**{% else %}* R&#233;f&#233;rence de la commande (communication libre) : **{{ form_workflow_form_calcul_var_communication|default:form_number }}**{% endif %}
 * Montant de la commande : **{% if form_workflow_form_calcul_var_montant %}{{ form_workflow_form_calcul_var_montant|decimal:2 }}{% else %}{{ form_workflow_data_montant_response_cost|decimal:2 }}{% endif %}  &#8364;**
 
 {{ form_workflow_form_calcul_var_info_complementaires }}</body>
@@ -484,7 +506,7 @@ Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en me
 &lt;ul&gt;
 &lt;li&gt;B&#233;n&#233;ficiaire : &lt;b&gt;Ville de {{ commune_name }} - {{ administration_adresse }} &lt;/b&gt;&lt;/li&gt;
 &lt;li&gt;Num&#233;ro de compte b&#233;n&#233;ficiaire (IBAN) : &lt;b&gt;{{ form_option_iban }}&lt;/b&gt;&lt;/li&gt;
-&lt;li&gt;R&#233;f&#233;rence de la commande (communication libre) : &lt;b&gt;{{ form_workflow_form_calcul_var_communication|default:form_number }}&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;{% if communication_structuree %}R&#233;f&#233;rence de la commande (communication structur&#233;e : &lt;b&gt;{% firstof form_workflow_form_calcul_var_communication communication_structuree %}&lt;/b&gt;{% else %}R&#233;f&#233;rence de la commande (communication libre) : &lt;b&gt;{{ form_workflow_form_calcul_var_communication|default:form_number }}&lt;/b&gt;{% endif %}&lt;/li&gt;
 &lt;li&gt;Montant de la commande : &lt;b&gt;{% if form_workflow_form_calcul_var_montant %}{{ form_workflow_form_calcul_var_montant|decimal:2 }}{% else %}{{ form_workflow_data_montant_response_cost|decimal:2 }}{% endif %}  &#8364;&lt;/b&gt;&lt;/li&gt;
 &lt;/ul&gt;
 {% if form_workflow_form_calcul_var_info_complementaires %}&lt;p&gt;&lt;b&gt;Informations compl&#233;mentaires :&lt;/b&gt;&lt;br/&gt;{{ form_workflow_form_calcul_var_info_complementaires }}&lt;/p&gt;{% endif %}</message>
