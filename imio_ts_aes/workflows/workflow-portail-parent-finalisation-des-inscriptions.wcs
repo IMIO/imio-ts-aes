@@ -491,7 +491,7 @@ Cordialement,</body>
         <item type="sendmail" id="1">
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><subject>{{ form_name }} n&#176;{{ form_number }}</subject>
+          </to><subject>Instructions pour le paiement des plaines - n&#176;{{ form_number }}</subject>
           <body>**Merci pour vos inscriptions !**
 
 Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en mentionnant les instructions de paiement suivantes :

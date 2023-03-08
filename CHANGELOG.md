@@ -6,6 +6,7 @@ Changelog
 - [MPP-403] Added: fetch parent's plain's structured communication
 - [MPP-404] Added: default complementary infos
 - [MPP-401] Added: list of plains in feedback at the end of registrations finalization
+- [MPP-421] Changed: payment instructions mail object
 
 1.4.3
 ------------------
