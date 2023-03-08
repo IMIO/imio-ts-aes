@@ -1,6 +1,26 @@
 Changelog
 =========
 
+1.5.0
+------------------
+- [MPP-403] Added: fetch parent's plain's structured communication
+- [MPP-404] Added: default complementary infos
+- [MPP-401] Added: list of plains in feedback at the end of registrations finalization
+- [MPP-421] Changed: payment instructions mail object
+
+1.4.3
+------------------
+- [MPP-420] Fixed: failed parent self-registration can be regularized
+- [MPP-407] Fixed: set unsuccessful plains registrations status as final
+
+1.4.2
+------------------
+- [MPP-383] Fixed: failed parent adding to child can be regularized
+
+1.4.1
+------------------
+- [MPP-383] Fixed: manage error if adding parent to child fails"
+
 1.4.0
 ------------------
 - [MPP-386] Added: agent-manageable options to lock plains registration to local citizens

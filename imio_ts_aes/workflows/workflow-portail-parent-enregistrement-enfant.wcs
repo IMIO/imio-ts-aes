@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<workflow id="14" url="https://wcs.dev.publik.love/backoffice/workflows/14/">
+<workflow id="1" url="https://wcs.dev.publik.love/backoffice/workflows/1/">
   <name>Portail Parent - Enregistrement enfant</name>
   <slug>portail-parent-enregistrement-enfant</slug>
   <category slug="portail-parent" category_id="1">Portail parent</category>
@@ -17,6 +17,7 @@
       </visibility><items>
         <item type="webservice_call" id="1">
           <label>V&#233;rification de l'existence de l'enfant</label>
+          <method>GET</method>
           <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/children/search</url>
           <qs_data>
             <item>
@@ -32,8 +33,7 @@
               <name>birthdate</name>
               <value>{{ form_var_enfant_date_naissance|date:"Y-m-d" }}</value>
             </item>
-          </qs_data><method>GET</method>
-          <post>False</post>
+          </qs_data><post>False</post>
           <response_type>json</response_type>
           <varname>verification_existance_enfant</varname>
           <action_on_app_error>:pass</action_on_app_error>
@@ -59,7 +59,7 @@
         </item><item type="choice" id="4">
           <label>debg</label>
           <by>
-            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+            <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
           </by><status>1</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
@@ -67,23 +67,10 @@
         </item><item type="choice" id="5">
           <label>Erroner</label>
           <by>
-            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+            <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
           </by><status>11</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
-          <set_marker_on_status>False</set_marker_on_status>
-        </item>
-      </items>
-    </status><status>
-      <id>7</id>
-      <name>L'enfant existe d&#233;j&#224;</name>
-      <colour>FF9900</colour>
-      <visibility>
-        <role>_receiver</role>
-        <role>_debug</role>
-      </visibility><items>
-        <item type="jump" id="1">
-          <status>9</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
@@ -96,7 +83,7 @@
         <item type="choice" id="1">
           <label>Rejouer</label>
           <by>
-            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+            <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
           </by><status>6</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
@@ -111,8 +98,8 @@
       <items>
         <item type="webservice_call" id="1">
           <label>Enregistrements de l'enfant dans AES</label>
-          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ form_user_var_aes_id }}/children/create</url>
           <method>POST</method>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ form_user_var_aes_id }}/children/create</url>
           <post>False</post>
           <post_data>
             <item>
@@ -155,6 +142,19 @@
           <record_errors>False</record_errors>
         </item><item type="jump" id="2">
           <status>3</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>7</id>
+      <name>L'enfant existe d&#233;j&#224;</name>
+      <colour>FF9900</colour>
+      <visibility>
+        <role>_receiver</role>
+        <role>_debug</role>
+      </visibility><items>
+        <item type="jump" id="1">
+          <status>9</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
@@ -231,7 +231,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <label>Relancer l'inscription</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+            <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
           </by><status>6</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
@@ -260,8 +260,8 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
       <items>
         <item type="webservice_call" id="1">
           <label>Ajouter le parent &#224; l'enfant</label>
-          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/children/{{ form_workflow_data_verification_existance_enfant_response_child.id }}/add-parent</url>
           <method>PATCH</method>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/children/{{ form_workflow_data_verification_existance_enfant_response_child.id }}/add-parent</url>
           <post>False</post>
           <post_data>
             <item>
@@ -270,11 +270,11 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
             </item>
           </post_data><response_type>json</response_type>
           <varname>ajout_parent</varname>
-          <action_on_app_error>:pass</action_on_app_error>
-          <action_on_4xx>:stop</action_on_4xx>
-          <action_on_5xx>:stop</action_on_5xx>
-          <action_on_bad_data>:pass</action_on_bad_data>
-          <action_on_network_errors>:stop</action_on_network_errors>
+          <action_on_app_error>12</action_on_app_error>
+          <action_on_4xx>12</action_on_4xx>
+          <action_on_5xx>12</action_on_5xx>
+          <action_on_bad_data>12</action_on_bad_data>
+          <action_on_network_errors>12</action_on_network_errors>
           <notify_on_errors>False</notify_on_errors>
           <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
@@ -284,8 +284,53 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
         </item><item type="choice" id="3">
           <label>Rejouer l'ajout du parent</label>
           <by>
-            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+            <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
           </by><status>7</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>12</id>
+      <name>Erreur lors de l'ajout d'un parent</name>
+      <colour>FF0000</colour>
+      <visibility />
+      <items>
+        <item type="displaymsg" id="1">
+          <message>Une erreur est survenue lors de la cr&#233;ation du lien entre l'enfant et le parent. Ce dernier ne peut donc poursuivre les inscriptions de ses enfants.</message>
+          <level>error</level>
+          <position>top</position>
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to>
+        </item><item type="sendmail" id="2">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to><subject>Erreur {{ form_name }} n&#176;{{ form_number }}</subject>
+          <body>Une erreur est survenue lors de la cr&#233;ation du lien entre l'enfant et le parent. Ce dernier ne peut donc poursuivre les inscriptions de ses enfants.
+
+Veuillez consulter la demande.
+
+`Consulter la demande &lt;{{ form_url_backoffice }}&gt;`_
+
+Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le support d'iMio
+
+`support.imio.be &lt;support.imio.be&gt;`_</body>
+        </item><item type="choice" id="3">
+          <label>Relancer l'enregistrement</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+            <item role_id="_debug">_debug</item>
+          </by><status>6</status>
+          <require_confirmation>True</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item type="choice" id="4">
+          <label>Noter la demande comme r&#233;gularis&#233;e</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>8</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>

@@ -98,6 +98,25 @@
             <type>django</type>
             <value>form_option_mode_paiement == "Paiement en ligne" or form_option_calcul_montant == "Demander le montant &#224; AES"</value>
           </condition>
+        </item><item type="webservice_call" id="7">
+          <label>Recherche de la communication structur&#233;e</label>
+          <method>GET</method>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ form_user_var_aes_id }}/plain-structured-communication/</url>
+          <post>False</post>
+          <response_type>json</response_type>
+          <varname>communication_structuree</varname>
+          <action_on_app_error>:stop</action_on_app_error>
+          <action_on_4xx>:stop</action_on_4xx>
+          <action_on_5xx>:stop</action_on_5xx>
+          <action_on_bad_data>:pass</action_on_bad_data>
+          <action_on_network_errors>:stop</action_on_network_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <record_on_errors>True</record_on_errors>
+          <record_errors>False</record_errors>
+          <condition>
+            <type>django</type>
+            <value>form_option_mode_paiement == "Paiement par virement"</value>
+          </condition>
         </item><item type="form" id="2">
           <by>
             <item role_id="_receiver">_receiver</item>
@@ -132,7 +151,9 @@
                 <varname type="str">communication</varname>
                 <display_locations />
                 <prefill>
-                  <type>none</type>
+                  <locked>False</locked>
+                  <type>string</type>
+                  <value>{{ form_workflow_data_communication_structuree_response }}</value>
                 </prefill><anonymise type="bool">True</anonymise>
                 <id type="str">2</id>
               </field><field>
@@ -470,27 +491,27 @@ Cordialement,</body>
         <item type="sendmail" id="1">
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><subject>{{ form_name }} n&#176;{{ form_number }}</subject>
+          </to><subject>Instructions pour le paiement des plaines - n&#176;{{ form_number }}</subject>
           <body>**Merci pour vos inscriptions !**
 
 Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en mentionnant les instructions de paiement suivantes :
 
 * B&#233;n&#233;ficiaire : **Ville de {{ commune_name }} - {{ administration_adresse }}**
 * Num&#233;ro de compte b&#233;n&#233;ficiaire (IBAN) : **{{ form_option_iban }}**
-* R&#233;f&#233;rence de la commande (communication libre) : **{{ form_workflow_form_calcul_var_communication|default:form_number }}**
+{% if form_workflow_data_communication_structuree_response %}* R&#233;f&#233;rence de la commande (communication structur&#233;e) : **{% firstof form_workflow_form_calcul_var_communication form_workflow_data_communication_structuree_response %}**{% else %}* R&#233;f&#233;rence de la commande (communication libre) : **{{ form_workflow_form_calcul_var_communication|default:form_number }}**{% endif %}
 * Montant de la commande : **{% if form_workflow_form_calcul_var_montant %}{{ form_workflow_form_calcul_var_montant|decimal:2 }}{% else %}{{ form_workflow_data_montant_response_cost|decimal:2 }}{% endif %}  &#8364;**
 
-{{ form_workflow_form_calcul_var_info_complementaires }}</body>
+{% firstof form_workflow_form_calcul_var_info_complementaires form_option_preremplir_info_complementaires %}</body>
         </item><item type="displaymsg" id="2">
           <message>&lt;h3&gt;Merci pour vos inscriptions&lt;/h3&gt;
 &lt;p&gt;Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en mentionnant les instructions de paiement suivantes :&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;B&#233;n&#233;ficiaire : &lt;b&gt;Ville de {{ commune_name }} - {{ administration_adresse }} &lt;/b&gt;&lt;/li&gt;
 &lt;li&gt;Num&#233;ro de compte b&#233;n&#233;ficiaire (IBAN) : &lt;b&gt;{{ form_option_iban }}&lt;/b&gt;&lt;/li&gt;
-&lt;li&gt;R&#233;f&#233;rence de la commande (communication libre) : &lt;b&gt;{{ form_workflow_form_calcul_var_communication|default:form_number }}&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;{% if form_workflow_data_communication_structuree_response %}R&#233;f&#233;rence de la commande (communication structur&#233;e : &lt;b&gt;{% firstof form_workflow_form_calcul_var_communication form_workflow_data_communication_structuree_response %}&lt;/b&gt;{% else %}R&#233;f&#233;rence de la commande (communication libre) : &lt;b&gt;{{ form_workflow_form_calcul_var_communication|default:form_number }}&lt;/b&gt;{% endif %}&lt;/li&gt;
 &lt;li&gt;Montant de la commande : &lt;b&gt;{% if form_workflow_form_calcul_var_montant %}{{ form_workflow_form_calcul_var_montant|decimal:2 }}{% else %}{{ form_workflow_data_montant_response_cost|decimal:2 }}{% endif %}  &#8364;&lt;/b&gt;&lt;/li&gt;
 &lt;/ul&gt;
-{% if form_workflow_form_calcul_var_info_complementaires %}&lt;p&gt;&lt;b&gt;Informations compl&#233;mentaires :&lt;/b&gt;&lt;br/&gt;{{ form_workflow_form_calcul_var_info_complementaires }}&lt;/p&gt;{% endif %}</message>
+{% if form_option_preremplir_info_complementaires or form_workflow_form_calcul_var_info_complementaires %}&lt;p&gt;&lt;b&gt;Informations compl&#233;mentaires :&lt;/b&gt;&lt;br/&gt;{% firstof form_workflow_form_calcul_var_info_complementaires form_option_preremplir_info_complementaires %}&lt;/p&gt;{% endif %}</message>
           <level>info</level>
           <position>top</position>
           <to>
@@ -572,23 +593,26 @@ Cordialement,</body>
           </to><subject>{{ form_name }} n&#176;{{ form_number }}</subject>
           <body>Bonjour,
 
-Nous vous confirmons la bonne r&#233;ception de votre paiement. Les plaines auxquelles vous avez inscrits vos enfants sont bel et bien r&#233;serv&#233;es.
+Nous vous confirmons la bonne r&#233;ception de votre paiement. Les inscriptions suivantes sont d&#233;sormais cl&#244;tur&#233;es :
+{% for registration in forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de paiement" %}
+ * {{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }}
+{% endfor %}
 
 Cordialement,</body>
           <condition>
             <type>django</type>
             <value>form_option_mode_paiement != "Paiement diff&#233;r&#233;"</value>
           </condition>
-        </item><item type="external_workflow_global_action" id="2">
-          <slug>formdef:pp-fiche-inscription-plaine</slug>
-          <trigger_id>action:closed</trigger_id>
-          <target_mode>manual</target_mode>
-          <target_id>{{ forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de paiement" }}</target_id>
         </item><item type="register-comment" id="3">
           <comment>&lt;div&gt;Les inscriptions suivantes sont d&#233;sormais cl&#244;tur&#233;es :
 &lt;ul&gt;{% for registration in forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de paiement" %}
     &lt;li&gt;{{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }}&lt;/li&gt;
 {% endfor %}&lt;/ul&gt;&lt;/div&gt;</comment>
+        </item><item type="external_workflow_global_action" id="2">
+          <slug>formdef:pp-fiche-inscription-plaine</slug>
+          <trigger_id>action:closed</trigger_id>
+          <target_mode>manual</target_mode>
+          <target_id>{{ forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de paiement" }}</target_id>
         </item><item type="jump" id="4">
           <status>15</status>
           <set_marker_on_status>False</set_marker_on_status>

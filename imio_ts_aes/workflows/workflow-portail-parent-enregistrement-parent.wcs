@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<workflow id="15" url="https://wcs.dev.publik.love/backoffice/workflows/15/">
+<workflow id="2" url="https://wcs.dev.publik.love/backoffice/workflows/2/">
   <name>Portail Parent - Enregistrement parent</name>
   <slug>portail-parent-enregistrement-parent</slug>
   <category slug="portail-parent" category_id="1">Portail parent</category>
@@ -12,7 +12,7 @@
       <colour>FFFFFF</colour>
       <visibility />
       <items>
-        <item type="update_user_profile" id="2">
+        <item type="update_user_profile" id="1">
           <fields>
             <field>
               <field_id>phone</field_id>
@@ -22,7 +22,7 @@
             <type>django</type>
             <value>form_var_telephone</value>
           </condition>
-        </item><item type="jump" id="1">
+        </item><item type="jump" id="2">
           <status>1</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -35,6 +35,7 @@
       <items>
         <item type="webservice_call" id="1">
           <label>Recherche du parent</label>
+          <method>GET</method>
           <url>{{ passerelle_url}}passerelle-imio-ia-aes/aes/parents</url>
           <qs_data>
             <item>
@@ -44,8 +45,7 @@
               <name>registration_number</name>
               <value>{{ form_var_matricule|default:"" }}</value>
             </item>
-          </qs_data><method>GET</method>
-          <post>False</post>
+          </qs_data><post>False</post>
           <response_type>json</response_type>
           <varname>recherche</varname>
           <action_on_app_error>5</action_on_app_error>
@@ -106,6 +106,16 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+        </item><item type="choice" id="4">
+          <label>Noter la demande comme r&#233;gularis&#233;e</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>7</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Noter la demande comme r&amp;eacute;gularis&amp;eacute;e si le probl&amp;egrave;me rencontr&amp;eacute; par le parent a &amp;eacute;t&amp;eacute; r&amp;eacute;solu. Ceci permettra de consid&amp;eacute;rer la demande comme aboutie sans notifier le parent concern&amp;eacute;.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
     </status><status>
@@ -116,8 +126,8 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
       <items>
         <item type="webservice_call" id="1">
           <label>Cr&#233;ation du parent</label>
-          <url>{{ passerelle_url}}/passerelle-imio-ia-aes/aes/create-parent</url>
           <method>POST</method>
+          <url>{{ passerelle_url}}/passerelle-imio-ia-aes/aes/create-parent</url>
           <post>False</post>
           <post_data>
             <item>
@@ -185,6 +195,21 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
               <value>{% firstof form_workflow_data_creation_parent_response_odoo_id form_workflow_data_recherche_response_parent_id %}</value>
             </field>
           </fields>
+        </item><item type="sendmail" id="3">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>Votre enregistrement en tant que parent</subject>
+          <body>Bonjour,
+
+Vous avez bien &#233;t&#233; enregistr&#233; en tant que parent.
+
+Cordialement,</body>
+        </item><item type="redirect_to_url" id="4">
+          <url>{{ portal_url }}/portail_parent</url>
+          <condition>
+            <type>django</type>
+            <value>not form_submission_backoffice</value>
+          </condition>
         </item><item type="jump" id="2">
           <status>7</status>
           <set_marker_on_status>False</set_marker_on_status>
@@ -226,6 +251,16 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+        </item><item type="choice" id="4">
+          <label>Noter la demande comme r&#233;gularis&#233;e</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>7</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Noter la demande comme r&amp;eacute;gularis&amp;eacute;e si le probl&amp;egrave;me rencontr&amp;eacute; par le parent a &amp;eacute;t&amp;eacute; r&amp;eacute;solu. Ceci permettra de consid&amp;eacute;rer la demande comme aboutie sans notifier le parent concern&amp;eacute;.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
     </status><status>
@@ -233,24 +268,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
       <name>Enregistrement termin&#233;</name>
       <colour>00FF00</colour>
       <visibility />
-      <items>
-        <item type="sendmail" id="1">
-          <to>
-            <item role_id="_submitter">_submitter</item>
-          </to><subject>Votre enregistrement en tant que parent</subject>
-          <body>Bonjour,
-
-Vous avez bien &#233;t&#233; enregistr&#233; en tant que parent.
-
-Cordialement,</body>
-        </item><item type="redirect_to_url" id="2">
-          <url>{{ portal_url }}/portail_parent</url>
-          <condition>
-            <type>django</type>
-            <value>not form_submission_backoffice</value>
-          </condition>
-        </item>
-      </items>
+      <items />
     </status>
   </possible_status><global_actions>
     <action>
@@ -261,7 +279,7 @@ Cordialement,</body>
       </items><triggers>
         <trigger type="manual" id="2f8b47e3-0a7e-4ada-b6cc-1fd1748cddd6">
           <roles>
-            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+            <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
           </roles>
         </trigger>
       </triggers>

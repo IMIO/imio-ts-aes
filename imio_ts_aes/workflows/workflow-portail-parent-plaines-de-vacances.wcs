@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<workflow id="19" url="https://wcs.dev.publik.love/backoffice/workflows/19/">
+<workflow id="6" url="https://wcs.dev.publik.love/backoffice/workflows/6/">
   <name>Portail Parent - Plaines de vacances</name>
   <slug>portail-parent-plaines-de-vacances</slug>
   <category slug="portail-parent" category_id="1">Portail parent</category>
@@ -34,8 +34,8 @@
       <items>
         <item type="webservice_call" id="1">
           <label>Inscriptions aux plaines</label>
-          <url>{{ passerelle_url }}/passerelle-imio-ia-aes/aes/registrations/create</url>
           <method>POST</method>
+          <url>{{ passerelle_url }}/passerelle-imio-ia-aes/aes/registrations/create</url>
           <post>False</post>
           <post_data>
             <item>
@@ -202,7 +202,7 @@ Une fois que vous aurez inscrits tous vos enfants, vous pouvez `finaliser vos in
 &lt;li&gt;Semaine du {{ error.start_date|date }} au {{ error.end_date|date }}&lt;/li&gt;
 {% endfor %}&lt;/ul&gt;{% endif %}</comment>
           <to>
-            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+            <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
             <item role_id="_receiver">_receiver</item>
           </to>
         </item>
@@ -230,7 +230,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <label>Relancer les inscriptions</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+            <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
           </by><status>2</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Une fois le probl&amp;egrave;me corrig&amp;eacute;, il est possible par ce biais de relancer les inscriptions dans AES.&lt;/p&gt;
@@ -243,12 +243,13 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
       <id>7</id>
       <name>Aucune inscription n'a pu aboutir</name>
       <colour>FFFFFF</colour>
+      <forced_endpoint>true</forced_endpoint>
       <visibility />
       <items>
         <item type="choice" id="1">
           <label>Retenter les inscriptions</label>
           <by>
-            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+            <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
           </by><status>2</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
@@ -269,7 +270,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
       </items><triggers>
         <trigger type="manual" id="d169c805-50fd-441a-b4e0-439ee617deea">
           <roles>
-            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+            <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
           </roles>
         </trigger>
       </triggers>
