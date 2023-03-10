@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.6.0
+-----------------
+- [MPP-405] Added: send user uuid to passerelle, to construct homepage
+- [MPP-405] Changed: update combo settings
+
 1.5.0
 ------------------
 - [MPP-403] Added: fetch parent's plain's structured communication
