@@ -11,11 +11,11 @@ then
   service passerelle restart
 fi
 
-if [ ! -f "/etc/combo/settings.d/aes.py" ]
-then
-  cp $install_path/combo/tenants/settings.py /etc/combo/settings.d/aes.py
-  service combo restart
-fi
+# if [ ! -f "/etc/combo/settings.d/aes.py" ]
+# then
+cp $install_path/combo/tenants/settings.py /etc/combo/settings.d/aes.py
+service combo restart
+# fi
 
 
 sudo -u hobo hobo-manage imio_indus_deploy --directory $install_path
