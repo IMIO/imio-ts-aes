@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.7.0
+-----------------
+- [MPP-424] Added: comment about additional informations in healthsheet
+
+
 1.6.0
 -----------------
 - [MPP-405] Added: send user uuid to passerelle, to construct homepage
