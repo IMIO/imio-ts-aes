@@ -2591,10 +2591,9 @@
       </prefill><id type="str">579</id>
     </field>
   </fields><user-roles>
-    <role slug="parent" role_id="9568ff2000794db8a6711bd2ff596ceb">Parent</role>
+    <role slug="parent" role_id="ce7865be59bb41a6a9572d058624f337">Parent</role>
   </user-roles><roles>
-    <role slug="agent-traitant-portail-parent" role_id="d0b8282bf6114da680fa4c848da76167" role_key="_receiver">Agent traitant - Portail Parent</role>
-    <role slug="debug" role_id="5162edec67c74e23bc26251709ab4101" role_key="_debug">Debug</role>
+    <role slug="debug" role_id="1c075e10a382498689a357df0bc67631" role_key="_debug">Debug</role>
   </roles><options>
     <option varname="compte">BE80 0910 2100 5377</option>
     <option varname="questions" />

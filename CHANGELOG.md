@@ -5,6 +5,7 @@ Changelog
 -----------------
 - [MPP-424] Added: comment about additional informations in healthsheet
 - [MPP-415] Changed: arnica's label in healthsheet
+- [MPP-393] Changed: default functions roles
 
 1.6.0
 -----------------
