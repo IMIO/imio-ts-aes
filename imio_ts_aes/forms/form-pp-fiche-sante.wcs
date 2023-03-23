@@ -390,13 +390,12 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
-        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.specific_regime_text }}</value>
-      </prefill><pre type="bool">False</pre>
+      </prefill><display_mode type="str">plain</display_mode>
       <id type="str">524</id>
     </field><field>
-      <label type="str">Autorisez-vous les accompagnants &#224; utiliser de l'arnica ?</label>
+      <label type="str">Autorisez-vous les accompagnants &#224; utiliser du gel arnica ?</label>
       <type type="str">item</type>
       <condition>
         <type>django</type>
