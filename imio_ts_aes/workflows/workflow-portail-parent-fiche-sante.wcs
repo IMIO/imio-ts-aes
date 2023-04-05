@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<workflow id="17" url="https://wcs.dev.publik.love/backoffice/workflows/17/">
+<workflow id="4" url="https://wcs.dev.publik.love/backoffice/workflows/4/">
   <name>Portail Parent - Fiche sant&#233;</name>
   <slug>portail-parent-fiche-sante</slug>
   <category slug="portail-parent" category_id="1">Portail parent</category>
@@ -26,8 +26,8 @@
       </visibility><items>
         <item type="webservice_call" id="1">
           <label>Enregistrement du m&#233;decin</label>
-          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/doctors/create</url>
           <method>POST</method>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/doctors/create</url>
           <post>False</post>
           <post_data>
             <item>
@@ -83,7 +83,7 @@
         <item type="choice" id="1">
           <label>Retenter l'enregistrement du m&#233;decin</label>
           <by>
-            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+            <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
           </by><status>5</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
@@ -98,8 +98,8 @@
       <items>
         <item type="webservice_call" id="1">
           <label>Cr&#233;ation du premier contact</label>
-          <url>{{ passerelle_url}}passerelle-imio-ia-aes/aes/contacts/create</url>
           <method>POST</method>
+          <url>{{ passerelle_url}}passerelle-imio-ia-aes/aes/contacts/create</url>
           <post>False</post>
           <post_data>
             <item>
@@ -146,8 +146,8 @@
           </condition>
         </item><item type="webservice_call" id="2">
           <label>Cr&#233;ation du deuxi&#232;me contact</label>
-          <url>{{ passerelle_url}}passerelle-imio-ia-aes/aes/contacts/create</url>
           <method>POST</method>
+          <url>{{ passerelle_url}}passerelle-imio-ia-aes/aes/contacts/create</url>
           <post>False</post>
           <post_data>
             <item>
@@ -207,7 +207,7 @@
           <label>Retenter l'enregistrement des contacts</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+            <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
           </by><status>7</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
@@ -222,8 +222,8 @@
       <items>
         <item type="webservice_call" id="1">
           <label>Enregistrement dans AES</label>
-          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/children/{{ form_var_enfant_id }}/healthsheet/update</url>
           <method>PUT</method>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/children/{{ form_var_enfant_id }}/healthsheet/update</url>
           <post>False</post>
           <post_data>
             <item>
@@ -416,7 +416,7 @@
         <item type="choice" id="1">
           <label>Retenter l'enregistrement</label>
           <by>
-            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+            <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
           </by><status>2</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
@@ -443,7 +443,7 @@
       </items><triggers>
         <trigger type="manual" id="b2d7dd83-ae14-4d6f-80db-6e1880047568">
           <roles>
-            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+            <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
           </roles>
         </trigger>
       </triggers>
