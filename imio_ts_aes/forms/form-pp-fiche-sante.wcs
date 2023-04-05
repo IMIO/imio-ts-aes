@@ -15,7 +15,7 @@
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="2">Portail Parent</category>
   <workflow slug="portail-parent-fiche-sante" workflow_id="4">Portail Parent - Fiche sant&#233;</workflow>
-  <max_field_id>660</max_field_id>
+  <max_field_id>666</max_field_id>
   <fields>
     <field>
       <label type="str">Informations g&#233;n&#233;rales</label>
@@ -233,6 +233,126 @@
       <display_disabled_items type="bool">False</display_disabled_items>
       <id type="str">531</id>
     </field><field>
+      <label type="str">Votre enfant sait-il rouler &#224; v&#233;lo ?</label>
+      <type type="str">item</type>
+      <condition>
+        <type>django</type>
+        <value>'bike' in form_option_questions_raw</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">bike</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.bike }}</value>
+      </prefill><display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>formula</type>
+        <value>form_var_fiche_sante_selections["bike"]</value>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">661</id>
+    </field><field>
+      <label type="str">Votre enfant porte-t-il des lunettes ?</label>
+      <type type="str">item</type>
+      <condition>
+        <type>django</type>
+        <value>'glasses' in form_option_questions_raw</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">glasses</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.glasses }}</value>
+      </prefill><display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>formula</type>
+        <value>form_var_fiche_sante_selections["glasses"]</value>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">662</id>
+    </field><field>
+      <label type="str">Votre enfant porte-t-il un appareil auditif ?</label>
+      <type type="str">item</type>
+      <condition>
+        <type>django</type>
+        <value>'hearing_aid' in form_option_questions_raw</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">hearing_aid</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.hearing_aid }}</value>
+      </prefill><display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>formula</type>
+        <value>form_var_fiche_sante_selections["hearing_aid"]</value>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">663</id>
+    </field><field>
+      <label type="str">Votre enfant fait-il la sieste ?</label>
+      <type type="str">item</type>
+      <condition>
+        <type>django</type>
+        <value>'nap' in form_option_questions_raw</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">nap</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.nap }}</value>
+      </prefill><display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>formula</type>
+        <value>form_var_fiche_sante_selections["nap"]</value>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">664</id>
+    </field><field>
+      <label type="str">Votre enfant a-t-il un doudou ou une tutute ?</label>
+      <type type="str">item</type>
+      <condition>
+        <type>django</type>
+        <value>'emotional_support' in form_option_questions_raw</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">emotional_support</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.emotional_support }}</value>
+      </prefill><display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>formula</type>
+        <value>form_var_fiche_sante_selections["emotional_support"]</value>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">False</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">665</id>
+    </field><field>
       <label type="str">L'enfant souffre t'il d'un handicap ?</label>
       <type type="str">item</type>
       <condition>
@@ -418,6 +538,27 @@
       <anonymise type="bool">False</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <id type="str">528</id>
+    </field><field>
+      <label type="str">Quel est le poids, en kilogrammes, de votre enfant ?</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>"weight" in form_option_questions_raw</value>
+      </condition><required type="bool">True</required>
+      <hint type="str">N'indiquez que des chiffres.</hint>
+      <varname type="str">weight</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.weight }}</value>
+      </prefill><validation>
+        <type>digits</type>
+      </validation><anonymise type="bool">True</anonymise>
+      <id type="str">666</id>
     </field><field>
       <label type="str">V&#233;rification</label>
       <type type="str">page</type>
@@ -2619,7 +2760,7 @@
   </roles><options>
     <option varname="compte">BE80 0910 2100 5377</option>
     <option varname="questions" />
-    <option varname="questions_display">Quel est le groupe sanguin de l'enfant ?, L'enfant a-t'il &#233;t&#233; vaccin&#233; contre le t&#233;tanos ?, L'enfant a-t'il subit une intervention r&#233;cemment ?, L'enfant sait-il nager ?, L'enfant souffre t'il d'un handicap ?, Activit&#233;s non praticables, L'enfant suit-il un r&#233;gime sp&#233;cifique ?, Autorisez-vous les accompagnants &#224; utiliser de l'arnica ?, L'enfant a-t'il des allergies ?, Permettre aux parents d'ajouter d'autres allergies ?, L'enfant a-t'il des maladies ?, Permettre aux parents d'ajouter d'autres maladies ?, L'enfant doit-il prendre des m&#233;dicaments ?, Demander l'adresse des autres contacts, L'enfant peut-il &#234;tre pris en photo durant les stages ou les plaines ?, L'enfant peut-il &#234;tre pris en photo lors des garderies, ateliers, spectacles, ou autre ?, Les photos de l'enfant peuvent-elles &#234;tre publi&#233;es sur les r&#233;seaux sociaux (site de la commune, Facebook) ?</option>
+    <option varname="questions_display">Quel est le groupe sanguin de l'enfant ?, L'enfant sait-il rouler &#224; v&#233;lo ?, L'enfant porte-t-il des lunettes ?, L'enfant porte-t-il un appareil auditif ?, L'enfant fait-il la sieste ?, L'enfant a-t-il un doudou ou une tutute ?, Quel est le poids de l'enfant ?, L'enfant a-t'il &#233;t&#233; vaccin&#233; contre le t&#233;tanos ?, L'enfant a-t'il subit une intervention r&#233;cemment ?, L'enfant sait-il nager ?, L'enfant souffre t'il d'un handicap ?, Activit&#233;s non praticables, L'enfant suit-il un r&#233;gime sp&#233;cifique ?, Autorisez-vous les accompagnants &#224; utiliser du gel arnica ?, L'enfant a-t'il des maladies ?</option>
     <option varname="questions_structured" />
     <option varname="verifier_encodage">Non</option>
     <option varname="verifier_encodage_display">Non</option>

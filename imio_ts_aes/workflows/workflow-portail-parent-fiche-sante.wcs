@@ -391,6 +391,24 @@
             </item><item>
               <name>authorizations</name>
               <value>{{ form_var_autorisations_raw }}</value>
+            </item><item>
+              <name>bike</name>
+              <value>{{ form_var_bike_raw|default:"" }}</value>
+            </item><item>
+              <name>hearing_aid</name>
+              <value>{{ form_var_hearing_aid_raw|default:"" }}</value>
+            </item><item>
+              <name>glasses</name>
+              <value>{{ form_var_glasses_raw|default:"" }}</value>
+            </item><item>
+              <name>nap</name>
+              <value>{{ form_var_nap_raw|default:"" }}</value>
+            </item><item>
+              <name>emotional_support</name>
+              <value>{{ form_var_emotional_support_raw|default:"" }}</value>
+            </item><item>
+              <name>weight</name>
+              <value>{{ form_var_weight|default:"" }}</value>
             </item>
           </post_data><response_type>json</response_type>
           <varname>enregistrement_fiche_sante</varname>
