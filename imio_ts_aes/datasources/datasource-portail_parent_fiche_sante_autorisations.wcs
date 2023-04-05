@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<datasource id="17" url="https://wcs.dev.publik.love/backoffice/settings/data-sources/17/">
+  <name>Portail Parent - Fiche sant&#233; - Autorisations</name>
+  <slug>portail_parent_fiche_sante_autorisations</slug>
+  <description>Liste des autorisations. Une autorisation est un accord donn&#233; par un parent vis-&#224;-vis de son enfant.</description>
+  <text_attribute>description</text_attribute>
+  <data_source>
+    <type>json</type>
+    <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/authorizations</value>
+  </data_source><category slug="portail-parent" category_id="1">Portail Parent</category>
+</datasource>

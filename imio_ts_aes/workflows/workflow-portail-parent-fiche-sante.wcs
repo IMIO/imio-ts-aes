@@ -388,6 +388,9 @@
             </item><item>
               <name>comment</name>
               <value>{{ form_var_precisions_supp|default:"" }}</value>
+            </item><item>
+              <name>authorizations</name>
+              <value>{{ form_var_autorisations_raw }}</value>
             </item>
           </post_data><response_type>json</response_type>
           <varname>enregistrement_fiche_sante</varname>
