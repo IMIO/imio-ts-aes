@@ -2203,7 +2203,7 @@
         </post_condition>
       </post_conditions><id type="str">547</id>
     </field><field>
-      <label type="str">Autres contacts</label>
+      <label type="str">Personnes de contact autoris&#233;es &#224; r&#233;cup&#233;rer l'enfant</label>
       <type type="str">title</type>
       <display_locations>
         <display_location>validation</display_location>
