@@ -409,6 +409,9 @@
             </item><item>
               <name>weight</name>
               <value>{{ form_var_weight|default:"" }}</value>
+            </item><item>
+              <name>mutuality</name>
+              <value>{{ form_var_mutuality|default:"" }}</value>
             </item>
           </post_data><response_type>json</response_type>
           <varname>enregistrement_fiche_sante</varname>

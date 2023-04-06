@@ -15,7 +15,7 @@
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="2">Portail Parent</category>
   <workflow slug="portail-parent-fiche-sante" workflow_id="4">Portail Parent - Fiche sant&#233;</workflow>
-  <max_field_id>666</max_field_id>
+  <max_field_id>667</max_field_id>
   <fields>
     <field>
       <label type="str">Informations g&#233;n&#233;rales</label>
@@ -1985,8 +1985,27 @@
       <type type="str">page</type>
       <id type="str">406</id>
     </field><field>
+      <label type="str">&#192; quelle mutuelle l'enfant est-il affili&#233; ?</label>
+      <type type="str">string</type>
+      <condition>
+        <type>django</type>
+        <value>"mutuality" in form_option_questions_raw</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">mutuality</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.mutuality }}</value>
+      </prefill><anonymise type="bool">True</anonymise>
+      <id type="str">667</id>
+    </field><field>
       <label type="str">M&#233;decin traitant</label>
       <type type="str">subtitle</type>
+      <extra_css_class type="str">newline</extra_css_class>
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
