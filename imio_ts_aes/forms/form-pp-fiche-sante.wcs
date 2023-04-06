@@ -15,7 +15,7 @@
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="2">Portail Parent</category>
   <workflow slug="portail-parent-fiche-sante" workflow_id="4">Portail Parent - Fiche sant&#233;</workflow>
-  <max_field_id>667</max_field_id>
+  <max_field_id>668</max_field_id>
   <fields>
     <field>
       <label type="str">Informations g&#233;n&#233;rales</label>
@@ -656,7 +656,7 @@
       <type type="str">text</type>
       <condition>
         <type>django</type>
-        <value>form_var_allergie_raw  == 'oui'</value>
+        <value>form_var_allergie_raw  == 'yes'</value>
       </condition><required type="bool">False</required>
       <varname type="str">allergie_consequence</varname>
       <display_locations>
@@ -664,10 +664,30 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.allergy_consequence }}</value>
       </prefill><display_mode type="str">plain</display_mode>
       <id type="str">171</id>
+    </field><field>
+      <label type="str">Traitement &#233;ventuel</label>
+      <type type="str">text</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_allergie_raw  == 'yes'</value>
+      </condition><required type="bool">False</required>
+      <hint type="str">Avec l'accord du m&#233;decin.</hint>
+      <varname type="str">allergie_traitement</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.allergy_treatment }}</value>
+      </prefill><display_mode type="str">plain</display_mode>
+      <id type="str">668</id>
     </field><field>
       <label type="str">Maladies</label>
       <type type="str">page</type>
@@ -2779,7 +2799,7 @@
   </roles><options>
     <option varname="compte">BE80 0910 2100 5377</option>
     <option varname="questions" />
-    <option varname="questions_display">Quel est le groupe sanguin de l'enfant ?, L'enfant sait-il rouler &#224; v&#233;lo ?, L'enfant porte-t-il des lunettes ?, L'enfant porte-t-il un appareil auditif ?, L'enfant fait-il la sieste ?, L'enfant a-t-il un doudou ou une tutute ?, Quel est le poids de l'enfant ?, L'enfant a-t'il &#233;t&#233; vaccin&#233; contre le t&#233;tanos ?, L'enfant a-t'il subit une intervention r&#233;cemment ?, L'enfant sait-il nager ?, L'enfant souffre t'il d'un handicap ?, Activit&#233;s non praticables, L'enfant suit-il un r&#233;gime sp&#233;cifique ?, Autorisez-vous les accompagnants &#224; utiliser du gel arnica ?, L'enfant a-t'il des maladies ?</option>
+    <option varname="questions_display">Quel est le groupe sanguin de l'enfant ?, L'enfant sait-il rouler &#224; v&#233;lo ?, L'enfant porte-t-il des lunettes ?, L'enfant porte-t-il un appareil auditif ?, L'enfant fait-il la sieste ?, L'enfant a-t-il un doudou ou une tutute ?, Quel est le poids de l'enfant ?, L'enfant a-t'il &#233;t&#233; vaccin&#233; contre le t&#233;tanos ?, L'enfant a-t'il subit une intervention r&#233;cemment ?, L'enfant sait-il nager ?, L'enfant souffre t'il d'un handicap ?, Activit&#233;s non praticables, L'enfant suit-il un r&#233;gime sp&#233;cifique ?, Autorisez-vous les accompagnants &#224; utiliser du gel arnica ?, L'enfant a-t'il des allergies ?, L'enfant a-t'il des maladies ?, &#192; quelle mutuelle l\enfant est-il affili&#233; ?</option>
     <option varname="questions_structured" />
     <option varname="verifier_encodage">Non</option>
     <option varname="verifier_encodage_display">Non</option>
