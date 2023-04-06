@@ -6,6 +6,12 @@ Changelog
 - [MPP-424] Added: comment about additional informations in healthsheet
 - [MPP-415] Changed: arnica's label in healthsheet
 - [MPP-393] Changed: default functions roles
+- [MPP-425] Changed: contact's label in healthsheet
+- [MPP-415] Added: bike, glasses, hearing_aid, nap, weight and emotional_support in healthsheet
+- [MPP-418] Added: allergy treatment
+- [MPP-418] Fixed: allergy consequences
+- [MPP-419] Added: mutuality in healthsheet
+- [MPP-413] Added: authorizations in healthsheet
 
 1.6.0
 -----------------
