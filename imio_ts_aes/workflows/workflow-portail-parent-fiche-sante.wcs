@@ -389,8 +389,8 @@
               <name>comment</name>
               <value>{{ form_var_precisions_supp|default:"" }}</value>
             </item><item>
-              <name>authorizations</name>
-              <value>{{ form_var_autorisations_obligatoires_raw|add:form_var_autorisations_facultatives_raw }}</value>
+              <name>mandatory_authorizations</name>
+              <value>{{ form_var_autorisations_obligatoires_raw }}</value>
             </item><item>
               <name>bike</name>
               <value>{{ form_var_bike_raw|default:"" }}</value>
@@ -415,6 +415,9 @@
             </item><item>
               <name>allergy_treatment</name>
               <value>{{ form_var_allergie_traitement|default:"" }}</value>
+            </item><item>
+              <name>optional_authorizations</name>
+              <value>{{ form_var_autorisations_facultatives_raw }}</value>
             </item>
           </post_data><response_type>json</response_type>
           <varname>enregistrement_fiche_sante</varname>
