@@ -15,7 +15,7 @@
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="2">Portail Parent</category>
   <workflow slug="portail-parent-fiche-sante" workflow_id="4">Portail Parent - Fiche sant&#233;</workflow>
-  <max_field_id>668</max_field_id>
+  <max_field_id>670</max_field_id>
   <fields>
     <field>
       <label type="str">Informations g&#233;n&#233;rales</label>
@@ -2654,7 +2654,21 @@
     </field><field>
       <label type="str">Autorisations</label>
       <type type="str">page</type>
-      <id type="str">532</id>
+      <post_conditions>
+        <post_condition>
+          <condition>
+            <type>django</type>
+            <value>form_var_autorisations_obligatoires_raw|count &gt;= data_source.portail_parent_fiche_sante_autorisations|count</value>
+          </condition><error_message>Vous n'avez pas coch&#233; toutes les autorisations obligatoires.</error_message>
+        </post_condition>
+      </post_conditions><id type="str">532</id>
+    </field><field>
+      <label type="str">Autorisations</label>
+      <type type="str">title</type>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><id type="str">670</id>
     </field><field>
       <label type="str">L'enfant peut-il &#234;tre pris en photo durant les stages ou les plaines ?</label>
       <type type="str">item</type>
@@ -2770,10 +2784,10 @@
         <type>none</type>
       </prefill><id type="str">579</id>
     </field><field>
-      <label type="str">Autorisations</label>
+      <label type="str">Autorisations obligatoires</label>
       <type type="str">items</type>
       <required type="bool">True</required>
-      <varname type="str">autorisations</varname>
+      <varname type="str">autorisations_obligatoires</varname>
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
@@ -2790,6 +2804,27 @@
       <anonymise type="bool">True</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <id type="str">659</id>
+    </field><field>
+      <label type="str">Autorisations facultatives</label>
+      <type type="str">items</type>
+      <required type="bool">False</required>
+      <varname type="str">autorisations_facultatives</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>[{% for a in form_var_fiche_sante.authorization_ids %}"{{a}}",{% endfor %}]</value>
+      </prefill><display_mode type="str">checkboxes</display_mode>
+      <min_choices type="int">0</min_choices>
+      <max_choices type="int">0</max_choices>
+      <data_source>
+        <type>portail_parent_fiche_sante_autorisations_facultatives</type>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="bool">True</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <id type="str">669</id>
     </field>
   </fields><user-roles>
     <role role_id="logged-users">logged-users</role>

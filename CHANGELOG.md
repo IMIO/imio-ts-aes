@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.7.1
+-----------------
+- [MPP-413] Added: management of optional and mandatory authorizations
+
 1.7.0
 -----------------
 - [MPP-424] Added: comment about additional informations in healthsheet
