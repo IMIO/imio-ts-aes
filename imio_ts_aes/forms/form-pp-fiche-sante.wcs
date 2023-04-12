@@ -2786,7 +2786,10 @@
     </field><field>
       <label type="str">Autorisations obligatoires</label>
       <type type="str">items</type>
-      <required type="bool">True</required>
+      <condition>
+        <type>django</type>
+        <value>data_source.portail_parent_fiche_sante_autorisations</value>
+      </condition><required type="bool">True</required>
       <varname type="str">autorisations_obligatoires</varname>
       <display_locations>
         <display_location>validation</display_location>
@@ -2807,7 +2810,10 @@
     </field><field>
       <label type="str">Autorisations facultatives</label>
       <type type="str">items</type>
-      <required type="bool">False</required>
+      <condition>
+        <type>django</type>
+        <value>data_source.portail_parent_fiche_sante_autorisations_facultatives</value>
+      </condition><required type="bool">False</required>
       <varname type="str">autorisations_facultatives</varname>
       <display_locations>
         <display_location>validation</display_location>

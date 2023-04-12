@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.7.2
+-----------------
+- [MPP-413] Fixed: do not display authorizations fields if there is no authorizations from iA.AES
+
 1.7.1
 -----------------
 - [MPP-413] Added: management of optional and mandatory authorizations
