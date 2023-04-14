@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.7.4
+-----------------
+- [MPP-431] Added: alert if user leaves not specified fields in healthsheet
+
 1.7.3
 -----------------
 - [MPP-413] Fixed: manage mandatory and optional authorizations separatly

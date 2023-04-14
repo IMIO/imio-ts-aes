@@ -15,7 +15,7 @@
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="2">Portail Parent</category>
   <workflow slug="portail-parent-fiche-sante" workflow_id="4">Portail Parent - Fiche sant&#233;</workflow>
-  <max_field_id>670</max_field_id>
+  <max_field_id>675</max_field_id>
   <fields>
     <field>
       <label type="str">Informations g&#233;n&#233;rales</label>
@@ -560,6 +560,16 @@
       </validation><anonymise type="bool">True</anonymise>
       <id type="str">666</id>
     </field><field>
+      <label type="str">&lt;p&gt;Attention : vous n&amp;#39;avez pas compl&amp;eacute;t&amp;eacute; enti&amp;egrave;rement les champs de cette page. Des informations li&amp;eacute;es &amp;agrave; la sant&amp;eacute; de votre enfant sont donc manquantes. Il est de votre responsabilit&amp;eacute; de les compl&amp;eacute;ter afin de parer &amp;agrave; tout probl&amp;egrave;me lors des plaines.&lt;/p&gt;
+</label>
+      <type type="str">comment</type>
+      <condition>
+        <type>django</type>
+        <value>"not_specified" in form_var_swim_level_raw|add:form_var_has_intervention_raw|add:form_var_bike_raw|add:form_var_glasses_raw|add:form_var_hearing_aid_raw|add:form_var_emotional_support_raw|add:form_var_nap_raw|add:form_var_handicap_raw|add:form_var_activity_no_available_raw|add:form_var_has_specific_regime_raw|add:form_var_arnica_raw</value>
+      </condition><extra_css_class type="str">pk-attention</extra_css_class>
+      <display_locations />
+      <id type="str">672</id>
+    </field><field>
       <label type="str">V&#233;rification</label>
       <type type="str">page</type>
       <condition>
@@ -688,6 +698,16 @@
         <value>{{ form_var_fiche_sante.allergy_treatment }}</value>
       </prefill><display_mode type="str">plain</display_mode>
       <id type="str">668</id>
+    </field><field>
+      <label type="str">&lt;p&gt;Attention : vous n&amp;#39;avez pas compl&amp;eacute;t&amp;eacute; enti&amp;egrave;rement les champs de cette page. Des informations li&amp;eacute;es &amp;agrave; la sant&amp;eacute; de votre enfant sont donc manquantes. Il est de votre responsabilit&amp;eacute; de les compl&amp;eacute;ter afin de parer &amp;agrave; tout probl&amp;egrave;me lors des plaines.&lt;/p&gt;
+</label>
+      <type type="str">comment</type>
+      <condition>
+        <type>django</type>
+        <value>"not_specified" in form_var_allergie_raw</value>
+      </condition><extra_css_class type="str">pk-attention</extra_css_class>
+      <display_locations />
+      <id type="str">673</id>
     </field><field>
       <label type="str">Maladies</label>
       <type type="str">page</type>
@@ -1909,6 +1929,16 @@
       <display_disabled_items type="bool">False</display_disabled_items>
       <id type="str">639</id>
     </field><field>
+      <label type="str">&lt;p&gt;Attention : vous n&amp;#39;avez pas compl&amp;eacute;t&amp;eacute; enti&amp;egrave;rement les champs de cette page. Des informations li&amp;eacute;es &amp;agrave; la sant&amp;eacute; de votre enfant sont donc manquantes. Il est de votre responsabilit&amp;eacute; de les compl&amp;eacute;ter afin de parer &amp;agrave; tout probl&amp;egrave;me lors des plaines.&lt;/p&gt;
+</label>
+      <type type="str">comment</type>
+      <condition>
+        <type>django</type>
+        <value>"not_specified" in form_var_has_medication_raw</value>
+      </condition><extra_css_class type="str">pk-attention</extra_css_class>
+      <display_locations />
+      <id type="str">674</id>
+    </field><field>
       <label type="str">Autres informations</label>
       <type type="str">page</type>
       <id type="str">423</id>
@@ -2000,6 +2030,16 @@
       </display_locations><prefill>
         <type>none</type>
       </prefill><id type="str">175</id>
+    </field><field>
+      <label type="str">&lt;p&gt;Attention : vous n&amp;#39;avez pas compl&amp;eacute;t&amp;eacute; enti&amp;egrave;rement les champs de cette page. Des informations li&amp;eacute;es &amp;agrave; la sant&amp;eacute; de votre enfant sont donc manquantes. Il est de votre responsabilit&amp;eacute; de les compl&amp;eacute;ter afin de parer &amp;agrave; tout probl&amp;egrave;me lors des plaines.&lt;/p&gt;
+</label>
+      <type type="str">comment</type>
+      <condition>
+        <type>django</type>
+        <value>"not_specified" in form_var_to_go_alone_raw</value>
+      </condition><extra_css_class type="str">pk-attention</extra_css_class>
+      <display_locations />
+      <id type="str">675</id>
     </field><field>
       <label type="str">M&#233;decin traitant</label>
       <type type="str">page</type>
