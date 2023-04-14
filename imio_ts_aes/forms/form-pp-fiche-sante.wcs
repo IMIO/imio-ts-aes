@@ -1037,13 +1037,13 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
-        <value>{{ form_var_fiche_sante.self_medication }}</value>
+        <value>{{ form_var_fiche_sante.has_medication }}</value>
       </prefill><display_mode type="str">radio</display_mode>
-      <items />
       <data_source>
         <type>formula</type>
-        <value>form_var_fiche_sante_selections["self_medication"]</value>
+        <value>form_var_fiche_sante_selections["has_medication"]</value>
       </data_source><in_filters type="bool">False</in_filters>
       <anonymise type="bool">False</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
@@ -2880,7 +2880,7 @@
   </roles><options>
     <option varname="compte">BE80 0910 2100 5377</option>
     <option varname="questions" />
-    <option varname="questions_display">Quel est le groupe sanguin de l'enfant ?, L'enfant sait-il rouler &#224; v&#233;lo ?, L'enfant porte-t-il des lunettes ?, L'enfant porte-t-il un appareil auditif ?, L'enfant fait-il la sieste ?, L'enfant a-t-il un doudou ou une tutute ?, Quel est le poids de l'enfant ?, L'enfant a-t'il &#233;t&#233; vaccin&#233; contre le t&#233;tanos ?, L'enfant a-t'il subit une intervention r&#233;cemment ?, L'enfant sait-il nager ?, L'enfant souffre t'il d'un handicap ?, Activit&#233;s non praticables, L'enfant suit-il un r&#233;gime sp&#233;cifique ?, Autorisez-vous les accompagnants &#224; utiliser du gel arnica ?, L'enfant a-t'il des allergies ?, L'enfant a-t'il des maladies ?, &#192; quelle mutuelle l\enfant est-il affili&#233; ?</option>
+    <option varname="questions_display">Quel est le groupe sanguin de l'enfant ?, L'enfant sait-il rouler &#224; v&#233;lo ?, L'enfant porte-t-il des lunettes ?, L'enfant porte-t-il un appareil auditif ?, L'enfant fait-il la sieste ?, L'enfant a-t-il un doudou ou une tutute ?, Quel est le poids de l'enfant ?, L'enfant a-t'il &#233;t&#233; vaccin&#233; contre le t&#233;tanos ?, L'enfant a-t'il subit une intervention r&#233;cemment ?, L'enfant sait-il nager ?, L'enfant souffre t'il d'un handicap ?, Activit&#233;s non praticables, L'enfant suit-il un r&#233;gime sp&#233;cifique ?, Autorisez-vous les accompagnants &#224; utiliser du gel arnica ?, L'enfant a-t'il des allergies ?, L'enfant a-t'il des maladies ?, &#192; quelle mutuelle l\enfant est-il affili&#233; ?, L'enfant doit-il prendre des m&#233;dicaments ?</option>
     <option varname="questions_structured" />
     <option varname="verifier_encodage">Non</option>
     <option varname="verifier_encodage_display">Non</option>

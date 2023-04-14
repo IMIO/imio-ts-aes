@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.7.5
+-----------------
+- [MPP-435] Removed: healthsheet self medication data sending to passerelle
+- [MPP-435] Changed: prefilling and choices of has medication healthsheet field
+
 1.7.4
 -----------------
 - [MPP-431] Added: alert if user leaves not specified fields in healthsheet

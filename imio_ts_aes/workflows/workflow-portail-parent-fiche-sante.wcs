@@ -266,9 +266,6 @@
               <name>photo_general</name>
               <value>{{ form_var_photo_general_raw|default:"" }}</value>
             </item><item>
-              <name>self_medication</name>
-              <value>{{ form_var_self_medication|default:"" }}</value>
-            </item><item>
               <name>to_go_alone</name>
               <value>{{ form_var_to_go_alone_raw|default:"" }}</value>
             </item><item>
