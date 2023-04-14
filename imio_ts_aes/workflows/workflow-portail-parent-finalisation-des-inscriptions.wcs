@@ -96,7 +96,7 @@
           <record_errors>False</record_errors>
           <condition>
             <type>django</type>
-            <value>form_option_mode_paiement == "Paiement en ligne" or form_option_calcul_montant == "Demander le montant &#224; AES"</value>
+            <value>form_option_mode_paiement == "Paiement en ligne" and "communication structur&#233;e" not in form_previous_status or form_option_calcul_montant == "Demander le montant &#224; AES" and "communication structur&#233;e" not in form_previous_status</value>
           </condition>
         </item><item type="webservice_call" id="7">
           <label>Recherche de la communication structur&#233;e</label>
@@ -105,11 +105,11 @@
           <post>False</post>
           <response_type>json</response_type>
           <varname>communication_structuree</varname>
-          <action_on_app_error>:stop</action_on_app_error>
-          <action_on_4xx>:stop</action_on_4xx>
-          <action_on_5xx>:stop</action_on_5xx>
+          <action_on_app_error>21</action_on_app_error>
+          <action_on_4xx>21</action_on_4xx>
+          <action_on_5xx>21</action_on_5xx>
           <action_on_bad_data>:pass</action_on_bad_data>
-          <action_on_network_errors>:stop</action_on_network_errors>
+          <action_on_network_errors>21</action_on_network_errors>
           <notify_on_errors>False</notify_on_errors>
           <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
@@ -238,6 +238,26 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <backoffice_info_text>&lt;p&gt;Une fois la source de l&amp;#39;erreur identifi&amp;eacute;e et celle-ci corrig&amp;eacute;e, il est possible de redemander &amp;agrave; AES de calculer le montant &amp;agrave; payer.&lt;/p&gt;
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>21</id>
+      <name>Erreur lors de la r&#233;cup&#233;ration de la communication structur&#233;e</name>
+      <colour>FF0000</colour>
+      <visibility>
+        <role>_receiver</role>
+      </visibility><items>
+        <item type="register-comment" id="2">
+          <comment>Une erreur s'est produite. Si les d&#233;tails de l'erreur ne contiennent pas "Not found", la r&#233;cup&#233;ration de la communication structur&#233;e sera relanc&#233;e dans 20 minutes.
+
+D&#233;tails de l'erreur : {{ form_workflow_data_communication_structuree_error_response_err_desc }}</comment>
+        </item><item type="jump" id="1">
+          <status>1</status>
+          <condition>
+            <type>django</type>
+            <value>"404 Client Error: Not Found" not in form_workflow_data_communication_structuree_error_response_err_desc</value>
+          </condition><timeout>1200</timeout>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
