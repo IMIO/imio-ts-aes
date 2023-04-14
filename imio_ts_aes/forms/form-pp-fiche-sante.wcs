@@ -172,14 +172,15 @@
       <type type="str">text</type>
       <condition>
         <type>django</type>
-        <value>form_var_has_intervention_raw == 'oui'</value>
-      </condition><required type="bool">False</required>
+        <value>form_var_has_intervention_raw == 'yes'</value>
+      </condition><required type="bool">True</required>
       <varname type="str">intervention_text</varname>
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.intervention_text }}</value>
       </prefill><display_mode type="str">plain</display_mode>

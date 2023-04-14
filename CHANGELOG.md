@@ -6,6 +6,7 @@ Changelog
 - [MPP-435] Removed: healthsheet self medication data sending to passerelle
 - [MPP-435] Changed: prefilling and choices of has medication healthsheet field
 - [MPP-434] Fixed: prefilling of disease gravity and treatment healthsheet fields
+- [MPP-437] Fixed: display condition on intervention nature healthsheet field
 
 1.7.4
 -----------------
