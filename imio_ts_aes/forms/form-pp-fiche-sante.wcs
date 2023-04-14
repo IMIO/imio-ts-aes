@@ -787,8 +787,9 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
-        <value>{{ form_var_fiche_sante.disease_ids.0|get:"gravity"|default:"" }}</value>
+        <value>{{ form_var_fiche_sante.disease_details.0|get:"gravity"|default:"" }}</value>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">507</id>
     </field><field>
@@ -801,8 +802,9 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
-        <value>{{ form_var_fiche_sante.disease_ids.0|get:"disease_text"|default:"" }}</value>
+        <value>{{ form_var_fiche_sante.disease_details.0|get:"treatment"|default:"" }}</value>
       </prefill><display_mode type="str">plain</display_mode>
       <id type="str">508</id>
     </field><field>
