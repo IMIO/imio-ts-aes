@@ -566,7 +566,7 @@
       <type type="str">comment</type>
       <condition>
         <type>django</type>
-        <value>"not_specified" in form_var_swim_level_raw|add:form_var_has_intervention_raw|add:form_var_bike_raw|add:form_var_glasses_raw|add:form_var_hearing_aid_raw|add:form_var_emotional_support_raw|add:form_var_nap_raw|add:form_var_handicap_raw|add:form_var_activity_no_available_raw|add:form_var_has_specific_regime_raw|add:form_var_arnica_raw</value>
+        <value>"not_specified" in form_var_swim_raw|add:form_var_has_intervention_raw|add:form_var_bike_raw|add:form_var_glasses_raw|add:form_var_hearing_aid_raw|add:form_var_emotional_support_raw|add:form_var_nap_raw|add:form_var_handicap_raw|add:form_var_activity_no_available_raw|add:form_var_has_specific_regime_raw|add:form_var_arnica_raw</value>
       </condition><extra_css_class type="str">pk-attention</extra_css_class>
       <display_locations />
       <id type="str">672</id>
