@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.7.6
+-----------------
+- [MPP-431] fixed: test "not_specified" in swim instead of swim level
+
 1.7.5
 -----------------
 - [MPP-435] Removed: healthsheet self medication data sending to passerelle
