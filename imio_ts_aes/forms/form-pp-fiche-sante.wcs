@@ -2,7 +2,6 @@
 <formdef id="4" url="https://wcs.dev.publik.love/backoffice/forms/4/">
   <name>Fiche sant&#233;</name>
   <url_name>pp-fiche-sante</url_name>
-  <internal_identifier>fiche-sante</internal_identifier>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
   <disabled>false</disabled>
@@ -123,6 +122,7 @@
       </prefill><minimum_is_future type="bool">False</minimum_is_future>
       <date_in_the_past type="bool">True</date_in_the_past>
       <date_can_be_today type="bool">False</date_can_be_today>
+      <anonymise type="bool">True</anonymise>
       <id type="str">169</id>
     </field><field>
       <label type="str">Date du dernier vaccin contre le t&#233;tanos</label>
@@ -142,6 +142,7 @@
       </prefill><minimum_is_future type="bool">False</minimum_is_future>
       <date_in_the_past type="bool">False</date_in_the_past>
       <date_can_be_today type="bool">False</date_can_be_today>
+      <anonymise type="bool">True</anonymise>
       <id type="str">361</id>
     </field><field>
       <label type="str">Votre enfant a-t-il subit une op&#233;ration r&#233;cement ?</label>
@@ -184,6 +185,7 @@
         <type>string</type>
         <value>{{ form_var_fiche_sante.intervention_text }}</value>
       </prefill><display_mode type="str">plain</display_mode>
+      <anonymise type="bool">True</anonymise>
       <id type="str">529</id>
     </field><field>
       <label type="str">Votre enfant sait-il nager ?</label>
@@ -416,6 +418,7 @@
         <type>string</type>
         <value>{% if form_var_fiche_sante.type_handicap %}{{ form_var_fiche_sante.type_handicap }}{% endif %}</value>
       </prefill><display_mode type="str">plain</display_mode>
+      <anonymise type="bool">True</anonymise>
       <id type="str">363</id>
     </field><field>
       <label type="str">Y a-t-il des activit&#233;s auxquelles votre enfant ne peut participer ?</label>
@@ -457,6 +460,7 @@
         <type>string</type>
         <value>{{ form_var_fiche_sante.activity_no_available_text }}</value>
       </prefill><display_mode type="str">plain</display_mode>
+      <anonymise type="bool">True</anonymise>
       <id type="str">545</id>
     </field><field>
       <label type="str">Pourquoi votre enfant ne peut-il pas participer &#224; cette (ces) activit&#233;(s)</label>
@@ -474,6 +478,7 @@
         <type>string</type>
         <value>{{ form_var_fiche_sante.activity_no_available_reason }}</value>
       </prefill><display_mode type="str">plain</display_mode>
+      <anonymise type="bool">True</anonymise>
       <id type="str">365</id>
     </field><field>
       <label type="str">Votre enfant a-t-il un r&#233;gime sp&#233;cifique</label>
@@ -514,6 +519,7 @@
         <type>string</type>
         <value>{{ form_var_fiche_sante.specific_regime_text }}</value>
       </prefill><display_mode type="str">plain</display_mode>
+      <anonymise type="bool">True</anonymise>
       <id type="str">524</id>
     </field><field>
       <label type="str">Autorisez-vous les accompagnants &#224; utiliser du gel arnica ?</label>
@@ -679,6 +685,7 @@
         <type>string</type>
         <value>{{ form_var_fiche_sante.allergy_consequence }}</value>
       </prefill><display_mode type="str">plain</display_mode>
+      <anonymise type="bool">True</anonymise>
       <id type="str">171</id>
     </field><field>
       <label type="str">Traitement &#233;ventuel</label>
@@ -698,6 +705,7 @@
         <type>string</type>
         <value>{{ form_var_fiche_sante.allergy_treatment }}</value>
       </prefill><display_mode type="str">plain</display_mode>
+      <anonymise type="bool">True</anonymise>
       <id type="str">668</id>
     </field><field>
       <label type="str">&lt;p&gt;Attention : vous n&amp;#39;avez pas compl&amp;eacute;t&amp;eacute; enti&amp;egrave;rement les champs de cette page. Des informations li&amp;eacute;es &amp;agrave; la sant&amp;eacute; de votre enfant sont donc manquantes. Il est de votre responsabilit&amp;eacute; de les compl&amp;eacute;ter afin de parer &amp;agrave; tout probl&amp;egrave;me lors des plaines.&lt;/p&gt;
@@ -807,6 +815,7 @@
         <type>string</type>
         <value>{{ form_var_fiche_sante.disease_details.0|get:"treatment"|default:"" }}</value>
       </prefill><display_mode type="str">plain</display_mode>
+      <anonymise type="bool">True</anonymise>
       <id type="str">508</id>
     </field><field>
       <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases &amp;quot;get_disease_from_index&amp;quot; &amp;quot;form_var_diseases_raw&amp;quot; &amp;quot;form_var_other_diseases&amp;quot; &amp;quot;1&amp;quot;]&lt;/h3&gt;
@@ -850,6 +859,7 @@
         <type>string</type>
         <value>{{ form_var_fiche_sante.disease_ids.1|get:"disease_text"|default:"" }}</value>
       </prefill><display_mode type="str">plain</display_mode>
+      <anonymise type="bool">True</anonymise>
       <id type="str">514</id>
     </field><field>
       <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases &amp;quot;get_disease_from_index&amp;quot; &amp;quot;form_var_diseases_raw&amp;quot; &amp;quot;form_var_other_diseases&amp;quot; &amp;quot;2&amp;quot;]&lt;/h3&gt;
@@ -893,6 +903,7 @@
         <type>string</type>
         <value>{{ form_var_fiche_sante.disease_ids.2|get:"disease_text"|default:"" }}</value>
       </prefill><display_mode type="str">plain</display_mode>
+      <anonymise type="bool">True</anonymise>
       <id type="str">515</id>
     </field><field>
       <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases &amp;quot;get_disease_from_index&amp;quot; &amp;quot;form_var_diseases_raw&amp;quot; &amp;quot;form_var_other_diseases&amp;quot; &amp;quot;3&amp;quot;]&lt;/h3&gt;
@@ -936,6 +947,7 @@
         <type>string</type>
         <value>{{ form_var_fiche_sante.disease_ids.3|get:"disease_text"|default:"" }}</value>
       </prefill><display_mode type="str">plain</display_mode>
+      <anonymise type="bool">True</anonymise>
       <id type="str">516</id>
     </field><field>
       <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases &amp;quot;get_disease_from_index&amp;quot; &amp;quot;form_var_diseases_raw&amp;quot; &amp;quot;form_var_other_diseases&amp;quot; &amp;quot;4&amp;quot;]&lt;/h3&gt;
@@ -979,6 +991,7 @@
         <type>string</type>
         <value>{{ form_var_fiche_sante.disease_ids.4|get:"disease_text"|default:"" }}</value>
       </prefill><display_mode type="str">plain</display_mode>
+      <anonymise type="bool">True</anonymise>
       <id type="str">517</id>
     </field><field>
       <label type="str">&lt;h3&gt;[script.pp_get_encoded_diseases &amp;quot;get_disease_from_index&amp;quot; &amp;quot;form_var_diseases_raw&amp;quot; &amp;quot;form_var_other_diseases&amp;quot; &amp;quot;5&amp;quot;]&lt;/h3&gt;
@@ -1022,6 +1035,7 @@
         <type>string</type>
         <value>{{ form_var_fiche_sante.disease_ids.5|get:"disease_text"|default:"" }}</value>
       </prefill><display_mode type="str">plain</display_mode>
+      <anonymise type="bool">True</anonymise>
       <id type="str">518</id>
     </field><field>
       <label type="str">M&#233;dication</label>
@@ -2002,6 +2016,7 @@
       <prefill>
         <type>none</type>
       </prefill><display_mode type="str">plain</display_mode>
+      <anonymise type="bool">True</anonymise>
       <id type="str">173</id>
     </field><field>
       <label type="str">Pr&#233;cisions suppl&#233;mentaires &#233;ventuelles</label>
@@ -2018,6 +2033,7 @@
         <type>string</type>
         <value>{{ form_var_fiche_sante.comment|default:"" }}</value>
       </prefill><display_mode type="str">plain</display_mode>
+      <anonymise type="bool">True</anonymise>
       <id type="str">174</id>
     </field><field>
       <label type="str">En cas d'intervention urgente, le p&#232;re et/ou la m&#232;re autorise(nt) les chefs de plaine &#224; prendre toutes les dispositions n&#233;cessaires  </label>
