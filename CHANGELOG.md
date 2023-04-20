@@ -1,6 +1,54 @@
 Changelog
 =========
 
+1.8.1
+-----------------
+- [MPP-439] added: alert message about medication condition
+
+1.8.0
+-----------------
+- [MPPVERA-5] added: possibility to manually validate AES calculated amount for bank transfer
+
+1.7.6
+-----------------
+- [MPP-431] fixed: test "not_specified" in swim instead of swim level
+
+1.7.5
+-----------------
+- [MPP-435] Removed: healthsheet self medication data sending to passerelle
+- [MPP-435] Changed: prefilling and choices of has medication healthsheet field
+- [MPP-434] Fixed: prefilling of disease gravity and treatment healthsheet fields
+- [MPP-437] Fixed: display condition on intervention nature healthsheet field
+- [MPP-433] Added: failed structured communication request management
+
+1.7.4
+-----------------
+- [MPP-431] Added: alert if user leaves not specified fields in healthsheet
+
+1.7.3
+-----------------
+- [MPP-413] Fixed: manage mandatory and optional authorizations separatly
+
+1.7.2
+-----------------
+- [MPP-413] Fixed: do not display authorizations fields if there is no authorizations from iA.AES
+
+1.7.1
+-----------------
+- [MPP-413] Added: management of optional and mandatory authorizations
+
+1.7.0
+-----------------
+- [MPP-424] Added: comment about additional informations in healthsheet
+- [MPP-415] Changed: arnica's label in healthsheet
+- [MPP-393] Changed: default functions roles
+- [MPP-425] Changed: contact's label in healthsheet
+- [MPP-415] Added: bike, glasses, hearing_aid, nap, weight and emotional_support in healthsheet
+- [MPP-418] Added: allergy treatment
+- [MPP-418] Fixed: allergy consequences
+- [MPP-419] Added: mutuality in healthsheet
+- [MPP-413] Added: authorizations in healthsheet
+
 1.6.0
 -----------------
 - [MPP-405] Added: send user uuid to passerelle, to construct homepage
