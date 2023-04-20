@@ -96,7 +96,7 @@
           <record_errors>False</record_errors>
           <condition>
             <type>django</type>
-            <value>form_option_mode_paiement == "Paiement en ligne" and "communication structur&#233;e" not in form_previous_status or form_option_calcul_montant == "Demander le montant &#224; AES" and "communication structur&#233;e" not in form_previous_status</value>
+            <value>form_option_mode_paiement == "Paiement en ligne" and "communication structur&#233;e" not in form_previous_status or "AES" in form_option_calcul_montant and "communication structur&#233;e" not in form_previous_status</value>
           </condition>
         </item><item type="webservice_call" id="7">
           <label>Recherche de la communication structur&#233;e</label>
@@ -124,7 +124,7 @@
           <hide_submit_button>False</hide_submit_button>
           <condition>
             <type>django</type>
-            <value>form_option_calcul_montant == "Calculer le montant manuellement" and form_option_mode_paiement == "Paiement par virement"</value>
+            <value>form_option_calcul_montant in "Calculer le montant manuellement, Demander le montant &#224; AES avec validation" and form_option_mode_paiement == "Paiement par virement"</value>
           </condition><formdef>
             <name>-</name>
             <fields>
@@ -136,7 +136,9 @@
                 <varname type="str">montant</varname>
                 <display_locations />
                 <prefill>
-                  <type>none</type>
+                  <locked>False</locked>
+                  <type>string</type>
+                  <value>{% if form_option_calcul_montant == "Demander le montant &#224; AES avec validation" %}{{ form_workflow_data_montant_response_cost|decimal:2 }}{% endif %}</value>
                 </prefill><validation>
                   <error_message>Ne pr&#233;cisez pas la monnaie.</error_message>
                   <type>django</type>
@@ -168,6 +170,7 @@
                   <type>string</type>
                   <value>{{ form_option_preremplir_info_complementaires }}</value>
                 </prefill><display_mode type="str">plain</display_mode>
+                <anonymise type="bool">True</anonymise>
                 <id type="str">4</id>
               </field>
             </fields>
@@ -189,7 +192,7 @@
           <set_marker_on_status>False</set_marker_on_status>
           <condition>
             <type>django</type>
-            <value>form_option_calcul_montant == "Calculer le montant manuellement" and form_option_mode_paiement == "Paiement par virement"</value>
+            <value>form_option_calcul_montant in "Calculer le montant manuellement, Demander le montant &#224; AES avec validation" and form_option_mode_paiement == "Paiement par virement"</value>
           </condition>
         </item><item type="displaymsg" id="6">
           <message>Nous vous confirmons les inscriptions effectu&#233;es. Les places sont r&#233;serv&#233;es pour le moment. Vous recevrez prochainement un email contenant les modalit&#233;s de paiement par virement bancaire. Une fois le paiement effectu&#233; et valid&#233; par nos services, les places seront d&#233;finitivement r&#233;serv&#233;es. Si le paiement n'a pas &#233;t&#233; effectu&#233; dans les d&#233;lais impartis, les places seront lib&#233;r&#233;es.</message>
@@ -783,6 +786,7 @@ Cordialement,</body>
           <items>
             <item>Demander le montant &#224; AES</item>
             <item>Calculer le montant manuellement</item>
+            <item>Demander le montant &#224; AES avec validation</item>
           </items><in_filters type="bool">False</in_filters>
           <anonymise type="bool">False</anonymise>
           <display_disabled_items type="bool">False</display_disabled_items>
@@ -796,6 +800,7 @@ Cordialement,</body>
           <display_locations />
           <extra_css_class type="str">grid-1-1</extra_css_class>
           <display_mode type="str">plain</display_mode>
+          <anonymise type="bool">True</anonymise>
           <id type="str">9</id>
         </field>
       </fields>

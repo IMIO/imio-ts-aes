@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.8.0
+-----------------
+- [MPPVERA-5] added: possibility to manually validate AES calculated amount for bank transfer
+
 1.7.6
 -----------------
 - [MPP-431] fixed: test "not_specified" in swim instead of swim level
