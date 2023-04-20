@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.8.1
+-----------------
+- [MPP-439] added: alert message about medication condition
+
 1.8.0
 -----------------
 - [MPPVERA-5] added: possibility to manually validate AES calculated amount for bank transfer

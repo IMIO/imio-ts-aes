@@ -14,7 +14,7 @@
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="2">Portail Parent</category>
   <workflow slug="portail-parent-fiche-sante" workflow_id="4">Portail Parent - Fiche sant&#233;</workflow>
-  <max_field_id>675</max_field_id>
+  <max_field_id>676</max_field_id>
   <fields>
     <field>
       <label type="str">Informations g&#233;n&#233;rales</label>
@@ -1065,6 +1065,16 @@
       <anonymise type="bool">False</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <id type="str">588</id>
+    </field><field>
+      <label type="str">&lt;p&gt;Aucun m&amp;eacute;dicament ne sera administr&amp;eacute; sans &lt;strong&gt;accord &amp;eacute;crit du m&amp;eacute;decin&lt;/strong&gt; et la pr&amp;eacute;cision de la &lt;strong&gt;posologie&lt;/strong&gt;.&lt;/p&gt;
+</label>
+      <type type="str">comment</type>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw != "not_specified"</value>
+      </condition><extra_css_class type="str">pk-attention</extra_css_class>
+      <display_locations />
+      <id type="str">676</id>
     </field><field>
       <label type="str">Indiquez ici les m&#233;dicaments</label>
       <type type="str">title</type>
