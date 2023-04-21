@@ -14,7 +14,7 @@
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="2">Portail Parent</category>
   <workflow slug="portail-parent-fiche-sante" workflow_id="4">Portail Parent - Fiche sant&#233;</workflow>
-  <max_field_id>676</max_field_id>
+  <max_field_id>677</max_field_id>
   <fields>
     <field>
       <label type="str">Informations g&#233;n&#233;rales</label>
@@ -2153,7 +2153,9 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-3-12</extra_css_class>
       <prefill>
-        <type>none</type>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.doctor_id.firstname }}</value>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">642</id>
     </field><field>
@@ -2167,7 +2169,9 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-3-12</extra_css_class>
       <prefill>
-        <type>none</type>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.doctor_id.lastname }}</value>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">557</id>
     </field><field>
@@ -2180,7 +2184,9 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-4</extra_css_class>
       <prefill>
-        <type>none</type>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.doctor_id.phone }}</value>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">167</id>
     </field><field>
@@ -2193,7 +2199,9 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-4</extra_css_class>
       <prefill>
-        <type>none</type>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.doctor_id.mobile }}</value>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">430</id>
     </field><field>
@@ -2206,7 +2214,9 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
-        <type>none</type>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.doctor_id.street }}</value>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">550</id>
     </field><field>
@@ -2219,10 +2229,10 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-4</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
-        <value>20</value>
+        <value>{{ form_var_fiche_sante.doctor_id.country|default:20 }}</value>
       </prefill><display_mode type="str">list</display_mode>
-      <items />
       <data_source>
         <type>aes_countries</type>
       </data_source><in_filters type="bool">False</in_filters>
@@ -2243,7 +2253,9 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-4</extra_css_class>
       <prefill>
-        <type>none</type>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.doctor_id.zip }}</value>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">552</id>
     </field><field>
@@ -2259,7 +2271,9 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-4</extra_css_class>
       <prefill>
-        <type>none</type>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.doctor_id.city }}</value>
       </prefill><anonymise type="bool">True</anonymise>
       <id type="str">553</id>
     </field><field>
@@ -2275,9 +2289,10 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-4</extra_css_class>
       <prefill>
-        <type>none</type>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.doctor_id.locality }}</value>
       </prefill><display_mode type="str">autocomplete</display_mode>
-      <items />
       <data_source>
         <type>portail_parent_localites</type>
       </data_source><in_filters type="bool">False</in_filters>

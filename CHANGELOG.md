@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.8.2
+-----------------
+- [MPP-440] added: prefill doctor's fields
+
 1.8.1
 -----------------
 - [MPP-439] added: alert message about medication condition
