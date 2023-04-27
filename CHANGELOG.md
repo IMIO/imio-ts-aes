@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.8.3
+-----------------
+- [MPPNIVA-3] fixed: remove default contact id when no contact are mentioned in healthsheet form
+
 1.8.2
 -----------------
 - [MPP-440] added: prefill doctor's fields
