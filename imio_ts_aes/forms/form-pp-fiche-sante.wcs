@@ -614,6 +614,7 @@
         <display_location>validation</display_location>
         <display_location>summary</display_location>
       </display_locations><prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.allergy_selection }}</value>
       </prefill><display_mode type="str">radio</display_mode>
@@ -639,14 +640,14 @@
         <display_location>validation</display_location>
         <display_location>summary</display_location>
       </display_locations><prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{form_var_fiche_sante.allergy_ids}}</value>
-      </prefill><items />
-      <display_mode type="str">checkboxes</display_mode>
+      </prefill><display_mode type="str">checkboxes</display_mode>
       <min_choices type="int">0</min_choices>
       <max_choices type="int">0</max_choices>
       <data_source>
-        <type>formula</type>
+        <type>portail_parent_fiche_sante_allergies</type>
         <value>form_var_fiche_sante_selections["allergy_type"]</value>
       </data_source><in_filters type="bool">False</in_filters>
       <anonymise type="bool">True</anonymise>
@@ -657,7 +658,7 @@
       <type type="str">tablerows</type>
       <condition>
         <type>django</type>
-        <value>form_var_allergie_raw  == 'oui' and 'new_allergies' in form_option_questions_raw</value>
+        <value>form_var_allergie_raw  == 'yes' and 'new_allergies' in form_option_questions_raw</value>
       </condition><required type="bool">False</required>
       <varname type="str">autres_allergies</varname>
       <display_locations>
@@ -734,10 +735,10 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{form_var_fiche_sante.disease_ids}}</value>
-      </prefill><items />
-      <display_mode type="str">checkboxes</display_mode>
+      </prefill><display_mode type="str">checkboxes</display_mode>
       <min_choices type="int">0</min_choices>
       <max_choices type="int">0</max_choices>
       <data_source>

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<datasource id="19" url="https://wcs.dev.publik.love/backoffice/settings/data-sources/19/">
+  <name>Portail Parent - Fiche sant&#233; - Allergies</name>
+  <slug>portail_parent_fiche_sante_allergies</slug>
+  <description>Lister les allergies &#224; proposer lors de la compl&#233;tion d'un formulaire fiche sant&#233;.</description>
+  <text_attribute>name</text_attribute>
+  <data_source>
+    <type>json</type>
+    <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/allergies{% if form_var_fiche_sante.id %}?healthsheet={{ form_var_fiche_sante.id }}{% endif %}</value>
+  </data_source><category slug="portail-parent" category_id="1">Portail Parent</category>
+</datasource>

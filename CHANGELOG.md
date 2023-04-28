@@ -1,6 +1,14 @@
 Changelog
 =========
 
+1.9.0
+-----------------
+- [MPP-444] send other allergies to iA.AES
+- [MPP-444] send other diseases to iA.AES
+- [MPP-444] fix display condition of other allergies field
+- [MPP-444] get contextual allergies from iA.AES
+- [MPP-444] get contextual diseases from iA.AES
+
 1.8.3
 -----------------
 - [MPPNIVA-3] fixed: remove default contact id when no contact are mentioned in healthsheet form

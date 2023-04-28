@@ -415,6 +415,9 @@
             </item><item>
               <name>optional_authorizations</name>
               <value>{{ form_var_autorisations_facultatives_raw }}</value>
+            </item><item>
+              <name>other_diseases</name>
+              <value>{{ form_var_other_diseases|default:"" }}</value>
             </item>
           </post_data><response_type>json</response_type>
           <varname>enregistrement_fiche_sante</varname>
