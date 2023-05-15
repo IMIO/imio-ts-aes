@@ -261,6 +261,16 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+        </item><item type="displaymsg" id="5">
+          <message>&lt;p&gt;{{ form_workflow_data_creation_parent_error_response_err_desc }}&lt;/p&gt;
+
+&lt;p&gt;Veuillez v&#233;rifier &lt;a href="{{ idp_url }}accounts/"&gt;votre profil&lt;/a&gt; et r&#233;essayer.&lt;/p&gt;</message>
+          <level>error</level>
+          <position>top</position>
+          <condition>
+            <type>django</type>
+            <value>"code postal" in form_workflow_data_creation_parent_error_response_err_desc and "localit&#233;" in form_workflow_data_creation_parent_error_response_err_desc</value>
+          </condition>
         </item>
       </items>
     </status><status>

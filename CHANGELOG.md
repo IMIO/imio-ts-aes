@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.9.1
+-----------------
+- [MPP-450] added: message that notify user if locality and zipcode are unmatching
+
 1.9.0
 -----------------
 - [MPP-444] send other allergies to iA.AES
