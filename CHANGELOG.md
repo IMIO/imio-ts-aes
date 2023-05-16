@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.9.2
+-----------------
+- [MPP-453] Added: details about failed parent's structured communication's get
+- [MPP-453] Added: action to resume plain's finalization after a failed parent's structured communication's get
+
 1.9.1
 -----------------
 - [MPP-450] added: message that notify user if locality and zipcode are unmatching

@@ -252,15 +252,51 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
         <role>_receiver</role>
       </visibility><items>
         <item type="register-comment" id="2">
-          <comment>Une erreur s'est produite. Si les d&#233;tails de l'erreur ne contiennent pas "Not found", la r&#233;cup&#233;ration de la communication structur&#233;e sera relanc&#233;e dans 20 minutes.
+          <comment>Une erreur s'est produite.</comment>
+        </item><item type="displaymsg" id="3">
+          <message>{% if "404 Client Error: Not Found" in form_workflow_data_communication_structuree_error_response_err_desc %}Il semble qu'il la communication structur&#233;e du parent n'ai pas &#233;t&#233; trouv&#233;e. V&#233;rifiez, dans la signal&#233;tique du parent de iA.AES, si son pr&#233;paiement dispose bien d'une ligne pour les Plaines. Si ce n'est pas le cas, veuillez cr&#233;er les communications structur&#233;es manquantes. Ensuite, s&#233;lectionnez "Rechercher la communication structur&#233;e" ci-dessous.{% else %}La r&#233;cup&#233;ration de la communication structur&#233;e sera relanc&#233;e dans 20 minutes.{% endif %}
 
-D&#233;tails de l'erreur : {{ form_workflow_data_communication_structuree_error_response_err_desc }}</comment>
+D&#233;tails de l'erreur : {{ form_workflow_data_communication_structuree_error_response_err_desc }}</message>
+          <level>error</level>
+          <position>bottom</position>
+          <to>
+            <item role_id="_receiver">_receiver</item>
+            <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
+          </to>
+        </item><item type="sendmail" id="4">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to><subject>Erreur lors de la recherche d'une communication structur&#233;e, demande {{ form_name }} n&#176;{{ form_number }}</subject>
+          <body>Une erreur est survenue lors d'une communication structur&#233;e d'un parent. Celui-ci ne recevra donc pas ses informations de paiement.
+
+Veuillez consulter la demande.
+
+`Consulter la demande &lt;{{ form_url_backoffice }}&gt;`_
+
+Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le support d'iMio.
+
+`Contacter le support &lt;support.imio.be&gt;`_</body>
+          <condition>
+            <type>django</type>
+            <value>"404 Client Error: Not Found" in form_workflow_data_communication_structuree_error_response_err_desc</value>
+          </condition>
         </item><item type="jump" id="1">
           <status>1</status>
           <condition>
             <type>django</type>
             <value>"404 Client Error: Not Found" not in form_workflow_data_communication_structuree_error_response_err_desc</value>
           </condition><timeout>1200</timeout>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item type="choice" id="5">
+          <label>Rechercher la communication structur&#233;e</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+            <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
+          </by><status>1</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Si vous avez identifi&amp;eacute; et corrig&amp;eacute; l&amp;#39;erreur, ou si vous ne voulez pas attendre 20 minutes, vous pouvez relancer la recherche de la communication structur&amp;eacute;e. La demande reprendra son cours normal.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
