@@ -254,9 +254,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
         <item type="register-comment" id="2">
           <comment>Une erreur s'est produite.</comment>
         </item><item type="displaymsg" id="3">
-          <message>{% if "404 Client Error: Not Found" in form_workflow_data_communication_structuree_error_response_err_desc %}Il semble qu'il la communication structur&#233;e du parent n'ai pas &#233;t&#233; trouv&#233;e. V&#233;rifiez, dans la signal&#233;tique du parent de iA.AES, si son pr&#233;paiement dispose bien d'une ligne pour les Plaines. Si ce n'est pas le cas, veuillez cr&#233;er les communications structur&#233;es manquantes. Ensuite, s&#233;lectionnez "Rechercher la communication structur&#233;e" ci-dessous.{% else %}La r&#233;cup&#233;ration de la communication structur&#233;e sera relanc&#233;e dans 20 minutes.{% endif %}
-
-D&#233;tails de l'erreur : {{ form_workflow_data_communication_structuree_error_response_err_desc }}</message>
+          <message>&lt;p&gt;{% if "404 Client Error: Not Found" in form_workflow_data_communication_structuree_error_response_err_desc %}Il semble que la communication structur&#233;e du parent n'ai pas &#233;t&#233; trouv&#233;e. V&#233;rifiez, dans la signal&#233;tique du parent de iA.AES, si son pr&#233;paiement dispose bien d'une ligne pour les plaines. Si ce n'est pas le cas, veuillez cr&#233;er les communications structur&#233;es manquantes. Ensuite, s&#233;lectionnez "Rechercher la communication structur&#233;e" ci-dessous. Si le probl&#232;me se produit &#224; nouveau, &lt;a href="https://support.imio.be" target="blank"&gt;contactez le support&lt;/a&gt;.{% else %}La r&#233;cup&#233;ration de la communication structur&#233;e sera relanc&#233;e dans 20 minutes.{% endif %}&lt;/p&gt;</message>
           <level>error</level>
           <position>bottom</position>
           <to>
