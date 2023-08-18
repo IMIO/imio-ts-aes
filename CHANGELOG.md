@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.10.0
+----------------
+- [MPP-454] Block parent in school meal form if some schools are checked in form options and selected child's school isn't included
+
 1.9.2
 -----------------
 - [MPP-453] Added: details about failed parent's structured communication's get

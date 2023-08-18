@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
-<formdef id="10" url="https://wcs.dev.publik.love/backoffice/forms/10/">
+<formdef id="8" url="https://wcs.dev.publik.love/backoffice/forms/8/">
   <name>Repas scolaires</name>
   <url_name>pp-repas-scolaires</url_name>
-  <internal_identifier>repas-scolaires</internal_identifier>
   <drafts_lifespan>2</drafts_lifespan>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
@@ -15,23 +14,29 @@
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="1">Portail Parent</category>
-  <workflow slug="portail-parent-repas-scolaires" workflow_id="20">Portail Parent - Repas scolaires</workflow>
-  <max_field_id>59</max_field_id>
+  <workflow slug="portail-parent-repas-scolaires" workflow_id="2">Portail Parent - Repas scolaires</workflow>
   <fields>
     <field>
+      <type>page</type>
       <label type="str">S&#233;lection des repas</label>
-      <type type="str">page</type>
-      <id type="str">47</id>
+      <post_conditions>
+        <post_condition>
+          <condition>
+            <type>django</type>
+            <value>not form_option_implantations_scolaires or form_var_enfant.school_implantation|first|stringformat:"s" in form_option_implantations_scolaires_raw</value>
+          </condition><error_message>L'&#233;cole de votre enfant ne propose pas de repas scolaires &#224; travers le Portail Parent.</error_message>
+        </post_condition>
+      </post_conditions><id type="str">47</id>
     </field><field>
+      <type>computed</type>
       <label type="str">Identifiant de l'enfant</label>
-      <type type="str">computed</type>
       <varname type="str">id_enfant</varname>
       <value_template type="str">{{request.GET.enfant|default:""}}</value_template>
       <freeze_on_initial_value type="bool">True</freeze_on_initial_value>
       <id type="str">53</id>
     </field><field>
+      <type>item</type>
       <label type="str">Choisissez l'enfant &#224; inscrire aux repas scolaires</label>
-      <type type="str">item</type>
       <required type="bool">True</required>
       <varname type="str">enfant</varname>
       <display_locations>
@@ -43,26 +48,30 @@
         <type>string</type>
         <value>{{ form_var_id_enfant }}</value>
       </prefill><display_mode type="str">radio</display_mode>
+      <items />
       <data_source>
         <type>portail_parent_enfants</type>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="bool">False</anonymise>
+      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
+      <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
+      <image_desktop_size type="int">150</image_desktop_size>
+      <image_mobile_size type="int">75</image_mobile_size>
       <id type="str">54</id>
     </field><field>
+      <type>comment</type>
       <label type="str">&lt;div class="pk-information"&gt;&lt;p&gt;Vous inscrivez &lt;span class="varname"&gt;{{ form_var_enfant }}&lt;/span&gt; aux repas scolaires.&lt;/p&gt;&lt;/div&gt;
 
 &lt;p&gt;Pour inscrire votre enfant, cliquez sur le type de repas de votre choix. Ne cochez rien s&amp;#39;il ne doit pas &amp;ecirc;tre inscrit pour une ou plusieurs dates. Vous pourrez encore modifier votre choix jusqu&amp;#39;&amp;agrave; la fin des inscriptions de ce mois-ci.&lt;/p&gt;
 </label>
-      <type type="str">comment</type>
       <condition>
         <type>django</type>
         <value>form_var_enfant</value>
       </condition><display_locations />
       <id type="str">56</id>
     </field><field>
+      <type>items</type>
       <label type="str">Menu</label>
-      <type type="str">items</type>
       <required type="bool">True</required>
       <varname type="str">repas</varname>
       <display_locations>
@@ -80,26 +89,27 @@
         <type>portail_parent_repas_scolaires</type>
         <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/menus?child_id=22&amp;month=1</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="bool">True</anonymise>
+      <anonymise type="str">final</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
+      <image_desktop_size type="int">150</image_desktop_size>
+      <image_mobile_size type="int">75</image_mobile_size>
       <id type="str">39</id>
     </field><field>
-      <label type="str">Repas</label>
-      <type type="str">comment</type>
+      <type>comment</type>
+      <label type="str">&lt;p&gt;Repas&lt;/p&gt;
+</label>
       <extra_css_class type="str">template-portail_parent_repas</extra_css_class>
       <display_locations />
       <id type="str">57</id>
     </field>
   </fields><user-roles>
-    <role slug="parent" role_id="9568ff2000794db8a6711bd2ff596ceb">Parent</role>
-  </user-roles><backoffice-submission-roles>
-    <role slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</role>
-  </backoffice-submission-roles><roles>
-    <role slug="debug" role_id="5162edec67c74e23bc26251709ab4101" role_key="_debug">Debug</role>
-    <role slug="agent-traitant-portail-parent" role_id="d0b8282bf6114da680fa4c848da76167" role_key="_receiver">Agent traitant - Portail Parent</role>
+    <role role_id="logged-users">logged-users</role>
+  </user-roles><roles>
+    <role slug="debug" role_id="72f464bb94204057b5376ec4f732ff83" role_key="_debug">Debug</role>
+    <role slug="agents-traitants-portail-parent" role_id="96c7aae8f5354e4ea05c50bef976dc6e" role_key="_receiver">Agents traitants - Portail parent</role>
   </roles><options>
     <option varname="implantations_scolaires" />
-    <option varname="implantations_scolaires_display" />
+    <option varname="implantations_scolaires_display">scolaire 2 Implantation</option>
     <option varname="implantations_scolaires_structured" />
     <option varname="mois">0</option>
     <option varname="mois_display">Mois courant</option>
