@@ -24,7 +24,7 @@
           <condition>
             <type>django</type>
             <value>not form_option_implantations_scolaires or form_var_enfant.school_implantation|first|stringformat:"s" in form_option_implantations_scolaires_raw</value>
-          </condition><error_message>L'&#233;cole de votre enfant ne propose pas de repas scolaires &#224; travers le Portail Parent.</error_message>
+          </condition><error_message>L'&#233;cole de votre enfant ne propose actuellement pas d'inscription aux repas scolaires &#224; travers le Portail Parent.</error_message>
         </post_condition>
       </post_conditions><id type="str">47</id>
     </field><field>

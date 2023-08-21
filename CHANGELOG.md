@@ -1,9 +1,13 @@
 Changelog
 =========
 
+1.10.1
+----------------
+- [MPP-454] Changed: error message if current child's school isn't checked in school implantation in pp-repas-scolaires form options
+
 1.10.0
 ----------------
-- [MPP-454] Block parent in school meal form if some schools are checked in form options and selected child's school isn't included
+- [MPP-454] Added: Block parent in school meal form if some schools are checked in form options and selected child's school isn't included
 
 1.9.2
 -----------------
