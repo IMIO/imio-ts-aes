@@ -36,19 +36,19 @@
       <id type="str">53</id>
     </field><field>
       <type>item</type>
-      <label type="str">Choisissez l'enfant &#224; inscrire aux repas scolaires</label>
+      <label type="str">Enfant</label>
       <required type="bool">True</required>
       <varname type="str">enfant</varname>
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
+        <display_location>listings</display_location>
       </display_locations><extra_css_class type="str">hidden</extra_css_class>
       <prefill>
         <locked>True</locked>
         <type>string</type>
         <value>{{ form_var_id_enfant }}</value>
       </prefill><display_mode type="str">radio</display_mode>
-      <items />
       <data_source>
         <type>portail_parent_enfants</type>
       </data_source><in_filters type="bool">False</in_filters>
@@ -109,10 +109,10 @@
     <role slug="agents-traitants-portail-parent" role_id="96c7aae8f5354e4ea05c50bef976dc6e" role_key="_receiver">Agents traitants - Portail parent</role>
   </roles><options>
     <option varname="implantations_scolaires" />
-    <option varname="implantations_scolaires_display">scolaire 2 Implantation</option>
+    <option varname="implantations_scolaires_display" />
     <option varname="implantations_scolaires_structured" />
-    <option varname="mois">0</option>
-    <option varname="mois_display">Mois courant</option>
+    <option varname="mois">1</option>
+    <option varname="mois_display">Mois prochain</option>
     <option varname="mois_structured" />
     <option varname="test" />
   </options><custom_views />
