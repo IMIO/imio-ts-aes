@@ -12,41 +12,74 @@
   <include_download_all_button>false</include_download_all_button>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category slug="portail-parent" category_id="2">Portail Parent</category>
-  <workflow slug="portail-parent-fiche-sante" workflow_id="4">Portail Parent - Fiche sant&#233;</workflow>
-  <max_field_id>677</max_field_id>
+  <category slug="portail-parent" category_id="1">Portail Parent</category>
+  <workflow slug="portail-parent-fiche-sante" workflow_id="5">Portail Parent - Fiche sant&#233;</workflow>
   <fields>
     <field>
+      <type>page</type>
       <label type="str">Informations g&#233;n&#233;rales</label>
-      <type type="str">page</type>
       <condition>
         <type>django</type>
         <value>request.GET.enfant|default:"" or form_var_enfant_id</value>
       </condition><id type="str">522</id>
     </field><field>
+      <type>computed</type>
       <label type="str">Enfant</label>
-      <type type="str">computed</type>
       <varname type="str">enfant_id</varname>
       <value_template type="str">{{request.GET.enfant|default:""}}</value_template>
       <freeze_on_initial_value type="bool">True</freeze_on_initial_value>
       <id type="str">581</id>
     </field><field>
+      <type>item</type>
+      <label type="str">Enfant</label>
+      <required type="bool">False</required>
+      <varname type="str">enfant</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+        <display_location>listings</display_location>
+      </display_locations><extra_css_class type="str">hidden</extra_css_class>
+      <prefill>
+        <locked>True</locked>
+        <type>string</type>
+        <value>{{ form_var_enfant_id }}</value>
+      </prefill><display_mode type="str">radio</display_mode>
+      <data_source>
+        <type>portail_parent_enfants</type>
+      </data_source><in_filters type="bool">False</in_filters>
+      <anonymise type="str">final</anonymise>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
+      <image_desktop_size type="int">150</image_desktop_size>
+      <image_mobile_size type="int">75</image_mobile_size>
+      <id type="str">b9c556b6-3745-427e-a987-aca541af15cc</id>
+    </field><field>
+      <type>comment</type>
+      <label type="str">&lt;p&gt;Vous encodez la fiche sant&amp;eacute; de &lt;span class="varname"&gt;{{ form_var_enfant }}&lt;/span&gt;.&lt;/p&gt;
+</label>
+      <condition>
+        <type>django</type>
+        <value>form_var_enfant</value>
+      </condition><extra_css_class type="str">pk-information</extra_css_class>
+      <display_locations />
+      <id type="str">c003fb1b-d1be-49cd-84b7-1839802d1233</id>
+    </field><field>
+      <type>computed</type>
       <label type="str">Fiche sant&#233;</label>
-      <type type="str">computed</type>
       <varname type="str">fiche_sante</varname>
       <value_template type="str">{{ webservice.portail_parent_fiche_sante }}</value_template>
       <freeze_on_initial_value type="bool">True</freeze_on_initial_value>
       <id type="str">584</id>
     </field><field>
+      <type>computed</type>
       <label type="str">Fiche sant&#233;</label>
-      <type type="str">computed</type>
       <varname type="str">fiche_sante_selections</varname>
       <value_template type="str">{{ webservice.portail_parent_fiche_sante_selections }}</value_template>
       <freeze_on_initial_value type="bool">True</freeze_on_initial_value>
       <id type="str">585</id>
     </field><field>
+      <type>item</type>
       <label type="str">Groupe sanguin</label>
-      <type type="str">item</type>
       <condition>
         <type>django</type>
         <value>'blood_type' in form_option_questions_raw</value>
