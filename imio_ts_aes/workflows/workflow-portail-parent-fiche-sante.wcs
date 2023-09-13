@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<workflow id="4" url="https://wcs.dev.publik.love/backoffice/workflows/4/">
+<workflow id="5" url="https://wcs.dev.publik.love/backoffice/workflows/5/">
   <name>Portail Parent - Fiche sant&#233;</name>
   <slug>portail-parent-fiche-sante</slug>
-  <category slug="portail-parent" category_id="1">Portail parent</category>
+  <category slug="portail-parent" category_id="1">Portail Parent</category>
   <roles>
     <role id="_receiver">Agent traitant</role>
   </roles><possible_status>
@@ -68,6 +68,7 @@
           <notify_on_errors>False</notify_on_errors>
           <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
+          <set_marker_on_status>False</set_marker_on_status>
         </item><item type="jump" id="2">
           <status>7</status>
           <set_marker_on_status>False</set_marker_on_status>
@@ -83,7 +84,7 @@
         <item type="choice" id="1">
           <label>Retenter l'enregistrement du m&#233;decin</label>
           <by>
-            <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
+            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
           </by><status>5</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
@@ -143,7 +144,7 @@
           <condition>
             <type>django</type>
             <value>form_var_contact_0_name and form_var_contact_0_tel</value>
-          </condition>
+          </condition><set_marker_on_status>False</set_marker_on_status>
         </item><item type="webservice_call" id="2">
           <label>Cr&#233;ation du deuxi&#232;me contact</label>
           <method>POST</method>
@@ -191,7 +192,7 @@
           <condition>
             <type>django</type>
             <value>form_var_contact_1_name and form_var_contact_1_tel</value>
-          </condition>
+          </condition><set_marker_on_status>False</set_marker_on_status>
         </item><item type="jump" id="3">
           <status>2</status>
           <set_marker_on_status>False</set_marker_on_status>
@@ -207,7 +208,7 @@
           <label>Retenter l'enregistrement des contacts</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
+            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
           </by><status>7</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
@@ -429,6 +430,7 @@
           <notify_on_errors>False</notify_on_errors>
           <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
+          <set_marker_on_status>False</set_marker_on_status>
         </item><item type="jump" id="2">
           <status>4</status>
           <set_marker_on_status>False</set_marker_on_status>
@@ -443,7 +445,7 @@
         <item type="choice" id="1">
           <label>Retenter l'enregistrement</label>
           <by>
-            <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
+            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
           </by><status>2</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
@@ -470,7 +472,7 @@
       </items><triggers>
         <trigger type="manual" id="b2d7dd83-ae14-4d6f-80db-6e1880047568">
           <roles>
-            <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
+            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
           </roles>
         </trigger>
       </triggers>
@@ -480,8 +482,8 @@
       <name>-</name>
       <fields>
         <field>
+          <type>items</type>
           <label type="str">Questions &#224; poser aux parents</label>
-          <type type="str">items</type>
           <required type="bool">False</required>
           <varname type="str">questions</varname>
           <display_locations>
@@ -497,6 +499,8 @@
           </data_source><in_filters type="bool">False</in_filters>
           <anonymise type="bool">True</anonymise>
           <display_disabled_items type="bool">False</display_disabled_items>
+          <image_desktop_size type="int">150</image_desktop_size>
+          <image_mobile_size type="int">75</image_mobile_size>
           <id type="str">1</id>
         </field>
       </fields>
