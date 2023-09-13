@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
-<formdef id="15" url="https://wcs.dev.publik.love/backoffice/forms/15/">
+<formdef id="1" url="https://wcs.dev.publik.love/backoffice/forms/1/">
   <name>D&#233;sinscription Repas scolaires</name>
   <url_name>pp-desinscription-repas</url_name>
-  <internal_identifier>desinscription-repas-scolaires</internal_identifier>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
   <disabled>false</disabled>
@@ -14,28 +13,28 @@
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="1">Portail Parent</category>
-  <workflow slug="portail-parent-repas-scolaires-desinscription" workflow_id="21">Portail Parent - Repas scolaires - D&#233;sinscription</workflow>
-  <max_field_id>5</max_field_id>
+  <workflow slug="portail-parent-repas-scolaires-desinscription" workflow_id="1">Portail Parent - Repas scolaires - D&#233;sinscription</workflow>
   <fields>
     <field>
+      <type>page</type>
       <label type="str">S&#233;lection des repas</label>
-      <type type="str">page</type>
       <id type="str">1</id>
     </field><field>
+      <type>computed</type>
       <label type="str">Identifiant de l'enfant</label>
-      <type type="str">computed</type>
       <varname type="str">id_enfant</varname>
       <value_template type="str">{{request.GET.enfant|default:""}}</value_template>
       <freeze_on_initial_value type="bool">True</freeze_on_initial_value>
       <id type="str">2</id>
     </field><field>
-      <label type="str">Choisissez l'enfant &#224; d&#233;sinscrire aux repas scolaires</label>
-      <type type="str">item</type>
+      <type>item</type>
+      <label type="str">Enfant</label>
       <required type="bool">True</required>
       <varname type="str">enfant</varname>
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
+        <display_location>listings</display_location>
       </display_locations><extra_css_class type="str">hidden</extra_css_class>
       <prefill>
         <locked>True</locked>
@@ -45,13 +44,16 @@
       <data_source>
         <type>portail_parent_enfants</type>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="bool">False</anonymise>
+      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
+      <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
+      <image_desktop_size type="int">150</image_desktop_size>
+      <image_mobile_size type="int">75</image_mobile_size>
       <id type="str">3</id>
     </field><field>
+      <type>comment</type>
       <label type="str">&lt;p&gt;Vous d&#233;sinscrivez &lt;span class="varname"&gt;{{ form_var_enfant }}&lt;/span&gt; des repas scolaires.&lt;/p&gt;
 </label>
-      <type type="str">comment</type>
       <condition>
         <type>django</type>
         <value>form_var_enfant</value>
@@ -59,13 +61,14 @@
       <display_locations />
       <id type="str">4</id>
     </field><field>
+      <type>items</type>
       <label type="str">Cochez les dates desquelles vous souhaitez d&#233;sinscrire votre enfant des repas scolaires :</label>
-      <type type="str">items</type>
       <required type="bool">True</required>
       <varname type="str">repas</varname>
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
+        <display_location>listings</display_location>
       </display_locations><display_mode type="str">checkboxes</display_mode>
       <min_choices type="int">1</min_choices>
       <max_choices type="int">0</max_choices>
@@ -73,15 +76,16 @@
         <type>json</type>
         <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/children/{{ form_var_id_enfant }}/registrations?days_in_delay={{ form_option_delai_en_jours|default_if_none:1 }}&amp;no_later_than={{ form_option_heure_limite|default_if_none:"00:00" }}</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="bool">True</anonymise>
+      <anonymise type="str">final</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
+      <image_desktop_size type="int">150</image_desktop_size>
+      <image_mobile_size type="int">75</image_mobile_size>
       <id type="str">5</id>
     </field>
   </fields><user-roles>
     <role role_id="logged-users">logged-users</role>
-  </user-roles><roles>
-    <role slug="agent-traitant-portail-parent" role_id="d0b8282bf6114da680fa4c848da76167" role_key="_receiver">Agent traitant - Portail Parent</role>
-  </roles><options>
+  </user-roles><roles />
+  <options>
     <option varname="delai_en_jours">1</option>
     <option varname="heure_limite">11:00</option>
     <option varname="notifier_service">Non</option>
