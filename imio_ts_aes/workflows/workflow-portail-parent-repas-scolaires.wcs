@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<workflow id="20" url="https://wcs.dev.publik.love/backoffice/workflows/20/">
+<workflow id="2" url="https://wcs.dev.publik.love/backoffice/workflows/2/">
   <name>Portail Parent - Repas scolaires</name>
   <slug>portail-parent-repas-scolaires</slug>
-  <category slug="portail-parent" category_id="1">Portail parent</category>
+  <category slug="portail-parent" category_id="1">Portail Parent</category>
   <roles>
     <role id="_receiver">Agents traitants</role>
   </roles><possible_status>
@@ -12,7 +12,20 @@
       <colour>FFFFFF</colour>
       <visibility />
       <items>
-        <item type="jump" id="1">
+        <item type="set-backoffice-fields" id="2">
+          <fields>
+            <field>
+              <field_id>boeff53d08-31d0-4dba-a295-6d4c57b46205</field_id>
+              <value>{{ form_user_email }}</value>
+            </field><field>
+              <field_id>bo0233460c-9055-4e27-94bc-023bedda4b53</field_id>
+              <value>{{ form_var_enfant_school_implantation|get:1 }}</value>
+            </field><field>
+              <field_id>bo532e3ef2-36a2-48c5-af65-54b11c186dba</field_id>
+              <value>{{ form_var_enfant_level|get:1 }}</value>
+            </field>
+          </fields>
+        </item><item type="jump" id="1">
           <status>1</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -25,8 +38,8 @@
       <items>
         <item type="webservice_call" id="1">
           <label>Enregistrements des occurences s&#233;lectionn&#233;es</label>
-          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/menus/registrations</url>
           <method>POST</method>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/menus/registrations</url>
           <post>False</post>
           <post_data>
             <item>
@@ -49,6 +62,7 @@
           <notify_on_errors>False</notify_on_errors>
           <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
+          <set_marker_on_status>False</set_marker_on_status>
         </item><item type="jump" id="2">
           <status>3</status>
           <condition>
@@ -74,7 +88,7 @@
         <item type="choice" id="1">
           <label>Retenter l'enregistrement</label>
           <by>
-            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
           </by><status>1</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
@@ -135,7 +149,7 @@ Cordialement,</body>
       </items><triggers>
         <trigger type="manual" id="10284ecc-faf1-46d3-a567-7748e0d799d0">
           <roles>
-            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
           </roles>
         </trigger>
       </triggers>
@@ -145,8 +159,8 @@ Cordialement,</body>
       <name>-</name>
       <fields>
         <field>
+          <type>items</type>
           <label type="str">Implantations scolaires</label>
-          <type type="str">items</type>
           <required type="bool">False</required>
           <hint type="str">Filtrer les enfants en fonction des &#233;coles coch&#233;es. Si aucune &#233;cole n'est coch&#233;e, les enfants ne sont pas filtr&#233;s.</hint>
           <varname type="str">implantations_scolaires</varname>
@@ -160,10 +174,12 @@ Cordialement,</body>
           </data_source><in_filters type="bool">False</in_filters>
           <anonymise type="bool">True</anonymise>
           <display_disabled_items type="bool">False</display_disabled_items>
+          <image_desktop_size type="int">150</image_desktop_size>
+          <image_mobile_size type="int">75</image_mobile_size>
           <id type="str">2</id>
         </field><field>
+          <type>item</type>
           <label type="str">Choisir le mois</label>
-          <type type="str">item</type>
           <required type="bool">True</required>
           <varname type="str">mois</varname>
           <display_locations />
@@ -174,6 +190,9 @@ Cordialement,</body>
           </data_source><in_filters type="bool">False</in_filters>
           <anonymise type="bool">False</anonymise>
           <display_disabled_items type="bool">False</display_disabled_items>
+          <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
+          <image_desktop_size type="int">150</image_desktop_size>
+          <image_mobile_size type="int">75</image_mobile_size>
           <id type="str">3</id>
         </field>
       </fields>
@@ -183,15 +202,35 @@ Cordialement,</body>
       <name>-</name>
       <fields>
         <field>
-          <label type="str">Adresse e-mail</label>
-          <type type="str">string</type>
+          <type>string</type>
+          <label type="str">Adresse &#233;lectronique</label>
           <required type="bool">True</required>
           <varname type="str">email</varname>
           <display_locations>
             <display_location>summary</display_location>
             <display_location>listings</display_location>
-          </display_locations><anonymise type="bool">True</anonymise>
+          </display_locations><anonymise type="str">final</anonymise>
           <id type="str">boeff53d08-31d0-4dba-a295-6d4c57b46205</id>
+        </field><field>
+          <type>string</type>
+          <label type="str">Implantation scolaire</label>
+          <required type="bool">True</required>
+          <varname type="str">implantation_scolaire</varname>
+          <display_locations>
+            <display_location>summary</display_location>
+            <display_location>listings</display_location>
+          </display_locations><anonymise type="str">final</anonymise>
+          <id type="str">bo0233460c-9055-4e27-94bc-023bedda4b53</id>
+        </field><field>
+          <type>string</type>
+          <label type="str">Niveau</label>
+          <required type="bool">True</required>
+          <varname type="str">niveau</varname>
+          <display_locations>
+            <display_location>summary</display_location>
+            <display_location>listings</display_location>
+          </display_locations><anonymise type="str">final</anonymise>
+          <id type="str">bo532e3ef2-36a2-48c5-af65-54b11c186dba</id>
         </field>
       </fields>
     </formdef>

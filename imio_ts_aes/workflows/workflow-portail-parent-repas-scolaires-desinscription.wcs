@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<workflow id="21" url="https://wcs.dev.publik.love/backoffice/workflows/21/">
+<workflow id="1" url="https://wcs.dev.publik.love/backoffice/workflows/1/">
   <name>Portail Parent - Repas scolaires - D&#233;sinscription</name>
   <slug>portail-parent-repas-scolaires-desinscription</slug>
-  <category slug="portail-parent" category_id="1">Portail parent</category>
+  <category slug="portail-parent" category_id="1">Portail Parent</category>
   <roles>
     <role id="_receiver">Agent traitant</role>
   </roles><possible_status>
@@ -12,10 +12,20 @@
       <colour>FFFFFF</colour>
       <visibility />
       <items>
-        <item type="webservice_call" id="1">
+        <item type="set-backoffice-fields" id="3">
+          <fields>
+            <field>
+              <field_id>bo9b3aabbf-e014-43c6-921d-80e2466f699e</field_id>
+              <value>{{ form_var_enfant_school_implantation|get:1 }}</value>
+            </field><field>
+              <field_id>boac3839af-df8a-46bc-9b5f-f225e1dcec98</field_id>
+              <value>{{ form_var_enfant_level|get:1 }}</value>
+            </field>
+          </fields>
+        </item><item type="webservice_call" id="1">
           <label>D&#233;sinscription</label>
-          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/children/registrations/delete</url>
           <method>POST</method>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/children/registrations/delete</url>
           <post>False</post>
           <post_data>
             <item>
@@ -32,6 +42,7 @@
           <notify_on_errors>False</notify_on_errors>
           <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
+          <set_marker_on_status>False</set_marker_on_status>
         </item><item type="jump" id="2">
           <status>2</status>
           <set_marker_on_status>False</set_marker_on_status>
@@ -49,11 +60,14 @@
           </to><subject>{{ form_name }} : d&#233;sinscription des repas pour {{ form_var_enfant }}</subject>
           <body>Bonjour,
 
-Le parent {{ form_user_display_name }} a d&#233;sinscrit son enfant {{ form_var_enfant }} pour les dates suivantes :
+Le parent {{ form_user_display_name }} a d&#233;sinscrit son enfant {{ form_var_enfant }}, pour les dates suivantes :
 
 {% for repas in form_var_repas_structured %}
 * {{ repas.text }}
 {% endfor %}
+
+Implantation scolaire : {{ form_var_enfant_school_implantation|get:1 }}
+Niveau : {{ form_var_enfant_level|get:1 }}
 
 Cordialement,</body>
           <condition>
@@ -133,8 +147,8 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
       <name>-</name>
       <fields>
         <field>
+          <type>item</type>
           <label type="str">Faut-il notifier le service lors d'une d&#233;sinscription ?</label>
-          <type type="str">item</type>
           <required type="bool">True</required>
           <hint type="str">Si "Oui", un courriel sera envoy&#233; aux agents traitants pour chaque nouvelle demande de d&#233;sinscription.</hint>
           <varname type="str">notifier_service</varname>
@@ -146,21 +160,24 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           </items><in_filters type="bool">False</in_filters>
           <anonymise type="bool">False</anonymise>
           <display_disabled_items type="bool">False</display_disabled_items>
+          <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
+          <image_desktop_size type="int">150</image_desktop_size>
+          <image_mobile_size type="int">75</image_mobile_size>
           <id type="str">1</id>
         </field><field>
+          <type>string</type>
           <label type="str">D&#233;lai, en jours</label>
-          <type type="str">string</type>
           <required type="bool">True</required>
           <hint type="str">Indiquez un chiffre &#233;gal ou sup&#233;rieur &#224; 1. Indiquez 0 pour le jour m&#234;me, 1 pour la veille, 2 pour l'avant-veille, etc.</hint>
           <varname type="str">delai_en_jours</varname>
           <display_locations />
           <validation>
             <type>digits</type>
-          </validation><anonymise type="bool">True</anonymise>
+          </validation><anonymise type="str">final</anonymise>
           <id type="str">3</id>
         </field><field>
+          <type>string</type>
           <label type="str">Heure limite</label>
-          <type type="str">string</type>
           <required type="bool">True</required>
           <hint type="str">Derni&#232;re heure limite pour la d&#233;sinscription, lors du dernier jour permis par le d&#233;lai, au format hh:mm. </hint>
           <varname type="str">heure_limite</varname>
@@ -169,10 +186,37 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
             <error_message>Indiquez une heure valide, au format hh:mm.</error_message>
             <type>django</type>
             <value>value|time and value|length == 5</value>
-          </validation><anonymise type="bool">True</anonymise>
+          </validation><anonymise type="str">final</anonymise>
           <id type="str">2</id>
         </field>
       </fields>
     </formdef>
-  </variables>
+  </variables><backoffice-fields>
+    <formdef>
+      <name>-</name>
+      <fields>
+        <field>
+          <type>string</type>
+          <label type="str">Implantation scolaire</label>
+          <required type="bool">True</required>
+          <varname type="str">implantation_scolaire</varname>
+          <display_locations>
+            <display_location>summary</display_location>
+            <display_location>listings</display_location>
+          </display_locations><anonymise type="str">final</anonymise>
+          <id type="str">bo9b3aabbf-e014-43c6-921d-80e2466f699e</id>
+        </field><field>
+          <type>string</type>
+          <label type="str">Niveau</label>
+          <required type="bool">True</required>
+          <varname type="str">niveau</varname>
+          <display_locations>
+            <display_location>summary</display_location>
+            <display_location>listings</display_location>
+          </display_locations><anonymise type="str">final</anonymise>
+          <id type="str">boac3839af-df8a-46bc-9b5f-f225e1dcec98</id>
+        </field>
+      </fields>
+    </formdef>
+  </backoffice-fields>
 </workflow>
