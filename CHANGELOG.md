@@ -1,6 +1,13 @@
 Changelog
 =========
 
+1.11.0
+----------------
+- [MPP-464] Fixed: first contact sending to passerelle
+- [MPP-463] Added: child's name in healthsheet's form
+- [MPP-463] Added: display child's level and school implantation for agents in school meals context
+- update healthsheet, pp-repas-scolaires and pp-desinscription-repas-scolaires forms and workflows
+
 1.10.1
 ----------------
 - [MPP-454] Changed: error message if current child's school isn't checked in school implantation in pp-repas-scolaires form options
