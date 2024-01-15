@@ -1,9 +1,10 @@
-<datasource id="8">
+<?xml version="1.0"?>
+<datasource id="8" url="https://canary-formulaires.guichet-citoyen.be/backoffice/settings/data-sources/114/">
   <name>AES Oui - Non</name>
   <slug>aes_oui_non</slug>
   <description>Juste un oui - non, mais avec True et False, par facilit&#233;.</description>
   <data_source>
-    <type>formula</type>
-    <value>[{'id':'oui','text':'Oui'}, {'id':'non', 'text':'Non'},{'id':'non_renseigne', 'text':'Non renseign&#233;'}]</value>
+    <type>jsonvalue</type>
+    <value>[{"id": "oui","text": "Oui"}, {"id": "non", "text": "Non"},{"id": "non_renseigne", "text": "Non renseign&#233;"}]</value>
   </data_source>
 </datasource>
