@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.11.1
+----------------
+- [TELE-1606] Changed: Datasource in python transform in JSON
+
 1.11.0
 ----------------
 - [MPP-464] Fixed: first contact sending to passerelle
