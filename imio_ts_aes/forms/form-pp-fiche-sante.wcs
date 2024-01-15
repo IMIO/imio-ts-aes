@@ -43,11 +43,12 @@
         <locked>True</locked>
         <type>string</type>
         <value>{{ form_var_enfant_id }}</value>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">final</anonymise>
+      <display_mode type="str">radio</display_mode>
+      <items />
       <data_source>
         <type>portail_parent_enfants</type>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">final</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -93,7 +94,8 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.blood_type|default:"unknown" }}</value>
-      </prefill><display_mode type="str">list</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">list</display_mode>
       <items>
         <item>O+</item>
         <item>A+</item>
@@ -108,7 +110,6 @@
         <type>formula</type>
         <value>form_var_fiche_sante_selections["blood_type"]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <initial_zoom type="str">13</initial_zoom>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
@@ -129,7 +130,8 @@
       </display_locations><prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.tetanus_selection }}</value>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
       <items>
         <item>Oui</item>
         <item>Non</item>
@@ -137,7 +139,6 @@
         <type>formula</type>
         <value>form_var_fiche_sante_selections["tetanus_selection"]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -158,10 +159,10 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.first_date_tetanus|date }}</value>
-      </prefill><minimum_is_future type="bool">False</minimum_is_future>
+      </prefill><anonymise type="str">final</anonymise>
+      <minimum_is_future type="bool">False</minimum_is_future>
       <date_in_the_past type="bool">True</date_in_the_past>
       <date_can_be_today type="bool">False</date_can_be_today>
-      <anonymise type="str">final</anonymise>
       <id type="str">169</id>
     </field><field>
       <type>date</type>
@@ -178,10 +179,10 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.last_date_tetanus|date }}</value>
-      </prefill><minimum_is_future type="bool">False</minimum_is_future>
+      </prefill><anonymise type="str">final</anonymise>
+      <minimum_is_future type="bool">False</minimum_is_future>
       <date_in_the_past type="bool">False</date_in_the_past>
       <date_can_be_today type="bool">False</date_can_be_today>
-      <anonymise type="str">final</anonymise>
       <id type="str">361</id>
     </field><field>
       <type>item</type>
@@ -198,13 +199,13 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.intervention_selection }}</value>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
       <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["intervention_selection"]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -225,8 +226,8 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.intervention_text }}</value>
-      </prefill><display_mode type="str">plain</display_mode>
-      <anonymise type="str">final</anonymise>
+      </prefill><anonymise type="str">final</anonymise>
+      <display_mode type="str">plain</display_mode>
       <id type="str">529</id>
     </field><field>
       <type>item</type>
@@ -243,13 +244,13 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.swim }}</value>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
       <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["swim"]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -270,13 +271,13 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.swim_level }}</value>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
       <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["swim_level"]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -297,13 +298,13 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.bike }}</value>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
       <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["bike"]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -324,13 +325,13 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.glasses }}</value>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
       <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["glasses"]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -351,13 +352,13 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.hearing_aid }}</value>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
       <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["hearing_aid"]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -378,13 +379,13 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.nap }}</value>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
       <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["nap"]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -405,13 +406,13 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.emotional_support }}</value>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
       <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["emotional_support"]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -432,13 +433,13 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.handicap_selection }}</value>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
       <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["handicap_selection"]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -458,13 +459,13 @@
       </display_locations><prefill>
         <type>string</type>
         <value>{% if form_var_fiche_sante.level_handicap %}{{ form_var_fiche_sante.level_handicap }}{% endif %}</value>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
       <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["level_handicap"]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -485,8 +486,8 @@
       <prefill>
         <type>string</type>
         <value>{% if form_var_fiche_sante.type_handicap %}{{ form_var_fiche_sante.type_handicap }}{% endif %}</value>
-      </prefill><display_mode type="str">plain</display_mode>
-      <anonymise type="str">final</anonymise>
+      </prefill><anonymise type="str">final</anonymise>
+      <display_mode type="str">plain</display_mode>
       <id type="str">363</id>
     </field><field>
       <type>item</type>
@@ -503,13 +504,13 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.activity_no_available_selection }}</value>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
       <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["activity_no_available_selection"]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -530,8 +531,8 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.activity_no_available_text }}</value>
-      </prefill><display_mode type="str">plain</display_mode>
-      <anonymise type="str">final</anonymise>
+      </prefill><anonymise type="str">final</anonymise>
+      <display_mode type="str">plain</display_mode>
       <id type="str">545</id>
     </field><field>
       <type>text</type>
@@ -548,8 +549,8 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.activity_no_available_reason }}</value>
-      </prefill><display_mode type="str">plain</display_mode>
-      <anonymise type="str">final</anonymise>
+      </prefill><anonymise type="str">final</anonymise>
+      <display_mode type="str">plain</display_mode>
       <id type="str">365</id>
     </field><field>
       <type>item</type>
@@ -565,13 +566,13 @@
       </display_locations><prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.specific_regime_selection }}</value>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
       <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["specific_regime_selection"]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -592,8 +593,8 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.specific_regime_text }}</value>
-      </prefill><display_mode type="str">plain</display_mode>
-      <anonymise type="str">final</anonymise>
+      </prefill><anonymise type="str">final</anonymise>
+      <display_mode type="str">plain</display_mode>
       <id type="str">524</id>
     </field><field>
       <type>item</type>
@@ -610,13 +611,13 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.arnica }}</value>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
       <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["arnica"]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -638,10 +639,10 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.weight }}</value>
-      </prefill><validation>
+      </prefill><anonymise type="str">final</anonymise>
+      <validation>
         <type>digits</type>
-      </validation><anonymise type="str">final</anonymise>
-      <id type="str">666</id>
+      </validation><id type="str">666</id>
     </field><field>
       <type>comment</type>
       <label type="str">&lt;p&gt;Attention : vous n&amp;#39;avez pas compl&amp;eacute;t&amp;eacute; enti&amp;egrave;rement les champs de cette page. Des informations li&amp;eacute;es &amp;agrave; la sant&amp;eacute; de votre enfant sont donc manquantes. Il est de votre responsabilit&amp;eacute; de les compl&amp;eacute;ter afin de parer &amp;agrave; tout probl&amp;egrave;me lors des plaines.&lt;/p&gt;
@@ -678,7 +679,7 @@
       <type>page</type>
       <label type="str">Allergies</label>
       <condition>
-        <type>python</type>
+        <type>django</type>
         <value>'allergies' in form_option_questions_raw</value>
       </condition><id type="str">447</id>
     </field><field>
@@ -692,7 +693,8 @@
       </display_locations><prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.allergy_selection }}</value>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
       <items>
         <item>Oui</item>
         <item>Non</item>
@@ -700,7 +702,6 @@
         <type>formula</type>
         <value>form_var_fiche_sante_selections["allergy_selection"]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -720,7 +721,8 @@
       </display_locations><prefill>
         <type>string</type>
         <value>{{form_var_fiche_sante.allergy_ids}}</value>
-      </prefill><items />
+      </prefill><anonymise type="str">final</anonymise>
+      <items />
       <display_mode type="str">checkboxes</display_mode>
       <min_choices type="int">0</min_choices>
       <max_choices type="int">0</max_choices>
@@ -728,7 +730,6 @@
         <type>portail_parent_fiche_sante_allergies</type>
         <value>form_var_fiche_sante_selections["allergy_type"]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">final</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <image_desktop_size type="int">150</image_desktop_size>
       <image_mobile_size type="int">75</image_mobile_size>
@@ -745,6 +746,7 @@
         <display_location>validation</display_location>
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <anonymise type="str">final</anonymise>
       <columns>
         <column>Allergie</column>
       </columns><total_row type="bool">False</total_row>
@@ -764,8 +766,8 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.allergy_consequence }}</value>
-      </prefill><display_mode type="str">plain</display_mode>
-      <anonymise type="str">final</anonymise>
+      </prefill><anonymise type="str">final</anonymise>
+      <display_mode type="str">plain</display_mode>
       <id type="str">171</id>
     </field><field>
       <type>text</type>
@@ -783,8 +785,8 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.allergy_treatment }}</value>
-      </prefill><display_mode type="str">plain</display_mode>
-      <anonymise type="str">final</anonymise>
+      </prefill><anonymise type="str">final</anonymise>
+      <display_mode type="str">plain</display_mode>
       <id type="str">668</id>
     </field><field>
       <type>comment</type>
@@ -800,7 +802,7 @@
       <type>page</type>
       <label type="str">Maladies</label>
       <condition>
-        <type>python</type>
+        <type>django</type>
         <value>'diseases' in form_option_questions_raw</value>
       </condition><id type="str">449</id>
     </field><field>
@@ -815,7 +817,8 @@
       <prefill>
         <type>string</type>
         <value>{{form_var_fiche_sante.disease_ids}}</value>
-      </prefill><items />
+      </prefill><anonymise type="str">final</anonymise>
+      <items />
       <display_mode type="str">checkboxes</display_mode>
       <min_choices type="int">0</min_choices>
       <max_choices type="int">0</max_choices>
@@ -823,7 +826,6 @@
         <type>aes_diseases</type>
         <value>form_var_fiche_sante_selections["disease_type"]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">final</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <image_desktop_size type="int">150</image_desktop_size>
       <image_mobile_size type="int">75</image_mobile_size>
@@ -840,6 +842,7 @@
         <display_location>validation</display_location>
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <anonymise type="str">final</anonymise>
       <columns>
         <column>Maladie</column>
       </columns><total_row type="bool">False</total_row>
@@ -893,8 +896,8 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.disease_details.0|get:"treatment"|default:"" }}</value>
-      </prefill><display_mode type="str">plain</display_mode>
-      <anonymise type="str">final</anonymise>
+      </prefill><anonymise type="str">final</anonymise>
+      <display_mode type="str">plain</display_mode>
       <id type="str">508</id>
     </field><field>
       <type>comment</type>
@@ -937,8 +940,8 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.disease_ids.1|get:"disease_text"|default:"" }}</value>
-      </prefill><display_mode type="str">plain</display_mode>
-      <anonymise type="str">final</anonymise>
+      </prefill><anonymise type="str">final</anonymise>
+      <display_mode type="str">plain</display_mode>
       <id type="str">514</id>
     </field><field>
       <type>comment</type>
@@ -981,8 +984,8 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.disease_ids.2|get:"disease_text"|default:"" }}</value>
-      </prefill><display_mode type="str">plain</display_mode>
-      <anonymise type="str">final</anonymise>
+      </prefill><anonymise type="str">final</anonymise>
+      <display_mode type="str">plain</display_mode>
       <id type="str">515</id>
     </field><field>
       <type>comment</type>
@@ -1025,8 +1028,8 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.disease_ids.3|get:"disease_text"|default:"" }}</value>
-      </prefill><display_mode type="str">plain</display_mode>
-      <anonymise type="str">final</anonymise>
+      </prefill><anonymise type="str">final</anonymise>
+      <display_mode type="str">plain</display_mode>
       <id type="str">516</id>
     </field><field>
       <type>comment</type>
@@ -1069,8 +1072,8 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.disease_ids.4|get:"disease_text"|default:"" }}</value>
-      </prefill><display_mode type="str">plain</display_mode>
-      <anonymise type="str">final</anonymise>
+      </prefill><anonymise type="str">final</anonymise>
+      <display_mode type="str">plain</display_mode>
       <id type="str">517</id>
     </field><field>
       <type>comment</type>
@@ -1113,14 +1116,14 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.disease_ids.5|get:"disease_text"|default:"" }}</value>
-      </prefill><display_mode type="str">plain</display_mode>
-      <anonymise type="str">final</anonymise>
+      </prefill><anonymise type="str">final</anonymise>
+      <display_mode type="str">plain</display_mode>
       <id type="str">518</id>
     </field><field>
       <type>page</type>
       <label type="str">M&#233;dication</label>
       <condition>
-        <type>python</type>
+        <type>django</type>
         <value>'medication' in form_option_questions_raw</value>
       </condition><id type="str">401</id>
     </field><field>
@@ -1135,13 +1138,13 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.has_medication }}</value>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
       <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["has_medication"]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -1209,10 +1212,10 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.0.quantity }}</value>
-      </prefill><validation>
+      </prefill><anonymise type="str">final</anonymise>
+      <validation>
         <type>digits</type>
-      </validation><anonymise type="str">final</anonymise>
-      <id type="str">592</id>
+      </validation><id type="str">592</id>
     </field><field>
       <type>string</type>
       <label type="str">P&#233;riodes de prise</label>
@@ -1245,13 +1248,13 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.0.self_medication }}</value>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
       <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["self_medication"]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -1299,10 +1302,10 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.1.quantity }}</value>
-      </prefill><validation>
+      </prefill><anonymise type="str">final</anonymise>
+      <validation>
         <type>digits</type>
-      </validation><anonymise type="str">final</anonymise>
-      <id type="str">597</id>
+      </validation><id type="str">597</id>
     </field><field>
       <type>string</type>
       <label type="str">P&#233;riodes de prise</label>
@@ -1335,13 +1338,13 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.1.self_medication }}</value>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
       <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["self_medication"]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -1389,10 +1392,10 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.2.quantity }}</value>
-      </prefill><validation>
+      </prefill><anonymise type="str">final</anonymise>
+      <validation>
         <type>digits</type>
-      </validation><anonymise type="str">final</anonymise>
-      <id type="str">602</id>
+      </validation><id type="str">602</id>
     </field><field>
       <type>string</type>
       <label type="str">P&#233;riodes de prise</label>
@@ -1425,13 +1428,13 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.2.self_medication }}</value>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
       <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["self_medication"]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -1479,10 +1482,10 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.3.quantity }}</value>
-      </prefill><validation>
+      </prefill><anonymise type="str">final</anonymise>
+      <validation>
         <type>digits</type>
-      </validation><anonymise type="str">final</anonymise>
-      <id type="str">607</id>
+      </validation><id type="str">607</id>
     </field><field>
       <type>string</type>
       <label type="str">P&#233;riodes de prise</label>
@@ -1515,13 +1518,13 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.3.self_medication }}</value>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
       <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["self_medication"]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -1586,10 +1589,10 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.4.period }}</value>
-      </prefill><validation>
+      </prefill><anonymise type="str">final</anonymise>
+      <validation>
         <type>digits</type>
-      </validation><anonymise type="str">final</anonymise>
-      <id type="str">613</id>
+      </validation><id type="str">613</id>
     </field><field>
       <type>item</type>
       <label type="str">Votre enfant peut-il prendre ce m&#233;dicament seul ?</label>
@@ -1605,13 +1608,13 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.4.self_medication }}</value>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
       <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["self_medication"]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -1659,10 +1662,10 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.5.quantity }}</value>
-      </prefill><validation>
+      </prefill><anonymise type="str">final</anonymise>
+      <validation>
         <type>digits</type>
-      </validation><anonymise type="str">final</anonymise>
-      <id type="str">617</id>
+      </validation><id type="str">617</id>
     </field><field>
       <type>string</type>
       <label type="str">P&#233;riodes de prise</label>
@@ -1695,13 +1698,13 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.5.self_medication }}</value>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
       <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["self_medication"]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -1749,10 +1752,10 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.6.quantity }}</value>
-      </prefill><validation>
+      </prefill><anonymise type="str">final</anonymise>
+      <validation>
         <type>digits</type>
-      </validation><anonymise type="str">final</anonymise>
-      <id type="str">622</id>
+      </validation><id type="str">622</id>
     </field><field>
       <type>string</type>
       <label type="str">P&#233;riodes de prise</label>
@@ -1785,13 +1788,13 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.6.self_medication }}</value>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
       <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["self_medication"]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -1839,10 +1842,10 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.7.quantity }}</value>
-      </prefill><validation>
+      </prefill><anonymise type="str">final</anonymise>
+      <validation>
         <type>digits</type>
-      </validation><anonymise type="str">final</anonymise>
-      <id type="str">627</id>
+      </validation><id type="str">627</id>
     </field><field>
       <type>string</type>
       <label type="str">P&#233;riodes de prise</label>
@@ -1875,13 +1878,13 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.7.self_medication }}</value>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
       <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["self_medication"]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -1929,10 +1932,10 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.8.quantity }}</value>
-      </prefill><validation>
+      </prefill><anonymise type="str">final</anonymise>
+      <validation>
         <type>digits</type>
-      </validation><anonymise type="str">final</anonymise>
-      <id type="str">632</id>
+      </validation><id type="str">632</id>
     </field><field>
       <type>string</type>
       <label type="str">P&#233;riodes de prise</label>
@@ -1965,13 +1968,13 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.8.self_medication }}</value>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
       <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["self_medication"]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -2019,10 +2022,10 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.9.quantity }}</value>
-      </prefill><validation>
+      </prefill><anonymise type="str">final</anonymise>
+      <validation>
         <type>digits</type>
-      </validation><anonymise type="str">final</anonymise>
-      <id type="str">637</id>
+      </validation><id type="str">637</id>
     </field><field>
       <type>string</type>
       <label type="str">P&#233;riodes de prise</label>
@@ -2055,13 +2058,13 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.9.self_medication }}</value>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
       <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["self_medication"]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -2093,13 +2096,13 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.to_go_alone }}</value>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
       <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["to_go_alone"]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -2118,12 +2121,12 @@
         <display_location>summary</display_location>
       </display_locations><prefill>
         <type>none</type>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
       <items />
       <data_source>
         <type>aes_oui_non</type>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -2143,8 +2146,8 @@
       </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
       <prefill>
         <type>none</type>
-      </prefill><display_mode type="str">plain</display_mode>
-      <anonymise type="str">final</anonymise>
+      </prefill><anonymise type="str">final</anonymise>
+      <display_mode type="str">plain</display_mode>
       <id type="str">173</id>
     </field><field>
       <type>text</type>
@@ -2159,8 +2162,8 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.comment|default:"" }}</value>
-      </prefill><display_mode type="str">plain</display_mode>
-      <anonymise type="str">final</anonymise>
+      </prefill><anonymise type="str">final</anonymise>
+      <display_mode type="str">plain</display_mode>
       <id type="str">174</id>
     </field><field>
       <type>bool</type>
@@ -2175,7 +2178,8 @@
         <display_location>summary</display_location>
       </display_locations><prefill>
         <type>none</type>
-      </prefill><id type="str">175</id>
+      </prefill><anonymise type="str">no</anonymise>
+      <id type="str">175</id>
     </field><field>
       <type>comment</type>
       <label type="str">&lt;p&gt;Attention : vous n&amp;#39;avez pas compl&amp;eacute;t&amp;eacute; enti&amp;egrave;rement les champs de cette page. Des informations li&amp;eacute;es &amp;agrave; la sant&amp;eacute; de votre enfant sont donc manquantes. Il est de votre responsabilit&amp;eacute; de les compl&amp;eacute;ter afin de parer &amp;agrave; tout probl&amp;egrave;me lors des plaines.&lt;/p&gt;
@@ -2237,13 +2241,13 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.doctor_id.0 }}</value>
-      </prefill><display_mode type="str">autocomplete</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">autocomplete</display_mode>
       <items />
       <data_source>
         <type>formula</type>
         <value>sorted(data_source.aes_doctors, key=lambda x: x["text"], reverse = False) + [{'id':'autre','text':'Autre'}]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <initial_zoom type="str">13</initial_zoom>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
@@ -2345,12 +2349,12 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.doctor_id.country|default:20 }}</value>
-      </prefill><display_mode type="str">list</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">list</display_mode>
       <items />
       <data_source>
         <type>aes_countries</type>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <initial_zoom type="str">13</initial_zoom>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
@@ -2406,12 +2410,12 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.doctor_id.locality }}</value>
-      </prefill><display_mode type="str">autocomplete</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">autocomplete</display_mode>
       <items />
       <data_source>
         <type>portail_parent_localites</type>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -2423,23 +2427,13 @@
       <post_conditions>
         <post_condition>
           <condition>
-            <type>python</type>
-            <value>form_var_contact_0_tel is None or (re.match("^(0|\\+|00)(\d{8,})$", form_var_contact_0_tel))</value>
-          </condition><error_message>Le num&#233;ro de t&#233;l&#233;phone du premier contact n'est pas correctement encod&#233;.</error_message>
-        </post_condition><post_condition>
-          <condition>
-            <type>python</type>
-            <value>form_var_contact_1_tel is None or (re.match("^(0|\\+|00)(\d{8,})$", form_var_contact_1_tel))</value>
-          </condition><error_message>Le num&#233;ro de t&#233;l&#233;phone du deuxi&#232;me contact n'est pas correctement encod&#233;.</error_message>
-        </post_condition><post_condition>
-          <condition>
-            <type>python</type>
-            <value>(form_var_contact_0_name is None and form_var_contact_0_tel is None) or (form_var_contact_0_name is not None and form_var_contact_0_tel is not None)</value>
+            <type>django</type>
+            <value>not form_var_contact_0_name and not form_var_contact_0_tel or form_var_contact_0_name and form_var_contact_0_tel</value>
           </condition><error_message>Veuillez compl&#233;ter le premier contact ou le laisser vide.</error_message>
         </post_condition><post_condition>
           <condition>
-            <type>python</type>
-            <value>(form_var_contact_1_name is None and form_var_contact_1_tel is None) or (form_var_contact_1_name is not None and form_var_contact_1_tel is not None)</value>
+            <type>django</type>
+            <value>not form_var_contact_1_name and not form_var_contact_1_tel or form_var_contact_1_name and form_var_contact_1_tel</value>
           </condition><error_message>Veuillez compl&#233;ter le deuxi&#232;me contact ou le laisser vide.</error_message>
         </post_condition>
       </post_conditions><id type="str">547</id>
@@ -2511,10 +2505,15 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-3</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.allowed_contact_ids.0|get:"phone"|default:"" }}</value>
       </prefill><anonymise type="str">final</anonymise>
-      <id type="str">410</id>
+      <validation>
+        <error_message>Le num&#233;ro de t&#233;l&#233;phone du contact n'est pas correctement encod&#233;.</error_message>
+        <type>regex</type>
+        <value>^(0|\+|00)(\d{8,})$</value>
+      </validation><id type="str">410</id>
     </field><field>
       <type>string</type>
       <label type="str">Rue</label>
@@ -2582,12 +2581,12 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.allowed_contact_ids.0|get:"country_id"|get:"0"|default:20 }}</value>
-      </prefill><display_mode type="str">list</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">list</display_mode>
       <items />
       <data_source>
         <type>aes_countries</type>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <initial_zoom type="str">13</initial_zoom>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
@@ -2609,11 +2608,11 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.allowed_contact_ids.0|get:"zip"|default:"" }}</value>
-      </prefill><validation>
+      </prefill><anonymise type="str">final</anonymise>
+      <validation>
         <type>regex</type>
         <value>^[0-9]*</value>
-      </validation><anonymise type="str">final</anonymise>
-      <id type="str">437</id>
+      </validation><id type="str">437</id>
     </field><field>
       <type>string</type>
       <label type="str">Ville</label>
@@ -2646,12 +2645,12 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.allowed_contact_ids.0|get:"city"|get:0|default:"" }}</value>
-      </prefill><display_mode type="str">autocomplete</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">autocomplete</display_mode>
       <items />
       <data_source>
         <type>portail_parent_localites</type>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -2718,10 +2717,15 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-3</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.allowed_contact_ids.1|get:"phone"|default:"" }}</value>
       </prefill><anonymise type="str">final</anonymise>
-      <id type="str">414</id>
+      <validation>
+        <error_message>Le num&#233;ro de t&#233;l&#233;phone du contact n'est pas correctement encod&#233;.</error_message>
+        <type>regex</type>
+        <value>^(0|\+|00)(\d{8,})$</value>
+      </validation><id type="str">414</id>
     </field><field>
       <type>string</type>
       <label type="str">Rue</label>
@@ -2788,11 +2792,11 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.allowed_contact_ids.1|get:"zip"|default:"" }}</value>
-      </prefill><validation>
+      </prefill><anonymise type="str">final</anonymise>
+      <validation>
         <type>regex</type>
         <value>^[0-9]*</value>
-      </validation><anonymise type="str">final</anonymise>
-      <id type="str">536</id>
+      </validation><id type="str">536</id>
     </field><field>
       <type>string</type>
       <label type="str">Ville</label>
@@ -2826,12 +2830,12 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.allowed_contact_ids.1|get:"city"|default:"" }}</value>
-      </prefill><display_mode type="str">autocomplete</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">autocomplete</display_mode>
       <items />
       <data_source>
         <type>portail_parent_localites</type>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -2853,12 +2857,12 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.allowed_contact_ids.1|get:"country_id"|get:"0"|default:20 }}</value>
-      </prefill><display_mode type="str">list</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">list</display_mode>
       <items />
       <data_source>
         <type>aes_countries</type>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <initial_zoom type="str">13</initial_zoom>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
@@ -2898,13 +2902,13 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.photo }}</value>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
       <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["photo"]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -2925,13 +2929,13 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.photo_general }}</value>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
       <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["photo_general"]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -2952,13 +2956,13 @@
       <prefill>
         <type>string</type>
         <value>{{ form_var_fiche_sante.facebook }}</value>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
       <items />
       <data_source>
         <type>formula</type>
         <value>form_var_fiche_sante_selections["facebook"]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -2977,7 +2981,8 @@
         <display_location>summary</display_location>
       </display_locations><prefill>
         <type>none</type>
-      </prefill><id type="str">577</id>
+      </prefill><anonymise type="str">no</anonymise>
+      <id type="str">577</id>
     </field><field>
       <type>bool</type>
       <label type="str">Je m&#8217;engage sur l&#8217;honneur &#224; ce que moi-m&#234;me ou un autre adulte de la bulle sociale de mon enfant soit joignable par t&#233;l&#233;phone et d&#8217;avoir la possibilit&#233; de venir chercher l&#8217;enfant imm&#233;diatement pendant toute la dur&#233;e de l&#8217;activit&#233; si son &#233;tat de sant&#233; le n&#233;cessite, et de s&#8217;engager dans ce cas &#224; faire consulter le participant d&#232;s que possible (et end&#233;ans les 24h du retour au plus tard) par son m&#233;decin r&#233;f&#233;rent ou un autre m&#233;decin si ce dernier n&#8217;est pas disponible</label>
@@ -2991,7 +2996,8 @@
         <display_location>summary</display_location>
       </display_locations><prefill>
         <type>none</type>
-      </prefill><id type="str">578</id>
+      </prefill><anonymise type="str">no</anonymise>
+      <id type="str">578</id>
     </field><field>
       <type>bool</type>
       <label type="str">Je consens au traitement de mes donn&#233;es &#224; caract&#232;re personnel par l'Administration communale de Chaudfontaine conform&#233;ment &#224; sa charte relative &#224; la protection de la vie priv&#233;e.</label>
@@ -3005,7 +3011,8 @@
         <display_location>summary</display_location>
       </display_locations><prefill>
         <type>none</type>
-      </prefill><id type="str">579</id>
+      </prefill><anonymise type="str">no</anonymise>
+      <id type="str">579</id>
     </field><field>
       <type>items</type>
       <label type="str">Autorisations obligatoires</label>
@@ -3020,14 +3027,14 @@
       </display_locations><prefill>
         <type>string</type>
         <value>[{% for a in form_var_fiche_sante.authorization_ids %}"{{a}}",{% endfor %}]</value>
-      </prefill><items />
+      </prefill><anonymise type="str">final</anonymise>
+      <items />
       <display_mode type="str">checkboxes</display_mode>
       <min_choices type="int">0</min_choices>
       <max_choices type="int">0</max_choices>
       <data_source>
         <type>portail_parent_fiche_sante_autorisations</type>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">final</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <image_desktop_size type="int">150</image_desktop_size>
       <image_mobile_size type="int">75</image_mobile_size>
@@ -3046,14 +3053,14 @@
       </display_locations><prefill>
         <type>string</type>
         <value>[{% for a in form_var_fiche_sante.authorization_ids %}"{{a}}",{% endfor %}]</value>
-      </prefill><items />
+      </prefill><anonymise type="str">final</anonymise>
+      <items />
       <display_mode type="str">checkboxes</display_mode>
       <min_choices type="int">0</min_choices>
       <max_choices type="int">0</max_choices>
       <data_source>
         <type>portail_parent_fiche_sante_autorisations_facultatives</type>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">final</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <image_desktop_size type="int">150</image_desktop_size>
       <image_mobile_size type="int">75</image_mobile_size>
@@ -3067,7 +3074,7 @@
   </roles><options>
     <option varname="compte">BE80 0910 2100 5377</option>
     <option varname="questions" />
-    <option varname="questions_display">L'enfant fait-il la sieste ?</option>
+    <option varname="questions_display" />
     <option varname="questions_structured" />
     <option varname="verifier_encodage">Non</option>
     <option varname="verifier_encodage_display">Non</option>
