@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.11.2
+----------------
+- [TELE-1606] Changed: Condition python in Django
+
 1.11.1
 ----------------
 - [TELE-1606] Changed: Datasource in python transform in JSON
