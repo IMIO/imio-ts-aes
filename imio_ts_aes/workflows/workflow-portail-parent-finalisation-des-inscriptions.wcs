@@ -9,7 +9,7 @@
     <status>
       <id>7</id>
       <name>Juste envoy&#233;</name>
-      <colour>FFFFFF</colour>
+      <colour>#FFFFFF</colour>
       <visibility>
         <role>_receiver</role>
       </visibility><items>
@@ -24,10 +24,10 @@
               <value>{% regroup forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de validation" by submission_context as demandes %}{% for demande in demandes %}{{ demande.grouper.orig_formdata_id }}{% if not forloop.last %},{% endif %}{% endfor %}</value>
             </field><field>
               <field_id>bob83465d0-0d08-48c2-abec-3fff36b18325</field_id>
-              <value>=",".join(set(form_var_enfants.split(",")))</value>
+              <value>{{ form_var_enfants|split:","|distinct_list|join:"," }}</value>
             </field><field>
               <field_id>bo05ae962d-cb56-4c1d-b44a-ccdefe25b71d</field_id>
-              <value>=",".join(set(form_var_inscriptions_concernees.split(",")))</value>
+              <value>{{ form_var_inscriptions_concernees|split:","|distinct_list|join:"," }}</value>
             </field>
           </fields>
         </item><item type="jump" id="2">
@@ -44,7 +44,7 @@
     </status><status>
       <id>3</id>
       <name>Validation des inscriptions</name>
-      <colour>FFFFFF</colour>
+      <colour>#FFFFFF</colour>
       <visibility />
       <items>
         <item type="external_workflow_global_action" id="1">
@@ -71,7 +71,7 @@
     </status><status>
       <id>1</id>
       <name>En attente des informations de paiement</name>
-      <colour>0099FF</colour>
+      <colour>#0099FF</colour>
       <visibility />
       <items>
         <item type="webservice_call" id="1">
@@ -97,8 +97,8 @@
           <condition>
             <type>django</type>
             <value>form_option_mode_paiement == "Paiement en ligne" and "communication structur&#233;e" not in form_previous_status or "AES" in form_option_calcul_montant and "communication structur&#233;e" not in form_previous_status</value>
-          </condition>
-        </item><item type="webservice_call" id="7">
+          </condition><set_marker_on_status>False</set_marker_on_status>
+        </item><item type="webservice_call" id="2">
           <label>Recherche de la communication structur&#233;e</label>
           <method>GET</method>
           <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ form_user_var_aes_id }}/plain-structured-communication/</url>
@@ -116,8 +116,8 @@
           <condition>
             <type>django</type>
             <value>form_option_mode_paiement == "Paiement par virement"</value>
-          </condition>
-        </item><item type="form" id="2">
+          </condition><set_marker_on_status>False</set_marker_on_status>
+        </item><item type="form" id="3">
           <by>
             <item role_id="_receiver">_receiver</item>
           </by><varname>calcul</varname>
@@ -129,72 +129,69 @@
             <name>-</name>
             <fields>
               <field>
+                <type>string</type>
                 <label type="str">Montant</label>
-                <type type="str">string</type>
                 <required type="bool">True</required>
                 <hint type="str">Indiquez le montant &#224; payer, en euros. Ne pr&#233;cisez pas la monnaie.</hint>
                 <varname type="str">montant</varname>
                 <display_locations />
                 <prefill>
-                  <locked>False</locked>
                   <type>string</type>
                   <value>{% if form_option_calcul_montant == "Demander le montant &#224; AES avec validation" %}{{ form_workflow_data_montant_response_cost|decimal:2 }}{% endif %}</value>
-                </prefill><validation>
+                </prefill><anonymise type="str">final</anonymise>
+                <validation>
                   <error_message>Ne pr&#233;cisez pas la monnaie.</error_message>
                   <type>django</type>
                   <value>"&#8364;" not in value</value>
-                </validation><anonymise type="bool">True</anonymise>
-                <id type="str">1</id>
+                </validation><id type="str">1</id>
               </field><field>
+                <type>string</type>
                 <label type="str">Communication</label>
-                <type type="str">string</type>
                 <required type="bool">False</required>
                 <hint type="str">Si vide, le num&#233;ro de suivi du formulaire est envoy&#233;.</hint>
                 <varname type="str">communication</varname>
                 <display_locations />
                 <prefill>
-                  <locked>False</locked>
                   <type>string</type>
                   <value>{{ form_workflow_data_communication_structuree_response }}</value>
-                </prefill><anonymise type="bool">True</anonymise>
+                </prefill><anonymise type="str">final</anonymise>
                 <id type="str">2</id>
               </field><field>
+                <type>text</type>
                 <label type="str">Informations compl&#233;mentaires</label>
-                <type type="str">text</type>
                 <required type="bool">False</required>
                 <hint type="str">Indiquez les d&#233;lais pour effectuer le virement ainsi que toute autre information utile au parent.</hint>
                 <varname type="str">info_complementaires</varname>
                 <display_locations />
                 <prefill>
-                  <locked>False</locked>
                   <type>string</type>
                   <value>{{ form_option_preremplir_info_complementaires }}</value>
-                </prefill><display_mode type="str">plain</display_mode>
-                <anonymise type="bool">True</anonymise>
+                </prefill><anonymise type="str">final</anonymise>
+                <display_mode type="str">plain</display_mode>
                 <id type="str">4</id>
               </field>
             </fields>
           </formdef>
-        </item><item type="jump" id="3">
+        </item><item type="jump" id="4">
           <status>9</status>
           <condition>
             <type>django</type>
             <value>form_option_calcul_montant == "Demander le montant &#224; AES" and form_option_mode_paiement == "Paiement par virement"</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="4">
+        </item><item type="jump" id="5">
           <status>2</status>
           <condition>
             <type>django</type>
             <value>form_option_mode_paiement == "Paiement en ligne"</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jumponsubmit" id="5">
+        </item><item type="jumponsubmit" id="6">
           <status>9</status>
           <set_marker_on_status>False</set_marker_on_status>
           <condition>
             <type>django</type>
             <value>form_option_calcul_montant in "Calculer le montant manuellement, Demander le montant &#224; AES avec validation" and form_option_mode_paiement == "Paiement par virement"</value>
           </condition>
-        </item><item type="displaymsg" id="6">
+        </item><item type="displaymsg" id="7">
           <message>Nous vous confirmons les inscriptions effectu&#233;es. Les places sont r&#233;serv&#233;es pour le moment. Vous recevrez prochainement un email contenant les modalit&#233;s de paiement par virement bancaire. Une fois le paiement effectu&#233; et valid&#233; par nos services, les places seront d&#233;finitivement r&#233;serv&#233;es. Si le paiement n'a pas &#233;t&#233; effectu&#233; dans les d&#233;lais impartis, les places seront lib&#233;r&#233;es.</message>
           <level>success</level>
           <position>top</position>
@@ -209,7 +206,7 @@
     </status><status>
       <id>8</id>
       <name>Erreur lors du calcul du montant</name>
-      <colour>FF0000</colour>
+      <colour>#FF0000</colour>
       <visibility />
       <items>
         <item type="sendmail" id="1">
@@ -235,7 +232,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <label>Calculer le total</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
+            <item slug="debug" role_id="cdcc12ee550e435292b47fbf3a17c32f">Debug</item>
           </by><status>1</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Une fois la source de l&amp;#39;erreur identifi&amp;eacute;e et celle-ci corrig&amp;eacute;e, il est possible de redemander &amp;agrave; AES de calculer le montant &amp;agrave; payer.&lt;/p&gt;
@@ -247,21 +244,21 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
     </status><status>
       <id>21</id>
       <name>Erreur lors de la r&#233;cup&#233;ration de la communication structur&#233;e</name>
-      <colour>FF0000</colour>
+      <colour>#FF0000</colour>
       <visibility>
         <role>_receiver</role>
       </visibility><items>
-        <item type="register-comment" id="2">
+        <item type="register-comment" id="1">
           <comment>Une erreur s'est produite.</comment>
-        </item><item type="displaymsg" id="3">
+        </item><item type="displaymsg" id="2">
           <message>&lt;p&gt;{% if "404 Client Error: Not Found" in form_workflow_data_communication_structuree_error_response_err_desc %}Il semble que la communication structur&#233;e du parent n'ai pas &#233;t&#233; trouv&#233;e. V&#233;rifiez, dans la signal&#233;tique du parent de iA.AES, si son pr&#233;paiement dispose bien d'une ligne pour les plaines. Si ce n'est pas le cas, veuillez cr&#233;er les communications structur&#233;es manquantes. Ensuite, s&#233;lectionnez "Rechercher la communication structur&#233;e" ci-dessous. Si le probl&#232;me se produit &#224; nouveau, &lt;a href="https://support.imio.be" target="blank"&gt;contactez le support&lt;/a&gt;.{% else %}La r&#233;cup&#233;ration de la communication structur&#233;e sera relanc&#233;e dans 20 minutes.{% endif %}&lt;/p&gt;</message>
           <level>error</level>
           <position>bottom</position>
           <to>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
+            <item slug="debug" role_id="cdcc12ee550e435292b47fbf3a17c32f">Debug</item>
           </to>
-        </item><item type="sendmail" id="4">
+        </item><item type="sendmail" id="3">
           <to>
             <item role_id="_receiver">_receiver</item>
           </to><subject>Erreur lors de la recherche d'une communication structur&#233;e, demande {{ form_name }} n&#176;{{ form_number }}</subject>
@@ -278,7 +275,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
             <type>django</type>
             <value>"404 Client Error: Not Found" in form_workflow_data_communication_structuree_error_response_err_desc</value>
           </condition>
-        </item><item type="jump" id="1">
+        </item><item type="jump" id="4">
           <status>1</status>
           <condition>
             <type>django</type>
@@ -289,7 +286,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <label>Rechercher la communication structur&#233;e</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
+            <item slug="debug" role_id="cdcc12ee550e435292b47fbf3a17c32f">Debug</item>
           </by><status>1</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Si vous avez identifi&amp;eacute; et corrig&amp;eacute; l&amp;#39;erreur, ou si vous ne voulez pas attendre 20 minutes, vous pouvez relancer la recherche de la communication structur&amp;eacute;e. La demande reprendra son cours normal.&lt;/p&gt;
@@ -301,7 +298,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
     </status><status>
       <id>2</id>
       <name>Ajout au panier</name>
-      <colour>FFFFFF</colour>
+      <colour>#FFFFFF</colour>
       <visibility />
       <items>
         <item type="webservice_call" id="1">
@@ -335,6 +332,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <notify_on_errors>False</notify_on_errors>
           <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
+          <set_marker_on_status>False</set_marker_on_status>
         </item><item type="jump" id="2">
           <status>4</status>
           <set_marker_on_status>False</set_marker_on_status>
@@ -343,7 +341,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
     </status><status>
       <id>4</id>
       <name>En attente de paiement</name>
-      <colour>FFFF99</colour>
+      <colour>#FFFF99</colour>
       <visibility />
       <items>
         <item type="displaymsg" id="1">
@@ -389,7 +387,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
     </status><status>
       <id>20</id>
       <name>Alerte non paiement</name>
-      <colour>FFFFFF</colour>
+      <colour>#FFFFFF</colour>
       <visibility />
       <items>
         <item type="sendmail" id="1">
@@ -417,7 +415,7 @@ Cordialement,</body>
     </status><status>
       <id>13</id>
       <name>Annulation des inscriptions</name>
-      <colour>999999</colour>
+      <colour>#999999</colour>
       <visibility />
       <items>
         <item type="webservice_call" id="1">
@@ -443,6 +441,7 @@ Cordialement,</body>
           <notify_on_errors>False</notify_on_errors>
           <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
+          <set_marker_on_status>False</set_marker_on_status>
         </item><item type="sendmail" id="2">
           <to>
             <item role_id="_submitter">_submitter</item>
@@ -468,7 +467,7 @@ Cordialement,</body>
     </status><status>
       <id>14</id>
       <name>Paiement au guichet</name>
-      <colour>FFFF00</colour>
+      <colour>#FFFF00</colour>
       <visibility />
       <items>
         <item type="webservice_call" id="1">
@@ -494,6 +493,7 @@ Cordialement,</body>
           <notify_on_errors>False</notify_on_errors>
           <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
+          <set_marker_on_status>False</set_marker_on_status>
         </item><item type="jump" id="2">
           <status>5</status>
           <set_marker_on_status>False</set_marker_on_status>
@@ -502,7 +502,7 @@ Cordialement,</body>
     </status><status>
       <id>19</id>
       <name>R&#233;ception du paiement</name>
-      <colour>FFFFFF</colour>
+      <colour>#FFFFFF</colour>
       <visibility />
       <items>
         <item type="webservice_call" id="1">
@@ -531,6 +531,7 @@ Cordialement,</body>
           <notify_on_errors>False</notify_on_errors>
           <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
+          <set_marker_on_status>False</set_marker_on_status>
         </item><item type="jump" id="2">
           <status>5</status>
           <condition>
@@ -542,7 +543,7 @@ Cordialement,</body>
     </status><status>
       <id>9</id>
       <name>En attente de virement</name>
-      <colour>FFFF00</colour>
+      <colour>#FFFF00</colour>
       <visibility />
       <items>
         <item type="sendmail" id="1">
@@ -606,7 +607,7 @@ Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en me
     </status><status>
       <id>12</id>
       <name>Virement re&#231;u</name>
-      <colour>99FF99</colour>
+      <colour>#99FF99</colour>
       <visibility />
       <items>
         <item type="jump" id="1">
@@ -619,7 +620,7 @@ Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en me
     </status><status>
       <id>11</id>
       <name>Paiement diff&#233;r&#233;</name>
-      <colour>99FF99</colour>
+      <colour>#99FF99</colour>
       <visibility />
       <items>
         <item type="sendmail" id="1">
@@ -641,7 +642,7 @@ Cordialement,</body>
     </status><status>
       <id>5</id>
       <name>Cl&#244;ture en cours</name>
-      <colour>99FF00</colour>
+      <colour>#99FF00</colour>
       <visibility />
       <items>
         <item type="sendmail" id="1">
@@ -660,12 +661,12 @@ Cordialement,</body>
             <type>django</type>
             <value>form_option_mode_paiement != "Paiement diff&#233;r&#233;"</value>
           </condition>
-        </item><item type="register-comment" id="3">
+        </item><item type="register-comment" id="2">
           <comment>&lt;div&gt;Les inscriptions suivantes sont d&#233;sormais cl&#244;tur&#233;es :
 &lt;ul&gt;{% for registration in forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de paiement" %}
     &lt;li&gt;{{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }}&lt;/li&gt;
 {% endfor %}&lt;/ul&gt;&lt;/div&gt;</comment>
-        </item><item type="external_workflow_global_action" id="2">
+        </item><item type="external_workflow_global_action" id="3">
           <slug>formdef:pp-fiche-inscription-plaine</slug>
           <trigger_id>action:closed</trigger_id>
           <target_mode>manual</target_mode>
@@ -678,7 +679,7 @@ Cordialement,</body>
     </status><status>
       <id>15</id>
       <name>Inscription cl&#244;tur&#233;e</name>
-      <colour>00FF00</colour>
+      <colour>#00FF00</colour>
       <visibility />
       <items>
         <item type="register-comment" id="1">
@@ -698,7 +699,7 @@ Cordialement,</body>
     </status><status>
       <id>17</id>
       <name>Inscriptions annul&#233;es</name>
-      <colour>999999</colour>
+      <colour>#999999</colour>
       <visibility />
       <items>
         <item type="external_workflow_global_action" id="1">
@@ -711,7 +712,7 @@ Cordialement,</body>
     </status><status>
       <id>18</id>
       <name>Aucune inscription n'a &#233;t&#233; trouv&#233;e</name>
-      <colour>FF0000</colour>
+      <colour>#FF0000</colour>
       <visibility />
       <items>
         <item type="displaymsg" id="1">
@@ -731,8 +732,9 @@ Cordialement,</body>
       </items><triggers>
         <trigger type="manual" id="58744480-1a3b-487d-963e-06239281e87d">
           <roles>
-            <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
-          </roles>
+            <item slug="debug" role_id="cdcc12ee550e435292b47fbf3a17c32f">Debug</item>
+          </roles><allow_as_mass_action>True</allow_as_mass_action>
+          <require_confirmation>False</require_confirmation>
         </trigger>
       </triggers>
     </action>
@@ -741,100 +743,110 @@ Cordialement,</body>
       <name>-</name>
       <fields>
         <field>
+          <type>title</type>
           <label type="str">Configurer les modes de paiement</label>
-          <type type="str">title</type>
           <display_locations>
             <display_location>validation</display_location>
             <display_location>summary</display_location>
           </display_locations><id type="str">7</id>
         </field><field>
+          <type>item</type>
           <label type="str">Mode de paiement</label>
-          <type type="str">item</type>
           <required type="bool">True</required>
           <varname type="str">mode_paiement</varname>
           <display_locations />
+          <anonymise type="bool">False</anonymise>
           <display_mode type="str">radio</display_mode>
           <items>
             <item>Paiement en ligne</item>
             <item>Paiement par virement</item>
             <item>Paiement diff&#233;r&#233;</item>
           </items><in_filters type="bool">False</in_filters>
-          <anonymise type="bool">False</anonymise>
           <display_disabled_items type="bool">False</display_disabled_items>
+          <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
+          <image_desktop_size type="int">150</image_desktop_size>
+          <image_mobile_size type="int">75</image_mobile_size>
           <id type="str">1</id>
         </field><field>
+          <type>subtitle</type>
           <label type="str">Paiement en ligne</label>
-          <type type="str">subtitle</type>
           <display_locations>
             <display_location>validation</display_location>
             <display_location>summary</display_location>
           </display_locations><id type="str">6</id>
         </field><field>
+          <type>item</type>
           <label type="str">R&#233;gie de paiement</label>
-          <type type="str">item</type>
           <required type="bool">False</required>
           <hint type="str">Celle-ci d&#233;fini le panier sp&#233;cifique pour les plaines.</hint>
           <varname type="str">regie_de_paiement</varname>
           <display_locations />
+          <anonymise type="bool">False</anonymise>
           <display_mode type="str">radio</display_mode>
           <items />
           <data_source>
             <type>json</type>
             <value>{{portal_url}}/api/lingo/regies</value>
           </data_source><in_filters type="bool">False</in_filters>
-          <anonymise type="bool">False</anonymise>
           <display_disabled_items type="bool">False</display_disabled_items>
+          <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
+          <image_desktop_size type="int">150</image_desktop_size>
+          <image_mobile_size type="int">75</image_mobile_size>
           <id type="str">3</id>
         </field><field>
+          <type>bool</type>
           <label type="str">Ne pas annuler les inscriptions apr&#232;s un d&#233;lai</label>
-          <type type="str">bool</type>
           <required type="bool">False</required>
           <hint type="str">Veiller &#224; ce que les inscriptions aux plaines ne soient pas annul&#233;es automatiquement apr&#232;s un d&#233;lai. Pas d'effet sur les paiements par virements ou diff&#233;r&#233;s.</hint>
           <varname type="str">non_auto_annulation</varname>
           <display_locations />
+          <anonymise type="str">no</anonymise>
           <id type="str">8</id>
         </field><field>
+          <type>subtitle</type>
           <label type="str">Paiement par virement</label>
-          <type type="str">subtitle</type>
           <display_locations>
             <display_location>validation</display_location>
             <display_location>summary</display_location>
           </display_locations><id type="str">5</id>
         </field><field>
+          <type>string</type>
           <label type="str">Num&#233;ro de compte</label>
-          <type type="str">string</type>
           <required type="bool">False</required>
           <hint type="str">&#192; compl&#233;ter si le mode de paiement est "Paiement par virement", ce num&#233;ro sera affich&#233; &#224; l'usager lorsqu'il sera invit&#233; &#224; payer.</hint>
           <varname type="str">iban</varname>
           <display_locations />
-          <anonymise type="bool">True</anonymise>
+          <anonymise type="str">final</anonymise>
           <id type="str">2</id>
         </field><field>
+          <type>item</type>
           <label type="str">Comment calculer le montant ?</label>
-          <type type="str">item</type>
           <required type="bool">False</required>
           <hint type="str">Quand le paiement doit &#234;tre fait par virement, il faut indiquer comment le montant est calcul&#233;.</hint>
           <varname type="str">calcul_montant</varname>
           <display_locations />
+          <anonymise type="bool">False</anonymise>
           <display_mode type="str">radio</display_mode>
           <items>
             <item>Demander le montant &#224; AES</item>
             <item>Calculer le montant manuellement</item>
             <item>Demander le montant &#224; AES avec validation</item>
           </items><in_filters type="bool">False</in_filters>
-          <anonymise type="bool">False</anonymise>
           <display_disabled_items type="bool">False</display_disabled_items>
+          <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
+          <image_desktop_size type="int">150</image_desktop_size>
+          <image_mobile_size type="int">75</image_mobile_size>
           <id type="str">4</id>
         </field><field>
+          <type>text</type>
           <label type="str">Pr&#233;remplir les informations compl&#233;mentaires</label>
-          <type type="str">text</type>
           <required type="bool">False</required>
           <hint type="str">Ce texte ira pr&#233;remplir le champ "informations compl&#233;mentaires" du formulaire que les agents traitants doivent compl&#233;ter lors du paiement par virement.</hint>
           <varname type="str">preremplir_info_complementaires</varname>
           <display_locations />
           <extra_css_class type="str">grid-1-1</extra_css_class>
-          <display_mode type="str">plain</display_mode>
           <anonymise type="bool">True</anonymise>
+          <display_mode type="str">plain</display_mode>
           <id type="str">9</id>
         </field>
       </fields>
@@ -844,22 +856,22 @@ Cordialement,</body>
       <name>-</name>
       <fields>
         <field>
+          <type>string</type>
           <label type="str">Enfants</label>
-          <type type="str">string</type>
           <required type="bool">True</required>
           <varname type="str">enfants</varname>
           <display_locations>
             <display_location>summary</display_location>
             <display_location>listings</display_location>
-          </display_locations><anonymise type="bool">True</anonymise>
+          </display_locations><anonymise type="str">final</anonymise>
           <id type="str">bob83465d0-0d08-48c2-abec-3fff36b18325</id>
         </field><field>
+          <type>string</type>
           <label type="str">Inscriptions concern&#233;es</label>
-          <type type="str">string</type>
           <required type="bool">True</required>
           <varname type="str">inscriptions_concernees</varname>
           <display_locations />
-          <anonymise type="bool">True</anonymise>
+          <anonymise type="str">final</anonymise>
           <id type="str">bo05ae962d-cb56-4c1d-b44a-ccdefe25b71d</id>
         </field>
       </fields>
