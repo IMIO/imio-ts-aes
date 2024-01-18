@@ -48,11 +48,12 @@
         <locked>True</locked>
         <type>string</type>
         <value>{{ form_var_id_enfant }}</value>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
+      <items />
       <data_source>
         <type>portail_parent_enfants</type>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -80,16 +81,16 @@
       </display_locations><extra_css_class type="str">hidden</extra_css_class>
       <prefill>
         <locked>False</locked>
-        <type>formula</type>
-        <value>[repas["id"] for repas in data_source.portail_parent_inscriptions_aux_repas]</value>
-      </prefill><display_mode type="str">checkboxes</display_mode>
+        <type>string</type>
+        <value>{% for repas in data_source.portail_parent_inscriptions_aux_repas %}{{ repas|get:"id" }}|{% endfor %}</value>
+      </prefill><anonymise type="str">final</anonymise>
+      <display_mode type="str">checkboxes</display_mode>
       <min_choices type="int">1</min_choices>
       <max_choices type="int">0</max_choices>
       <data_source>
         <type>portail_parent_repas_scolaires</type>
         <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/menus?child_id=22&amp;month=1</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">final</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <image_desktop_size type="int">150</image_desktop_size>
       <image_mobile_size type="int">75</image_mobile_size>

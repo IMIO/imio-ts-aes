@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.11.4
+----------------
+- [TELE-1872] Changed: Condition python in Django for préremplissage repas
+
 1.11.3
 ----------------
 - [TELE-1872] Changed: Condition python in Django for workflow-portail-parent-finalisation-des-inscriptions.wcs
