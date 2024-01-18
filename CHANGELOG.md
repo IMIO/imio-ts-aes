@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.11.3
+----------------
+- [TELE-1872] Changed: Condition python in Django for workflow-portail-parent-finalisation-des-inscriptions.wcs
+  - Updated: xml workflow-portail-parent-finalisation-des-inscriptions.wcs
+
 1.11.2
 ----------------
 - [TELE-1606] Changed: Condition python in Django
