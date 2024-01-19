@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.11.5
+----------------
+- [TELE-1872] Changed: Condition python in Django for datasources in fiche santé
+  - updated: xml
+- Add datasource autre for add in other datasources and keep it last item
+
 1.11.4
 ----------------
 - [TELE-1872] Changed: Condition python in Django for préremplissage repas

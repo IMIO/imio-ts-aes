@@ -92,6 +92,7 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.blood_type|default:"unknown" }}</value>
       </prefill><anonymise type="str">no</anonymise>
@@ -107,8 +108,8 @@
         <item>AB-</item>
         <item>inconnu</item>
       </items><data_source>
-        <type>formula</type>
-        <value>form_var_fiche_sante_selections["blood_type"]</value>
+        <type>jsonvalue</type>
+        <value>{{ form_var_fiche_sante_selections|get:"blood_type"|json_dumps }}</value>
       </data_source><in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <initial_zoom type="str">13</initial_zoom>
@@ -128,6 +129,7 @@
         <display_location>validation</display_location>
         <display_location>summary</display_location>
       </display_locations><prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.tetanus_selection }}</value>
       </prefill><anonymise type="str">no</anonymise>
@@ -136,8 +138,8 @@
         <item>Oui</item>
         <item>Non</item>
       </items><data_source>
-        <type>formula</type>
-        <value>form_var_fiche_sante_selections["tetanus_selection"]</value>
+        <type>jsonvalue</type>
+        <value>{{ form_var_fiche_sante_selections|get:"tetanus_selection"|json_dumps }}</value>
       </data_source><in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
@@ -197,14 +199,14 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.intervention_selection }}</value>
       </prefill><anonymise type="str">no</anonymise>
       <display_mode type="str">radio</display_mode>
-      <items />
       <data_source>
-        <type>formula</type>
-        <value>form_var_fiche_sante_selections["intervention_selection"]</value>
+        <type>jsonvalue</type>
+        <value>{{ form_var_fiche_sante_selections|get:"intervention_selection"|json_dumps }}</value>
       </data_source><in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
@@ -242,14 +244,14 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.swim }}</value>
       </prefill><anonymise type="str">no</anonymise>
       <display_mode type="str">radio</display_mode>
-      <items />
       <data_source>
-        <type>formula</type>
-        <value>form_var_fiche_sante_selections["swim"]</value>
+        <type>jsonvalue</type>
+        <value>{{ form_var_fiche_sante_selections|get:"swim"|json_dumps }}</value>
       </data_source><in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
@@ -269,14 +271,14 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.swim_level }}</value>
       </prefill><anonymise type="str">no</anonymise>
       <display_mode type="str">radio</display_mode>
-      <items />
       <data_source>
-        <type>formula</type>
-        <value>form_var_fiche_sante_selections["swim_level"]</value>
+        <type>jsonvalue</type>
+        <value>{{ form_var_fiche_sante_selections|get:"swim_level"|json_dumps }}</value>
       </data_source><in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
@@ -296,14 +298,14 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.bike }}</value>
       </prefill><anonymise type="str">no</anonymise>
       <display_mode type="str">radio</display_mode>
-      <items />
       <data_source>
-        <type>formula</type>
-        <value>form_var_fiche_sante_selections["bike"]</value>
+        <type>jsonvalue</type>
+        <value>{{ form_var_fiche_sante_selections|get:"bike"|json_dumps }}</value>
       </data_source><in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
@@ -323,14 +325,14 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.glasses }}</value>
       </prefill><anonymise type="str">no</anonymise>
       <display_mode type="str">radio</display_mode>
-      <items />
       <data_source>
-        <type>formula</type>
-        <value>form_var_fiche_sante_selections["glasses"]</value>
+        <type>jsonvalue</type>
+        <value>{{ form_var_fiche_sante_selections|get:"glasses"|json_dumps }}</value>
       </data_source><in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
@@ -350,14 +352,14 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.hearing_aid }}</value>
       </prefill><anonymise type="str">no</anonymise>
       <display_mode type="str">radio</display_mode>
-      <items />
       <data_source>
-        <type>formula</type>
-        <value>form_var_fiche_sante_selections["hearing_aid"]</value>
+        <type>jsonvalue</type>
+        <value>{{ form_var_fiche_sante_selections|get:"hearing_aid"|json_dumps }}</value>
       </data_source><in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
@@ -377,14 +379,14 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.nap }}</value>
       </prefill><anonymise type="str">no</anonymise>
       <display_mode type="str">radio</display_mode>
-      <items />
       <data_source>
-        <type>formula</type>
-        <value>form_var_fiche_sante_selections["nap"]</value>
+        <type>jsonvalue</type>
+        <value>{{ form_var_fiche_sante_selections|get:"nap"|json_dumps }}</value>
       </data_source><in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
@@ -404,14 +406,14 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.emotional_support }}</value>
       </prefill><anonymise type="str">no</anonymise>
       <display_mode type="str">radio</display_mode>
-      <items />
       <data_source>
-        <type>formula</type>
-        <value>form_var_fiche_sante_selections["emotional_support"]</value>
+        <type>jsonvalue</type>
+        <value>{{ form_var_fiche_sante_selections|get:"emotional_support"|json_dumps }}</value>
       </data_source><in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
@@ -431,14 +433,14 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.handicap_selection }}</value>
       </prefill><anonymise type="str">no</anonymise>
       <display_mode type="str">radio</display_mode>
-      <items />
       <data_source>
-        <type>formula</type>
-        <value>form_var_fiche_sante_selections["handicap_selection"]</value>
+        <type>jsonvalue</type>
+        <value>{{ form_var_fiche_sante_selections|get:"handicap_selection"|json_dumps }}</value>
       </data_source><in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
@@ -457,14 +459,14 @@
         <display_location>validation</display_location>
         <display_location>summary</display_location>
       </display_locations><prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{% if form_var_fiche_sante.level_handicap %}{{ form_var_fiche_sante.level_handicap }}{% endif %}</value>
       </prefill><anonymise type="str">no</anonymise>
       <display_mode type="str">radio</display_mode>
-      <items />
       <data_source>
-        <type>formula</type>
-        <value>form_var_fiche_sante_selections["level_handicap"]</value>
+        <type>jsonvalue</type>
+        <value>{{ form_var_fiche_sante_selections|get:"level_handicap"|json_dumps }}</value>
       </data_source><in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
@@ -502,14 +504,14 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.activity_no_available_selection }}</value>
       </prefill><anonymise type="str">no</anonymise>
       <display_mode type="str">radio</display_mode>
-      <items />
       <data_source>
-        <type>formula</type>
-        <value>form_var_fiche_sante_selections["activity_no_available_selection"]</value>
+        <type>jsonvalue</type>
+        <value>{{ form_var_fiche_sante_selections|get:"activity_no_available_selection"|json_dumps }}</value>
       </data_source><in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
@@ -564,14 +566,14 @@
         <display_location>validation</display_location>
         <display_location>summary</display_location>
       </display_locations><prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.specific_regime_selection }}</value>
       </prefill><anonymise type="str">no</anonymise>
       <display_mode type="str">radio</display_mode>
-      <items />
       <data_source>
-        <type>formula</type>
-        <value>form_var_fiche_sante_selections["specific_regime_selection"]</value>
+        <type>jsonvalue</type>
+        <value>{{ form_var_fiche_sante_selections|get:"specific_regime_selection"|json_dumps }}</value>
       </data_source><in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
@@ -609,14 +611,14 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.arnica }}</value>
       </prefill><anonymise type="str">no</anonymise>
       <display_mode type="str">radio</display_mode>
-      <items />
       <data_source>
-        <type>formula</type>
-        <value>form_var_fiche_sante_selections["arnica"]</value>
+        <type>jsonvalue</type>
+        <value>{{ form_var_fiche_sante_selections|get:"arnica"|json_dumps }}</value>
       </data_source><in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
@@ -691,6 +693,7 @@
         <display_location>validation</display_location>
         <display_location>summary</display_location>
       </display_locations><prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.allergy_selection }}</value>
       </prefill><anonymise type="str">no</anonymise>
@@ -699,8 +702,8 @@
         <item>Oui</item>
         <item>Non</item>
       </items><data_source>
-        <type>formula</type>
-        <value>form_var_fiche_sante_selections["allergy_selection"]</value>
+        <type>jsonvalue</type>
+        <value>{{ form_var_fiche_sante_selections|get:"allergy_selection"|json_dumps }}</value>
       </data_source><in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
@@ -1136,14 +1139,14 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.has_medication }}</value>
       </prefill><anonymise type="str">no</anonymise>
       <display_mode type="str">radio</display_mode>
-      <items />
       <data_source>
-        <type>formula</type>
-        <value>form_var_fiche_sante_selections["has_medication"]</value>
+        <type>jsonvalue</type>
+        <value>{{ form_var_fiche_sante_selections|get:"has_medication"|json_dumps }}</value>
       </data_source><in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
@@ -1246,14 +1249,14 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.0.self_medication }}</value>
       </prefill><anonymise type="str">no</anonymise>
       <display_mode type="str">radio</display_mode>
-      <items />
       <data_source>
-        <type>formula</type>
-        <value>form_var_fiche_sante_selections["self_medication"]</value>
+        <type>jsonvalue</type>
+        <value>{{ form_var_fiche_sante_selections|get:"self_medication"|json_dumps }}</value>
       </data_source><in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
@@ -1336,14 +1339,14 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.1.self_medication }}</value>
       </prefill><anonymise type="str">no</anonymise>
       <display_mode type="str">radio</display_mode>
-      <items />
       <data_source>
-        <type>formula</type>
-        <value>form_var_fiche_sante_selections["self_medication"]</value>
+        <type>jsonvalue</type>
+        <value>{{ form_var_fiche_sante_selections|get:"self_medication"|json_dumps }}</value>
       </data_source><in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
@@ -1426,14 +1429,14 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.2.self_medication }}</value>
       </prefill><anonymise type="str">no</anonymise>
       <display_mode type="str">radio</display_mode>
-      <items />
       <data_source>
-        <type>formula</type>
-        <value>form_var_fiche_sante_selections["self_medication"]</value>
+        <type>jsonvalue</type>
+        <value>{{ form_var_fiche_sante_selections|get:"self_medication"|json_dumps }}</value>
       </data_source><in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
@@ -1516,14 +1519,14 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.3.self_medication }}</value>
       </prefill><anonymise type="str">no</anonymise>
       <display_mode type="str">radio</display_mode>
-      <items />
       <data_source>
-        <type>formula</type>
-        <value>form_var_fiche_sante_selections["self_medication"]</value>
+        <type>jsonvalue</type>
+        <value>{{ form_var_fiche_sante_selections|get:"self_medication"|json_dumps }}</value>
       </data_source><in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
@@ -1606,14 +1609,14 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.4.self_medication }}</value>
       </prefill><anonymise type="str">no</anonymise>
       <display_mode type="str">radio</display_mode>
-      <items />
       <data_source>
-        <type>formula</type>
-        <value>form_var_fiche_sante_selections["self_medication"]</value>
+        <type>jsonvalue</type>
+        <value>{{ form_var_fiche_sante_selections|get:"self_medication"|json_dumps }}</value>
       </data_source><in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
@@ -1696,14 +1699,14 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.5.self_medication }}</value>
       </prefill><anonymise type="str">no</anonymise>
       <display_mode type="str">radio</display_mode>
-      <items />
       <data_source>
-        <type>formula</type>
-        <value>form_var_fiche_sante_selections["self_medication"]</value>
+        <type>jsonvalue</type>
+        <value>{{ form_var_fiche_sante_selections|get:"self_medication"|json_dumps }}</value>
       </data_source><in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
@@ -1786,14 +1789,14 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.6.self_medication }}</value>
       </prefill><anonymise type="str">no</anonymise>
       <display_mode type="str">radio</display_mode>
-      <items />
       <data_source>
-        <type>formula</type>
-        <value>form_var_fiche_sante_selections["self_medication"]</value>
+        <type>jsonvalue</type>
+        <value>{{ form_var_fiche_sante_selections|get:"self_medication"|json_dumps }}</value>
       </data_source><in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
@@ -1876,14 +1879,14 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.7.self_medication }}</value>
       </prefill><anonymise type="str">no</anonymise>
       <display_mode type="str">radio</display_mode>
-      <items />
       <data_source>
-        <type>formula</type>
-        <value>form_var_fiche_sante_selections["self_medication"]</value>
+        <type>jsonvalue</type>
+        <value>{{ form_var_fiche_sante_selections|get:"self_medication"|json_dumps }}</value>
       </data_source><in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
@@ -1966,14 +1969,14 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.8.self_medication }}</value>
       </prefill><anonymise type="str">no</anonymise>
       <display_mode type="str">radio</display_mode>
-      <items />
       <data_source>
-        <type>formula</type>
-        <value>form_var_fiche_sante_selections["self_medication"]</value>
+        <type>jsonvalue</type>
+        <value>{{ form_var_fiche_sante_selections|get:"self_medication"|json_dumps }}</value>
       </data_source><in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
@@ -2056,14 +2059,14 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.medication_ids.9.self_medication }}</value>
       </prefill><anonymise type="str">no</anonymise>
       <display_mode type="str">radio</display_mode>
-      <items />
       <data_source>
-        <type>formula</type>
-        <value>form_var_fiche_sante_selections["self_medication"]</value>
+        <type>jsonvalue</type>
+        <value>{{ form_var_fiche_sante_selections|get:"self_medication"|json_dumps }}</value>
       </data_source><in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
@@ -2094,14 +2097,14 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.to_go_alone }}</value>
       </prefill><anonymise type="str">no</anonymise>
       <display_mode type="str">radio</display_mode>
-      <items />
       <data_source>
-        <type>formula</type>
-        <value>form_var_fiche_sante_selections["to_go_alone"]</value>
+        <type>jsonvalue</type>
+        <value>{{ form_var_fiche_sante_selections|get:"to_go_alone"|json_dumps }}</value>
       </data_source><in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
@@ -2239,14 +2242,14 @@
       <display_locations />
       <extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.doctor_id.0 }}</value>
       </prefill><anonymise type="str">no</anonymise>
       <display_mode type="str">autocomplete</display_mode>
-      <items />
       <data_source>
-        <type>formula</type>
-        <value>sorted(data_source.aes_doctors, key=lambda x: x["text"], reverse = False) + [{'id':'autre','text':'Autre'}]</value>
+        <type>jsonvalue</type>
+        <value>{% with data_source.autre|to_list as autre %}{{ data_source.aes_doctors|sort_list_dict:"text"|add:autre|json_dumps }}{% endwith %}</value>
       </data_source><in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <initial_zoom type="str">13</initial_zoom>
@@ -2505,7 +2508,6 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-3</extra_css_class>
       <prefill>
-        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.allowed_contact_ids.0|get:"phone"|default:"" }}</value>
       </prefill><anonymise type="str">final</anonymise>
@@ -2637,17 +2639,18 @@
         <type>django</type>
         <value>form_var_contact_0_country|lower == "belgique" and 'other_contact_address' in form_option_questions_raw</value>
       </condition><required type="bool">True</required>
+      <hint type="str">---</hint>
       <varname type="str">contact_0_locality</varname>
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-3</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.allowed_contact_ids.0|get:"city"|get:0|default:"" }}</value>
       </prefill><anonymise type="str">no</anonymise>
       <display_mode type="str">autocomplete</display_mode>
-      <items />
       <data_source>
         <type>portail_parent_localites</type>
       </data_source><in_filters type="bool">False</in_filters>
@@ -2717,7 +2720,6 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">newline grid-1-3</extra_css_class>
       <prefill>
-        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.allowed_contact_ids.1|get:"phone"|default:"" }}</value>
       </prefill><anonymise type="str">final</anonymise>
@@ -2900,14 +2902,14 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-1</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.photo }}</value>
       </prefill><anonymise type="str">no</anonymise>
       <display_mode type="str">radio</display_mode>
-      <items />
       <data_source>
-        <type>formula</type>
-        <value>form_var_fiche_sante_selections["photo"]</value>
+        <type>jsonvalue</type>
+        <value>{{ form_var_fiche_sante_selections|get:"photo"|json_dumps }}</value>
       </data_source><in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
@@ -2927,14 +2929,14 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-1</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.photo_general }}</value>
       </prefill><anonymise type="str">no</anonymise>
       <display_mode type="str">radio</display_mode>
-      <items />
       <data_source>
-        <type>formula</type>
-        <value>form_var_fiche_sante_selections["photo_general"]</value>
+        <type>jsonvalue</type>
+        <value>{{ form_var_fiche_sante_selections|get:"photo_general"|json_dumps }}</value>
       </data_source><in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
@@ -2954,14 +2956,14 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">grid-1-1</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_fiche_sante.facebook }}</value>
       </prefill><anonymise type="str">no</anonymise>
       <display_mode type="str">radio</display_mode>
-      <items />
       <data_source>
-        <type>formula</type>
-        <value>form_var_fiche_sante_selections["facebook"]</value>
+        <type>jsonvalue</type>
+        <value>{{ form_var_fiche_sante_selections|get:"facebook"|json_dumps }}</value>
       </data_source><in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
