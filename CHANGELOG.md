@@ -1,31 +1,45 @@
 Changelog
 =========
 
+1.11.6
+----------------
+
+- [TELE-1606] Changed: Condition python in Django for datasources in form-pp-plaines-de-vacances.wcs
+    - updated: xml
+- [TELE-1606] Changed: Condition python in Django for datasources
+  workflow-portail-parent-fiche-d-inscription-aux-plaines.wcs
+
 1.11.5
 ----------------
+
 - [TELE-1872] Changed: Condition python in Django for datasources in fiche santé
-  - updated: xml
+    - updated: xml
 - Add datasource autre for add in other datasources and keep it last item
 
 1.11.4
 ----------------
+
 - [TELE-1872] Changed: Condition python in Django for préremplissage repas
 
 1.11.3
 ----------------
+
 - [TELE-1872] Changed: Condition python in Django for workflow-portail-parent-finalisation-des-inscriptions.wcs
-  - Updated: xml workflow-portail-parent-finalisation-des-inscriptions.wcs
+    - Updated: xml workflow-portail-parent-finalisation-des-inscriptions.wcs
 
 1.11.2
 ----------------
+
 - [TELE-1606] Changed: Condition python in Django
 
 1.11.1
 ----------------
+
 - [TELE-1606] Changed: Datasource in python transform in JSON
 
 1.11.0
 ----------------
+
 - [MPP-464] Fixed: first contact sending to passerelle
 - [MPP-463] Added: child's name in healthsheet's form
 - [MPP-463] Added: display child's level and school implantation for agents in school meals context
@@ -33,23 +47,30 @@ Changelog
 
 1.10.1
 ----------------
-- [MPP-454] Changed: error message if current child's school isn't checked in school implantation in pp-repas-scolaires form options
+
+- [MPP-454] Changed: error message if current child's school isn't checked in school implantation in pp-repas-scolaires
+  form options
 
 1.10.0
 ----------------
-- [MPP-454] Added: Block parent in school meal form if some schools are checked in form options and selected child's school isn't included
+
+- [MPP-454] Added: Block parent in school meal form if some schools are checked in form options and selected child's
+  school isn't included
 
 1.9.2
 -----------------
+
 - [MPP-453] Added: details about failed parent's structured communication's get
 - [MPP-453] Added: action to resume plain's finalization after a failed parent's structured communication's get
 
 1.9.1
 -----------------
+
 - [MPP-450] added: message that notify user if locality and zipcode are unmatching
 
 1.9.0
 -----------------
+
 - [MPP-444] send other allergies to iA.AES
 - [MPP-444] send other diseases to iA.AES
 - [MPP-444] fix display condition of other allergies field
@@ -58,26 +79,32 @@ Changelog
 
 1.8.3
 -----------------
+
 - [MPPNIVA-3] fixed: remove default contact id when no contact are mentioned in healthsheet form
 
 1.8.2
 -----------------
+
 - [MPP-440] added: prefill doctor's fields
 
 1.8.1
 -----------------
+
 - [MPP-439] added: alert message about medication condition
 
 1.8.0
 -----------------
+
 - [MPPVERA-5] added: possibility to manually validate AES calculated amount for bank transfer
 
 1.7.6
 -----------------
+
 - [MPP-431] fixed: test "not_specified" in swim instead of swim level
 
 1.7.5
 -----------------
+
 - [MPP-435] Removed: healthsheet self medication data sending to passerelle
 - [MPP-435] Changed: prefilling and choices of has medication healthsheet field
 - [MPP-434] Fixed: prefilling of disease gravity and treatment healthsheet fields
@@ -86,22 +113,27 @@ Changelog
 
 1.7.4
 -----------------
+
 - [MPP-431] Added: alert if user leaves not specified fields in healthsheet
 
 1.7.3
 -----------------
+
 - [MPP-413] Fixed: manage mandatory and optional authorizations separatly
 
 1.7.2
 -----------------
+
 - [MPP-413] Fixed: do not display authorizations fields if there is no authorizations from iA.AES
 
 1.7.1
 -----------------
+
 - [MPP-413] Added: management of optional and mandatory authorizations
 
 1.7.0
 -----------------
+
 - [MPP-424] Added: comment about additional informations in healthsheet
 - [MPP-415] Changed: arnica's label in healthsheet
 - [MPP-393] Changed: default functions roles
@@ -114,11 +146,13 @@ Changelog
 
 1.6.0
 -----------------
+
 - [MPP-405] Added: send user uuid to passerelle, to construct homepage
 - [MPP-405] Changed: update combo settings
 
 1.5.0
 ------------------
+
 - [MPP-403] Added: fetch parent's plain's structured communication
 - [MPP-404] Added: default complementary infos
 - [MPP-401] Added: list of plains in feedback at the end of registrations finalization
@@ -126,42 +160,50 @@ Changelog
 
 1.4.3
 ------------------
+
 - [MPP-420] Fixed: failed parent self-registration can be regularized
 - [MPP-407] Fixed: set unsuccessful plains registrations status as final
 
 1.4.2
 ------------------
+
 - [MPP-383] Fixed: failed parent adding to child can be regularized
 
 1.4.1
 ------------------
+
 - [MPP-383] Fixed: manage error if adding parent to child fails"
 
 1.4.0
 ------------------
+
 - [MPP-386] Added: agent-manageable options to lock plains registration to local citizens
 - [MPP-384] Fixed: warn user about 3 days cancelation if bank transfer is activated
 
 1.3.3
 ------------------
+
 - [MPP-385] Updated: ask for user's phone number
 - [MPP-384] Changed: cancel plain reservations after 3 days without validation also if bank transfer is configured
 
-
 1.3.2
 ------------------
+
 - Changed: deadline for meal unregistration can now be current day
 
 1.3.1
 ------------------
+
 - [MPP-382] Removed: combo agent site structure
 
 1.3.0
 ------------------
+
 - [MPP-362] Added: alert before registration cancellation when parent does not pay
 
 1.2.0
 ------------------
+
 - [MPP-364] Added: meal unregistration deadline [nhislaire]
 
 1.1.0
@@ -182,22 +224,25 @@ Changelog
 
 0.2.36
 ------------------
-  - Fixed: regie_id when manual amount is used
+
+- Fixed: regie_id when manual amount is used
 
 0.2.35
 ------------------
-  - Added: aes-enfant json datasource
-  - Added: implantations-scolaires json datasource
-  - Updated: meal registration form and workflwo to use new datasources
-  - Removed: old implantations-scolaire python datasource
+
+- Added: aes-enfant json datasource
+- Added: implantations-scolaires json datasource
+- Updated: meal registration form and workflwo to use new datasources
+- Removed: old implantations-scolaire python datasource
 
 0.2.34
 ------------------
-  - Added : Send an email to portal agent when parent unsubscribe their child from meals [nhi]
-  - Added : Alert to user if his unsubscribe child to meals request was successful [nhi]
-  - Fixed : email to parent when they unsubscribe their child from meals [nhi]
-  - Fixed : condition in register child to meals [nhi]
-  - Fixed : typo in parent registering workflow [nhi]
+
+- Added : Send an email to portal agent when parent unsubscribe their child from meals [nhi]
+- Added : Alert to user if his unsubscribe child to meals request was successful [nhi]
+- Fixed : email to parent when they unsubscribe their child from meals [nhi]
+- Fixed : condition in register child to meals [nhi]
+- Fixed : typo in parent registering workflow [nhi]
 
 0.2.33
 ------------------
@@ -279,10 +324,10 @@ Changelog
 0.2.21
 ------------------
 
- - add custom info-cell
- - get blood type from aes
- - fix get healthsheet webservice
-   [nhislaire]
+- add custom info-cell
+- get blood type from aes
+- fix get healthsheet webservice
+  [nhislaire]
 
 0.2.20
 ------------------

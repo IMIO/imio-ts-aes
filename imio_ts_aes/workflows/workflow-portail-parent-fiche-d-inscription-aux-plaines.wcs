@@ -9,7 +9,7 @@
     <status>
       <id>1</id>
       <name>En attente de validation</name>
-      <colour>FFFFFF</colour>
+      <colour>#FFFFFF</colour>
       <visibility />
       <items>
         <item type="choice" id="1">
@@ -294,8 +294,8 @@ Cordialement,</body>
           </display_locations><display_mode type="str">list</display_mode>
           <items />
           <data_source>
-            <type>formula</type>
-            <value>[activity for activities in [week['activities'] for week in webservice.aes_get_available_plaines] for activity in activities]</value>
+            <type>jsonvalue</type>
+            <value>[{% for week in webservice.aes_get_available_plaines %}{% for activity in week|get:"activities" %}{{ activity|json_dumps }}{% if not forloop.last %}, {% endif %}{% endfor %}{% if not forloop.last %}, {% endif %}{% endfor %}]</value>
           </data_source><in_filters type="bool">False</in_filters>
           <anonymise type="bool">False</anonymise>
           <display_disabled_items type="bool">False</display_disabled_items>

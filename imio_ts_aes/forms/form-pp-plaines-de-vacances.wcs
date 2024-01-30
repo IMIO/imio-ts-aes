@@ -2,7 +2,6 @@
 <formdef id="3" url="https://wcs.dev.publik.love/backoffice/forms/3/">
   <name>Plaines de vacances</name>
   <url_name>pp-plaines-de-vacances</url_name>
-  <internal_identifier>plaines-de-vacances</internal_identifier>
   <drafts_lifespan>2</drafts_lifespan>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
@@ -16,11 +15,10 @@
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="1">Portail Parent</category>
   <workflow slug="portail-parent-plaines-de-vacances" workflow_id="19">Portail Parent - Plaines de vacances</workflow>
-  <max_field_id>66</max_field_id>
   <fields>
     <field>
+      <type>page</type>
       <label type="str">Inscription r&#233;serv&#233;e aux habitants</label>
-      <type type="str">page</type>
       <condition>
         <type>django</type>
         <value>form_user_var_zipcode not in commune_cp and form_option_ouvertes_aux_habitants == "Oui"</value>
@@ -33,26 +31,26 @@
         </post_condition>
       </post_conditions><id type="str">65</id>
     </field><field>
+      <type>comment</type>
       <label type="str">&lt;p&gt;{{ form_option_message_aux_non_residents|default:"Veuillez attendre l'ouverture des plaines &#224; tous" }}&lt;/p&gt;
 </label>
-      <type type="str">comment</type>
       <extra_css_class type="str">pk-attention</extra_css_class>
       <display_locations />
       <id type="str">66</id>
     </field><field>
+      <type>page</type>
       <label type="str">Inscription</label>
-      <type type="str">page</type>
       <id type="str">64</id>
     </field><field>
+      <type>computed</type>
       <label type="str">Identifiant de l'enfant</label>
-      <type type="str">computed</type>
       <varname type="str">id_enfant</varname>
       <value_template type="str">{{request.GET.enfant|default:""}}</value_template>
       <freeze_on_initial_value type="bool">True</freeze_on_initial_value>
       <id type="str">61</id>
     </field><field>
+      <type>item</type>
       <label type="str">Choisissez l'enfant &#224; inscrire aux plaines</label>
-      <type type="str">item</type>
       <required type="bool">False</required>
       <varname type="str">enfant</varname>
       <display_locations>
@@ -64,18 +62,22 @@
         <locked>True</locked>
         <type>string</type>
         <value>{{ form_var_id_enfant }}</value>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
+      <items />
       <data_source>
         <type>portail_parent_enfants</type>
         <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ form_user_var_aes_id }}/children/</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="bool">False</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
+      <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
+      <image_desktop_size type="int">150</image_desktop_size>
+      <image_mobile_size type="int">75</image_mobile_size>
       <id type="str">22</id>
     </field><field>
+      <type>comment</type>
       <label type="str">&lt;p&gt;Vous inscrivez &lt;span class="varname"&gt;{{ form_var_enfant }}&lt;/span&gt; aux plaines de vacances.&lt;/p&gt;
 </label>
-      <type type="str">comment</type>
       <condition>
         <type>django</type>
         <value>form_var_enfant</value>
@@ -83,31 +85,30 @@
       <display_locations />
       <id type="str">55</id>
     </field><field>
+      <type>items</type>
       <label type="str">Plaines</label>
-      <type type="str">items</type>
       <required type="bool">True</required>
       <hint type="str">Choisissez vos plaines</hint>
       <varname type="str">activities_plaines</varname>
       <display_locations>
         <display_location>validation</display_location>
       </display_locations><extra_css_class type="str">hidden</extra_css_class>
-      <prefill>
-        <locked>False</locked>
-        <type>none</type>
-      </prefill><display_mode type="str">checkboxes</display_mode>
+      <anonymise type="str">final</anonymise>
+      <display_mode type="str">checkboxes</display_mode>
       <min_choices type="int">0</min_choices>
       <max_choices type="int">0</max_choices>
       <data_source>
-        <type>formula</type>
-        <value>[activity for activities in [week['activities'] for week in webservice.aes_get_available_plaines] for activity in activities]</value>
+        <type>jsonvalue</type>
+        <value>[{% for week in webservice.aes_get_available_plaines %}{% for activity in week|get:"activities" %}{{ activity|json_dumps }}{% if not forloop.last %}, {% endif %}{% endfor %}{% if not forloop.last %}, {% endif %}{% endfor %}]</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="bool">True</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
+      <image_desktop_size type="int">150</image_desktop_size>
+      <image_mobile_size type="int">75</image_mobile_size>
       <id type="str">53</id>
     </field><field>
+      <type>comment</type>
       <label type="str">&lt;p&gt;Plaines&lt;/p&gt;
 </label>
-      <type type="str">comment</type>
       <extra_css_class type="str">template-portail_parent_plaines</extra_css_class>
       <display_locations />
       <id type="str">54</id>
@@ -115,31 +116,13 @@
   </fields><roles>
     <role slug="debug" role_id="5162edec67c74e23bc26251709ab4101" role_key="_debug">Debug</role>
   </roles><options>
-    <option varname="categorie_activite">Plaine</option>
-    <option varname="categorie_activitie">Plaine</option>
-    <option varname="commentaire">Pour toute personne de Staging2, &#233;manant du CPAS, merci de bien vouloir d&#8217;abord contacter ce dernier en premier lieu.</option>
-    <option varname="first_date_plain">01/01/2022</option>
-    <option varname="last_date_plain">31/12/2022</option>
-    <option varname="message_aux_non_residents">Les inscriptions ne sont ouvertes que pour les Sprimontais jusqu'au 21 janvier 2023 &#224; 9h</option>
-    <option varname="modalite_paiement">Paiement en ligne</option>
-    <option varname="modalite_paiement_display">Paiement en ligne</option>
-    <option varname="modalite_paiement_structured" />
+    <option varname="message_aux_non_residents" />
     <option varname="mode_de_paiement">Paiement en ligne</option>
     <option varname="mode_de_paiement_display">Paiement en ligne</option>
     <option varname="mode_de_paiement_structured" />
-    <option varname="mode_paiement" />
-    <option varname="mode_paiement_display" />
-    <option varname="mode_paiement_structured" />
-    <option varname="nb_days_before_free_places">3</option>
-    <option varname="numero_de_compte_iban" />
     <option varname="ouvertes_aux_habitants">Oui</option>
     <option varname="ouvertes_aux_habitants_display">Oui</option>
     <option varname="ouvertes_aux_habitants_structured" />
-    <option varname="regie_de_paiement" />
-    <option varname="regie_de_paiement_display" />
-    <option varname="regie_de_paiement_structured" />
-    <option varname="service_jeunesse_mail">service.jeunesse@macommune.be</option>
-    <option varname="test" />
   </options><custom_views />
   <geolocations />
 </formdef>
