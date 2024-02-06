@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.11.7
+----------------
+
+- [MPP-474] Updated: form repas scolaire: with warning message if the child is already registered to the meal
+
 1.11.6
 ----------------
 

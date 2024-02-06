@@ -71,6 +71,15 @@
       </condition><display_locations />
       <id type="str">56</id>
     </field><field>
+      <type>comment</type>
+      <label type="str">Cet enfant a d&#233;j&#224; &#233;t&#233; inscrit aux repas de ce mois. En apportant des modifications dans le calendrier ci-dessous, cela cr&#233;era des nouvelles inscriptions ne prenant pas compte les pr&#233;c&#233;dentes. Veillez donc &#224; ne pas oublier des inscriptions &#224; prendre en compte.</label>
+      <condition>
+        <type>django</type>
+        <value>data_source.portail_parent_inscriptions_aux_repas</value>
+      </condition><extra_css_class type="str">pk-attention</extra_css_class>
+      <display_locations />
+      <id type="str">726ebda4-722b-441d-9684-d721932aa446</id>
+    </field><field>
       <type>items</type>
       <label type="str">Menu</label>
       <required type="bool">True</required>
@@ -80,10 +89,10 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">hidden</extra_css_class>
       <prefill>
-        <locked>False</locked>
         <type>string</type>
         <value>{% for repas in data_source.portail_parent_inscriptions_aux_repas %}{{ repas|get:"id" }}|{% endfor %}</value>
       </prefill><anonymise type="str">final</anonymise>
+      <items />
       <display_mode type="str">checkboxes</display_mode>
       <min_choices type="int">1</min_choices>
       <max_choices type="int">0</max_choices>
