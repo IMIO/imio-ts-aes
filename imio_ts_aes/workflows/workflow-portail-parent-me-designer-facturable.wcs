@@ -1,0 +1,224 @@
+<?xml version="1.0"?>
+<workflow id="9" url="">
+  <name>Portail Parent - Me d&#233;signer facturable</name>
+  <slug>portail-parent-me-designer-facturable</slug>
+  <category slug="portail-parent" category_id="1">Portail parent</category>
+  <roles>
+    <role id="_receiver">Destinataire</role>
+  </roles><possible_status>
+    <status>
+      <id>1</id>
+      <name>Juste envoy&#233;</name>
+      <colour>#deddda</colour>
+      <visibility>
+        <role>__restricted__</role>
+      </visibility><items>
+        <item type="sendmail" id="3">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to>
+        </item><item type="jump" id="2">
+          <status>2</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>2</id>
+      <name>En attente de v&#233;rification</name>
+      <colour>#62a0ea</colour>
+      <visibility />
+      <items>
+        <item type="register-comment" id="2">
+          <comment>&lt;h3&gt;Limite de parent facturable atteinte&lt;/h3&gt;
+&lt;p&gt;
+L'enfant a d&#233;j&#224; 3 parents facturables attribu&#233;.
+&lt;/p&gt;</comment>
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to><level>warning</level>
+        </item><item type="choice" id="1">
+          <label>Ajout automatique</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>8</status>
+          <require_confirmation>True</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Ajouter automatiquement le parent comme facturable pour l&amp;#39;enfant dans iA.AES.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item type="choice" id="3">
+          <label>Ajout manuel</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>7</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Ajouter manuellement le parent comme facturable pour l&amp;#39;enfant dans iA.AES.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item type="choice" id="4">
+          <label>Refuser la demande</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>10</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Permet de refuser la demande et d&amp;#39;y joindre une explication.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>7</id>
+      <name>Ajout manuel</name>
+      <colour>#deddda</colour>
+      <visibility />
+      <items>
+        <item type="choice" id="1">
+          <label>Valider la modification</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>4</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Cliquez ici une fois la modification faite &amp;agrave; la main dans iA.AES.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>8</id>
+      <name>Ajout automatique</name>
+      <colour>#deddda</colour>
+      <visibility />
+      <items>
+        <item type="webservice_call" id="1">
+          <label>Ajout dans AES</label>
+          <method>POST</method>
+          <post>False</post>
+          <response_type>json</response_type>
+          <action_on_app_error>6</action_on_app_error>
+          <action_on_4xx>6</action_on_4xx>
+          <action_on_5xx>6</action_on_5xx>
+          <action_on_bad_data>6</action_on_bad_data>
+          <action_on_network_errors>6</action_on_network_errors>
+          <record_errors>True</record_errors>
+          <record_on_errors>True</record_on_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item type="jump" id="2">
+          <status>4</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>4</id>
+      <name>Demande trait&#233;e</name>
+      <colour>#57e389</colour>
+      <visibility />
+      <items>
+        <item type="register-comment" id="4" />
+        <item type="sendmail" id="3">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
+        </item><item type="jump" id="2">
+          <status>5</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>6</id>
+      <name>Erreur webservice</name>
+      <colour>#ed333b</colour>
+      <visibility />
+      <items>
+        <item type="register-comment" id="2" />
+        <item type="choice" id="1">
+          <label>Revenir au statut "En attente de v&#233;rification"</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+            <item slug="debug" role_id="cd9db0054986459498570d862dccc069">Debug</item>
+          </by><status>2</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Permet de revenir au satut &lt;strong&gt;En attent de v&amp;eacute;rification&lt;/strong&gt;, qui vous permettra de choisir d&amp;#39;encoder le parent facturable manuellement ou automatiquement et eventuellement de refuser la demande.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>10</id>
+      <name>Motif du refus</name>
+      <colour>#deddda</colour>
+      <visibility>
+        <role>__restricted__</role>
+      </visibility><items>
+        <item type="form" id="1">
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><varname>refus</varname>
+          <hide_submit_button>True</hide_submit_button>
+          <formdef>
+            <name>-</name>
+            <fields>
+              <field>
+                <type>text</type>
+                <label type="str">Justification du refus</label>
+                <required type="bool">True</required>
+                <varname type="str">motif</varname>
+                <display_mode type="str">pre</display_mode>
+                <id type="str">fde5bdf4-c8d7-4565-a505-85227a10c2fc</id>
+              </field>
+            </fields>
+          </formdef>
+        </item><item type="choice" id="2">
+          <label>Valider le refus</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>9</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Valide la justification et notifie le refus au parent.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>9</id>
+      <name>Demande refus&#233;e</name>
+      <colour>#ed333b</colour>
+      <visibility />
+      <items>
+        <item type="sendmail" id="1">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>Refus</subject>
+          <body>{{ form_workflow_form_refus_var_motif }}</body>
+        </item><item type="register-comment" id="2">
+          <comment>{{ form_workflow_form_refus_var_motif }}</comment>
+        </item>
+      </items>
+    </status><status>
+      <id>5</id>
+      <name>Termin&#233;</name>
+      <colour>#26a269</colour>
+      <visibility />
+      <items />
+    </status>
+  </possible_status><variables>
+    <formdef>
+      <name>-</name>
+      <fields>
+        <field>
+          <type>bool</type>
+          <label type="str">Piece jointe</label>
+          <required type="bool">False</required>
+          <hint type="str">Demander l'ajout du pi&#232;ce jointe justificative.</hint>
+          <varname type="str">piece_jointe</varname>
+          <id type="str">9d6abc82-0793-4fea-bc41-9ed2ede5e0bd</id>
+        </field>
+      </fields>
+    </formdef>
+  </variables>
+</workflow>

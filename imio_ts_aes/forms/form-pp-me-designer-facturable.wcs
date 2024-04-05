@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<formdef id="10" url="">
+  <name>Me d&#233;signer comme parent facturable</name>
+  <url_name>pp-me-designer-facturable</url_name>
+  <discussion>false</discussion>
+  <detailed_emails>true</detailed_emails>
+  <disabled>true</disabled>
+  <only_allow_one>false</only_allow_one>
+  <enable_tracking_codes>false</enable_tracking_codes>
+  <confirmation>false</confirmation>
+  <always_advertise>false</always_advertise>
+  <has_captcha>false</has_captcha>
+  <skip_from_360_view>false</skip_from_360_view>
+  <category slug="portail-parent" category_id="1">Portail Parent</category>
+  <workflow slug="portail-parent-me-designer-facturable" workflow_id="9">Portail Parent - Me d&#233;signer facturable</workflow>
+  <fields>
+    <field>
+      <type>page</type>
+      <label type="str">Me d&#233;signer comme parent facturable</label>
+      <id type="str">4d17300c-ec63-4cee-8ddc-ce99256fef78</id>
+    </field><field>
+      <type>computed</type>
+      <label type="str">Identifiant de l'enfant</label>
+      <varname type="str">id_enfant</varname>
+      <value_template type="str">{{request.GET.enfant|default:""}}</value_template>
+      <freeze_on_initial_value type="bool">True</freeze_on_initial_value>
+      <id type="str">3882f8c7-e8a4-42fd-bbb7-2235771fdfa2</id>
+    </field><field>
+      <type>item</type>
+      <label type="str">Enfant</label>
+      <required type="bool">True</required>
+      <varname type="str">enfant</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+        <display_location>listings</display_location>
+      </display_locations><extra_css_class type="str">hidden</extra_css_class>
+      <prefill>
+        <locked>True</locked>
+        <type>string</type>
+        <value>{{ form_var_id_enfant }}</value>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
+      <items />
+      <data_source>
+        <type>portail_parent_enfants</type>
+      </data_source><in_filters type="bool">False</in_filters>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
+      <image_desktop_size type="int">150</image_desktop_size>
+      <image_mobile_size type="int">75</image_mobile_size>
+      <id type="str">30b54f38-f555-4781-a512-97c4455b6b29</id>
+    </field><field>
+      <type>comment</type>
+      <label type="str">&lt;div class="pk-information"&gt;
+&lt;p&gt;Vous demandez d&amp;#39;&amp;ecirc;tre facturable pour &lt;span class="varname"&gt;{{ form_var_enfant }}&lt;/span&gt;.&lt;/p&gt;
+&lt;/div&gt;
+</label>
+      <condition>
+        <type>django</type>
+        <value>form_var_enfant</value>
+      </condition><id type="str">52a29c70-5611-4551-8ad9-90423a26323a</id>
+    </field><field>
+      <type>file</type>
+      <label type="str">Piece justificative</label>
+      <condition>
+        <type>django</type>
+        <value>form_option_piece_jointe</value>
+      </condition><required type="bool">True</required>
+      <hint type="str">Veuillez joindre une pi&#232;ce justificative.</hint>
+      <varname type="str">piece_justificative</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><anonymise type="str">final</anonymise>
+      <allow_portfolio_picking type="bool">False</allow_portfolio_picking>
+      <automatic_image_resize type="bool">False</automatic_image_resize>
+      <storage type="str">default</storage>
+      <id type="str">29418db2-54d9-4e8f-9a76-fd02887bda5a</id>
+    </field>
+  </fields><options />
+  <custom_views />
+  <geolocations />
+  <management_sidebar_items>
+    <item>__default__</item>
+  </management_sidebar_items>
+</formdef>

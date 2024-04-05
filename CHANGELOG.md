@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.11.8
+----------------
+
+- [MPP-467] Added: form and workflow to become invoiceable for a parent
+
 1.11.7
 ----------------
 
