@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<workflow id="9" url="">
+<workflow id="12" url="">
   <name>Portail Parent - Mise &#224; jour</name>
   <slug>portail-parent-mise-a-jour</slug>
-  <category slug="portail-parent" category_id="3">Portail parent</category>
+  <category slug="portail-parent" category_id="1">Portail parent</category>
   <roles>
     <role id="_receiver">Agent traitant</role>
   </roles><possible_status>
@@ -12,7 +12,7 @@
       <colour>#FFFFFF</colour>
       <visibility />
       <items>
-        <item type="sendmail" id="4">
+        <item type="sendmail" id="1">
           <to>
             <item role_id="_receiver">_receiver</item>
           </to><subject>Portail Parent : Nouvelle demande de modification de donn&#233;es</subject>
@@ -29,7 +29,7 @@
             <type>django</type>
             <value>form_option_validation_automatique</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item type="choice" id="1">
+        </item><item type="choice" id="3">
           <label>Valider</label>
           <by>
             <item role_id="_receiver">_receiver</item>
@@ -39,7 +39,7 @@
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="choice" id="3">
+        </item><item type="choice" id="4">
           <label>Refuser</label>
           <by>
             <item role_id="_receiver">_receiver</item>
@@ -123,7 +123,7 @@
           <record_on_errors>False</record_on_errors>
           <notify_on_errors>False</notify_on_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="update_user_profile" id="4">
+        </item><item type="update_user_profile" id="2">
           <fields>
             <field>
               <field_id>zipcode</field_id>
@@ -165,7 +165,7 @@
       <colour>#8ff0a4</colour>
       <visibility />
       <items>
-        <item type="sendmail" id="3">
+        <item type="sendmail" id="1">
           <to>
             <item role_id="_submitter">_submitter</item>
           </to><subject>Portail Parent : Modification de donn&#233;es effectu&#233;e</subject>
@@ -174,7 +174,7 @@
 {% if form_slug == "pp-modifier-mes-donnees-parent" %}Nous vous informons que votre demande de modification de vos coordonn&#233;es a &#233;t&#233; valid&#233;e.{% else %}Nous vous informons que votre demande de modification des donn&#233;es de votre enfant {{ form_var_enfant}} a &#233;t&#233; valid&#233;e.{% endif %}
 
 Cordialement,</body>
-        </item><item type="sendmail" id="1">
+        </item><item type="sendmail" id="2">
           <to>
             <item role_id="_receiver">_receiver</item>
           </to><subject>Portail Parent : Modification de donn&#233;es effectu&#233;e</subject>
@@ -183,7 +183,7 @@ Cordialement,</body>
 {% if form_slug == "pp-modifier-mes-donnees-parent" %}Les coordonn&#233;es du parent {{ form_user_display_name }} ont &#233;t&#233; modifi&#233;es.{% else %}Les donn&#233;es de l&#8217;enfant {{ form_var_enfant }} ont &#233;t&#233; modifi&#233;es &#224; la demande de son parent {{ form_user_display_name }}.{% endif %}
 
 &lt;a href="{{ form_url_backoffice }}"&gt;Consulter la demande&lt;/a&gt;</body>
-        </item><item type="jump" id="2">
+        </item><item type="jump" id="3">
           <status>4</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -256,6 +256,10 @@ Une erreur a &#233;t&#233; rencontr&#233;e pour une demande du formulaire {{ for
                 <required type="bool">True</required>
                 <hint type="str">La raison du refus sera envoy&#233;e telle quelle au parent.</hint>
                 <varname type="str">motif</varname>
+                <display_locations>
+                  <display_location>validation</display_location>
+                  <display_location>summary</display_location>
+                </display_locations><anonymise type="str">final</anonymise>
                 <display_mode type="str">pre</display_mode>
                 <id type="str">b87dbbc5-94ce-4b57-8d45-cfda6ebe0788</id>
               </field>
@@ -272,10 +276,10 @@ Une erreur a &#233;t&#233; rencontr&#233;e pour une demande du formulaire {{ for
       <colour>#e01b24</colour>
       <visibility />
       <items>
-        <item type="register-comment" id="2">
+        <item type="register-comment" id="1">
           <comment>&lt;h3&gt;La demande a &#233;t&#233; refus&#233;e&lt;h3&gt;
 {{ form_workflow_form_refus_var_motif }}</comment>
-        </item><item type="sendmail" id="1">
+        </item><item type="sendmail" id="2">
           <to>
             <item role_id="_submitter">_submitter</item>
           </to><subject>Portail Parent : Modification de donn&#233;es refus&#233;e</subject>
@@ -292,7 +296,7 @@ Une erreur a &#233;t&#233; rencontr&#233;e pour une demande du formulaire {{ for
       </items><triggers>
         <trigger type="manual" id="6d61f9f1-1742-47f9-b8f5-b0ba1af1d42d">
           <roles>
-            <item slug="agents-traitants-portail-parent" role_id="96c7aae8f5354e4ea05c50bef976dc6e">Agents traitants - Portail parent</item>
+            <item role_id="_receiver">_receiver</item>
           </roles><allow_as_mass_action>True</allow_as_mass_action>
           <require_confirmation>False</require_confirmation>
         </trigger>
@@ -308,6 +312,10 @@ Une erreur a &#233;t&#233; rencontr&#233;e pour une demande du formulaire {{ for
           <required type="bool">False</required>
           <hint type="str">Les donn&#233;es mises &#224; jour par le parent seront automatiquement modifi&#233;es dans iA.AES. En d&#233;cochant cette case un agent traitant devra valider la demande manuellement.</hint>
           <varname type="str">validation_automatique</varname>
+          <display_locations>
+            <display_location>validation</display_location>
+            <display_location>summary</display_location>
+          </display_locations><anonymise type="str">no</anonymise>
           <id type="str">c2e6a9e7-6b83-4dee-8680-b770c44945cf</id>
         </field>
       </fields>
