@@ -1,0 +1,249 @@
+<?xml version="1.0"?>
+<formdef id="18" url="https://wcs.dev.publik.love/backoffice/forms/18/">
+  <name>Modifier mes donn&#233;es parent</name>
+  <url_name>pp-modifier-mes-donnees-parent</url_name>
+  <discussion>false</discussion>
+  <detailed_emails>true</detailed_emails>
+  <disabled>false</disabled>
+  <only_allow_one>false</only_allow_one>
+  <enable_tracking_codes>false</enable_tracking_codes>
+  <confirmation>true</confirmation>
+  <always_advertise>false</always_advertise>
+  <has_captcha>false</has_captcha>
+  <skip_from_360_view>false</skip_from_360_view>
+  <category slug="portail-parent" category_id="1">Portail Parent</category>
+  <workflow slug="portail-parent-mise-a-jour" workflow_id="11">Portail Parent - Mise &#224; jour</workflow>
+  <fields>
+    <field>
+      <type>page</type>
+      <label type="str">Modifier mes donn&#233;es</label>
+      <id type="str">1e469b6c-fc26-4533-a498-bc8a145bf0f1</id>
+    </field><field>
+      <type>title</type>
+      <label type="str">Modifier mes donn&#233;es</label>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><id type="str">0f4ed196-0a8a-40a5-988a-0f3f1c62147d</id>
+    </field><field>
+      <type>subtitle</type>
+      <label type="str">Donn&#233;es de contact</label>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><id type="str">7e928df5-c181-49f9-8559-d98efc394cec</id>
+    </field><field>
+      <type>email</type>
+      <label type="str">Adresse &#233;lectronique</label>
+      <required type="bool">True</required>
+      <varname type="str">email</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ webservice.portail_parent_donnees_parent.email|default:"" }}</value>
+      </prefill><anonymise type="str">final</anonymise>
+      <id type="str">cfb86dba-7956-4eb2-afc6-3a0ff289edf7</id>
+    </field><field>
+      <type>string</type>
+      <label type="str">T&#233;l&#233;phone</label>
+      <required type="bool">True</required>
+      <varname type="str">telephone</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ webservice.portail_parent_donnees_parent.phone|default:"" }}</value>
+      </prefill><anonymise type="str">final</anonymise>
+      <validation>
+        <type>phone</type>
+      </validation><id type="str">72b00c51-3494-4567-95ab-451b2a78acdf</id>
+    </field><field>
+      <type>string</type>
+      <label type="str">T&#233;l&#233;phone professionnel</label>
+      <required type="bool">False</required>
+      <varname type="str">telephone_pro</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ webservice.portail_parent_donnees_parent.professional_phone|default:"" }}</value>
+      </prefill><anonymise type="str">final</anonymise>
+      <validation>
+        <type>phone</type>
+      </validation><id type="str">7bef780f-a433-4a68-af20-bf53bd46d4fb</id>
+    </field><field>
+      <type>string</type>
+      <label type="str">T&#233;l&#233;phone mobile</label>
+      <required type="bool">False</required>
+      <varname type="str">telephone_mobile</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ webservice.portail_parent_donnees_parent.mobile|default:"" }}</value>
+      </prefill><anonymise type="str">final</anonymise>
+      <validation>
+        <type>phone</type>
+      </validation><id type="str">f0ba554b-19db-4026-8111-e1a2fb026c53</id>
+    </field><field>
+      <type>subtitle</type>
+      <label type="str">Adresse</label>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><id type="str">ce10911d-80f9-4b85-837f-a740e3393e1c</id>
+    </field><field>
+      <type>item</type>
+      <label type="str">Pays</label>
+      <required type="bool">True</required>
+      <varname type="str">pays</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ webservice.portail_parent_donnees_parent.country_id.0|default:"" }}</value>
+      </prefill><anonymise type="str">final</anonymise>
+      <display_mode type="str">list</display_mode>
+      <data_source>
+        <type>aes_countries</type>
+      </data_source><in_filters type="bool">False</in_filters>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <use_hint_as_first_option type="bool">False</use_hint_as_first_option>
+      <image_desktop_size type="int">150</image_desktop_size>
+      <image_mobile_size type="int">75</image_mobile_size>
+      <id type="str">c1aa49e3-194e-40cd-aa13-c0e8c7c98057</id>
+    </field><field>
+      <type>string</type>
+      <label type="str">Rue</label>
+      <required type="bool">True</required>
+      <varname type="str">rue</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-2-6</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ webservice.portail_parent_donnees_parent.street|default:"" }}</value>
+      </prefill><anonymise type="str">final</anonymise>
+      <id type="str">7f67da0d-4fb5-4ab7-af72-5b65638d6948</id>
+    </field><field>
+      <type>string</type>
+      <label type="str">Num&#233;ro</label>
+      <required type="bool">True</required>
+      <varname type="str">numero</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-12</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ webservice.portail_parent_donnees_parent.street_number|default:"" }}</value>
+      </prefill><anonymise type="str">final</anonymise>
+      <id type="str">a63009a7-678f-46a0-a833-61e8964dd787</id>
+    </field><field>
+      <type>string</type>
+      <label type="str">Bo&#238;te</label>
+      <required type="bool">False</required>
+      <varname type="str">boite</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-12</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ webservice.portail_parent_donnees_parent.locality_box|default:"" }}</value>
+      </prefill><anonymise type="str">final</anonymise>
+      <id type="str">465927b0-5a8b-41d9-9465-0bad2fe0024d</id>
+    </field><field>
+      <type>item</type>
+      <label type="str">Localit&#233;</label>
+      <condition>
+        <type>django</type>
+        <value>"belgique" in form_var_pays|lower</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">adresse</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ webservice.portail_parent_donnees_parent.locality_id.0|default:"" }}</value>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">autocomplete</display_mode>
+      <data_source>
+        <type>portail_parent_localites</type>
+      </data_source><in_filters type="bool">False</in_filters>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
+      <image_desktop_size type="int">150</image_desktop_size>
+      <image_mobile_size type="int">75</image_mobile_size>
+      <id type="str">5ddcdb81-4053-45c6-bda7-f8aef0d1667a</id>
+    </field><field>
+      <type>string</type>
+      <label type="str">Code postal</label>
+      <condition>
+        <type>django</type>
+        <value>"belgique" not in form_var_pays|lower</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">code_postal</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">newline grid-2-12</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ webservice.portail_parent_donnees_parent.zip|default:"" }}</value>
+      </prefill><anonymise type="str">final</anonymise>
+      <id type="str">30569df7-4371-4f49-8dd1-62383d330f48</id>
+    </field><field>
+      <type>string</type>
+      <label type="str">Localit&#233;</label>
+      <condition>
+        <type>django</type>
+        <value>"belgique" not in form_var_pays|lower</value>
+      </condition><required type="bool">True</required>
+      <varname type="str">localite</varname>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-4-12</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <type>string</type>
+        <value>{{ webservice.portail_parent_donnees_parent.city|default:"" }}</value>
+      </prefill><anonymise type="str">final</anonymise>
+      <id type="str">ab9637f2-ab80-4a93-b1f0-5fdfb6e7c06f</id>
+    </field>
+  </fields><user-roles>
+    <role role_id="logged-users">logged-users</role>
+  </user-roles><roles>
+    <role slug="agents-traitants-portail-parent" role_id="96c7aae8f5354e4ea05c50bef976dc6e" role_key="_receiver">Agents traitants - Portail parent</role>
+  </roles><options />
+  <custom_views />
+  <geolocations />
+  <management_sidebar_items>
+    <item>__default__</item>
+  </management_sidebar_items>
+</formdef>
