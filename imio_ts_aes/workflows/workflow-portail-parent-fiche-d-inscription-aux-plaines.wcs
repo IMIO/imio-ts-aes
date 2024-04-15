@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<workflow id="16" url="https://wcs.dev.publik.love/backoffice/workflows/16/">
+<workflow id="3" url="">
   <name>Portail Parent - Fiche d'inscription aux plaines</name>
   <slug>portail-parent-fiche-d-inscription-aux-plaines</slug>
-  <category slug="portail-parent" category_id="1">Portail parent</category>
+  <category slug="portail-parent" category_id="3">Portail parent</category>
   <roles>
     <role id="_receiver">Agent traitant</role>
   </roles><possible_status>
@@ -15,7 +15,7 @@
         <item type="choice" id="1">
           <label>En attente de paiement</label>
           <by>
-            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
           </by><status>3</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
@@ -29,14 +29,14 @@
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="4">
+        </item><item type="jump" id="3">
           <status>8</status>
           <condition>
             <type>django</type>
             <value>form_option_mode_de_paiement == "Paiement en ligne" or form_option_mode_de_paiement == "Paiement par virement"</value>
           </condition><timeout>172800</timeout>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="3">
+        </item><item type="jump" id="4">
           <status>6</status>
           <condition>
             <type>django</type>
@@ -48,13 +48,13 @@
     </status><status>
       <id>3</id>
       <name>En attente de paiement</name>
-      <colour>99FF66</colour>
+      <colour>#99FF66</colour>
       <visibility />
       <items>
         <item type="choice" id="1">
           <label>Cl&#244;turer la demande</label>
           <by>
-            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
+            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
           </by><status>4</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
@@ -64,26 +64,26 @@
     </status><status>
       <id>4</id>
       <name>Cl&#244;tur&#233;</name>
-      <colour>00FF00</colour>
+      <colour>#00FF00</colour>
       <visibility />
       <items />
     </status><status>
       <id>6</id>
       <name>Annulation de l'inscription</name>
-      <colour>FFFFFF</colour>
+      <colour>#FFFFFF</colour>
       <visibility>
-        <role>_receiver</role>
+        <role>__restricted__</role>
       </visibility><items>
         <item type="webservice_call" id="1">
           <label>Annulation de l'inscription</label>
+          <method>DELETE</method>
           <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/registrations/delete</url>
           <qs_data>
             <item>
               <name>registration_id</name>
               <value>{{ form_var_inscription }}</value>
             </item>
-          </qs_data><method>DELETE</method>
-          <post>False</post>
+          </qs_data><post>False</post>
           <response_type>json</response_type>
           <varname>annulation</varname>
           <action_on_app_error>7</action_on_app_error>
@@ -91,9 +91,10 @@
           <action_on_5xx>7</action_on_5xx>
           <action_on_bad_data>:pass</action_on_bad_data>
           <action_on_network_errors>:stop</action_on_network_errors>
-          <notify_on_errors>False</notify_on_errors>
-          <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
+          <record_on_errors>True</record_on_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <set_marker_on_status>False</set_marker_on_status>
         </item><item type="jump" id="2">
           <status>5</status>
           <set_marker_on_status>False</set_marker_on_status>
@@ -102,7 +103,7 @@
     </status><status>
       <id>7</id>
       <name>Erreur lors de l'annulation</name>
-      <colour>FF0000</colour>
+      <colour>#FF0000</colour>
       <visibility />
       <items>
         <item type="displaymsg" id="1">
@@ -121,14 +122,14 @@ Un parent a voulu annuler une inscription aux plaines, mais celle-ci est tomb&#2
 
 `Consulter la demande &lt;{{ form_url_backoffice }}&gt;`_</body>
         </item><item type="register-comment" id="3">
-          <comment>Un parent a voulu annuler cette inscription aux plaines, mais celle-ci est tomb&#233;e en erreur. La plaine est donc toujours r&#233;serv&#233;e dans iA.AES.
+          <comment>&lt;p&gt;Un parent a voulu annuler cette inscription aux plaines, mais celle-ci est tomb&#233;e en erreur. La plaine est donc toujours r&#233;serv&#233;e dans iA.AES.&lt;/p&gt;
 
-Si vous n'avez pu r&#233;soudre le probl&#232;me, vous pouvez contacter le support d'iMio.
+&lt;p&gt;Si vous n'avez pu r&#233;soudre le probl&#232;me, vous pouvez contacter le support d'iMio.&lt;/p&gt;
 
-&lt;a href="support.imio.be"&gt;Contacter le support d'iMio&lt;/a&gt;</comment>
+&lt;p&gt;&lt;a href="support.imio.be"&gt;Contacter le support d'iMio&lt;/a&gt;&lt;/p&gt;</comment>
           <to>
             <item role_id="_receiver">_receiver</item>
-          </to>
+          </to><level>error</level>
         </item><item type="choice" id="4">
           <label>Annuler cette inscription</label>
           <by>
@@ -154,7 +155,7 @@ Si vous n'avez pu r&#233;soudre le probl&#232;me, vous pouvez contacter le suppo
     </status><status>
       <id>5</id>
       <name>Inscription annul&#233;e</name>
-      <colour>999999</colour>
+      <colour>#999999</colour>
       <visibility />
       <items>
         <item type="sendmail" id="1">
@@ -175,10 +176,10 @@ Cordialement,</body>
     </status><status>
       <id>8</id>
       <name>Alerte - un jour restant pour finaliser</name>
-      <colour>FFFFFF</colour>
+      <colour>#FFFFFF</colour>
       <visibility />
       <items>
-        <item type="sendmail" id="2">
+        <item type="sendmail" id="1">
           <to>
             <item role_id="_submitter">_submitter</item>
           </to><subject>Alerte avant annulation - Veuillez finaliser vos inscriptions aux plaines de vacances</subject>
@@ -193,7 +194,7 @@ Attention, avant de finaliser vos inscriptions, veillez &#224; ce que tous vos e
 `Aller sur le Portail Parent &lt;{{ portal_url }}portail-parent/&gt;`_
 
 Cordialement,</body>
-        </item><item type="jump" id="1">
+        </item><item type="jump" id="2">
           <status>1</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -253,8 +254,9 @@ Cordialement,</body>
       </items><triggers>
         <trigger type="manual" id="8db2c86f-e855-4267-874e-9cd3d559143a">
           <roles>
-            <item slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</item>
-          </roles>
+            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
+          </roles><allow_as_mass_action>True</allow_as_mass_action>
+          <require_confirmation>False</require_confirmation>
         </trigger>
       </triggers>
     </action>
@@ -263,19 +265,22 @@ Cordialement,</body>
       <name>-</name>
       <fields>
         <field>
+          <type>item</type>
           <label type="str">Mode de paiement</label>
-          <type type="str">item</type>
           <required type="bool">True</required>
           <varname type="str">mode_de_paiement</varname>
           <display_locations />
+          <anonymise type="str">no</anonymise>
           <display_mode type="str">radio</display_mode>
           <items>
             <item>Paiement en ligne</item>
             <item>Paiement par virement</item>
             <item>Paiement diff&#233;r&#233;</item>
           </items><in_filters type="bool">False</in_filters>
-          <anonymise type="bool">False</anonymise>
           <display_disabled_items type="bool">False</display_disabled_items>
+          <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
+          <image_desktop_size type="int">150</image_desktop_size>
+          <image_mobile_size type="int">75</image_mobile_size>
           <id type="str">1</id>
         </field>
       </fields>
@@ -285,20 +290,23 @@ Cordialement,</body>
       <name>-</name>
       <fields>
         <field>
+          <type>item</type>
           <label type="str">Plaine</label>
-          <type type="str">item</type>
           <required type="bool">True</required>
           <varname type="str">plaine</varname>
           <display_locations>
             <display_location>summary</display_location>
-          </display_locations><display_mode type="str">list</display_mode>
+          </display_locations><anonymise type="str">no</anonymise>
+          <display_mode type="str">list</display_mode>
           <items />
           <data_source>
             <type>jsonvalue</type>
             <value>[{% for week in webservice.aes_get_available_plaines %}{% for activity in week|get:"activities" %}{{ activity|json_dumps }}{% if not forloop.last %}, {% endif %}{% endfor %}{% if not forloop.last %}, {% endif %}{% endfor %}]</value>
           </data_source><in_filters type="bool">False</in_filters>
-          <anonymise type="bool">False</anonymise>
           <display_disabled_items type="bool">False</display_disabled_items>
+          <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
+          <image_desktop_size type="int">150</image_desktop_size>
+          <image_mobile_size type="int">75</image_mobile_size>
           <id type="str">bo0a400754-416f-49bb-8c6d-50306a4e0240</id>
         </field>
       </fields>

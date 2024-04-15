@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<formdef id="10" url="">
+<formdef id="19" url="">
   <name>Me d&#233;signer comme parent facturable</name>
   <url_name>pp-me-designer-facturable</url_name>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
-  <disabled>true</disabled>
+  <disabled>false</disabled>
   <only_allow_one>false</only_allow_one>
   <enable_tracking_codes>false</enable_tracking_codes>
   <confirmation>false</confirmation>
@@ -12,7 +12,7 @@
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="1">Portail Parent</category>
-  <workflow slug="portail-parent-me-designer-facturable" workflow_id="9">Portail Parent - Me d&#233;signer facturable</workflow>
+  <workflow slug="portail-parent-me-designer-facturable" workflow_id="10">Portail Parent - Me d&#233;signer facturable</workflow>
   <fields>
     <field>
       <type>page</type>
@@ -53,33 +53,51 @@
     </field><field>
       <type>comment</type>
       <label type="str">&lt;div class="pk-information"&gt;
-&lt;p&gt;Vous demandez d&amp;#39;&amp;ecirc;tre facturable pour &lt;span class="varname"&gt;{{ form_var_enfant }}&lt;/span&gt;.&lt;/p&gt;
-&lt;/div&gt;
+&lt;p&gt;Vous demandez d&amp;#39;&amp;ecirc;tre facturable pour &lt;strong&gt;&lt;span class="varname"&gt;{{ form_var_enfant }}&lt;/span&gt;&lt;/strong&gt;.&lt;/p&gt;&lt;/div&gt;
+
+&lt;p&gt;Cela vous permettra de r&amp;eacute;aliser des inscriptions en votre nom pour votre enfant, de recevoir les &amp;eacute;ventuelles factures associ&amp;eacute;es &amp;agrave; ces inscriptions ainsi que d&amp;#39;obtenir les attestations fiscales. Pour que votre demande soit valid&amp;eacute;e, il est pr&amp;eacute;f&amp;eacute;rable de nous faire parvenir une pi&amp;egrave;ce justificative (d&amp;eacute;cision de justice pour la garde d&amp;#39;enfant, attestation du parent actuellement facturable...).&lt;/p&gt;
+
 </label>
       <condition>
         <type>django</type>
         <value>form_var_enfant</value>
       </condition><id type="str">52a29c70-5611-4551-8ad9-90423a26323a</id>
     </field><field>
-      <type>file</type>
-      <label type="str">Piece justificative</label>
-      <condition>
-        <type>django</type>
-        <value>form_option_piece_jointe</value>
-      </condition><required type="bool">True</required>
-      <hint type="str">Veuillez joindre une pi&#232;ce justificative.</hint>
-      <varname type="str">piece_justificative</varname>
+      <type>bool</type>
+      <label type="str">J'aimerais pouvoir r&#233;aliser des inscriptions pour cet enfant.</label>
+      <required type="bool">True</required>
+      <varname type="str">facturable</varname>
       <display_locations>
         <display_location>validation</display_location>
         <display_location>summary</display_location>
-      </display_locations><anonymise type="str">final</anonymise>
-      <allow_portfolio_picking type="bool">False</allow_portfolio_picking>
-      <automatic_image_resize type="bool">False</automatic_image_resize>
-      <storage type="str">default</storage>
-      <id type="str">29418db2-54d9-4e8f-9a76-fd02887bda5a</id>
+        <display_location>listings</display_location>
+      </display_locations><extra_css_class type="str">pk-important</extra_css_class>
+      <anonymise type="str">no</anonymise>
+      <id type="str">9eff0771-499b-4244-8b9c-dfbd76690eb0</id>
+    </field><field>
+      <type>block</type>
+      <label type="str">Pi&#232;ce(s) justificative(s)</label>
+      <required type="bool">False</required>
+      <display_locations>
+        <display_location>validation</display_location>
+        <display_location>summary</display_location>
+      </display_locations><extra_css_class type="str">grid-1-2</extra_css_class>
+      <anonymise type="str">final</anonymise>
+      <default_items_count type="int">1</default_items_count>
+      <max_items type="int">5</max_items>
+      <add_element_label type="str">Ajouter un fichier</add_element_label>
+      <label_display type="str">subtitle</label_display>
+      <remove_button type="bool">True</remove_button>
+      <block_slug type="str">pp_ajouter_un_fichier</block_slug>
+      <id type="str">78dcc0a2-3baa-4aa0-827f-f81d167f7b2e</id>
     </field>
-  </fields><options />
-  <custom_views />
+  </fields><user-roles>
+    <role role_id="logged-users">logged-users</role>
+  </user-roles><roles>
+    <role slug="agents-traitants-portail-parent" role_id="96c7aae8f5354e4ea05c50bef976dc6e" role_key="_receiver">Agents traitants - Portail parent</role>
+  </roles><options>
+    <option varname="piece_jointe" type="bool">true</option>
+  </options><custom_views />
   <geolocations />
   <management_sidebar_items>
     <item>__default__</item>

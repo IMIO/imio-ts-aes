@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<workflow id="9" url="">
+<workflow id="10" url="">
   <name>Portail Parent - Me d&#233;signer facturable</name>
   <slug>portail-parent-me-designer-facturable</slug>
-  <category slug="portail-parent" category_id="1">Portail parent</category>
+  <category slug="portail-parent" category_id="3">Portail parent</category>
   <roles>
-    <role id="_receiver">Destinataire</role>
+    <role id="_receiver">Agent traitant</role>
   </roles><possible_status>
     <status>
       <id>1</id>
@@ -13,10 +13,16 @@
       <visibility>
         <role>__restricted__</role>
       </visibility><items>
-        <item type="sendmail" id="3">
+        <item type="sendmail" id="1">
           <to>
             <item role_id="_receiver">_receiver</item>
-          </to>
+          </to><subject>Nouvelle demande pour {{ form_name }}</subject>
+          <body>Bonjour,
+
+Un parent souhaite devenir facturable pour son enfant. Il attend donc votre validation.
+
+&lt;a href="{{ form_url_backoffice }}"&gt;Consulter la demande&lt;/a&gt;
+</body>
         </item><item type="jump" id="2">
           <status>2</status>
           <set_marker_on_status>False</set_marker_on_status>
@@ -28,15 +34,23 @@
       <colour>#62a0ea</colour>
       <visibility />
       <items>
-        <item type="register-comment" id="2">
-          <comment>&lt;h3&gt;Limite de parent facturable atteinte&lt;/h3&gt;
+        <item type="register-comment" id="1">
+          <comment>&lt;h3&gt;Limite de parent facturables atteintes&lt;/h3&gt;
 &lt;p&gt;
-L'enfant a d&#233;j&#224; 3 parents facturables attribu&#233;.
+L'enfant a d&#233;j&#224; 3 parents facturables qui lui sont attribu&#233;s. Il ne sera donc pas possible d'en ajouter un quatri&#232;me automatiquement.
 &lt;/p&gt;</comment>
           <to>
             <item role_id="_receiver">_receiver</item>
           </to><level>warning</level>
-        </item><item type="choice" id="1">
+        </item><item type="register-comment" id="5">
+          <comment>&lt;h3&gt;Votre demande est en cours de traitement&lt;/h3&gt;
+&lt;p&gt;
+Votre demande a bien &#233;t&#233; enregistr&#233;e et est en cours de traitement par nos services.
+&lt;/p&gt;</comment>
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><level>info</level>
+        </item><item type="choice" id="2">
           <label>Ajout automatique</label>
           <by>
             <item role_id="_receiver">_receiver</item>
@@ -94,9 +108,19 @@ L'enfant a d&#233;j&#224; 3 parents facturables attribu&#233;.
       <items>
         <item type="webservice_call" id="1">
           <label>Ajout dans AES</label>
-          <method>POST</method>
+          <method>PATCH</method>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/responsibilities/{{ form_var_enfant_responsibility_id }}</url>
           <post>False</post>
-          <response_type>json</response_type>
+          <post_data>
+            <item>
+              <name>is_attestable</name>
+              <value>{{ form_var_attestable }}</value>
+            </item><item>
+              <name>is_invoiceable</name>
+              <value>{{ form_var_facturable }}</value>
+            </item>
+          </post_data><response_type>json</response_type>
+          <varname>update_responsibility</varname>
           <action_on_app_error>6</action_on_app_error>
           <action_on_4xx>6</action_on_4xx>
           <action_on_5xx>6</action_on_5xx>
@@ -117,28 +141,46 @@ L'enfant a d&#233;j&#224; 3 parents facturables attribu&#233;.
       <colour>#57e389</colour>
       <visibility />
       <items>
-        <item type="register-comment" id="4" />
-        <item type="sendmail" id="3">
+        <item type="register-comment" id="1" />
+        <item type="sendmail" id="2">
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to>
-        </item><item type="jump" id="2">
+          </to><subject>Portail Parent : {{form_name}} - demande valid&#233;e</subject>
+          <body>Bonjour,
+
+Votre demande pour devenir parent facturable de l&#8217;enfant {{ form_var_enfant }} a &#233;t&#233; valid&#233;e.
+Vous pouvez d&#233;sormais effectuer des inscriptions, vous recevrez les factures et les attestations fiscales associ&#233;es &#224; celles-ci.
+
+Cordialement,</body>
+        </item><item type="jump" id="3">
           <status>5</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
     </status><status>
       <id>6</id>
-      <name>Erreur webservice</name>
+      <name>Erreur lors de l'ajout automatique</name>
       <colour>#ed333b</colour>
-      <visibility />
-      <items>
-        <item type="register-comment" id="2" />
-        <item type="choice" id="1">
+      <visibility>
+        <role>__restricted__</role>
+      </visibility><items>
+        <item type="register-comment" id="1">
+          <comment>&lt;h3&gt;Une erreur est survenue.&lt;/h3&gt;
+&lt;p&gt;Une erreur est survenue lors de la mise &#224; jour de la relation entre le parent et l'enfant.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Si vous pensez que le probl&#232;me est r&#233;solu, vous pouvez relancer l'ajout automatique.&lt;/li&gt;
+&lt;li&gt;Vous pouvez &#233;galement v&#233;rifier manuellement la demande et r&#233;aliser l'encodage &#224; la main&lt;/li&gt;
+&lt;li&gt;Vous pouvez enfin refuser la demande.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;S&#233;lectionnez &lt;em&gt;Revenir au statut "En attente de v&#233;rification"&lt;/em&gt;&lt;/p&gt;</comment>
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to><level>error</level>
+        </item><item type="choice" id="2">
           <label>Revenir au statut "En attente de v&#233;rification"</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="cd9db0054986459498570d862dccc069">Debug</item>
+            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
           </by><status>2</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Permet de revenir au satut &lt;strong&gt;En attent de v&amp;eacute;rification&lt;/strong&gt;, qui vous permettra de choisir d&amp;#39;encoder le parent facturable manuellement ou automatiquement et eventuellement de refuser la demande.&lt;/p&gt;
@@ -149,7 +191,7 @@ L'enfant a d&#233;j&#224; 3 parents facturables attribu&#233;.
       </items>
     </status><status>
       <id>10</id>
-      <name>Motif du refus</name>
+      <name>Encodage du motif du refus</name>
       <colour>#deddda</colour>
       <visibility>
         <role>__restricted__</role>
@@ -167,6 +209,10 @@ L'enfant a d&#233;j&#224; 3 parents facturables attribu&#233;.
                 <label type="str">Justification du refus</label>
                 <required type="bool">True</required>
                 <varname type="str">motif</varname>
+                <display_locations>
+                  <display_location>validation</display_location>
+                  <display_location>summary</display_location>
+                </display_locations><anonymise type="str">final</anonymise>
                 <display_mode type="str">pre</display_mode>
                 <id type="str">fde5bdf4-c8d7-4565-a505-85227a10c2fc</id>
               </field>
@@ -190,13 +236,13 @@ L'enfant a d&#233;j&#224; 3 parents facturables attribu&#233;.
       <colour>#ed333b</colour>
       <visibility />
       <items>
-        <item type="sendmail" id="1">
+        <item type="register-comment" id="2">
+          <comment>{{ form_workflow_form_refus_var_motif }}</comment>
+        </item><item type="sendmail" id="1">
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><subject>Refus</subject>
+          </to><subject>Refus de votre demande pour devenir parent facturable</subject>
           <body>{{ form_workflow_form_refus_var_motif }}</body>
-        </item><item type="register-comment" id="2">
-          <comment>{{ form_workflow_form_refus_var_motif }}</comment>
         </item>
       </items>
     </status><status>
@@ -214,7 +260,7 @@ L'enfant a d&#233;j&#224; 3 parents facturables attribu&#233;.
           <type>bool</type>
           <label type="str">Piece jointe</label>
           <required type="bool">False</required>
-          <hint type="str">Demander l'ajout du pi&#232;ce jointe justificative.</hint>
+          <hint type="str">Demander l'ajout de pi&#232;ces jointes justificatives.</hint>
           <varname type="str">piece_jointe</varname>
           <id type="str">9d6abc82-0793-4fea-bc41-9ed2ede5e0bd</id>
         </field>

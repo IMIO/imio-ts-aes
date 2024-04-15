@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<wscall id="portail_parent_donnees_parent" url="">
+  <name>Portail Parent - Donn&#233;es du parent</name>
+  <slug>portail_parent_donnees_parent</slug>
+  <request>
+    <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ form_user_var_aes_id }}/</url>
+    <request_signature_key />
+    <method>GET</method>
+    <timeout />
+    <cache_duration>60</cache_duration>
+    <qs_data />
+    <post_data />
+  </request><record_on_errors>true</record_on_errors>
+</wscall>

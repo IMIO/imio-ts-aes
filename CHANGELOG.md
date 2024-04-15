@@ -1,6 +1,17 @@
 Changelog
 =========
 
+2.0.0
+----------------
+
+- [MPP-391] Updated: manage invoiceable parents
+- [MPP-478] Added: parent as parameter for menu
+- [MPP-467] Added: fields block for files
+- [MPP-467] Added: form and workflow for becoming invoinceable
+- [MPPNIVA-9] Added: webservice call for parent data
+- [MPPNIVA-10] Added: form for parent updates of his own data
+- [MPPNIVA-9][MPPNIVA-10] Added: workflow for updating parent and child data
+
 1.11.8
 ----------------
 
