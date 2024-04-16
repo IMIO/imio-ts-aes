@@ -1,19 +1,18 @@
 <?xml version="1.0"?>
-<formdef id="1" url="https://wcs.dev.publik.love/backoffice/forms/1/">
+<formdef id="1" url="">
   <name>D&#233;sinscription Repas scolaires</name>
   <url_name>pp-desinscription-repas</url_name>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
-  <disabled>false</disabled>
+  <disabled>true</disabled>
   <only_allow_one>false</only_allow_one>
   <enable_tracking_codes>false</enable_tracking_codes>
   <confirmation>true</confirmation>
   <always_advertise>false</always_advertise>
-  <include_download_all_button>false</include_download_all_button>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="1">Portail Parent</category>
-  <workflow slug="portail-parent-repas-scolaires-desinscription" workflow_id="1">Portail Parent - Repas scolaires - D&#233;sinscription</workflow>
+  <workflow slug="portail-parent-repas-scolaires-desinscription" workflow_id="8">Portail Parent - Repas scolaires - D&#233;sinscription</workflow>
   <fields>
     <field>
       <type>page</type>
@@ -40,11 +39,12 @@
         <locked>True</locked>
         <type>string</type>
         <value>{{ form_var_id_enfant }}</value>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill><anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
+      <items />
       <data_source>
         <type>portail_parent_enfants</type>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">no</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
@@ -69,14 +69,14 @@
         <display_location>validation</display_location>
         <display_location>summary</display_location>
         <display_location>listings</display_location>
-      </display_locations><display_mode type="str">checkboxes</display_mode>
+      </display_locations><anonymise type="str">final</anonymise>
+      <display_mode type="str">checkboxes</display_mode>
       <min_choices type="int">1</min_choices>
       <max_choices type="int">0</max_choices>
       <data_source>
         <type>json</type>
-        <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/children/{{ form_var_id_enfant }}/registrations?days_in_delay={{ form_option_delai_en_jours|default_if_none:1 }}&amp;no_later_than={{ form_option_heure_limite|default_if_none:"00:00" }}</value>
+        <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/children/{{ form_var_id_enfant }}/registrations?parent_id={{ form_user_var_aes_id }}&amp;days_in_delay={{ form_option_delai_en_jours|default_if_none:1 }}&amp;no_later_than={{ form_option_heure_limite|default_if_none:"00:00" }}</value>
       </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="str">final</anonymise>
       <display_disabled_items type="bool">False</display_disabled_items>
       <image_desktop_size type="int">150</image_desktop_size>
       <image_mobile_size type="int">75</image_mobile_size>
@@ -84,8 +84,7 @@
     </field>
   </fields><user-roles>
     <role role_id="logged-users">logged-users</role>
-  </user-roles><roles />
-  <options>
+  </user-roles><options>
     <option varname="delai_en_jours">1</option>
     <option varname="heure_limite">11:00</option>
     <option varname="notifier_service">Non</option>
@@ -93,4 +92,7 @@
     <option varname="notifier_service_structured" />
   </options><custom_views />
   <geolocations />
+  <management_sidebar_items>
+    <item>__default__</item>
+  </management_sidebar_items>
 </formdef>
