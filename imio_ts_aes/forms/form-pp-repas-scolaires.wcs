@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<formdef id="8" url="https://wcs.dev.publik.love/backoffice/forms/8/">
+<formdef id="8" url="">
   <name>Repas scolaires</name>
   <url_name>pp-repas-scolaires</url_name>
   <drafts_lifespan>2</drafts_lifespan>
@@ -10,11 +10,10 @@
   <enable_tracking_codes>false</enable_tracking_codes>
   <confirmation>false</confirmation>
   <always_advertise>false</always_advertise>
-  <include_download_all_button>false</include_download_all_button>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="1">Portail Parent</category>
-  <workflow slug="portail-parent-repas-scolaires" workflow_id="2">Portail Parent - Repas scolaires</workflow>
+  <workflow slug="portail-parent-repas-scolaires" workflow_id="7">Portail Parent - Repas scolaires</workflow>
   <fields>
     <field>
       <type>page</type>
@@ -25,6 +24,11 @@
             <type>django</type>
             <value>not form_option_implantations_scolaires or form_var_enfant.school_implantation|first|stringformat:"s" in form_option_implantations_scolaires_raw</value>
           </condition><error_message>L'&#233;cole de votre enfant ne propose actuellement pas d'inscription aux repas scolaires &#224; travers le Portail Parent.</error_message>
+        </post_condition><post_condition>
+          <condition>
+            <type>django</type>
+            <value>form_var_parents_facturables|split:", "|length or form_user_aes_id in form_var_parents_facturables|split:", "</value>
+          </condition><error_message>Vous n'&#234;tes pas un parent facturable pour cet enfant</error_message>
         </post_condition>
       </post_conditions><id type="str">47</id>
     </field><field>
@@ -60,6 +64,13 @@
       <image_mobile_size type="int">75</image_mobile_size>
       <id type="str">54</id>
     </field><field>
+      <type>computed</type>
+      <label type="str">Parents facturables</label>
+      <varname type="str">parents_facturables</varname>
+      <value_template type="str">{% for parent in form_var_enfant_invoiceable_parents %}{{ parent|get:"id" }}{% if not forloop.last %}, {% endif %}{% endfor %}</value_template>
+      <freeze_on_initial_value type="bool">False</freeze_on_initial_value>
+      <id type="str">64cd4241-33e3-404f-a8d6-13ff3644f031</id>
+    </field><field>
       <type>comment</type>
       <label type="str">&lt;div class="pk-information"&gt;&lt;p&gt;Vous inscrivez &lt;span class="varname"&gt;{{ form_var_enfant }}&lt;/span&gt; aux repas scolaires.&lt;/p&gt;&lt;/div&gt;
 
@@ -71,15 +82,6 @@
       </condition><display_locations />
       <id type="str">56</id>
     </field><field>
-      <type>comment</type>
-      <label type="str">Cet enfant a d&#233;j&#224; &#233;t&#233; inscrit aux repas de ce mois. En apportant des modifications dans le calendrier ci-dessous, cela cr&#233;era des nouvelles inscriptions ne prenant pas compte les pr&#233;c&#233;dentes. Veillez donc &#224; ne pas oublier des inscriptions &#224; prendre en compte.</label>
-      <condition>
-        <type>django</type>
-        <value>data_source.portail_parent_inscriptions_aux_repas</value>
-      </condition><extra_css_class type="str">pk-attention</extra_css_class>
-      <display_locations />
-      <id type="str">726ebda4-722b-441d-9684-d721932aa446</id>
-    </field><field>
       <type>items</type>
       <label type="str">Menu</label>
       <required type="bool">True</required>
@@ -89,10 +91,10 @@
         <display_location>summary</display_location>
       </display_locations><extra_css_class type="str">hidden</extra_css_class>
       <prefill>
+        <locked>False</locked>
         <type>string</type>
         <value>{% for repas in data_source.portail_parent_inscriptions_aux_repas %}{{ repas|get:"id" }}|{% endfor %}</value>
       </prefill><anonymise type="str">final</anonymise>
-      <items />
       <display_mode type="str">checkboxes</display_mode>
       <min_choices type="int">1</min_choices>
       <max_choices type="int">0</max_choices>
@@ -109,22 +111,23 @@
       <label type="str">&lt;p&gt;Repas&lt;/p&gt;
 </label>
       <extra_css_class type="str">template-portail_parent_repas</extra_css_class>
-      <display_locations />
       <id type="str">57</id>
     </field>
   </fields><user-roles>
     <role role_id="logged-users">logged-users</role>
   </user-roles><roles>
-    <role slug="debug" role_id="72f464bb94204057b5376ec4f732ff83" role_key="_debug">Debug</role>
-    <role slug="agents-traitants-portail-parent" role_id="96c7aae8f5354e4ea05c50bef976dc6e" role_key="_receiver">Agents traitants - Portail parent</role>
+    <role slug="debug" role_id="cd9db0054986459498570d862dccc069" role_key="_debug">Debug</role>
   </roles><options>
     <option varname="implantations_scolaires" />
     <option varname="implantations_scolaires_display" />
     <option varname="implantations_scolaires_structured" />
-    <option varname="mois">1</option>
-    <option varname="mois_display">Mois prochain</option>
+    <option varname="mois">0</option>
+    <option varname="mois_display">Mois courant</option>
     <option varname="mois_structured" />
     <option varname="test" />
   </options><custom_views />
   <geolocations />
+  <management_sidebar_items>
+    <item>__default__</item>
+  </management_sidebar_items>
 </formdef>

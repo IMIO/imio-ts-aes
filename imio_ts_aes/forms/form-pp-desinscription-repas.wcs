@@ -17,7 +17,14 @@
     <field>
       <type>page</type>
       <label type="str">S&#233;lection des repas</label>
-      <id type="str">1</id>
+      <post_conditions>
+        <post_condition>
+          <condition>
+            <type>django</type>
+            <value>form_var_parents_facturables|split:", "|length or form_user_aes_id in form_var_parents_facturables|split:", "</value>
+          </condition><error_message>Vous n'&#234;tes pas un parent facturable pour cet enfant</error_message>
+        </post_condition>
+      </post_conditions><id type="str">1</id>
     </field><field>
       <type>computed</type>
       <label type="str">Identifiant de l'enfant</label>
@@ -51,6 +58,13 @@
       <image_mobile_size type="int">75</image_mobile_size>
       <id type="str">3</id>
     </field><field>
+      <type>computed</type>
+      <label type="str">Parents facturables</label>
+      <varname type="str">parents_facturables</varname>
+      <value_template type="str">{% for parent in form_var_enfant_invoiceable_parents %}{{ parent|get:"id" }}{% if not forloop.last %}, {% endif %}{% endfor %}</value_template>
+      <freeze_on_initial_value type="bool">False</freeze_on_initial_value>
+      <id type="str">b39870ae-6178-4dd5-a524-893e0c33dfdb</id>
+    </field><field>
       <type>comment</type>
       <label type="str">&lt;p&gt;Vous d&#233;sinscrivez &lt;span class="varname"&gt;{{ form_var_enfant }}&lt;/span&gt; des repas scolaires.&lt;/p&gt;
 </label>
@@ -70,6 +84,7 @@
         <display_location>summary</display_location>
         <display_location>listings</display_location>
       </display_locations><anonymise type="str">final</anonymise>
+      <items />
       <display_mode type="str">checkboxes</display_mode>
       <min_choices type="int">1</min_choices>
       <max_choices type="int">0</max_choices>
