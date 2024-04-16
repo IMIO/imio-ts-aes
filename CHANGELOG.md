@@ -13,6 +13,7 @@ Changelog
 - [MPPNIVA-9][MPPNIVA-10] Added: workflow for updating parent and child data
 - [MPP-466] Updated: desinscription meal, take into account current parent
 - [MPP-466] Updated: workflow inscription meal, list of inscription
+- [MPP-466] Updated: form inscription and desinscription meal protect for parents not invoinceable
 
 1.11.8
 ----------------
