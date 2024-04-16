@@ -42,6 +42,10 @@ L'enfant a d&#233;j&#224; 3 parents facturables qui lui sont attribu&#233;s. Il 
           <to>
             <item role_id="_receiver">_receiver</item>
           </to><level>warning</level>
+          <condition>
+            <type>django</type>
+            <value>form_var_enfant_invoiceable_parents|length &gt;= 3</value>
+          </condition>
         </item><item type="register-comment" id="5">
           <comment>&lt;h3&gt;Votre demande est en cours de traitement&lt;/h3&gt;
 &lt;p&gt;
@@ -60,6 +64,10 @@ Votre demande a bien &#233;t&#233; enregistr&#233;e et est en cours de traitemen
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <condition>
+            <type>django</type>
+            <value>form_var_enfant_invoiceable_parents|length &lt; 3</value>
+          </condition>
         </item><item type="choice" id="3">
           <label>Ajout manuel</label>
           <by>
@@ -114,7 +122,7 @@ Votre demande a bien &#233;t&#233; enregistr&#233;e et est en cours de traitemen
           <post_data>
             <item>
               <name>is_attestable</name>
-              <value>{{ form_var_attestable }}</value>
+              <value>{{ form_var_facturable }}</value>
             </item><item>
               <name>is_invoiceable</name>
               <value>{{ form_var_facturable }}</value>
