@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
-<workflow id="2" url="https://wcs.dev.publik.love/backoffice/workflows/2/">
+<workflow id="7" url="">
   <name>Portail Parent - Repas scolaires</name>
   <slug>portail-parent-repas-scolaires</slug>
-  <category slug="portail-parent" category_id="1">Portail Parent</category>
+  <category slug="portail-parent" category_id="1">Portail parent</category>
   <roles>
     <role id="_receiver">Agents traitants</role>
   </roles><possible_status>
     <status>
       <id>6</id>
       <name>Nouvelle demande</name>
-      <colour>FFFFFF</colour>
+      <colour>#FFFFFF</colour>
       <visibility />
       <items>
-        <item type="set-backoffice-fields" id="2">
+        <item type="set-backoffice-fields" id="1">
           <fields>
             <field>
               <field_id>boeff53d08-31d0-4dba-a295-6d4c57b46205</field_id>
@@ -25,7 +25,7 @@
               <value>{{ form_var_enfant_level|get:1 }}</value>
             </field>
           </fields>
-        </item><item type="jump" id="1">
+        </item><item type="jump" id="2">
           <status>1</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -33,7 +33,7 @@
     </status><status>
       <id>1</id>
       <name>Enregistrement des repas</name>
-      <colour>FFFF00</colour>
+      <colour>#FFFF00</colour>
       <visibility />
       <items>
         <item type="webservice_call" id="1">
@@ -59,9 +59,9 @@
           <action_on_5xx>2</action_on_5xx>
           <action_on_bad_data>2</action_on_bad_data>
           <action_on_network_errors>2</action_on_network_errors>
-          <notify_on_errors>False</notify_on_errors>
-          <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
+          <record_on_errors>True</record_on_errors>
+          <notify_on_errors>False</notify_on_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item><item type="jump" id="2">
           <status>3</status>
@@ -82,13 +82,13 @@
     </status><status>
       <id>2</id>
       <name>&#201;chec de l'enregistrement</name>
-      <colour>FF0000</colour>
+      <colour>#FF0000</colour>
       <visibility />
       <items>
         <item type="choice" id="1">
           <label>Retenter l'enregistrement</label>
           <by>
-            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
+            <item slug="debug" role_id="cd9db0054986459498570d862dccc069">Debug</item>
           </by><status>1</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
@@ -106,21 +106,23 @@
     </status><status>
       <id>7</id>
       <name>La situation est r&#233;gularis&#233;e</name>
-      <colour>99FF00</colour>
+      <colour>#99FF00</colour>
       <visibility />
       <items />
     </status><status>
       <id>3</id>
       <name>Repas correctement enregistr&#233;s</name>
-      <colour>00FF00</colour>
+      <colour>#00FF00</colour>
       <visibility />
       <items>
         <item type="register-comment" id="1">
           <comment>&lt;p&gt;Nous avons bien re&#231;u votre commande de repas pour {{ form_var_enfant }}&lt;/p&gt;
 &lt;p&gt;Voici votre commande pour &lt;b&gt;{{ form_var_repas_structured.0.date|date:"F Y" }} :&lt;/b&gt;&lt;/p&gt;
 &lt;ul&gt;
-{% for repas in form_var_repas_structured %}
-    &lt;li&gt;Le {{ repas.date|date:"j" }} : {{ repas.text }}&lt;/li&gt;
+{% for repas in form_workflow_data_post_child_meal_response_items %}
+{% if repas.date|date &gt; today|date|add_days:1 %}
+    &lt;li&gt;Le {{ repas.date|date:"j" }} : {{ repas.meals }}&lt;/li&gt;
+{% endif %}
 {% endfor %}
 &lt;/ul&gt;</comment>
         </item><item type="sendmail" id="2">
@@ -132,8 +134,10 @@
 Nous avons bien re&#231;u votre commande de repas pour {{ form_var_enfant }}.
 
 Voici votre commande pour **{{ form_var_repas_structured.0.date|date:"F Y" }}** :
-{% for repas in form_var_repas_structured %}
+{% for repas in form_workflow_data_post_child_meal_response_items %}
+{% if repas.date|date &gt; today|date|add_days:1 %}
 * Le {{ repas.date|date:"j" }} : {{ repas.text }}
+{% endif %}
 {% endfor %}
 
 Cordialement,</body>
@@ -149,8 +153,9 @@ Cordialement,</body>
       </items><triggers>
         <trigger type="manual" id="10284ecc-faf1-46d3-a567-7748e0d799d0">
           <roles>
-            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
-          </roles>
+            <item slug="debug" role_id="cd9db0054986459498570d862dccc069">Debug</item>
+          </roles><allow_as_mass_action>True</allow_as_mass_action>
+          <require_confirmation>False</require_confirmation>
         </trigger>
       </triggers>
     </action>
@@ -165,6 +170,7 @@ Cordialement,</body>
           <hint type="str">Filtrer les enfants en fonction des &#233;coles coch&#233;es. Si aucune &#233;cole n'est coch&#233;e, les enfants ne sont pas filtr&#233;s.</hint>
           <varname type="str">implantations_scolaires</varname>
           <display_locations />
+          <anonymise type="str">final</anonymise>
           <items />
           <display_mode type="str">checkboxes</display_mode>
           <min_choices type="int">0</min_choices>
@@ -172,7 +178,6 @@ Cordialement,</body>
           <data_source>
             <type>portail-parent-implantations_scolaires</type>
           </data_source><in_filters type="bool">False</in_filters>
-          <anonymise type="bool">True</anonymise>
           <display_disabled_items type="bool">False</display_disabled_items>
           <image_desktop_size type="int">150</image_desktop_size>
           <image_mobile_size type="int">75</image_mobile_size>
@@ -183,12 +188,12 @@ Cordialement,</body>
           <required type="bool">True</required>
           <varname type="str">mois</varname>
           <display_locations />
+          <anonymise type="str">no</anonymise>
           <display_mode type="str">radio</display_mode>
           <items />
           <data_source>
             <type>portail_parent_mois_des_repas</type>
           </data_source><in_filters type="bool">False</in_filters>
-          <anonymise type="bool">False</anonymise>
           <display_disabled_items type="bool">False</display_disabled_items>
           <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
           <image_desktop_size type="int">150</image_desktop_size>

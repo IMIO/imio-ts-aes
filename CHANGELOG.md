@@ -11,6 +11,8 @@ Changelog
 - [MPPNIVA-9] Added: webservice call for parent data
 - [MPPNIVA-10] Added: form for parent updates of his own data
 - [MPPNIVA-9][MPPNIVA-10] Added: workflow for updating parent and child data
+- [MPP-466] Updated: desinscription meal, take into account current parent
+- [MPP-466] Updated: workflow inscription meal, list of inscription
 
 1.11.8
 ----------------
