@@ -4,7 +4,7 @@
   <url_name>pp-me-designer-facturable</url_name>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
-  <disabled>false</disabled>
+  <disabled>true</disabled>
   <only_allow_one>false</only_allow_one>
   <enable_tracking_codes>false</enable_tracking_codes>
   <confirmation>false</confirmation>
