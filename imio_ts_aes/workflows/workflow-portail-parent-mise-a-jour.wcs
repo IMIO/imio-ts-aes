@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<workflow id="12" url="">
+<workflow id="11" url="">
   <name>Portail Parent - Mise &#224; jour</name>
   <slug>portail-parent-mise-a-jour</slug>
-  <category slug="portail-parent" category_id="1">Portail parent</category>
+  <category slug="portail-parent" category_id="3">Portail parent</category>
   <roles>
     <role id="_receiver">Agent traitant</role>
   </roles><possible_status>
@@ -35,7 +35,7 @@
             <item role_id="_receiver">_receiver</item>
           </by><status>1</status>
           <require_confirmation>False</require_confirmation>
-          <backoffice_info_text>&lt;p&gt;Valider la demande pour enregistrer automatiquement les donn&amp;eacute;es dans iA.AES{% if form_slug == "pp-modifier-mes-donnees-parent" %} et dans le profil de l&amp;#39;usager dans T&amp;eacute;l&amp;eacute;services{% endif %}.&lt;/p&gt;
+          <backoffice_info_text>&lt;p&gt;Valider la demande pour enregistrer automatiquement les donn&amp;eacute;es.&lt;/p&gt;
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
@@ -111,6 +111,15 @@
             </item><item>
               <name>parent_mobile_phone</name>
               <value>{{ form_var_telephone_mobile }}</value>
+            </item><item>
+              <name>municipality_zipcodes</name>
+              <value>{{ commune_cp }}</value>
+            </item><item>
+              <name>child_lastname</name>
+              <value>{{ form_var_nouveau_nom }}</value>
+            </item><item>
+              <name>child_firstname</name>
+              <value>{{ form_var_nouveau_prenom }}</value>
             </item>
           </post_data><response_type>json</response_type>
           <varname>enregistrement</varname>
@@ -196,7 +205,12 @@ Cordialement,</body>
         <role>__restricted__</role>
       </visibility><items>
         <item type="displaymsg" id="1">
+          <message>&lt;p&gt;Une erreur est survenue lors de la mise &#224; jour des donn&#233;es. Celle-ci n'a donc pas pu se faire.&lt;/p&gt;</message>
+          <level>error</level>
           <position>top</position>
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to>
         </item><item type="register-comment" id="2" />
         <item type="sendmail" id="3">
           <to>
@@ -308,14 +322,10 @@ Une erreur a &#233;t&#233; rencontr&#233;e pour une demande du formulaire {{ for
       <fields>
         <field>
           <type>bool</type>
-          <label type="str">Accepter la mise &#224; jour automatiquement</label>
+          <label type="str">Accepter automatiquement la mise &#224; jour</label>
           <required type="bool">False</required>
-          <hint type="str">Les donn&#233;es mises &#224; jour par le parent seront automatiquement modifi&#233;es dans iA.AES. En d&#233;cochant cette case un agent traitant devra valider la demande manuellement.</hint>
+          <hint type="str">Les donn&#233;es mises &#224; jour par le parent seront automatiquement modifi&#233;es dans iA.AES. En d&#233;cochant cette case, un agent traitant devra valider la demande manuellement.</hint>
           <varname type="str">validation_automatique</varname>
-          <display_locations>
-            <display_location>validation</display_location>
-            <display_location>summary</display_location>
-          </display_locations><anonymise type="str">no</anonymise>
           <id type="str">c2e6a9e7-6b83-4dee-8680-b770c44945cf</id>
         </field>
       </fields>
