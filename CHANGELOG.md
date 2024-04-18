@@ -14,6 +14,7 @@ Changelog
 - [MPP-466] Updated: desinscription meal, take into account current parent
 - [MPP-466] Updated: workflow inscription meal, list of inscription
 - [MPP-466] Updated: form inscription and desinscription meal protect for parents not invoinceable
+- [MPP-482] Updated: workflow fiche and finalisation plaine link fiche and finalisation
 
 1.11.8
 ----------------

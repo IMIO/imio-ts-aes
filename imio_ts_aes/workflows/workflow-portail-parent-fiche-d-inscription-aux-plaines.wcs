@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<workflow id="3" url="">
+<workflow id="10" url="https://wcs.dev.publik.love/backoffice/workflows/10/">
   <name>Portail Parent - Fiche d'inscription aux plaines</name>
   <slug>portail-parent-fiche-d-inscription-aux-plaines</slug>
-  <category slug="portail-parent" category_id="3">Portail parent</category>
+  <category slug="portail-parent" category_id="1">Portail parent</category>
   <roles>
     <role id="_receiver">Agent traitant</role>
   </roles><possible_status>
@@ -15,7 +15,7 @@
         <item type="choice" id="1">
           <label>En attente de paiement</label>
           <by>
-            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
+            <item slug="debug" role_id="cd9db0054986459498570d862dccc069">Debug</item>
           </by><status>3</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
@@ -54,7 +54,7 @@
         <item type="choice" id="1">
           <label>Cl&#244;turer la demande</label>
           <by>
-            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
+            <item slug="debug" role_id="cd9db0054986459498570d862dccc069">Debug</item>
           </by><status>4</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
@@ -254,9 +254,26 @@ Cordialement,</body>
       </items><triggers>
         <trigger type="manual" id="8db2c86f-e855-4267-874e-9cd3d559143a">
           <roles>
-            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
+            <item slug="debug" role_id="cd9db0054986459498570d862dccc069">Debug</item>
           </roles><allow_as_mass_action>True</allow_as_mass_action>
           <require_confirmation>False</require_confirmation>
+        </trigger>
+      </triggers>
+    </action><action>
+      <id>5</id>
+      <name>Demande Finalisation</name>
+      <items>
+        <item type="set-backoffice-fields" id="1">
+          <fields>
+            <field>
+              <field_id>bob00a7c97-ae61-46e0-94e7-268e5f3a1375</field_id>
+              <value>{{ caller_form_internal_id }}</value>
+            </field>
+          </fields>
+        </item>
+      </items><triggers>
+        <trigger type="webservice" id="a7147cee-1566-4317-b34b-6d8d4c5d377d">
+          <identifier>demande_finalisation</identifier>
         </trigger>
       </triggers>
     </action>
@@ -308,6 +325,15 @@ Cordialement,</body>
           <image_desktop_size type="int">150</image_desktop_size>
           <image_mobile_size type="int">75</image_mobile_size>
           <id type="str">bo0a400754-416f-49bb-8c6d-50306a4e0240</id>
+        </field><field>
+          <type>string</type>
+          <label type="str">Demande Finalisation</label>
+          <required type="bool">True</required>
+          <varname type="str">demande_finalisation</varname>
+          <display_locations>
+            <display_location>summary</display_location>
+          </display_locations><anonymise type="str">final</anonymise>
+          <id type="str">bob00a7c97-ae61-46e0-94e7-268e5f3a1375</id>
         </field>
       </fields>
     </formdef>
