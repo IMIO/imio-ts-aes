@@ -2,7 +2,7 @@
 <workflow id="1" url="https://wcs.dev.publik.love/backoffice/workflows/1/">
   <name>Portail Parent - Enregistrement enfant</name>
   <slug>portail-parent-enregistrement-enfant</slug>
-  <category slug="portail-parent" category_id="1">Portail parent</category>
+  <category slug="portail-parent" category_id="3">Portail parent</category>
   <roles>
     <role id="_debug">Debug</role>
     <role id="_receiver">Agent traitant</role>
@@ -10,10 +10,9 @@
     <status>
       <id>6</id>
       <name>V&#233;rification de l'existance de l'enfant</name>
-      <colour>FFFFFF</colour>
+      <colour>#FFFFFF</colour>
       <visibility>
-        <role>_receiver</role>
-        <role>_debug</role>
+        <role>__restricted__</role>
       </visibility><items>
         <item type="webservice_call" id="1">
           <label>V&#233;rification de l'existence de l'enfant</label>
@@ -41,9 +40,10 @@
           <action_on_5xx>:stop</action_on_5xx>
           <action_on_bad_data>:pass</action_on_bad_data>
           <action_on_network_errors>:stop</action_on_network_errors>
-          <notify_on_errors>False</notify_on_errors>
-          <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
+          <record_on_errors>True</record_on_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <set_marker_on_status>False</set_marker_on_status>
         </item><item type="jump" id="2">
           <status>7</status>
           <condition>
@@ -59,7 +59,7 @@
         </item><item type="choice" id="4">
           <label>debg</label>
           <by>
-            <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
+            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
           </by><status>1</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
@@ -67,7 +67,7 @@
         </item><item type="choice" id="5">
           <label>Erroner</label>
           <by>
-            <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
+            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
           </by><status>11</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
@@ -77,13 +77,13 @@
     </status><status>
       <id>11</id>
       <name>Erreur - deux enfants trouv&#233;s</name>
-      <colour>FFFFFF</colour>
+      <colour>#FFFFFF</colour>
       <visibility />
       <items>
         <item type="choice" id="1">
           <label>Rejouer</label>
           <by>
-            <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
+            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
           </by><status>6</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
@@ -93,7 +93,7 @@
     </status><status>
       <id>1</id>
       <name>Enregistrement de l'enfant</name>
-      <colour>FFFFFF</colour>
+      <colour>#FFFFFF</colour>
       <visibility />
       <items>
         <item type="webservice_call" id="1">
@@ -127,8 +127,14 @@
               <name>municipality_zipcodes</name>
               <value>{{ commune_cp }}</value>
             </item><item>
-              <name>compute_price_category</name>
+              <name>invoicing_differs_by_home</name>
               <value>{{ form_option_child_type_facturation_raw }}</value>
+            </item><item>
+              <name>school_implantation</name>
+              <value>{{ form_var_implantation_scolaire }}</value>
+            </item><item>
+              <name>invoicing_differs_by_school</name>
+              <value>{{ form_option_prefered_school_pricing_raw }}</value>
             </item>
           </post_data><response_type>json</response_type>
           <varname>enregistrement_enfant</varname>
@@ -137,9 +143,10 @@
           <action_on_5xx>:stop</action_on_5xx>
           <action_on_bad_data>:pass</action_on_bad_data>
           <action_on_network_errors>:stop</action_on_network_errors>
-          <notify_on_errors>False</notify_on_errors>
-          <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
+          <record_on_errors>True</record_on_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <set_marker_on_status>False</set_marker_on_status>
         </item><item type="jump" id="2">
           <status>3</status>
           <set_marker_on_status>False</set_marker_on_status>
@@ -148,10 +155,9 @@
     </status><status>
       <id>7</id>
       <name>L'enfant existe d&#233;j&#224;</name>
-      <colour>FF9900</colour>
+      <colour>#FF9900</colour>
       <visibility>
-        <role>_receiver</role>
-        <role>_debug</role>
+        <role>__restricted__</role>
       </visibility><items>
         <item type="jump" id="1">
           <status>9</status>
@@ -161,7 +167,7 @@
     </status><status>
       <id>3</id>
       <name>Votre enfant est bien enregistr&#233;</name>
-      <colour>00FF00</colour>
+      <colour>#00FF00</colour>
       <forced_endpoint>true</forced_endpoint>
       <visibility />
       <items>
@@ -207,7 +213,7 @@ Bien cordialement,</body>
     </status><status>
       <id>2</id>
       <name>&#201;chec lors de l'enregistrement</name>
-      <colour>FF0000</colour>
+      <colour>#FF0000</colour>
       <visibility />
       <items>
         <item type="displaymsg" id="1">
@@ -231,7 +237,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <label>Relancer l'inscription</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
+            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
           </by><status>6</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
@@ -249,13 +255,13 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
     </status><status>
       <id>8</id>
       <name>La situation est r&#233;gularis&#233;e</name>
-      <colour>99FF00</colour>
+      <colour>#99FF00</colour>
       <visibility />
       <items />
     </status><status>
       <id>9</id>
       <name>Ajouter un parent</name>
-      <colour>FFFFFF</colour>
+      <colour>#FFFFFF</colour>
       <visibility />
       <items>
         <item type="webservice_call" id="1">
@@ -275,16 +281,17 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <action_on_5xx>12</action_on_5xx>
           <action_on_bad_data>12</action_on_bad_data>
           <action_on_network_errors>12</action_on_network_errors>
-          <notify_on_errors>False</notify_on_errors>
-          <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
+          <record_on_errors>True</record_on_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <set_marker_on_status>False</set_marker_on_status>
         </item><item type="jump" id="2">
           <status>10</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item><item type="choice" id="3">
           <label>Rejouer l'ajout du parent</label>
           <by>
-            <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
+            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
           </by><status>7</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
@@ -294,7 +301,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
     </status><status>
       <id>12</id>
       <name>Erreur lors de l'ajout d'un parent</name>
-      <colour>FF0000</colour>
+      <colour>#FF0000</colour>
       <visibility />
       <items>
         <item type="displaymsg" id="1">
@@ -339,7 +346,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
     </status><status>
       <id>10</id>
       <name>Demande trait&#233;e</name>
-      <colour>00FF00</colour>
+      <colour>#00FF00</colour>
       <visibility />
       <items />
     </status>
@@ -353,7 +360,8 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
         <trigger type="manual" id="61aa72c2-a964-4143-9c95-a161e7ebba10">
           <roles>
             <item role_id="_debug">_debug</item>
-          </roles>
+          </roles><allow_as_mass_action>True</allow_as_mass_action>
+          <require_confirmation>False</require_confirmation>
         </trigger>
       </triggers>
     </action>
@@ -362,23 +370,39 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
       <name>-</name>
       <fields>
         <field>
+          <type>item</type>
           <label type="str">Faut-il facturer le parent diff&#233;rement selon qu'il habite la commune ou non ?</label>
-          <type type="str">item</type>
           <required type="bool">True</required>
           <hint type="str">Ce champ permet de d&#233;finir le type de facturation qui sera utilis&#233;e pour l'enfant qui sera inscrit.</hint>
           <varname type="str">child_type_facturation</varname>
           <display_locations />
-          <prefill>
-            <type>none</type>
-          </prefill><display_mode type="str">radio</display_mode>
+          <anonymise type="str">no</anonymise>
+          <display_mode type="str">radio</display_mode>
           <items />
           <data_source>
             <type>aes_oui_non</type>
           </data_source><in_filters type="bool">False</in_filters>
-          <anonymise type="bool">False</anonymise>
           <display_disabled_items type="bool">False</display_disabled_items>
           <initial_zoom type="str">13</initial_zoom>
+          <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
+          <image_desktop_size type="int">150</image_desktop_size>
+          <image_mobile_size type="int">75</image_mobile_size>
           <id type="str">3</id>
+        </field><field>
+          <type>item</type>
+          <label type="str">Faut-il appliquer le tarif pr&#233;f&#233;rentiel aux enfants scolaris&#233;s dans la commune ?</label>
+          <required type="bool">True</required>
+          <hint type="str">Si oui, les enfants scolaris&#233;s dans une implantation scolaire de la commune recevront la cat&#233;gorie tarifaire "Commune".</hint>
+          <varname type="str">prefered_school_pricing</varname>
+          <display_mode type="str">radio</display_mode>
+          <data_source>
+            <type>aes_oui_non</type>
+          </data_source><in_filters type="bool">False</in_filters>
+          <display_disabled_items type="bool">False</display_disabled_items>
+          <use_hint_as_first_option type="bool">False</use_hint_as_first_option>
+          <image_desktop_size type="int">150</image_desktop_size>
+          <image_mobile_size type="int">75</image_mobile_size>
+          <id type="str">2b59a3e5-facc-416f-aa03-6951cbcc6b03</id>
         </field>
       </fields>
     </formdef>
@@ -387,14 +411,14 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
       <name>-</name>
       <fields>
         <field>
+          <type>string</type>
           <label type="str">Cat&#233;gorie tarifaire de l'enfant</label>
-          <type type="str">string</type>
           <required type="bool">True</required>
           <hint type="str">Cette information est utilis&#233;e pour d&#233;terminer le type de facturation &#224; appliquer ; typiquement s'il s'agit d'un enfant de la commune ou non.</hint>
           <varname type="str">child_tariff_category</varname>
           <display_locations>
             <display_location>summary</display_location>
-          </display_locations><anonymise type="bool">True</anonymise>
+          </display_locations><anonymise type="str">final</anonymise>
           <id type="str">bo7cd21660-67d9-42f7-a364-ebec2e10657b</id>
         </field>
       </fields>
