@@ -21,7 +21,7 @@
 
 Un parent souhaite devenir facturable pour son enfant. Il attend donc votre validation.
 
-&lt;a href="{{ form_url_backoffice }}"&gt;Consulter la demande&lt;/a&gt;
+`Consulter la demande &lt;{{ form_url_backoffice }}&gt;`_
 </body>
         </item><item type="jump" id="2">
           <status>2</status>

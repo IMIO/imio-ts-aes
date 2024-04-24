@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.0.1
+----------------
+
+- [SUP-36842] Fixed: Meal registrations feedback by e-mail
+- [MPP-483] Fixed: links in workflows
+
 2.0.0
 ----------------
 
