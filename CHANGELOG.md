@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.0.2
+----------------
+
+- [SUP-36966] Added: e-mail to notify parent when is finalisation is waiting for payement.
+- [SUP-36966] Update: alert message when the amount to be paid is in error.
+
 2.0.1
 ----------------
 

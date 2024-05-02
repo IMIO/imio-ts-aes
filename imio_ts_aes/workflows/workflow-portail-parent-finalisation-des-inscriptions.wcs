@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<workflow id="14" url="https://wcs.dev.publik.love/backoffice/workflows/14/">
+<workflow id="13" url="">
   <name>Portail Parent - Finalisation des inscriptions</name>
   <slug>portail-parent-finalisation-des-inscriptions</slug>
-  <category slug="portail-parent" category_id="1">Portail parent</category>
+  <category slug="portail-parent" category_id="3">Portail parent</category>
   <roles>
     <role id="_receiver">Agent traitant</role>
   </roles><possible_status>
@@ -230,7 +230,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
 
 `Contacter le support &lt;support.imio.be&gt;`_</body>
         </item><item type="displaymsg" id="2">
-          <message>Nous rencontrons un probl&#232;me au niveau du paiement. Les r&#233;servations de place que vous venez d'effectuer sont confirm&#233;es. Votre administration communale reviendra vers vous pour effectuer le paiement.</message>
+          <message>&lt;p&gt;Nous rencontrons un probl&#232;me au niveau du paiement. Les r&#233;servations de place que vous venez d'effectuer sont confirm&#233;es. Veuillez actualiser cette page dans quelques minutes.&lt;/p&gt;</message>
           <level>error</level>
           <position>top</position>
         </item><item type="choice" id="3">
@@ -355,6 +355,22 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
 &lt;p&gt;&lt;a href="{{ portal_url }}panier/" class="pk-button"&gt;R&#233;gler mon panier&lt;/a&gt;&lt;/p&gt;</message>
           <level>info</level>
           <position>top</position>
+        </item><item type="sendmail" id="7">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>{{ form_name }} n&#176;{{ form_number }} en attente de paiement</subject>
+          <body>La finalisation de ces inscriptions est en attente de paiement :
+{% for registration in forms|objects:"pp-fiche-inscription-plaine"|filter_by:"demande_finalisation"|filter_value:form_internal_id %}
+ * {{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }}
+{% endfor %}
+
+Vous avez un d&#233;lai de trois jours pour r&#233;aliser ce paiement.
+
+`Consulter la finalisation &lt;{{ form_url }}&gt;`_</body>
+          <condition>
+            <type>django</type>
+            <value>form_previous_status|lower == "ajout au panier"</value>
+          </condition>
         </item><item type="jump" id="2">
           <status>19</status>
           <trigger>paid</trigger>
