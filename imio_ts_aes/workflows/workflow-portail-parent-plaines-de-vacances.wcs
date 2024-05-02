@@ -134,7 +134,23 @@
       <colour>00FF00</colour>
       <visibility />
       <items>
-        <item type="sendmail" id="1">
+        <item type="create_formdata" id="6">
+          <action_label>Navette</action_label>
+          <formdef_slug>reservation-navette</formdef_slug>
+          <map_fields_by_varname>True</map_fields_by_varname>
+          <mappings />
+          <backoffice_submission>False</backoffice_submission>
+          <draft>True</draft>
+          <draft_edit_operation_mode>full</draft_edit_operation_mode>
+          <user_association_mode>keep-user</user_association_mode>
+          <keep_submission_context>False</keep_submission_context>
+          <varname>navette</varname>
+          <attach_to_history>False</attach_to_history>
+          <condition>
+            <type>django</type>
+            <value>form_var_redirection_navette</value>
+          </condition>
+        </item><item type="sendmail" id="1">
           <to>
             <item role_id="_submitter">_submitter</item>
           </to><subject>Inscription de {{ form_var_enfant }} aux {{ form_name|lower }}</subject>
@@ -205,6 +221,18 @@ Une fois que vous aurez inscrits tous vos enfants, vous pouvez `finaliser vos in
             <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
             <item role_id="_receiver">_receiver</item>
           </to>
+        </item><item type="register-comment" id="8">
+          <comment>{% if is_in_backoffice %}&lt;a href="{{ form_links_navette_form_backoffice_url }}"&gt;Lien vers la demande de r&#233;servation de navettes&lt;/a&gt;{% else %}&lt;a href="{{ form_links_navette_form_url }}"&gt;Lien vers la demande de r&#233;servation de navettes&lt;/a&gt;{% endif %}</comment>
+          <condition>
+            <type>django</type>
+            <value>form_links_navette</value>
+          </condition>
+        </item><item type="redirect_to_url" id="7">
+          <url>{{ form_links_navette_form_url }}</url>
+          <condition>
+            <type>django</type>
+            <value>form_var_redirection_navette</value>
+          </condition>
         </item>
       </items>
     </status><status>

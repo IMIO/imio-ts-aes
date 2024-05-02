@@ -95,6 +95,26 @@
           <record_on_errors>True</record_on_errors>
           <notify_on_errors>False</notify_on_errors>
           <set_marker_on_status>False</set_marker_on_status>
+        </item><item type="set-backoffice-fields" id="3">
+          <label>Date plaine</label>
+          <fields>
+            <field>
+              <field_id>bo89a6c3b8-ed18-4f95-9eab-5cab22026241</field_id>
+              <value>{% for plaine in form_parent_form_var_activities_plaines_structured %}{% if plaine|get:"text" ==  form_var_plaine %}{{ plaine|get:"start_date" }}{% endif %}{% endfor %}</value>
+            </field>
+          </fields><condition>
+            <type>django</type>
+            <value>pp_redirection_navette</value>
+          </condition>
+        </item><item type="external_workflow_global_action" id="4">
+          <slug>formdef:reservation-navette</slug>
+          <trigger_id>action:annulation_navette_fiche</trigger_id>
+          <target_mode>manual</target_mode>
+          <target_id>{{ forms|objects:"reservation-navette"|filter_by_internal_id:form_parent_form_links_navette_form_internal_id }}</target_id>
+          <condition>
+            <type>django</type>
+            <value>pp_redirection_navette</value>
+          </condition>
         </item><item type="jump" id="2">
           <status>5</status>
           <set_marker_on_status>False</set_marker_on_status>
@@ -334,6 +354,15 @@ Cordialement,</body>
             <display_location>summary</display_location>
           </display_locations><anonymise type="str">final</anonymise>
           <id type="str">bob00a7c97-ae61-46e0-94e7-268e5f3a1375</id>
+        </field><field>
+          <type>string</type>
+          <label type="str">Date d&#233;but plaine</label>
+          <required type="bool">True</required>
+          <varname type="str">date_debut_plaine</varname>
+          <display_locations>
+            <item>summary</item>
+          </display_locations><anonymise type="str">final</anonymise>
+          <id type="str">bo89a6c3b8-ed18-4f95-9eab-5cab22026241</id>
         </field>
       </fields>
     </formdef>

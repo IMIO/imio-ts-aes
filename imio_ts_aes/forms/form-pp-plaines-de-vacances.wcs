@@ -54,9 +54,9 @@
       <required type="bool">False</required>
       <varname type="str">enfant</varname>
       <display_locations>
-        <display_location>validation</display_location>
-        <display_location>summary</display_location>
-        <display_location>listings</display_location>
+        <item>validation</item>
+        <item>summary</item>
+        <item>listings</item>
       </display_locations><extra_css_class type="str">hidden</extra_css_class>
       <prefill>
         <locked>True</locked>
@@ -64,7 +64,6 @@
         <value>{{ form_var_id_enfant }}</value>
       </prefill><anonymise type="str">no</anonymise>
       <display_mode type="str">radio</display_mode>
-      <items />
       <data_source>
         <type>portail_parent_enfants</type>
         <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ form_user_var_aes_id }}/children/</value>
@@ -91,9 +90,10 @@
       <hint type="str">Choisissez vos plaines</hint>
       <varname type="str">activities_plaines</varname>
       <display_locations>
-        <display_location>validation</display_location>
+        <item>validation</item>
       </display_locations><extra_css_class type="str">hidden</extra_css_class>
       <anonymise type="str">final</anonymise>
+      <items />
       <display_mode type="str">checkboxes</display_mode>
       <min_choices type="int">0</min_choices>
       <max_choices type="int">0</max_choices>
@@ -112,6 +112,18 @@
       <extra_css_class type="str">template-portail_parent_plaines</extra_css_class>
       <display_locations />
       <id type="str">54</id>
+    </field><field>
+      <type>bool</type>
+      <label type="str">R&#233;server des navettes pour cet enfant et ces plaines</label>
+      <condition>
+        <type>django</type>
+        <value>pp_redirection_navette</value>
+      </condition><required type="bool">False</required>
+      <hint type="str">Vous serez redirig&#233;s vers un formulaire pour la r&#233;servation de navette.</hint>
+      <varname type="str">redirection_navette</varname>
+      <display_locations />
+      <anonymise type="str">no</anonymise>
+      <id type="str">66a76ec5-9a4a-467a-92ed-f5c8232d9a95</id>
     </field>
   </fields><roles>
     <role slug="debug" role_id="5162edec67c74e23bc26251709ab4101" role_key="_debug">Debug</role>
