@@ -4,6 +4,11 @@ Changelog
 2.1.2
 ----------------
 
+- [MPPNIVA-11] updated: redirect navette.
+
+2.1.0
+----------------
+
 - [MPPNIVA-11] Added: redirect navette.
 
 2.0.2
