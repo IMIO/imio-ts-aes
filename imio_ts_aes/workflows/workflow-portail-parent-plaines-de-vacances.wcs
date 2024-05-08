@@ -164,6 +164,7 @@
 {% endfor %}{% endif %}
 
 {% if form_option_mode_de_paiement == "Paiement en ligne" %}Vous avez trois jours pour finaliser les inscriptions de tous vos enfants. Au-del&#224; de ce d&#233;lai, ils seront d&#233;sinscrits.{% endif %}
+{% if form_links_navette %}|`Inscrire votre enfant aux navettes &lt;{{ form_links_navette_form_url }}&gt;`_{% endif %}
 
 `Inscrire un autre enfant &lt;{{ eservices_url }}portail-parent/&gt;`_
 

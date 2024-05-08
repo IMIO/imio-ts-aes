@@ -113,6 +113,15 @@
       <display_locations />
       <id type="str">54</id>
     </field><field>
+      <type>comment</type>
+      <label type="str">&lt;h2&gt;&lt;img alt="" src="https://nivelles.guichet-citoyen.be/media/uploads/2024/05/03/bus.png" style="width: 40px; height: 40px;"&gt;&amp;nbsp;R&amp;eacute;servation des navettes&lt;/h2&gt;
+</label>
+      <condition>
+        <type>django</type>
+        <value>pp_redirection_navette</value>
+      </condition><display_locations />
+      <id type="str">24474e7a-b5c3-40fe-bbdb-9fa9e303dc7f</id>
+    </field><field>
       <type>bool</type>
       <label type="str">R&#233;server des navettes pour cet enfant et ces plaines</label>
       <condition>

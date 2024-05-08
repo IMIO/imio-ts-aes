@@ -110,7 +110,7 @@
           <slug>formdef:reservation-navette</slug>
           <trigger_id>action:annulation_navette_fiche</trigger_id>
           <target_mode>manual</target_mode>
-          <target_id>{{ forms|objects:"reservation-navette"|filter_by_internal_id:form_parent_form_links_navette_form_internal_id }}</target_id>
+          <target_id>{% if form_parent_form_links_navette_form_internal_id  %}{{ forms|objects:"reservation-navette"|filter_by_internal_id:form_parent_form_links_navette_form_internal_id }}{% else%}{{ forms|objects:"reservation-navette"|filter_by:"inscriptions_inscription"|filter_value:form_var_inscription }}{% endif %}</target_id>
           <condition>
             <type>django</type>
             <value>pp_redirection_navette</value>
