@@ -242,13 +242,13 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Une fois la source de l&amp;#39;erreur identifi&amp;eacute;e et celle-ci corrig&amp;eacute;e, il est possible de redemander &amp;agrave; AES de calculer le montant &amp;agrave; payer.&lt;/p&gt;
 </backoffice_info_text>
-          <ignore_form_errors>False</ignore_form_errors>
+          <ignore_form_errors>True</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item><item type="form" id="4">
           <by>
             <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
           </by><varname>erreur_calcul</varname>
-          <hide_submit_button>False</hide_submit_button>
+          <hide_submit_button>True</hide_submit_button>
           <condition>
             <type>django</type>
             <value>form_option_mode_paiement == "Paiement en ligne"</value>
@@ -261,19 +261,22 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
                 <required type="bool">True</required>
                 <hint type="str">Indiquez le montant puis validez. Ce montant sera directement disponible dans le panier de l'utilisateur.</hint>
                 <varname type="str">montant</varname>
-                <restrict_to_integers type="bool">True</restrict_to_integers>
-                <min_value type="decimal">0</min_value>
+                <restrict_to_integers type="bool">False</restrict_to_integers>
+                <min_value type="decimal">0.01</min_value>
                 <id type="str">6e360fc6-3792-4c08-8848-89d8d535909a</id>
               </field>
             </fields>
           </formdef>
-        </item><item type="jumponsubmit" id="5">
-          <status>2</status>
+        </item><item type="choice" id="6">
+          <label>Valider le montant</label>
+          <by>
+            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
+          </by><status>2</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Encodez d&amp;#39;abord un montant ci-dessus, puis s&amp;eacute;lectionnez ce bouton pour l&amp;#39;envoyer dans le panier du parent.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
-          <condition>
-            <type>django</type>
-            <value>form_option_mode_paiement == "Paiement en ligne"</value>
-          </condition>
         </item>
       </items>
     </status><status>
