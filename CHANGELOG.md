@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.2.0
+----------------
+
+- [MPP-149] Added: epayment on school meal registrations
+
 2.1.3
 ----------------
 
