@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
-<formdef id="8" url="">
+<formdef id="16" url="">
   <name>Repas scolaires</name>
   <url_name>pp-repas-scolaires</url_name>
   <drafts_lifespan>2</drafts_lifespan>
+  <submission_user_association>any</submission_user_association>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
   <disabled>false</disabled>
@@ -13,7 +14,7 @@
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
   <category slug="portail-parent" category_id="1">Portail Parent</category>
-  <workflow slug="portail-parent-repas-scolaires" workflow_id="7">Portail Parent - Repas scolaires</workflow>
+  <workflow slug="portail-parent-repas-scolaires" workflow_id="12">Portail Parent - Repas scolaires</workflow>
   <fields>
     <field>
       <type>page</type>
@@ -44,9 +45,9 @@
       <required type="bool">True</required>
       <varname type="str">enfant</varname>
       <display_locations>
-        <display_location>validation</display_location>
-        <display_location>summary</display_location>
-        <display_location>listings</display_location>
+        <item>validation</item>
+        <item>summary</item>
+        <item>listings</item>
       </display_locations><extra_css_class type="str">hidden</extra_css_class>
       <prefill>
         <locked>True</locked>
@@ -72,7 +73,13 @@
       <id type="str">64cd4241-33e3-404f-a8d6-13ff3644f031</id>
     </field><field>
       <type>comment</type>
-      <label type="str">&lt;div class="pk-information"&gt;&lt;p&gt;Vous inscrivez &lt;span class="varname"&gt;{{ form_var_enfant }}&lt;/span&gt; aux repas scolaires.&lt;/p&gt;&lt;/div&gt;
+      <label type="str">&lt;div class="pk-information"&gt;
+&lt;p&gt;Vous inscrivez &lt;strong&gt;&lt;span class="varname"&gt;{{ form_var_enfant }}&lt;/span&gt;&lt;/strong&gt; aux repas scolaires.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class="pk-information"&gt;
+&lt;p&gt;{% with amount=webservice.portail_parent_solde|get:"amount" already_reserved_amount=webservice.portail_parent_solde|get:"already_reserved_amount" %} {% if amount|subtract:already_reserved_amount &gt; 0 %}Il reste &lt;strong&gt;{{ amount|subtract:already_reserved_amount|decimal:2 }}&amp;euro;&lt;/strong&gt; dans votre solde. Ce montant sera d&amp;eacute;duit lors du paiement.{% endif %} {% if already_reserved_amount &gt; 0 %}Vous aviez d&amp;eacute;j&amp;agrave; command&amp;eacute; pour {{ already_reserved_amount|decimal:2 }}&amp;euro; pour cette enfant, pour ce mois. En cas de changement dans cette commande, ce montant sera d&amp;eacute;duit de votre panier.{% endif %} {% endwith %}&lt;/p&gt;
+&lt;/div&gt;
 
 &lt;p&gt;Pour inscrire votre enfant, cliquez sur le type de repas de votre choix. Ne cochez rien s&amp;#39;il ne doit pas &amp;ecirc;tre inscrit pour une ou plusieurs dates. Vous pourrez encore modifier votre choix jusqu&amp;#39;&amp;agrave; la fin des inscriptions de ce mois-ci.&lt;/p&gt;
 </label>
@@ -87,14 +94,14 @@
       <required type="bool">True</required>
       <varname type="str">repas</varname>
       <display_locations>
-        <display_location>validation</display_location>
-        <display_location>summary</display_location>
+        <item>validation</item>
+        <item>summary</item>
       </display_locations><extra_css_class type="str">hidden</extra_css_class>
       <prefill>
-        <locked>False</locked>
         <type>string</type>
         <value>{% for repas in data_source.portail_parent_inscriptions_aux_repas %}{{ repas|get:"id" }}|{% endfor %}</value>
       </prefill><anonymise type="str">final</anonymise>
+      <items />
       <display_mode type="str">checkboxes</display_mode>
       <min_choices type="int">1</min_choices>
       <max_choices type="int">0</max_choices>
@@ -111,20 +118,30 @@
       <label type="str">&lt;p&gt;Repas&lt;/p&gt;
 </label>
       <extra_css_class type="str">template-portail_parent_repas</extra_css_class>
+      <display_locations />
       <id type="str">57</id>
     </field>
   </fields><user-roles>
     <role role_id="logged-users">logged-users</role>
   </user-roles><roles>
-    <role slug="debug" role_id="cd9db0054986459498570d862dccc069" role_key="_debug">Debug</role>
+    <role slug="agents-traitants-portail-parent" role_id="96c7aae8f5354e4ea05c50bef976dc6e" role_key="_receiver">Agents traitants - Portail parent</role>
   </roles><options>
     <option varname="implantations_scolaires" />
     <option varname="implantations_scolaires_display" />
     <option varname="implantations_scolaires_structured" />
-    <option varname="mois">0</option>
-    <option varname="mois_display">Mois courant</option>
+    <option varname="mode_paiement">Paiement en ligne</option>
+    <option varname="mode_paiement_display">Paiement en ligne</option>
+    <option varname="mode_paiement_structured" />
+    <option varname="mois">1</option>
+    <option varname="mois_display">Mois prochain</option>
     <option varname="mois_structured" />
-    <option varname="test" />
+    <option varname="regie_de_paiement">worldline_test</option>
+    <option varname="regie_de_paiement_display">Worldline Test</option>
+    <option varname="regie_de_paiement_structured" type="dict">
+      <id>worldline_test</id>
+      <text>Worldline Test</text>
+      <description>R&#233;gie de test Worldline</description>
+    </option><option varname="test" />
   </options><custom_views />
   <geolocations />
   <management_sidebar_items>

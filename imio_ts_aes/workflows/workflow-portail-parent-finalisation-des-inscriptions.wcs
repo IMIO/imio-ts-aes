@@ -30,18 +30,18 @@
               <value>{{ form_var_inscriptions_concernees|split:","|distinct_list|join:"," }}</value>
             </field>
           </fields>
-        </item><item type="external_workflow_global_action" id="4">
+        </item><item type="external_workflow_global_action" id="2">
           <slug>formdef:pp-fiche-inscription-plaine</slug>
           <trigger_id>action:demande_finalisation</trigger_id>
           <target_mode>manual</target_mode>
           <target_id>{{ forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de validation" }}</target_id>
-        </item><item type="jump" id="2">
+        </item><item type="jump" id="3">
           <status>3</status>
           <condition>
             <type>django</type>
             <value>form_var_enfants</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="3">
+        </item><item type="jump" id="4">
           <status>18</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -94,8 +94,8 @@
           <action_on_app_error>8</action_on_app_error>
           <action_on_4xx>8</action_on_4xx>
           <action_on_5xx>8</action_on_5xx>
-          <action_on_bad_data>:pass</action_on_bad_data>
-          <action_on_network_errors>:stop</action_on_network_errors>
+          <action_on_bad_data>8</action_on_bad_data>
+          <action_on_network_errors>8</action_on_network_errors>
           <record_errors>False</record_errors>
           <record_on_errors>True</record_on_errors>
           <notify_on_errors>False</notify_on_errors>
@@ -237,10 +237,43 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <label>Calculer le total</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="cd9db0054986459498570d862dccc069">Debug</item>
+            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
           </by><status>1</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Une fois la source de l&amp;#39;erreur identifi&amp;eacute;e et celle-ci corrig&amp;eacute;e, il est possible de redemander &amp;agrave; AES de calculer le montant &amp;agrave; payer.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>True</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item type="form" id="4">
+          <by>
+            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
+          </by><varname>erreur_calcul</varname>
+          <hide_submit_button>True</hide_submit_button>
+          <condition>
+            <type>django</type>
+            <value>form_option_mode_paiement == "Paiement en ligne"</value>
+          </condition><formdef>
+            <name>-</name>
+            <fields>
+              <field>
+                <type>numeric</type>
+                <label type="str">Montant</label>
+                <required type="bool">True</required>
+                <hint type="str">Indiquez le montant puis validez. Ce montant sera directement disponible dans le panier de l'utilisateur.</hint>
+                <varname type="str">montant</varname>
+                <restrict_to_integers type="bool">False</restrict_to_integers>
+                <min_value type="decimal">0.01</min_value>
+                <id type="str">6e360fc6-3792-4c08-8848-89d8d535909a</id>
+              </field>
+            </fields>
+          </formdef>
+        </item><item type="choice" id="6">
+          <label>Valider le montant</label>
+          <by>
+            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
+          </by><status>2</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Encodez d&amp;#39;abord un montant ci-dessus, puis s&amp;eacute;lectionnez ce bouton pour l&amp;#39;envoyer dans le panier du parent.&lt;/p&gt;
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
@@ -261,7 +294,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <position>bottom</position>
           <to>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="cd9db0054986459498570d862dccc069">Debug</item>
+            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
           </to>
         </item><item type="sendmail" id="3">
           <to>
@@ -291,7 +324,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <label>Rechercher la communication structur&#233;e</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="cd9db0054986459498570d862dccc069">Debug</item>
+            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
           </by><status>1</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Si vous avez identifi&amp;eacute; et corrig&amp;eacute; l&amp;#39;erreur, ou si vous ne voulez pas attendre 20 minutes, vous pouvez relancer la recherche de la communication structur&amp;eacute;e. La demande reprendra son cours normal.&lt;/p&gt;
@@ -325,7 +358,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
               <value>{{ form_url }}</value>
             </item><item>
               <name>amount</name>
-              <value>{{ form_workflow_data_montant_response_cost|decimal:2 }}</value>
+              <value>{% if form_previous_status == "Erreur lors du calcul du montant" %}{{ form_workflow_form_erreur_calcul_var_montant|decimal:2 }}{% else %}{{ form_workflow_data_montant_response_cost|decimal:2 }}{% endif %}</value>
             </item>
           </post_data><response_type>json</response_type>
           <varname>paiement</varname>
@@ -753,9 +786,10 @@ Cordialement,</body>
       </items><triggers>
         <trigger type="manual" id="58744480-1a3b-487d-963e-06239281e87d">
           <roles>
-            <item slug="debug" role_id="cd9db0054986459498570d862dccc069">Debug</item>
+            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
           </roles><allow_as_mass_action>True</allow_as_mass_action>
-          <require_confirmation>False</require_confirmation>
+          <require_confirmation>True</require_confirmation>
+          <confirmation_text>Ne faites pas cela. Vous allez casser tout le processus. Contactez le support d'iMio.</confirmation_text>
         </trigger>
       </triggers>
     </action>

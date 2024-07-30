@@ -1,10 +1,20 @@
 Changelog
 =========
 
+2.2.0
+----------------
+
+- [MPP-149] Added: epayment on school meal registrations
+
+2.1.3
+----------------
+
+- [SUP-37102] Added: action form in finalization to unblock a time out on amount computing
+
 2.1.2
 ----------------
 
-- [MPPNIVA-11] updated: redirect navette.
+- [MPPNIVA-11] Updated: redirect navette.
 
 2.1.0
 ----------------
@@ -15,7 +25,7 @@ Changelog
 ----------------
 
 - [SUP-36966] Added: e-mail to notify parent when is finalisation is waiting for payement.
-- [SUP-36966] Update: alert message when the amount to be paid is in error.
+- [SUP-36966] Updated: alert message when the amount to be paid is in error.
 
 2.0.1
 ----------------
