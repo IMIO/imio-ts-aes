@@ -37,7 +37,7 @@
           <status>1</status>
           <condition>
             <type>django</type>
-            <value>form_option_mode_paiement == "Paiement diff&#233;r&#233;"</value>
+            <value>form_option_mode_paiement != "Paiement en ligne"</value>
           </condition><mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item><item type="jump" id="2">
