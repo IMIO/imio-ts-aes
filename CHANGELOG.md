@@ -6,6 +6,7 @@ Changelog
 
 - [SUP-38775] Fixed: Jump directly to registration for meal forms when payment isn't online.
 - [TELE-1939] Fixed: Message about balance in meal form.
+- [TELE-1939] Fixed: WSCall used to set message about balance in meal form.
 
 2.2.0
 ----------------

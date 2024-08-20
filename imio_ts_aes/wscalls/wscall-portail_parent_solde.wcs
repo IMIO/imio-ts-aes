@@ -3,13 +3,13 @@
   <name>Portail Parent - Solde</name>
   <slug>portail_parent_solde</slug>
   <request>
-    <url>https://passerelle.dev.publik.love/passerelle-imio-ia-aes/aes/parents/{{ form_user_var_aes_id }}/balance/meal</url>
+    <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ form_user_var_aes_id }}/balance/meal</url>
     <request_signature_key />
     <method>GET</method>
     <timeout />
-    <cache_duration>60</cache_duration>
+    <cache_duration />
     <qs_data>
       <param key="child_id">{{ form_var_enfant_id }}</param>
     </qs_data><post_data />
-  </request><record_on_errors>true</record_on_errors>
+  </request>
 </wscall>
