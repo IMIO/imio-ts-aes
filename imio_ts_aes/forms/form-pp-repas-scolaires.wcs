@@ -76,19 +76,29 @@
       <label type="str">&lt;div class="pk-information"&gt;
 &lt;p&gt;Vous inscrivez &lt;strong&gt;&lt;span class="varname"&gt;{{ form_var_enfant }}&lt;/span&gt;&lt;/strong&gt; aux repas scolaires.&lt;/p&gt;
 &lt;/div&gt;
-
-&lt;div&gt;{% with amount=webservice.portail_parent_solde|get:"amount" already_reserved_amount=webservice.portail_parent_solde|get:"already_reserved_amount" %}{% if amount or already_reserved_amount %}
-&lt;div class="pk-information"&gt;
-&lt;p&gt;{% if amount|subtract:already_reserved_amount &gt; 0 %}Il reste {{ amount|subtract:already_reserved_amount|decimal:2 }}&amp;euro; dans votre solde. Ce montant sera d&amp;eacute;duit lors du paiement.{% endif %} {% if already_reserved_amount &gt; 0 %}Vous aviez d&amp;eacute;j&amp;agrave; command&amp;eacute; pour {{ already_reserved_amount|decimal:2 }}&amp;euro; pour cette enfant, pour ce mois. En cas de changement dans cette commande, ce montant sera d&amp;eacute;duit de votre panier.{% endif %}&lt;/p&gt;
-&lt;/div&gt;{% endif %}{% endwith %}&lt;/div&gt;
-
-&lt;p&gt;Pour inscrire votre enfant, cliquez sur le type de repas de votre choix. Ne cochez rien s&amp;#39;il ne doit pas &amp;ecirc;tre inscrit pour une ou plusieurs dates. Vous pourrez encore modifier votre choix jusqu&amp;#39;&amp;agrave; la fin des inscriptions de ce mois-ci.&lt;/p&gt;
 </label>
       <condition>
         <type>django</type>
         <value>form_var_enfant</value>
       </condition><display_locations />
       <id type="str">56</id>
+    </field><field>
+      <type>comment</type>
+      <label type="str">&lt;div&gt;{% with amount=webservice.portail_parent_solde|get:"amount" already_reserved_amount=webservice.portail_parent_solde|get:"already_reserved_amount" %}{% if amount or already_reserved_amount %}&lt;div class="pk-information"&gt;&lt;p&gt;{% if amount|subtract:already_reserved_amount &gt; 0 %}Il reste {{ amount|subtract:already_reserved_amount|decimal:2 }}&#8364; dans votre solde. Ce montant sera d&#233;duit lors du paiement.{% endif %} {% if already_reserved_amount &gt; 0 %}Vous aviez d&#233;j&#224; command&#233; pour {{ already_reserved_amount|decimal:2 }}&#8364; pour cette enfant, pour ce mois. En cas de changement dans cette commande, ce montant sera d&#233;duit de votre panier.{% endif %}&lt;/p&gt;&lt;/div&gt;{% endif %}{% endwith %}&lt;/div&gt;</label>
+      <condition>
+        <type>django</type>
+        <value>form_option_mode_paiement == "Paiement en ligne"</value>
+      </condition><display_locations />
+      <id type="str">1fa06dbf-7db4-48ef-af4f-6ac3a4374a03</id>
+    </field><field>
+      <type>comment</type>
+      <label type="str">&lt;p&gt;Pour inscrire votre enfant, cliquez sur le type de repas de votre choix. Ne cochez rien s&amp;#39;il ne doit pas &amp;ecirc;tre inscrit pour une ou plusieurs dates. Vous pourrez encore modifier votre choix jusqu&amp;#39;&amp;agrave; la fin des inscriptions de ce mois-ci.&lt;/p&gt;
+</label>
+      <condition>
+        <type>django</type>
+        <value>form_var_enfant</value>
+      </condition><display_locations />
+      <id type="str">488591d8-187b-4a6a-ab17-72505c94841a</id>
     </field><field>
       <type>items</type>
       <label type="str">Menu</label>
@@ -130,8 +140,8 @@
     <option varname="implantations_scolaires" />
     <option varname="implantations_scolaires_display" />
     <option varname="implantations_scolaires_structured" />
-    <option varname="mode_paiement">Paiement en ligne</option>
-    <option varname="mode_paiement_display">Paiement en ligne</option>
+    <option varname="mode_paiement">Paiement diff&#233;r&#233;</option>
+    <option varname="mode_paiement_display">Paiement diff&#233;r&#233;</option>
     <option varname="mode_paiement_structured" />
     <option varname="mois">1</option>
     <option varname="mois_display">Mois prochain</option>
