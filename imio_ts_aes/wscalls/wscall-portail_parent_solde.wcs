@@ -10,6 +10,7 @@
     <cache_duration />
     <qs_data>
       <param key="child_id">{{ form_var_enfant_id }}</param>
+      <param key="month">{{ form_option_mois_raw }}</param>
     </qs_data><post_data />
   </request>
 </wscall>
