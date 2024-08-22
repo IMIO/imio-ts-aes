@@ -133,11 +133,11 @@
           </to><subject>{{ form_name }} n&#176;{{ form_number }} - Erreur lors du calcul du montant</subject>
           <body>Une erreur est survenue lors d'un calcul de montant dans la commande d'un repas scolaire. Le parent ne peut donc finaliser sa commande.
 
-`Consulter la commande&lt;{{ form_url_backoffice }}&gt;`_
+`Consulter la commande &lt;{{ form_url_backoffice }}&gt;`_
 
-`Consulter la documentation relative &#224; l'erreur &lt;https://docs.imio.be/portailparent/gestion-erreurs/index.html/erreur-lors-de-la-reception-du-paiement&gt;`_
+`Consulter la documentation relative &#224; l'erreur &lt;https://docs.imio.be/portailparent/gestion-erreurs/&gt;`_
 
-`Envoyer un ticket au support&lt;https://support.imio.be&gt;`_</body>
+`Envoyer un ticket au support &lt;https://support.imio.be&gt;`_</body>
         </item><item type="choice" id="1">
           <label>Calculer le montant</label>
           <by>
@@ -305,11 +305,14 @@ Cordialement,</body>
         <item type="sendmail" id="1">
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><subject>Portail Parent - {{ form_name }}</subject>
-          <body>Le sode de {{ form_workflow_data_montant_response_spent_balance|decimal:2 }} &#8364; a &#233;t&#233; utilis&#233; pour r&#233;gler une partie de votre panier. Il reste a payer {{ form_workflow_data_montant_response_spent_balance|decimal:2 }} &#8364;.
+          </to><subject>Portail Parent - {{ form_name }} - Paiement en attente</subject>
+          <body>Bonjour,
 
-{% if form_workflow_wscall_montant_response_initial_balance|subtract:form_workflow_wscall_montant_response_spent_balance &gt; 0 %}
-Il vous reste {{ form_workflow_wscall_montant_response_initial_balance|subtract:form_workflow_wscall_montant_response_spent_balance|decimal:2 }}&#8364; dans votre solde.{% else %} Votre solde est vide.{% endif %}</body>
+Vous avez command&#233; des repas pour {{ form_var_enfant }}, mais n'avez pas r&#233;gl&#233; votre panier. La commande n'est donc pas prise en compte.
+
+`Consulter votre commande &lt;{{ form_url }}&gt;`_
+
+Cordialement,</body>
         </item><item type="jump" id="2">
           <status>12</status>
           <mode>immediate</mode>
@@ -333,7 +336,7 @@ Votre commande de repas scolaires n&#176;{{ form_number }} pour  {{ form_var_enf
 
 Si vous avez pass&#233; d'autres commandes pour le m&#234;me enfant pour la m&#234;me p&#233;riode, celles-ci sont toujours prises en compte.
 
-`Consulter votre commande&lt;{{ form_url }}&gt;`_</body>
+`Consulter votre commande &lt;{{ form_url }}&gt;`_</body>
         </item><item type="jump" id="2">
           <status>13</status>
           <mode>immediate</mode>
@@ -447,11 +450,11 @@ Si vous avez pass&#233; d'autres commandes pour le m&#234;me enfant pour la m&#2
           </to><subject>{{ form_name }} n&#176;{{ form_number }} - Erreur lors de la lib&#233;ration du solde</subject>
           <body>Un parent a annul&#233; une commande de repas, mais son solde utilis&#233; pour diminuer le montant de son panier ne s'est pas lib&#233;r&#233;. Ce parent risque donc de payer trop lors sa prochaine commande.
 
-Consulter la commande&lt;{{ form_url_backoffice }}&gt;_
+`Consulter la commande &lt;{{ form_url_backoffice }}&gt;`_
 
-Consulter la documentation relative &#224; l'erreur &lt;https://docs.imio.be/portailparent/gestion-erreurs/index.html/erreur-lors-de-la-reception-du-paiement&gt;_
+`Consulter la documentation relative &#224; l'erreur &lt;https://docs.imio.be/portailparent/gestion-erreurs/&gt;`_
 
-Envoyer un ticket au support&lt;https://support.imio.be&gt;_</body>
+`Envoyer un ticket au support &lt;https://support.imio.be&gt;`_</body>
         </item><item type="choice" id="1">
           <label>Lib&#233;rer le solde</label>
           <by>
@@ -582,11 +585,11 @@ Envoyer un ticket au support&lt;https://support.imio.be&gt;_</body>
           </to><subject>{{ form_name }} n&#176;{{ form_number }} - Erreur lors de la r&#233;ception du paiement</subject>
           <body>Une erreur est survenue lors de la r&#233;ception d'un paiement dans la commande d'un repas scolaire. Le parent ne peut donc finaliser sa commande.
 
-`Consulter la commande&lt;{{ form_url_backoffice }}&gt;`_
+`Consulter la commande &lt;{{ form_url_backoffice }}&gt;`_
 
-`Consulter la documentation relative &#224; l'erreur &lt;https://docs.imio.be/portailparent/gestion-erreurs/index.html/erreur-lors-de-la-reception-du-paiement&gt;`_
+`Consulter la documentation relative &#224; l'erreur &lt;https://docs.imio.be/portailparent/gestion-erreurs/&gt;`_
 
-`Envoyer un ticket au support&lt;https://support.imio.be&gt;`_</body>
+`Envoyer un ticket au support &lt;https://support.imio.be&gt;`_</body>
         </item><item type="choice" id="1">
           <label>R&#233;encoder le paiement</label>
           <by>
@@ -672,11 +675,11 @@ Il vous reste {{ form_workflow_wscall_montant_response_initial_balance|subtract:
           </to><subject>{{ form_name }} n&#176;{{ form_number }} - Erreur lors de l'enregistrement de la commande</subject>
           <body>Une erreur est survenue lors de l'inscription aux repas d'un enfant.{% if form_option_mode_paiement == "Paiement en ligne" %} Le panier a bien &#233;t&#233; r&#233;gl&#233; par le parent.{% endif %} Cette inscription ne se retrouvera donc pas dans le listing des repas pour le traiteur malgr&#233; le paiement de son parent.
 
-`Consulter la commande&lt;{{ form_url_backoffice }}&gt;`_
+`Consulter la commande &lt;{{ form_url_backoffice }}&gt;`_
 
-`Consulter la documentation relative &#224; l'erreur&lt;https://docs.imio.be/portailparent/gestion-erreurs/index.html/erreur-lors-de-la-reception-du-paiement&gt;`_
+`Consulter la documentation relative &#224; l'erreur &lt;https://docs.imio.be/portailparent/gestion-erreurs/&gt;`_
 
-`Envoyer un ticket au support&lt;https://support.imio&gt;`_</body>
+`Envoyer un ticket au support &lt;https://support.imio&gt;`_</body>
         </item><item type="choice" id="1">
           <label>Retenter l'enregistrement</label>
           <by>

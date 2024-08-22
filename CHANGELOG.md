@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.2.2
+----------------
+
+- [MPP-508] Fixed: emails in meals registration form.
+
+
 2.2.1
 ----------------
 

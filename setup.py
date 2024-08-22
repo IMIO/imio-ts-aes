@@ -16,7 +16,7 @@ class inst(install):
         )
         os.system("sh " + path + "install_imio-ts-aes.sh")
 
-version = "2.2.1"
+version = "2.2.2"
 
 setup(
     name="imio-ts-aes",
