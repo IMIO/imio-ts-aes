@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.2.3
+----------------
+
+- [AES-1793] Split payments over activity categories and invoiceable parents.
+
 2.2.2
 ----------------
 

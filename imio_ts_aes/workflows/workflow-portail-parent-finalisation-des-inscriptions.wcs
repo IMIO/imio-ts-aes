@@ -1,52 +1,64 @@
 <?xml version="1.0"?>
-<workflow id="13" url="">
+<workflow id="5" url="https://wcs.dev.publik.love/backoffice/workflows/5/">
   <name>Portail Parent - Finalisation des inscriptions</name>
   <slug>portail-parent-finalisation-des-inscriptions</slug>
-  <category slug="portail-parent" category_id="3">Portail parent</category>
+  <category slug="portail-parent" category_id="1">Portail parent</category>
   <roles>
     <role id="_receiver">Agent traitant</role>
-  </roles><possible_status>
+  </roles>
+  <possible_status>
     <status>
       <id>7</id>
       <name>Juste envoy&#233;</name>
       <colour>#FFFFFF</colour>
       <visibility>
         <role>__restricted__</role>
-      </visibility><items>
+      </visibility>
+      <items>
         <item type="set-backoffice-fields" id="1">
           <label>Liste des enfants</label>
           <fields>
             <field>
               <field_id>bob83465d0-0d08-48c2-abec-3fff36b18325</field_id>
               <value>{% regroup forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de validation" by var.enfant.structured.name as enfants %}{% for enfant in enfants %}{{ enfant.grouper }}{% if not forloop.last %},{% endif %}{% endfor %}</value>
-            </field><field>
+            </field>
+            <field>
               <field_id>bo05ae962d-cb56-4c1d-b44a-ccdefe25b71d</field_id>
               <value>{% regroup forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de validation" by submission_context as demandes %}{% for demande in demandes %}{{ demande.grouper.orig_formdata_id }}{% if not forloop.last %},{% endif %}{% endfor %}</value>
-            </field><field>
+            </field>
+            <field>
               <field_id>bob83465d0-0d08-48c2-abec-3fff36b18325</field_id>
               <value>{{ form_var_enfants|split:","|distinct_list|join:"," }}</value>
-            </field><field>
+            </field>
+            <field>
               <field_id>bo05ae962d-cb56-4c1d-b44a-ccdefe25b71d</field_id>
               <value>{{ form_var_inscriptions_concernees|split:","|distinct_list|join:"," }}</value>
             </field>
           </fields>
-        </item><item type="external_workflow_global_action" id="2">
+        </item>
+        <item type="external_workflow_global_action" id="2">
           <slug>formdef:pp-fiche-inscription-plaine</slug>
           <trigger_id>action:demande_finalisation</trigger_id>
           <target_mode>manual</target_mode>
           <target_id>{{ forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de validation" }}</target_id>
-        </item><item type="jump" id="3">
+        </item>
+        <item type="jump" id="3">
           <status>3</status>
           <condition>
             <type>django</type>
             <value>form_var_enfants</value>
-          </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="4">
+          </condition>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="4">
           <status>18</status>
+          <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>3</id>
       <name>Validation des inscriptions</name>
       <colour>#FFFFFF</colour>
@@ -57,23 +69,30 @@
           <trigger_id>action:validate</trigger_id>
           <target_mode>manual</target_mode>
           <target_id>{{ forms|objects:"pp-fiche-inscription-plaine"|filter_by:"demande_finalisation"|filter_value:form_internal_id }}</target_id>
-        </item><item type="register-comment" id="2">
+        </item>
+        <item type="register-comment" id="2">
           <comment>&lt;div&gt;Les inscriptions suivantes seront valid&#233;es :
 &lt;ul&gt;{% for registration in forms|objects:"pp-fiche-inscription-plaine"|filter_by:"demande_finalisation"|filter_value:form_internal_id %}
     &lt;li&gt;{{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }}&lt;/li&gt;
 {% endfor %}&lt;/ul&gt;&lt;/div&gt;</comment>
-        </item><item type="jump" id="3">
+        </item>
+        <item type="jump" id="3">
           <status>11</status>
           <condition>
             <type>django</type>
             <value>form_option_mode_paiement == "Paiement diff&#233;r&#233;"</value>
-          </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="4">
+          </condition>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="4">
           <status>1</status>
+          <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>1</id>
       <name>En attente des informations de paiement</name>
       <colour>#0099FF</colour>
@@ -88,9 +107,12 @@
               <name>form_numbers</name>
               <value>{% for form_number in form_var_inscriptions_concernees|split:"," %}{% if not forloop.first %}&amp;form_numbers={% endif %}{{ form_number }}{% endfor %}</value>
             </item>
-          </qs_data><post>False</post>
+          </qs_data>
+          <post>False</post>
           <response_type>json</response_type>
           <varname>montant</varname>
+          <store_all_responses>False</store_all_responses>
+          <attach_file_to_history>True</attach_file_to_history>
           <action_on_app_error>8</action_on_app_error>
           <action_on_4xx>8</action_on_4xx>
           <action_on_5xx>8</action_on_5xx>
@@ -102,14 +124,18 @@
           <condition>
             <type>django</type>
             <value>form_option_mode_paiement == "Paiement en ligne" and "communication structur&#233;e" not in form_previous_status or "AES" in form_option_calcul_montant and "communication structur&#233;e" not in form_previous_status</value>
-          </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item type="webservice_call" id="2">
+          </condition>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="webservice_call" id="2">
           <label>Recherche de la communication structur&#233;e</label>
           <method>GET</method>
           <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ form_user_var_aes_id }}/plain-structured-communication/</url>
           <post>False</post>
           <response_type>json</response_type>
           <varname>communication_structuree</varname>
+          <store_all_responses>False</store_all_responses>
+          <attach_file_to_history>True</attach_file_to_history>
           <action_on_app_error>21</action_on_app_error>
           <action_on_4xx>21</action_on_4xx>
           <action_on_5xx>21</action_on_5xx>
@@ -121,16 +147,20 @@
           <condition>
             <type>django</type>
             <value>form_option_mode_paiement == "Paiement par virement"</value>
-          </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item type="form" id="3">
+          </condition>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="form" id="3">
           <by>
             <item role_id="_receiver">_receiver</item>
-          </by><varname>calcul</varname>
+          </by>
+          <varname>calcul</varname>
           <hide_submit_button>False</hide_submit_button>
           <condition>
             <type>django</type>
             <value>form_option_calcul_montant in "Calculer le montant manuellement, Demander le montant &#224; AES avec validation" and form_option_mode_paiement == "Paiement par virement"</value>
-          </condition><formdef>
+          </condition>
+          <formdef>
             <name>-</name>
             <fields>
               <field>
@@ -143,13 +173,16 @@
                 <prefill>
                   <type>string</type>
                   <value>{% if form_option_calcul_montant == "Demander le montant &#224; AES avec validation" %}{{ form_workflow_data_montant_response_cost|decimal:2 }}{% endif %}</value>
-                </prefill><anonymise type="str">final</anonymise>
+                </prefill>
+                <anonymise type="str">final</anonymise>
                 <validation>
                   <error_message>Ne pr&#233;cisez pas la monnaie.</error_message>
                   <type>django</type>
                   <value>"&#8364;" not in value</value>
-                </validation><id type="str">1</id>
-              </field><field>
+                </validation>
+                <id type="str">1</id>
+              </field>
+              <field>
                 <type>string</type>
                 <label type="str">Communication</label>
                 <required type="bool">False</required>
@@ -159,9 +192,11 @@
                 <prefill>
                   <type>string</type>
                   <value>{{ form_workflow_data_communication_structuree_response }}</value>
-                </prefill><anonymise type="str">final</anonymise>
+                </prefill>
+                <anonymise type="str">final</anonymise>
                 <id type="str">2</id>
-              </field><field>
+              </field>
+              <field>
                 <type>text</type>
                 <label type="str">Informations compl&#233;mentaires</label>
                 <required type="bool">False</required>
@@ -171,44 +206,55 @@
                 <prefill>
                   <type>string</type>
                   <value>{{ form_option_preremplir_info_complementaires }}</value>
-                </prefill><anonymise type="str">final</anonymise>
+                </prefill>
+                <anonymise type="str">final</anonymise>
                 <display_mode type="str">plain</display_mode>
                 <id type="str">4</id>
               </field>
             </fields>
           </formdef>
-        </item><item type="jump" id="4">
+        </item>
+        <item type="jump" id="4">
           <status>9</status>
           <condition>
             <type>django</type>
             <value>form_option_calcul_montant == "Demander le montant &#224; AES" and form_option_mode_paiement == "Paiement par virement"</value>
-          </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="5">
+          </condition>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="5">
           <status>2</status>
           <condition>
             <type>django</type>
             <value>form_option_mode_paiement == "Paiement en ligne"</value>
-          </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jumponsubmit" id="6">
+          </condition>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jumponsubmit" id="6">
           <status>9</status>
           <set_marker_on_status>False</set_marker_on_status>
           <condition>
             <type>django</type>
             <value>form_option_calcul_montant in "Calculer le montant manuellement, Demander le montant &#224; AES avec validation" and form_option_mode_paiement == "Paiement par virement"</value>
           </condition>
-        </item><item type="displaymsg" id="7">
+        </item>
+        <item type="displaymsg" id="7">
           <message>Nous vous confirmons les inscriptions effectu&#233;es. Les places sont r&#233;serv&#233;es pour le moment. Vous recevrez prochainement un email contenant les modalit&#233;s de paiement par virement bancaire. Une fois le paiement effectu&#233; et valid&#233; par nos services, les places seront d&#233;finitivement r&#233;serv&#233;es. Si le paiement n'a pas &#233;t&#233; effectu&#233; dans les d&#233;lais impartis, les places seront lib&#233;r&#233;es.</message>
           <level>success</level>
           <position>top</position>
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><condition>
+          </to>
+          <condition>
             <type>django</type>
             <value>form_option_mode_paiement == "Paiement par virement"</value>
           </condition>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>8</id>
       <name>Erreur lors du calcul du montant</name>
       <colour>#FF0000</colour>
@@ -217,7 +263,8 @@
         <item type="sendmail" id="1">
           <to>
             <item role_id="_receiver">_receiver</item>
-          </to><subject>Erreur Portail Parent :  {{ form_name }} n&#176;{{ form_number }}</subject>
+          </to>
+          <subject>Erreur Portail Parent :  {{ form_name }} n&#176;{{ form_number }}</subject>
           <body>Bonjour,
 
 Une erreur est survenue lorsque {{ form_user_var_first_name }} {{ form_user_var_last_name }} a voulu finaliser les inscriptions de ses enfants aux plaines de vacances.
@@ -229,30 +276,36 @@ Veuillez consulter la demande.
 Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le support d'iMio
 
 `Contacter le support &lt;support.imio.be&gt;`_</body>
-        </item><item type="displaymsg" id="2">
+        </item>
+        <item type="displaymsg" id="2">
           <message>&lt;p&gt;Nous rencontrons un probl&#232;me au niveau du paiement. Les r&#233;servations de place que vous venez d'effectuer sont confirm&#233;es. Veuillez actualiser cette page dans quelques minutes.&lt;/p&gt;</message>
           <level>error</level>
           <position>top</position>
-        </item><item type="choice" id="3">
+        </item>
+        <item type="choice" id="3">
           <label>Calculer le total</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
-          </by><status>1</status>
+            <item slug="debug" role_id="25c4d67d05464af1adea67a3eb9d7266">Debug</item>
+          </by>
+          <status>1</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Une fois la source de l&amp;#39;erreur identifi&amp;eacute;e et celle-ci corrig&amp;eacute;e, il est possible de redemander &amp;agrave; AES de calculer le montant &amp;agrave; payer.&lt;/p&gt;
 </backoffice_info_text>
           <ignore_form_errors>True</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="form" id="4">
+        </item>
+        <item type="form" id="4">
           <by>
-            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
-          </by><varname>erreur_calcul</varname>
+            <item slug="debug" role_id="25c4d67d05464af1adea67a3eb9d7266">Debug</item>
+          </by>
+          <varname>erreur_calcul</varname>
           <hide_submit_button>True</hide_submit_button>
           <condition>
             <type>django</type>
             <value>form_option_mode_paiement == "Paiement en ligne"</value>
-          </condition><formdef>
+          </condition>
+          <formdef>
             <name>-</name>
             <fields>
               <field>
@@ -261,17 +314,24 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
                 <required type="bool">True</required>
                 <hint type="str">Indiquez le montant puis validez. Ce montant sera directement disponible dans le panier de l'utilisateur.</hint>
                 <varname type="str">montant</varname>
+                <display_locations>
+                  <item>validation</item>
+                  <item>summary</item>
+                </display_locations>
+                <anonymise type="str">final</anonymise>
                 <restrict_to_integers type="bool">False</restrict_to_integers>
                 <min_value type="decimal">0.01</min_value>
                 <id type="str">6e360fc6-3792-4c08-8848-89d8d535909a</id>
               </field>
             </fields>
           </formdef>
-        </item><item type="choice" id="6">
+        </item>
+        <item type="choice" id="5">
           <label>Valider le montant</label>
           <by>
-            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
-          </by><status>2</status>
+            <item slug="debug" role_id="25c4d67d05464af1adea67a3eb9d7266">Debug</item>
+          </by>
+          <status>2</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Encodez d&amp;#39;abord un montant ci-dessus, puis s&amp;eacute;lectionnez ce bouton pour l&amp;#39;envoyer dans le panier du parent.&lt;/p&gt;
 </backoffice_info_text>
@@ -279,27 +339,32 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>21</id>
       <name>Erreur lors de la r&#233;cup&#233;ration de la communication structur&#233;e</name>
       <colour>#FF0000</colour>
       <visibility>
         <role>__restricted__</role>
-      </visibility><items>
+      </visibility>
+      <items>
         <item type="register-comment" id="1">
           <comment>Une erreur s'est produite.</comment>
-        </item><item type="displaymsg" id="2">
+        </item>
+        <item type="displaymsg" id="2">
           <message>&lt;p&gt;{% if "404 Client Error: Not Found" in form_workflow_data_communication_structuree_error_response_err_desc %}Il semble que la communication structur&#233;e du parent n'ai pas &#233;t&#233; trouv&#233;e. V&#233;rifiez, dans la signal&#233;tique du parent de iA.AES, si son pr&#233;paiement dispose bien d'une ligne pour les plaines. Si ce n'est pas le cas, veuillez cr&#233;er les communications structur&#233;es manquantes. Ensuite, s&#233;lectionnez "Rechercher la communication structur&#233;e" ci-dessous. Si le probl&#232;me se produit &#224; nouveau, &lt;a href="https://support.imio.be" target="blank"&gt;contactez le support&lt;/a&gt;.{% else %}La r&#233;cup&#233;ration de la communication structur&#233;e sera relanc&#233;e dans 20 minutes.{% endif %}&lt;/p&gt;</message>
           <level>error</level>
           <position>bottom</position>
           <to>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
+            <item slug="debug" role_id="25c4d67d05464af1adea67a3eb9d7266">Debug</item>
           </to>
-        </item><item type="sendmail" id="3">
+        </item>
+        <item type="sendmail" id="3">
           <to>
             <item role_id="_receiver">_receiver</item>
-          </to><subject>Erreur lors de la recherche d'une communication structur&#233;e, demande {{ form_name }} n&#176;{{ form_number }}</subject>
+          </to>
+          <subject>Erreur lors de la recherche d'une communication structur&#233;e, demande {{ form_name }} n&#176;{{ form_number }}</subject>
           <body>Une erreur est survenue lors d'une communication structur&#233;e d'un parent. Celui-ci ne recevra donc pas ses informations de paiement.
 
 Veuillez consulter la demande.
@@ -313,19 +378,24 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
             <type>django</type>
             <value>"404 Client Error: Not Found" in form_workflow_data_communication_structuree_error_response_err_desc</value>
           </condition>
-        </item><item type="jump" id="4">
+        </item>
+        <item type="jump" id="4">
           <status>1</status>
           <condition>
             <type>django</type>
             <value>"404 Client Error: Not Found" not in form_workflow_data_communication_structuree_error_response_err_desc</value>
-          </condition><timeout>1200</timeout>
+          </condition>
+          <mode>timeout</mode>
+          <timeout>1200</timeout>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="choice" id="5">
+        </item>
+        <item type="choice" id="5">
           <label>Rechercher la communication structur&#233;e</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
-          </by><status>1</status>
+            <item slug="debug" role_id="25c4d67d05464af1adea67a3eb9d7266">Debug</item>
+          </by>
+          <status>1</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Si vous avez identifi&amp;eacute; et corrig&amp;eacute; l&amp;#39;erreur, ou si vous ne voulez pas attendre 20 minutes, vous pouvez relancer la recherche de la communication structur&amp;eacute;e. La demande reprendra son cours normal.&lt;/p&gt;
 </backoffice_info_text>
@@ -333,7 +403,8 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>2</id>
       <name>Ajout au panier</name>
       <colour>#FFFFFF</colour>
@@ -348,20 +419,26 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
               <name>regie_id</name>
               <value>{{form_option_regie_de_paiement_raw}}</value>
             </item>
-          </qs_data><post>False</post>
+          </qs_data>
+          <post>False</post>
           <post_data>
             <item>
               <name>display_name</name>
               <value>{{ form_display_name }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>url</name>
               <value>{{ form_url }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>amount</name>
               <value>{% if form_previous_status == "Erreur lors du calcul du montant" %}{{ form_workflow_form_erreur_calcul_var_montant|decimal:2 }}{% else %}{{ form_workflow_data_montant_response_cost|decimal:2 }}{% endif %}</value>
             </item>
-          </post_data><response_type>json</response_type>
+          </post_data>
+          <response_type>json</response_type>
           <varname>paiement</varname>
+          <store_all_responses>False</store_all_responses>
+          <attach_file_to_history>True</attach_file_to_history>
           <action_on_app_error>:pass</action_on_app_error>
           <action_on_4xx>:stop</action_on_4xx>
           <action_on_5xx>:stop</action_on_5xx>
@@ -371,12 +448,15 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <record_on_errors>True</record_on_errors>
           <notify_on_errors>False</notify_on_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="2">
+        </item>
+        <item type="jump" id="2">
           <status>4</status>
+          <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>4</id>
       <name>En attente de paiement</name>
       <colour>#FFFF99</colour>
@@ -388,10 +468,12 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
 &lt;p&gt;&lt;a href="{{ portal_url }}panier/" class="pk-button"&gt;R&#233;gler mon panier&lt;/a&gt;&lt;/p&gt;</message>
           <level>info</level>
           <position>top</position>
-        </item><item type="sendmail" id="7">
+        </item>
+        <item type="sendmail" id="2">
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><subject>{{ form_name }} n&#176;{{ form_number }} en attente de paiement</subject>
+          </to>
+          <subject>{{ form_name }} n&#176;{{ form_number }} en attente de paiement</subject>
           <body>La finalisation de ces inscriptions est en attente de paiement :
 {% for registration in forms|objects:"pp-fiche-inscription-plaine"|filter_by:"demande_finalisation"|filter_value:form_internal_id %}
  * {{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }}
@@ -404,33 +486,45 @@ Vous avez un d&#233;lai de trois jours pour r&#233;aliser ce paiement.
             <type>django</type>
             <value>form_previous_status|lower == "ajout au panier"</value>
           </condition>
-        </item><item type="jump" id="2">
+        </item>
+        <item type="jump" id="3">
           <status>19</status>
+          <mode>trigger</mode>
           <trigger>paid</trigger>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="3">
+        </item>
+        <item type="jump" id="4">
           <status>20</status>
           <condition>
             <type>django</type>
             <value>not form_option_non_auto_annulation and form_previous_status != "Alerte non paiement"</value>
-          </condition><timeout>172800</timeout>
+          </condition>
+          <mode>timeout</mode>
+          <timeout>172800</timeout>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="4">
+        </item>
+        <item type="jump" id="5">
           <status>13</status>
           <condition>
             <type>django</type>
             <value>not form_option_non_auto_annulation and form_previous_status == "Alerte non paiement"</value>
-          </condition><timeout>86400</timeout>
+          </condition>
+          <mode>timeout</mode>
+          <timeout>86400</timeout>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="5">
+        </item>
+        <item type="jump" id="6">
           <status>13</status>
+          <mode>trigger</mode>
           <trigger>cancelled</trigger>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="choice" id="6">
+        </item>
+        <item type="choice" id="7">
           <label>Payer au guichet</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-          </by><status>14</status>
+          </by>
+          <status>14</status>
           <require_confirmation>True</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Indiquer que le paiement a &amp;eacute;t&amp;eacute; r&amp;eacute;alis&amp;eacute; au guichet. Cette action vide le panier de l&amp;#39;utilisateur et cl&amp;ocirc;ture la demande.&lt;/p&gt;
 </backoffice_info_text>
@@ -438,7 +532,8 @@ Vous avez un d&#233;lai de trois jours pour r&#233;aliser ce paiement.
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>20</id>
       <name>Alerte non paiement</name>
       <colour>#FFFFFF</colour>
@@ -447,7 +542,8 @@ Vous avez un d&#233;lai de trois jours pour r&#233;aliser ce paiement.
         <item type="sendmail" id="1">
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><subject>Alerte avant annulation - Finalisation de vos inscriptions n&#176;{{ form_number }}</subject>
+          </to>
+          <subject>Alerte avant annulation - Finalisation de vos inscriptions n&#176;{{ form_number }}</subject>
           <body>Bonjour,
 
 Nous vous informons que nous n'avons pas re&#231;u le paiement pour valider les inscriptions aux plaines suivantes :
@@ -461,12 +557,15 @@ Merci de r&#233;gler votre panier avant le {{ form_last_update_datetime|add_hour
 `Consulter votre demande &lt;{{ form_url }}&gt;`_
 
 Cordialement,</body>
-        </item><item type="jump" id="2">
+        </item>
+        <item type="jump" id="2">
           <status>4</status>
+          <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>13</id>
       <name>Annulation des inscriptions</name>
       <colour>#999999</colour>
@@ -481,12 +580,16 @@ Cordialement,</body>
             <item>
               <name>basket_item_id</name>
               <value>{{paiement_response_id}}</value>
-            </item><item>
+            </item>
+            <item>
               <name>skip_notification</name>
               <value>skip</value>
             </item>
-          </post_data><response_type>json</response_type>
+          </post_data>
+          <response_type>json</response_type>
           <varname>vide_panier</varname>
+          <store_all_responses>False</store_all_responses>
+          <attach_file_to_history>True</attach_file_to_history>
           <action_on_app_error>:pass</action_on_app_error>
           <action_on_4xx>:stop</action_on_4xx>
           <action_on_5xx>:stop</action_on_5xx>
@@ -496,10 +599,12 @@ Cordialement,</body>
           <record_on_errors>True</record_on_errors>
           <notify_on_errors>False</notify_on_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="sendmail" id="2">
+        </item>
+        <item type="sendmail" id="2">
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><subject>Annulation des inscriptions aux plaines de vacances</subject>
+          </to>
+          <subject>Annulation des inscriptions aux plaines de vacances</subject>
           <body>Bonjour,
 
 Nous vous informons que les r&#233;servations pour les plaines suivantes ont &#233;t&#233; annul&#233;es :
@@ -511,14 +616,16 @@ Nous vous informons que les r&#233;servations pour les plaines suivantes ont &#2
 S'il s'agit d'une erreur car vous aviez bien effectu&#233; le paiement de ces plaines, merci de contacter le service ATL de votre administration communale.
 
 Cordialement,</body>
-        </item><item type="external_workflow_global_action" id="3">
+        </item>
+        <item type="external_workflow_global_action" id="3">
           <slug>formdef:pp-fiche-inscription-plaine</slug>
           <trigger_id>action:cancel</trigger_id>
           <target_mode>manual</target_mode>
           <target_id>{{ forms|objects:"pp-fiche-inscription-plaine"|filter_by:"demande_finalisation"|filter_value:form_internal_id }}</target_id>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>14</id>
       <name>Paiement au guichet</name>
       <colour>#FFFF00</colour>
@@ -533,12 +640,16 @@ Cordialement,</body>
             <item>
               <name>basket_item_id</name>
               <value>{{paiement_response_id}}</value>
-            </item><item>
+            </item>
+            <item>
               <name>skip_notification</name>
               <value>skip</value>
             </item>
-          </post_data><response_type>json</response_type>
+          </post_data>
+          <response_type>json</response_type>
           <varname>vide_panier</varname>
+          <store_all_responses>False</store_all_responses>
+          <attach_file_to_history>True</attach_file_to_history>
           <action_on_app_error>:pass</action_on_app_error>
           <action_on_4xx>:stop</action_on_4xx>
           <action_on_5xx>:stop</action_on_5xx>
@@ -548,12 +659,15 @@ Cordialement,</body>
           <record_on_errors>True</record_on_errors>
           <notify_on_errors>False</notify_on_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="2">
+        </item>
+        <item type="jump" id="2">
           <status>5</status>
+          <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>19</id>
       <name>R&#233;ception du paiement</name>
       <colour>#FFFFFF</colour>
@@ -562,39 +676,74 @@ Cordialement,</body>
         <item type="webservice_call" id="1">
           <label>Encoder le paiement dans AES</label>
           <method>POST</method>
-          <url>{{ passerelle_url}}passerelle-imio-ia-aes/aes/payment/create</url>
+          <url>{{ passerelle_url}}passerelle-imio-ia-aes/aes/payments/create</url>
           <post>False</post>
           <post_data>
             <item>
               <name>parent_id</name>
               <value>{{ form_user_var_aes_id|add:0 }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>amount</name>
               <value>{{ form_workflow_data_montant_response_cost|decimal:2 }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>comment</name>
               <value>{{ form_display_name }}</value>
             </item>
-          </post_data><response_type>json</response_type>
+            <item>
+              <name>transaction_id</name>
+              <value>{{ form_workflow_data_bank_transaction_id }}</value>
+            </item>
+            <item>
+              <name>date</name>
+              <value>{{ form_workflow_data_bank_transaction_date|date:"Y-m-d" }}</value>
+            </item>
+            <item>
+              <name>details</name>
+              <value>{{ form_workflow_data_montant_response_details }}</value>
+            </item>
+            <item>
+              <name>form_url</name>
+              <value>{{ form_backoffice_url }}</value>
+            </item>
+          </post_data>
+          <response_type>json</response_type>
           <varname>encode_paiement</varname>
-          <action_on_app_error>:pass</action_on_app_error>
-          <action_on_4xx>:stop</action_on_4xx>
-          <action_on_5xx>:stop</action_on_5xx>
-          <action_on_bad_data>:pass</action_on_bad_data>
-          <action_on_network_errors>:stop</action_on_network_errors>
+          <store_all_responses>False</store_all_responses>
+          <attach_file_to_history>True</attach_file_to_history>
+          <action_on_app_error>22</action_on_app_error>
+          <action_on_4xx>22</action_on_4xx>
+          <action_on_5xx>22</action_on_5xx>
+          <action_on_bad_data>22</action_on_bad_data>
+          <action_on_network_errors>22</action_on_network_errors>
           <record_errors>False</record_errors>
           <record_on_errors>True</record_on_errors>
           <notify_on_errors>False</notify_on_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="2">
+        </item>
+        <item type="jump" id="2">
           <status>5</status>
           <condition>
             <type>django</type>
             <value>form_workflow_data_encode_paiement_response_success|length</value>
-          </condition><set_marker_on_status>False</set_marker_on_status>
+          </condition>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="choice" id="3">
+          <label>Erroner</label>
+          <by>
+            <item role_id="_submitter">_submitter</item>
+          </by>
+          <status>22</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>9</id>
       <name>En attente de virement</name>
       <colour>#FFFF00</colour>
@@ -603,7 +752,8 @@ Cordialement,</body>
         <item type="sendmail" id="1">
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><subject>Instructions pour le paiement des plaines - n&#176;{{ form_number }}</subject>
+          </to>
+          <subject>Instructions pour le paiement des plaines - n&#176;{{ form_number }}</subject>
           <body>**Merci pour vos inscriptions !**
 
 Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en mentionnant les instructions de paiement suivantes :
@@ -614,7 +764,8 @@ Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en me
 * Montant de la commande : **{% if form_workflow_form_calcul_var_montant %}{{ form_workflow_form_calcul_var_montant|decimal:2 }}{% else %}{{ form_workflow_data_montant_response_cost|decimal:2 }}{% endif %}  &#8364;**
 
 {% firstof form_workflow_form_calcul_var_info_complementaires form_option_preremplir_info_complementaires %}</body>
-        </item><item type="displaymsg" id="2">
+        </item>
+        <item type="displaymsg" id="2">
           <message>&lt;h3&gt;Merci pour vos inscriptions&lt;/h3&gt;
 &lt;p&gt;Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en mentionnant les instructions de paiement suivantes :&lt;/p&gt;
 &lt;ul&gt;
@@ -630,27 +781,32 @@ Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en me
             <item role_id="_submitter">_submitter</item>
             <item role_id="_receiver">_receiver</item>
           </to>
-        </item><item type="register-comment" id="3">
+        </item>
+        <item type="register-comment" id="3">
           <comment>Vos inscriptions ont bien &#233;t&#233; enregistr&#233;es.</comment>
           <to>
             <item role_id="_submitter">_submitter</item>
           </to>
-        </item><item type="choice" id="4">
+        </item>
+        <item type="choice" id="4">
           <label>Valider le paiement</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-          </by><status>12</status>
+          </by>
+          <status>12</status>
           <require_confirmation>True</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Une fois la demande pay&amp;eacute;e par l&amp;#39;usager, ce bouton permet de le signaler au syst&amp;egrave;me afin de la cl&amp;ocirc;turer.&lt;/p&gt;
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="choice" id="5">
+        </item>
+        <item type="choice" id="5">
           <label>Annuler toutes les inscriptions</label>
           <by>
             <item role_id="_submitter">_submitter</item>
             <item role_id="_receiver">_receiver</item>
-          </by><status>17</status>
+          </by>
+          <status>17</status>
           <require_confirmation>True</require_confirmation>
           <backoffice_info_text>&lt;p&gt;En cliquant sur ce bouton, toutes les inscriptions de tous les enfants de ce parent seront annul&amp;eacute;es.&lt;/p&gt;
 </backoffice_info_text>
@@ -658,7 +814,8 @@ Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en me
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>12</id>
       <name>Virement re&#231;u</name>
       <colour>#99FF99</colour>
@@ -666,12 +823,15 @@ Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en me
       <items>
         <item type="jump" id="1">
           <status>5</status>
+          <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="register-comment" id="2">
+        </item>
+        <item type="register-comment" id="2">
           <comment>Votre virement a bien &#233;t&#233; re&#231;u.</comment>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>11</id>
       <name>Paiement diff&#233;r&#233;</name>
       <colour>#99FF99</colour>
@@ -680,20 +840,25 @@ Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en me
         <item type="sendmail" id="1">
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><subject>{{ form_name }} n&#176;{{ form_number }}</subject>
+          </to>
+          <subject>{{ form_name }} n&#176;{{ form_number }}</subject>
           <body>Bonjour,
 
 Nous vous confirmons l'inscription de vos enfants aux plaines s&#233;lectionn&#233;es. Vous recevrez une facture pour r&#233;gler le montant par courrier ou par email. N'h&#233;sitez pas &#224; revenir vers votre administration communale en cas de besoin.
 
 Cordialement,</body>
-        </item><item type="register-comment" id="2">
+        </item>
+        <item type="register-comment" id="2">
           <comment>Le paiement des plaines r&#233;serv&#233;es se fera par le biais d'une facture qui vous sera envoy&#233;e email ou par courrier.</comment>
-        </item><item type="jump" id="3">
+        </item>
+        <item type="jump" id="3">
           <status>5</status>
+          <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>5</id>
       <name>Cl&#244;ture en cours</name>
       <colour>#99FF00</colour>
@@ -702,7 +867,8 @@ Cordialement,</body>
         <item type="sendmail" id="1">
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><subject>{{ form_name }} n&#176;{{ form_number }}</subject>
+          </to>
+          <subject>{{ form_name }} n&#176;{{ form_number }}</subject>
           <body>Bonjour,
 
 Nous vous confirmons la bonne r&#233;ception de votre paiement. Les inscriptions suivantes sont d&#233;sormais cl&#244;tur&#233;es :
@@ -715,22 +881,27 @@ Cordialement,</body>
             <type>django</type>
             <value>form_option_mode_paiement != "Paiement diff&#233;r&#233;"</value>
           </condition>
-        </item><item type="register-comment" id="2">
+        </item>
+        <item type="register-comment" id="2">
           <comment>&lt;div&gt;Les inscriptions suivantes sont d&#233;sormais cl&#244;tur&#233;es :
 &lt;ul&gt;{% for registration in forms|objects:"pp-fiche-inscription-plaine"|filter_by:"demande_finalisation"|filter_value:form_internal_id %}
     &lt;li&gt;{{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }}&lt;/li&gt;
 {% endfor %}&lt;/ul&gt;&lt;/div&gt;</comment>
-        </item><item type="external_workflow_global_action" id="3">
+        </item>
+        <item type="external_workflow_global_action" id="3">
           <slug>formdef:pp-fiche-inscription-plaine</slug>
           <trigger_id>action:closed</trigger_id>
           <target_mode>manual</target_mode>
           <target_id>{{ forms|objects:"pp-fiche-inscription-plaine"|filter_by:"demande_finalisation"|filter_value:form_internal_id }}</target_id>
-        </item><item type="jump" id="4">
+        </item>
+        <item type="jump" id="4">
           <status>15</status>
+          <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>15</id>
       <name>Inscription cl&#244;tur&#233;e</name>
       <colour>#00FF00</colour>
@@ -738,19 +909,22 @@ Cordialement,</body>
       <items>
         <item type="register-comment" id="1">
           <comment>Vos inscriptions sont finalis&#233;es. Merci d'avoir utilis&#233; nos services.</comment>
-        </item><item type="displaymsg" id="2">
+        </item>
+        <item type="displaymsg" id="2">
           <message>Nous vous confirmons les inscriptions effectu&#233;es. Les places sont r&#233;serv&#233;es. Les plaines seront factur&#233;es a posteriori.</message>
           <level>success</level>
           <position>top</position>
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><condition>
+          </to>
+          <condition>
             <type>django</type>
             <value>form_option_mode_paiement == "Paiement diff&#233;r&#233;"</value>
           </condition>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>17</id>
       <name>Inscriptions annul&#233;es</name>
       <colour>#999999</colour>
@@ -763,7 +937,8 @@ Cordialement,</body>
           <target_id>{{ forms|objects:"pp-fiche-inscription-plaine"|filter_by:"demande_finalisation"|filter_value:form_internal_id }}</target_id>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>18</id>
       <name>Aucune inscription n'a &#233;t&#233; trouv&#233;e</name>
       <colour>#FF0000</colour>
@@ -777,23 +952,47 @@ Cordialement,</body>
         </item>
       </items>
     </status>
-  </possible_status><global_actions>
+    <status>
+      <id>22</id>
+      <name>Erreur lors de la r&#233;ception du paiement</name>
+      <colour>#ed333b</colour>
+      <visibility>
+        <role>__restricted__</role>
+      </visibility>
+      <items>
+        <item type="choice" id="1">
+          <label>Encoder le paiement</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by>
+          <status>19</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+  </possible_status>
+  <global_actions>
     <action>
       <id>1</id>
       <name>Suppression</name>
       <items>
         <item type="remove" id="1" />
-      </items><triggers>
+      </items>
+      <triggers>
         <trigger type="manual" id="58744480-1a3b-487d-963e-06239281e87d">
           <roles>
-            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
-          </roles><allow_as_mass_action>True</allow_as_mass_action>
+            <item slug="debug" role_id="25c4d67d05464af1adea67a3eb9d7266">Debug</item>
+          </roles>
+          <allow_as_mass_action>True</allow_as_mass_action>
           <require_confirmation>True</require_confirmation>
           <confirmation_text>Ne faites pas cela. Vous allez casser tout le processus. Contactez le support d'iMio.</confirmation_text>
         </trigger>
       </triggers>
     </action>
-  </global_actions><variables>
+  </global_actions>
+  <variables>
     <formdef>
       <name>-</name>
       <fields>
@@ -801,10 +1000,12 @@ Cordialement,</body>
           <type>title</type>
           <label type="str">Configurer les modes de paiement</label>
           <display_locations>
-            <display_location>validation</display_location>
-            <display_location>summary</display_location>
-          </display_locations><id type="str">7</id>
-        </field><field>
+            <item>validation</item>
+            <item>summary</item>
+          </display_locations>
+          <id type="str">7</id>
+        </field>
+        <field>
           <type>item</type>
           <label type="str">Mode de paiement</label>
           <required type="bool">True</required>
@@ -816,20 +1017,24 @@ Cordialement,</body>
             <item>Paiement en ligne</item>
             <item>Paiement par virement</item>
             <item>Paiement diff&#233;r&#233;</item>
-          </items><in_filters type="bool">False</in_filters>
+          </items>
+          <in_filters type="bool">False</in_filters>
           <display_disabled_items type="bool">False</display_disabled_items>
           <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
           <image_desktop_size type="int">150</image_desktop_size>
           <image_mobile_size type="int">75</image_mobile_size>
           <id type="str">1</id>
-        </field><field>
+        </field>
+        <field>
           <type>subtitle</type>
           <label type="str">Paiement en ligne</label>
           <display_locations>
-            <display_location>validation</display_location>
-            <display_location>summary</display_location>
-          </display_locations><id type="str">6</id>
-        </field><field>
+            <item>validation</item>
+            <item>summary</item>
+          </display_locations>
+          <id type="str">6</id>
+        </field>
+        <field>
           <type>item</type>
           <label type="str">R&#233;gie de paiement</label>
           <required type="bool">False</required>
@@ -842,13 +1047,15 @@ Cordialement,</body>
           <data_source>
             <type>json</type>
             <value>{{portal_url}}/api/lingo/regies</value>
-          </data_source><in_filters type="bool">False</in_filters>
+          </data_source>
+          <in_filters type="bool">False</in_filters>
           <display_disabled_items type="bool">False</display_disabled_items>
           <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
           <image_desktop_size type="int">150</image_desktop_size>
           <image_mobile_size type="int">75</image_mobile_size>
           <id type="str">3</id>
-        </field><field>
+        </field>
+        <field>
           <type>bool</type>
           <label type="str">Ne pas annuler les inscriptions apr&#232;s un d&#233;lai</label>
           <required type="bool">False</required>
@@ -857,14 +1064,17 @@ Cordialement,</body>
           <display_locations />
           <anonymise type="str">no</anonymise>
           <id type="str">8</id>
-        </field><field>
+        </field>
+        <field>
           <type>subtitle</type>
           <label type="str">Paiement par virement</label>
           <display_locations>
-            <display_location>validation</display_location>
-            <display_location>summary</display_location>
-          </display_locations><id type="str">5</id>
-        </field><field>
+            <item>validation</item>
+            <item>summary</item>
+          </display_locations>
+          <id type="str">5</id>
+        </field>
+        <field>
           <type>string</type>
           <label type="str">Num&#233;ro de compte</label>
           <required type="bool">False</required>
@@ -873,7 +1083,8 @@ Cordialement,</body>
           <display_locations />
           <anonymise type="str">final</anonymise>
           <id type="str">2</id>
-        </field><field>
+        </field>
+        <field>
           <type>item</type>
           <label type="str">Comment calculer le montant ?</label>
           <required type="bool">False</required>
@@ -886,13 +1097,15 @@ Cordialement,</body>
             <item>Demander le montant &#224; AES</item>
             <item>Calculer le montant manuellement</item>
             <item>Demander le montant &#224; AES avec validation</item>
-          </items><in_filters type="bool">False</in_filters>
+          </items>
+          <in_filters type="bool">False</in_filters>
           <display_disabled_items type="bool">False</display_disabled_items>
           <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
           <image_desktop_size type="int">150</image_desktop_size>
           <image_mobile_size type="int">75</image_mobile_size>
           <id type="str">4</id>
-        </field><field>
+        </field>
+        <field>
           <type>text</type>
           <label type="str">Pr&#233;remplir les informations compl&#233;mentaires</label>
           <required type="bool">False</required>
@@ -906,7 +1119,8 @@ Cordialement,</body>
         </field>
       </fields>
     </formdef>
-  </variables><backoffice-fields>
+  </variables>
+  <backoffice-fields>
     <formdef>
       <name>-</name>
       <fields>
@@ -916,11 +1130,13 @@ Cordialement,</body>
           <required type="bool">True</required>
           <varname type="str">enfants</varname>
           <display_locations>
-            <display_location>summary</display_location>
-            <display_location>listings</display_location>
-          </display_locations><anonymise type="str">final</anonymise>
+            <item>summary</item>
+            <item>listings</item>
+          </display_locations>
+          <anonymise type="str">final</anonymise>
           <id type="str">bob83465d0-0d08-48c2-abec-3fff36b18325</id>
-        </field><field>
+        </field>
+        <field>
           <type>string</type>
           <label type="str">Inscriptions concern&#233;es</label>
           <required type="bool">True</required>
