@@ -1,6 +1,17 @@
 Changelog
 =========
 
+2.2.3
+----------------
+
+- [AES-1793] Split payments over activity categories and invoiceable parents.
+
+2.2.2
+----------------
+
+- [MPP-508] Fixed: emails in meals registration form.
+
+
 2.2.1
 ----------------
 
