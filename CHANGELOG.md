@@ -6,6 +6,7 @@ Changelog
 
 - [MPP-516] Remove condition on autojump after encoding plain's registrations payment.
 - [MPP-505] Fix typo in healthsheet
+- [MPP-510] Set payment regie as optionnal in repas scolaires
 
 2.2.3
 ----------------

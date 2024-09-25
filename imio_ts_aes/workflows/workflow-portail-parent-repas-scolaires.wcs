@@ -973,13 +973,11 @@ Il vous reste {{ form_workflow_wscall_montant_response_initial_balance|subtract:
         <field>
           <type>item</type>
           <label type="str">R&#233;gie de paiement</label>
-          <required type="bool">True</required>
-          <hint type="str">La r&#233;gie de paiement d&#233;termine le panier qui r&#233;ceptionnera les demandes.</hint>
+          <required type="bool">False</required>
+          <hint type="str">&lt;p&gt;La r&#233;gie de paiement d&#233;termine le panier qui r&#233;ceptionnera les demandes.&lt;/p&gt;</hint>
           <varname type="str">regie_de_paiement</varname>
           <display_locations />
-          <anonymise type="str">no</anonymise>
           <display_mode type="str">radio</display_mode>
-          <items />
           <data_source>
             <type>json</type>
             <value>{{portal_url}}/api/lingo/regies</value>
