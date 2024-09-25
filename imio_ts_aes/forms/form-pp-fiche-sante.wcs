@@ -495,7 +495,7 @@
     </field>
     <field>
       <type>item</type>
-      <label type="str">L'enfant souffre t'il d'un handicap ?</label>
+      <label type="str">L'enfant souffre-t'il d'un handicap ?</label>
       <condition>
         <type>django</type>
         <value>'handicap' in form_option_questions_raw</value>
