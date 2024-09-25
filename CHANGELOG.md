@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.2.4
+----------------
+
+- [MPP-516] Remove condition on autojump after encoding plain's registrations payment.
+
 2.2.3
 ----------------
 
