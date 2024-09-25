@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<workflow id="5" url="https://wcs.dev.publik.love/backoffice/workflows/5/">
+<workflow id="14" url="">
   <name>Portail Parent - Finalisation des inscriptions</name>
   <slug>portail-parent-finalisation-des-inscriptions</slug>
   <category slug="portail-parent" category_id="1">Portail parent</category>
@@ -724,10 +724,6 @@ Cordialement,</body>
         </item>
         <item type="jump" id="2">
           <status>5</status>
-          <condition>
-            <type>django</type>
-            <value>form_workflow_data_encode_paiement_response_success|length</value>
-          </condition>
           <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>

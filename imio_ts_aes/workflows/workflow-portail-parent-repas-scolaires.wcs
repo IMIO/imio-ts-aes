@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
-<workflow id="12" url="">
+<workflow id="16" url="https://wcs.dev.publik.love/backoffice/workflows/16/">
   <name>Portail Parent - Repas scolaires</name>
   <slug>portail-parent-repas-scolaires</slug>
-  <category slug="portail-parent" category_id="3">Portail parent</category>
+  <category slug="portail-parent" category_id="1">Portail parent</category>
   <roles>
     <role id="_receiver">Agents traitants</role>
-  </roles><possible_status>
+  </roles>
+  <possible_status>
     <status>
       <id>6</id>
       <name>Nouvelle demande</name>
@@ -17,45 +18,54 @@
             <field>
               <field_id>boeff53d08-31d0-4dba-a295-6d4c57b46205</field_id>
               <value>{{ form_user_email }}</value>
-            </field><field>
+            </field>
+            <field>
               <field_id>bo0233460c-9055-4e27-94bc-023bedda4b53</field_id>
               <value>{{ form_var_enfant_school_implantation|get:1 }}</value>
-            </field><field>
+            </field>
+            <field>
               <field_id>bo532e3ef2-36a2-48c5-af65-54b11c186dba</field_id>
               <value>{{ form_var_enfant_level|get:1 }}</value>
-            </field><field>
+            </field>
+            <field>
               <field_id>bo17e36e89-663e-4ed0-9685-80a87c45f901</field_id>
               <value>{{ form_publication_expiration_datetime|date }}</value>
             </field>
           </fields>
-        </item><item type="external_workflow_global_action" id="4">
+        </item>
+        <item type="external_workflow_global_action" id="2">
           <slug>formdef:pp-repas-scolaires</slug>
           <trigger_id>action:cancel</trigger_id>
           <target_mode>manual</target_mode>
           <target_id>{{  form_objects|filter_by:"id_enfant"|filter_value:form_var_id_enfant|filter_by_status:"En attente de paiement"|exclude_self }}</target_id>
-        </item><item type="jump" id="3">
+        </item>
+        <item type="jump" id="3">
           <status>1</status>
           <condition>
             <type>django</type>
             <value>form_option_mode_paiement != "Paiement en ligne"</value>
-          </condition><mode>immediate</mode>
+          </condition>
+          <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="2">
+        </item>
+        <item type="jump" id="4">
           <status>9</status>
           <condition>
             <type>django</type>
             <value>form_option_mode_paiement == "Paiement en ligne"</value>
-          </condition><mode>immediate</mode>
+          </condition>
+          <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>9</id>
       <name>Calcul du montant</name>
       <colour>#FFFFFF</colour>
       <visibility />
       <items>
-        <item type="webservice_call" id="2">
+        <item type="webservice_call" id="1">
           <label>Calcul du montant</label>
           <method>POST</method>
           <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ form_user_var_aes_id }}/menus/registrations/cost</url>
@@ -64,23 +74,29 @@
             <item>
               <name>order</name>
               <value>{{ form_var_repas_structured }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>form_number</name>
               <value>{{ form_number_raw }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>child_id</name>
               <value>{{ form_var_enfant_id }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>school_implantation_id</name>
               <value>{{ form_var_enfant_school_implantation|get:0 }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>month</name>
               <value>{{ form_var_repas_raw|get:"0"|split:"-"|get:"1" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>year</name>
               <value>{{ form_var_repas_raw|get:0|split:"_"|get:1|split:"-"|get:2 }}</value>
             </item>
-          </post_data><response_type>json</response_type>
+          </post_data>
+          <response_type>json</response_type>
           <varname>montant</varname>
           <store_all_responses>False</store_all_responses>
           <attach_file_to_history>True</attach_file_to_history>
@@ -93,26 +109,32 @@
           <record_on_errors>False</record_on_errors>
           <notify_on_errors>False</notify_on_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="3">
+        </item>
+        <item type="jump" id="2">
           <status>1</status>
           <condition>
             <type>django</type>
             <value>form_workflow_wscall_montant_response_due_amount == 0</value>
-          </condition><mode>immediate</mode>
+          </condition>
+          <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="1">
+        </item>
+        <item type="jump" id="3">
           <status>8</status>
           <condition>
             <type>django</type>
             <value>form_workflow_wscall_montant_response_due_amount &gt; 0</value>
-          </condition><mode>immediate</mode>
+          </condition>
+          <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="choice" id="4">
+        </item>
+        <item type="choice" id="4">
           <label>Mettre en erreur</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
-          </by><status>11</status>
+            <item slug="debug" role_id="25c4d67d05464af1adea67a3eb9d7266">Debug</item>
+          </by>
+          <status>11</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Mettre la demande en erreur lors du calcul du montant. Cela notifiera les agents traitants par courriel et permettra de relancer l&amp;#39;op&amp;eacute;ration.&lt;/p&gt;
 </backoffice_info_text>
@@ -120,17 +142,20 @@
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>11</id>
       <name>Erreur lors du calcul du montant</name>
       <colour>#ed333b</colour>
       <visibility>
         <role>__restricted__</role>
-      </visibility><items>
-        <item type="sendmail" id="2">
+      </visibility>
+      <items>
+        <item type="sendmail" id="1">
           <to>
             <item role_id="_receiver">_receiver</item>
-          </to><subject>{{ form_name }} n&#176;{{ form_number }} - Erreur lors du calcul du montant</subject>
+          </to>
+          <subject>{{ form_name }} n&#176;{{ form_number }} - Erreur lors du calcul du montant</subject>
           <body>Une erreur est survenue lors d'un calcul de montant dans la commande d'un repas scolaire. Le parent ne peut donc finaliser sa commande.
 
 `Consulter la commande &lt;{{ form_url_backoffice }}&gt;`_
@@ -138,25 +163,29 @@
 `Consulter la documentation relative &#224; l'erreur &lt;https://docs.imio.be/portailparent/gestion-erreurs/&gt;`_
 
 `Envoyer un ticket au support &lt;https://support.imio.be&gt;`_</body>
-        </item><item type="choice" id="1">
+        </item>
+        <item type="choice" id="2">
           <label>Calculer le montant</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
-          </by><status>9</status>
+            <item slug="debug" role_id="25c4d67d05464af1adea67a3eb9d7266">Debug</item>
+          </by>
+          <status>9</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>8</id>
       <name>Ajout au panier</name>
       <colour>#ffffff</colour>
       <visibility>
         <role>__restricted__</role>
-      </visibility><items>
-        <item type="webservice_call" id="2">
+      </visibility>
+      <items>
+        <item type="webservice_call" id="1">
           <label>Ajout au panier</label>
           <method>POST</method>
           <url>{{ portal_url }}api/lingo/add-basket-item?NameId={{ form_user_name_identifier_0 }}</url>
@@ -165,19 +194,23 @@
               <name>regie_id</name>
               <value>{{form_option_regie_de_paiement_raw}}</value>
             </item>
-          </qs_data><post>False</post>
+          </qs_data>
+          <post>False</post>
           <post_data>
             <item>
               <name>amount</name>
               <value>{{ form_workflow_data_montant_response_due_amount|decimal:2 }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>display_name</name>
               <value>Commande de repas n&#176;{{ form_number }} pour {{ form_var_enfant }} du mois {% if form_var_repas_structured|get:0|get:'date'|date:"F Y"|first in "aeiouy" %}d'{% else %}de {% endif %}{{ form_var_repas_structured|get:0|get:'date'|date:"F Y"}}</value>
-            </item><item>
+            </item>
+            <item>
               <name>url</name>
               <value>{{ form_url }}</value>
             </item>
-          </post_data><response_type>json</response_type>
+          </post_data>
+          <response_type>json</response_type>
           <varname>ajout_panier</varname>
           <store_all_responses>False</store_all_responses>
           <attach_file_to_history>True</attach_file_to_history>
@@ -190,25 +223,28 @@
           <record_on_errors>True</record_on_errors>
           <notify_on_errors>False</notify_on_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="1">
+        </item>
+        <item type="jump" id="2">
           <status>12</status>
           <mode>trigger</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>12</id>
       <name>En attente de paiement</name>
       <colour>#f9f06b</colour>
       <visibility />
       <items>
-        <item type="displaymsg" id="9">
+        <item type="displaymsg" id="1">
           <message>&lt;p&gt;Veuillez r&#233;gler &lt;a href="{{ portal_url }}panier/" rel="nofollow"&gt;votre panier&lt;/a&gt; afin de finaliser les inscriptions.&lt;/p&gt;
 
 &lt;p&gt;&lt;a class="pk-button" href="{{ portal_url }}panier/" rel="nofollow"&gt;R&#233;gler mon panier&lt;/a&gt;&lt;/p&gt;</message>
           <level>info</level>
           <position>top</position>
-        </item><item type="register-comment" id="1">
+        </item>
+        <item type="register-comment" id="2">
           <comment>{% if form_workflow_wscall_montant_response_initial_balance &gt; 0 %}&lt;p&gt;Le solde de &lt;b&gt;{{ form_workflow_data_montant_response_spent_balance|decimal:2 }}&#8364;&lt;/b&gt; a &#233;t&#233; utilis&#233; pour r&#233;gler une partie de votre panier. Il reste &#224; payer &lt;b&gt;{{ form_workflow_data_montant_response_due_amount|decimal:2 }}&#8364;&lt;/b&gt;.&lt;/p&gt;
 
 {% if form_workflow_wscall_montant_response_initial_balance|subtract:form_workflow_wscall_montant_response_spent_balance &gt; 0 %}&lt;p&gt;
@@ -220,40 +256,48 @@ Il vous reste &lt;b&gt;{{ form_workflow_wscall_montant_response_initial_balance|
             <type>django</type>
             <value>form_previous_status == "Ajout au panier"</value>
           </condition>
-        </item><item type="jump" id="2">
+        </item>
+        <item type="jump" id="3">
           <status>16</status>
           <mode>trigger</mode>
           <trigger>paid</trigger>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="3">
+        </item>
+        <item type="jump" id="4">
           <status>13</status>
           <mode>trigger</mode>
           <trigger>cancelled</trigger>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="8">
+        </item>
+        <item type="jump" id="5">
           <status>19</status>
           <condition>
             <type>django</type>
             <value>form_previous_status == "Ajout au panier"</value>
-          </condition><mode>timeout</mode>
+          </condition>
+          <mode>timeout</mode>
           <timeout>86400</timeout>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="choice" id="7">
+        </item>
+        <item type="choice" id="6">
           <label>Annuler la commande en notifiant le parent</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
-          </by><status>18</status>
+            <item slug="debug" role_id="25c4d67d05464af1adea67a3eb9d7266">Debug</item>
+          </by>
+          <status>18</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Annule la commande. Le parent sera notifi&amp;eacute; de l&amp;#39;annulation, son panier sera vid&amp;eacute; et l&amp;#39;&amp;eacute;ventuel solde r&amp;eacute;serv&amp;eacute; sera lib&amp;eacute;r&amp;eacute;.&lt;/p&gt;
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="choice" id="4">
+        </item>
+        <item type="choice" id="7">
           <label>Annuler la commande, sans notifier le parent</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-          </by><status>13</status>
+          </by>
+          <status>13</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Annule la commande. Le panier du parent sera vid&amp;eacute; et son &amp;eacute;ventuel solde r&amp;eacute;serv&amp;eacute; sera lib&amp;eacute;r&amp;eacute;.&lt;/p&gt;
 </backoffice_info_text>
@@ -261,7 +305,8 @@ Il vous reste &lt;b&gt;{{ form_workflow_wscall_montant_response_initial_balance|
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>3</id>
       <name>Repas correctement enregistr&#233;s</name>
       <colour>#00FF00</colour>
@@ -277,10 +322,12 @@ Il vous reste &lt;b&gt;{{ form_workflow_wscall_montant_response_initial_balance|
 {% endif %}
 {% endfor %}
 &lt;/ul&gt;</comment>
-        </item><item type="sendmail" id="2">
+        </item>
+        <item type="sendmail" id="2">
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><subject>Commande de repas pour {{ form_var_enfant }}</subject>
+          </to>
+          <subject>Commande de repas pour {{ form_var_enfant }}</subject>
           <body>Bonjour,
 
 {% if form_option_mode_paiement == "Paiement en ligne" and form_workflow_data_montant_response_due_amount &gt; 0%}Nous avons bien re&#231;u votre paiement pour la commande de repas de {{ form_var_enfant }}{% else %}Nous avons bien re&#231;u votre commande de repas pour {{ form_var_enfant }}{%endif %}.
@@ -295,17 +342,20 @@ Voici votre commande pour **{{ form_var_repas_structured.0.date|date:"F Y" }}** 
 Cordialement,</body>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>19</id>
       <name>Alerte non paiement</name>
       <colour>#ffffff</colour>
       <visibility>
         <role>__restricted__</role>
-      </visibility><items>
+      </visibility>
+      <items>
         <item type="sendmail" id="1">
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><subject>Portail Parent - {{ form_name }} - Paiement en attente</subject>
+          </to>
+          <subject>Portail Parent - {{ form_name }} - Paiement en attente</subject>
           <body>Bonjour,
 
 Vous avez command&#233; des repas pour {{ form_var_enfant }}, mais n'avez pas r&#233;gl&#233; votre panier. La commande n'est donc pas prise en compte.
@@ -313,23 +363,27 @@ Vous avez command&#233; des repas pour {{ form_var_enfant }}, mais n'avez pas r&
 `Consulter votre commande &lt;{{ form_url }}&gt;`_
 
 Cordialement,</body>
-        </item><item type="jump" id="2">
+        </item>
+        <item type="jump" id="2">
           <status>12</status>
           <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>18</id>
       <name>Notification pour non paiement</name>
       <colour>#ffffff</colour>
       <visibility>
         <role>__restricted__</role>
-      </visibility><items>
+      </visibility>
+      <items>
         <item type="sendmail" id="1">
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><subject>Portail Parent - Annulation de la commande de repas pour {{ form_var_enfant_name }}</subject>
+          </to>
+          <subject>Portail Parent - Annulation de la commande de repas pour {{ form_var_enfant_name }}</subject>
           <body>Bonjour,
 
 Votre commande de repas scolaires n&#176;{{ form_number }} pour  {{ form_var_enfant_name }} du mois {% if form_var_repas_0_date|date:"F"|get:0 in "aeiouy"%}d'{% else %}de {% endif %}{{ form_var_repas_0_date|date:"F Y" }} a &#233;t&#233; annul&#233;e.
@@ -337,19 +391,22 @@ Votre commande de repas scolaires n&#176;{{ form_number }} pour  {{ form_var_enf
 Si vous avez pass&#233; d'autres commandes pour le m&#234;me enfant pour la m&#234;me p&#233;riode, celles-ci sont toujours prises en compte.
 
 `Consulter votre commande &lt;{{ form_url }}&gt;`_</body>
-        </item><item type="jump" id="2">
+        </item>
+        <item type="jump" id="2">
           <status>13</status>
           <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>13</id>
       <name>Annulation en cours</name>
       <colour>#ffffff</colour>
       <visibility>
         <role>__restricted__</role>
-      </visibility><items>
+      </visibility>
+      <items>
         <item type="webservice_call" id="1">
           <label>Vider le panier</label>
           <method>POST</method>
@@ -359,11 +416,13 @@ Si vous avez pass&#233; d'autres commandes pour le m&#234;me enfant pour la m&#2
             <item>
               <name>basket_item_id</name>
               <value>{{ajout_panier_response_id}}</value>
-            </item><item>
+            </item>
+            <item>
               <name>skip_notification</name>
               <value>skip</value>
             </item>
-          </post_data><response_type>json</response_type>
+          </post_data>
+          <response_type>json</response_type>
           <varname>vide_panier</varname>
           <store_all_responses>False</store_all_responses>
           <attach_file_to_history>True</attach_file_to_history>
@@ -378,29 +437,35 @@ Si vous avez pass&#233; d'autres commandes pour le m&#234;me enfant pour la m&#2
           <condition>
             <type>django</type>
             <value>not form_workflow_wscall_vide_panier_success</value>
-          </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="2">
+          </condition>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="2">
           <status>15</status>
           <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="choice" id="3">
+        </item>
+        <item type="choice" id="3">
           <label>Bouge !</label>
           <by>
-            <item slug="agents-traitants-portail-parent" role_id="96c7aae8f5354e4ea05c50bef976dc6e">Agents traitants - Portail parent</item>
-            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
-          </by><status>15</status>
+            <item slug="agents-traitants-portail-parent" role_id="8306f3ea064c497aa340c902cae107d5">Agents traitants - Portail parent</item>
+            <item slug="debug" role_id="25c4d67d05464af1adea67a3eb9d7266">Debug</item>
+          </by>
+          <status>15</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>15</id>
       <name>Lib&#233;reration du solde</name>
       <colour>#ffffff</colour>
       <visibility>
         <role>__restricted__</role>
-      </visibility><items>
+      </visibility>
+      <items>
         <item type="webservice_call" id="1">
           <label>Lib&#233;ration du solde</label>
           <method>DELETE</method>
@@ -421,33 +486,40 @@ Si vous avez pass&#233; d'autres commandes pour le m&#234;me enfant pour la m&#2
           <condition>
             <type>django</type>
             <value>form_workflow_wscall_montant_response_reserved_balance_id and not form_workflow_wscall_liberation_solde_success</value>
-          </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="2">
+          </condition>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="2">
           <status>10</status>
           <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="choice" id="3">
+        </item>
+        <item type="choice" id="3">
           <label>Mettre en erreur</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
-          </by><status>14</status>
+            <item slug="debug" role_id="25c4d67d05464af1adea67a3eb9d7266">Debug</item>
+          </by>
+          <status>14</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>14</id>
       <name>Erreur lors de la lib&#233;ration d'un solde</name>
       <colour>#e01b24</colour>
       <visibility>
         <role>__restricted__</role>
-      </visibility><items>
-        <item type="sendmail" id="2">
+      </visibility>
+      <items>
+        <item type="sendmail" id="1">
           <to>
             <item role_id="_receiver">_receiver</item>
-          </to><subject>{{ form_name }} n&#176;{{ form_number }} - Erreur lors de la lib&#233;ration du solde</subject>
+          </to>
+          <subject>{{ form_name }} n&#176;{{ form_number }} - Erreur lors de la lib&#233;ration du solde</subject>
           <body>Un parent a annul&#233; une commande de repas, mais son solde utilis&#233; pour diminuer le montant de son panier ne s'est pas lib&#233;r&#233;. Ce parent risque donc de payer trop lors sa prochaine commande.
 
 `Consulter la commande &lt;{{ form_url_backoffice }}&gt;`_
@@ -455,24 +527,28 @@ Si vous avez pass&#233; d'autres commandes pour le m&#234;me enfant pour la m&#2
 `Consulter la documentation relative &#224; l'erreur &lt;https://docs.imio.be/portailparent/gestion-erreurs/&gt;`_
 
 `Envoyer un ticket au support &lt;https://support.imio.be&gt;`_</body>
-        </item><item type="choice" id="1">
+        </item>
+        <item type="choice" id="2">
           <label>Lib&#233;rer le solde</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
-          </by><status>15</status>
+            <item slug="debug" role_id="25c4d67d05464af1adea67a3eb9d7266">Debug</item>
+          </by>
+          <status>15</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>10</id>
       <name>Annul&#233;</name>
       <colour>#9a9996</colour>
       <visibility />
       <items />
-    </status><status>
+    </status>
+    <status>
       <id>16</id>
       <name>Paiement re&#231;u</name>
       <colour>#8ff0a4</colour>
@@ -487,20 +563,25 @@ Si vous avez pass&#233; d'autres commandes pour le m&#234;me enfant pour la m&#2
             <item>
               <name>activity_category_id</name>
               <value>{{ form_workflow_data_montant_response_activity_category_id }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>amount</name>
               <value>{{ form_workflow_data_montant_response_due_amount|decimal:2 }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>comment</name>
               <value>{{ form_url_backoffice }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>prepayment_by_category_id</name>
               <value>{{ form_workflow_data_montant_response_prepayment_by_category_id }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>child_id</name>
               <value>{{ form_var_enfant_id }}</value>
             </item>
-          </post_data><response_type>json</response_type>
+          </post_data>
+          <response_type>json</response_type>
           <varname>encodage_paiement</varname>
           <store_all_responses>False</store_all_responses>
           <attach_file_to_history>True</attach_file_to_history>
@@ -515,8 +596,10 @@ Si vous avez pass&#233; d'autres commandes pour le m&#234;me enfant pour la m&#2
           <condition>
             <type>django</type>
             <value>not form_workflow_data_encodage_paiement_response</value>
-          </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item type="webservice_call" id="4">
+          </condition>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="webservice_call" id="2">
           <label>R&#233;servation du solde</label>
           <method>POST</method>
           <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ form_user_var_aes_id }}/reserved-balances/</url>
@@ -525,32 +608,41 @@ Si vous avez pass&#233; d'autres commandes pour le m&#234;me enfant pour la m&#2
             <item>
               <name>amount</name>
               <value>{{ form_workflow_data_montant_response_due_amount|decimal:2 }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>prepayment_by_category_id</name>
               <value>{{ form_workflow_data_montant_response_prepayment_by_category_id }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>blocking_request</name>
               <value>{{ form_number_raw }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>child_registration_line_id</name>
               <value>{{ form_workflow_data_montant_response_child_registration_line_id }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>month</name>
               <value>{{ form_var_repas_raw|get:"0"|split:"-"|get:"1" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>year</name>
               <value>{{ form_var_repas_raw|get:0|split:"_"|get:1|split:"-"|get:2 }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>school_implantation_id</name>
               <value>{{ form_var_enfant_school_implantation|get:0 }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>child_id</name>
               <value>{{ form_var_enfant_id }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>form_number</name>
               <value>{{ form_number_raw }}</value>
             </item>
-          </post_data><response_type>json</response_type>
+          </post_data>
+          <response_type>json</response_type>
           <varname>reservce_solde</varname>
           <store_all_responses>False</store_all_responses>
           <attach_file_to_history>True</attach_file_to_history>
@@ -565,24 +657,29 @@ Si vous avez pass&#233; d'autres commandes pour le m&#234;me enfant pour la m&#2
           <condition>
             <type>django</type>
             <value>not form_workflow_data_reserve_solde_response</value>
-          </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="3">
+          </condition>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="3">
           <status>1</status>
           <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>17</id>
       <name>Erreur lors de la r&#233;ception du paiement</name>
       <colour>#e01b24</colour>
       <visibility>
         <role>__restricted__</role>
-      </visibility><items>
-        <item type="sendmail" id="2">
+      </visibility>
+      <items>
+        <item type="sendmail" id="1">
           <to>
             <item role_id="_receiver">_receiver</item>
-          </to><subject>{{ form_name }} n&#176;{{ form_number }} - Erreur lors de la r&#233;ception du paiement</subject>
+          </to>
+          <subject>{{ form_name }} n&#176;{{ form_number }} - Erreur lors de la r&#233;ception du paiement</subject>
           <body>Une erreur est survenue lors de la r&#233;ception d'un paiement dans la commande d'un repas scolaire. Le parent ne peut donc finaliser sa commande.
 
 `Consulter la commande &lt;{{ form_url_backoffice }}&gt;`_
@@ -590,23 +687,26 @@ Si vous avez pass&#233; d'autres commandes pour le m&#234;me enfant pour la m&#2
 `Consulter la documentation relative &#224; l'erreur &lt;https://docs.imio.be/portailparent/gestion-erreurs/&gt;`_
 
 `Envoyer un ticket au support &lt;https://support.imio.be&gt;`_</body>
-        </item><item type="choice" id="1">
+        </item>
+        <item type="choice" id="2">
           <label>R&#233;encoder le paiement</label>
           <by>
-            <item slug="agents-traitants-portail-parent" role_id="96c7aae8f5354e4ea05c50bef976dc6e">Agents traitants - Portail parent</item>
-          </by><status>16</status>
+            <item slug="agents-traitants-portail-parent" role_id="8306f3ea064c497aa340c902cae107d5">Agents traitants - Portail parent</item>
+          </by>
+          <status>16</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>1</id>
       <name>Enregistrement des repas</name>
       <colour>#8ff0a4</colour>
       <visibility />
       <items>
-        <item type="register-comment" id="4">
+        <item type="register-comment" id="1">
           <comment>Votre solde a &#233;t&#233; utilis&#233; &#224; hauteur de  {{ form_workflow_data_montant_response_spent_balance|decimal:2 }} &#8364; pour r&#233;gler votre commande. Vous n'avez donc rien &#224; payer.
 
 {% if form_workflow_wscall_montant_response_initial_balance|subtract:form_workflow_wscall_montant_response_spent_balance &gt; 0 %}
@@ -616,7 +716,8 @@ Il vous reste {{ form_workflow_wscall_montant_response_initial_balance|subtract:
             <type>django</type>
             <value>form_previous_status == "Calcul du montant"</value>
           </condition>
-        </item><item type="webservice_call" id="1">
+        </item>
+        <item type="webservice_call" id="2">
           <label>Enregistrements des occurences s&#233;lectionn&#233;es</label>
           <method>POST</method>
           <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/menus/registrations</url>
@@ -625,14 +726,17 @@ Il vous reste {{ form_workflow_wscall_montant_response_initial_balance|subtract:
             <item>
               <name>child_id</name>
               <value>{{ form_var_id_enfant }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>meals</name>
               <value>{{ form_var_repas_structured }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>parent_id</name>
               <value>{{ form_user_var_aes_id }}</value>
             </item>
-          </post_data><response_type>json</response_type>
+          </post_data>
+          <response_type>json</response_type>
           <varname>post_child_meal</varname>
           <store_all_responses>False</store_all_responses>
           <attach_file_to_history>True</attach_file_to_history>
@@ -645,34 +749,41 @@ Il vous reste {{ form_workflow_wscall_montant_response_initial_balance|subtract:
           <record_on_errors>True</record_on_errors>
           <notify_on_errors>False</notify_on_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="2">
+        </item>
+        <item type="jump" id="3">
           <status>3</status>
           <condition>
             <type>django</type>
             <value>form_workflow_data_post_child_meal_status == 200</value>
-          </condition><mode>immediate</mode>
+          </condition>
+          <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="choice" id="3">
+        </item>
+        <item type="choice" id="4">
           <label>Signaler la situation comme r&#233;gularis&#233;e sans notifier l'usager</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-          </by><status>7</status>
+          </by>
+          <status>7</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>2</id>
       <name>&#201;chec de l'enregistrement</name>
       <colour>#e01b24</colour>
       <visibility>
         <role>__restricted__</role>
-      </visibility><items>
-        <item type="sendmail" id="3">
+      </visibility>
+      <items>
+        <item type="sendmail" id="1">
           <to>
             <item role_id="_receiver">_receiver</item>
-          </to><subject>{{ form_name }} n&#176;{{ form_number }} - Erreur lors de l'enregistrement de la commande</subject>
+          </to>
+          <subject>{{ form_name }} n&#176;{{ form_number }} - Erreur lors de l'enregistrement de la commande</subject>
           <body>Une erreur est survenue lors de l'inscription aux repas d'un enfant.{% if form_option_mode_paiement == "Paiement en ligne" %} Le panier a bien &#233;t&#233; r&#233;gl&#233; par le parent.{% endif %} Cette inscription ne se retrouvera donc pas dans le listing des repas pour le traiteur malgr&#233; le paiement de son parent.
 
 `Consulter la commande &lt;{{ form_url_backoffice }}&gt;`_
@@ -680,65 +791,77 @@ Il vous reste {{ form_workflow_wscall_montant_response_initial_balance|subtract:
 `Consulter la documentation relative &#224; l'erreur &lt;https://docs.imio.be/portailparent/gestion-erreurs/&gt;`_
 
 `Envoyer un ticket au support &lt;https://support.imio&gt;`_</body>
-        </item><item type="choice" id="1">
+        </item>
+        <item type="choice" id="2">
           <label>Retenter l'enregistrement</label>
           <by>
-            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
-          </by><status>1</status>
+            <item slug="debug" role_id="25c4d67d05464af1adea67a3eb9d7266">Debug</item>
+          </by>
+          <status>1</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="choice" id="2">
+        </item>
+        <item type="choice" id="3">
           <label>Signaler la situation comme r&#233;gularis&#233;e sans notifier l'usager</label>
           <by>
             <item role_id="_debug">_debug</item>
-          </by><status>7</status>
+          </by>
+          <status>7</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>7</id>
       <name>La situation est r&#233;gularis&#233;e</name>
       <colour>#99FF00</colour>
       <visibility />
       <items />
     </status>
-  </possible_status><global_actions>
+  </possible_status>
+  <global_actions>
     <action>
       <id>1</id>
       <name>Suppression</name>
       <items>
         <item type="remove" id="1" />
-      </items><triggers>
+      </items>
+      <triggers>
         <trigger type="manual" id="10284ecc-faf1-46d3-a567-7748e0d799d0">
           <roles>
-            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
-          </roles><allow_as_mass_action>True</allow_as_mass_action>
+            <item slug="debug" role_id="25c4d67d05464af1adea67a3eb9d7266">Debug</item>
+          </roles>
+          <allow_as_mass_action>True</allow_as_mass_action>
           <require_confirmation>False</require_confirmation>
         </trigger>
       </triggers>
-    </action><action>
+    </action>
+    <action>
       <id>2</id>
       <name>Annulation</name>
       <items>
-        <item type="set-backoffice-fields" id="2">
+        <item type="set-backoffice-fields" id="1">
           <label>Donn&#233;es d'annulation</label>
           <fields>
             <field>
               <field_id>bo372d0492-dd4b-4494-b6ed-c49fe27d3ec7</field_id>
               <value>{{ caller_form_user_var_last_name|upper }} {{ caller_form_user_var_first_name }}</value>
-            </field><field>
+            </field>
+            <field>
               <field_id>boa3690e9a-9aae-4523-956c-0ae212988e16</field_id>
               <value>{{ caller_form_backoffice_url }}</value>
             </field>
           </fields>
-        </item><item type="jump" id="1">
+        </item>
+        <item type="jump" id="2">
           <status>13</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
-      </items><triggers>
+      </items>
+      <triggers>
         <trigger type="webservice" id="e7dc9241-d29b-4c83-afd1-ea52edd9bc6e">
           <identifier>cancel</identifier>
           <roles>
@@ -746,7 +869,8 @@ Il vous reste {{ form_workflow_wscall_montant_response_initial_balance|subtract:
           </roles>
         </trigger>
       </triggers>
-    </action><action>
+    </action>
+    <action>
       <id>3</id>
       <name>Annuler plusieurs commandes</name>
       <backoffice_info_text>&lt;p&gt;Cette action permet d'annuler des commandes qui tra&#238;nent dans le panier depuis trop longtemps.&lt;/p&gt;</backoffice_info_text>
@@ -756,26 +880,33 @@ Il vous reste {{ form_workflow_wscall_montant_response_initial_balance|subtract:
           <condition>
             <type>django</type>
             <value>form_status == "En attente de paiement"</value>
-          </condition><set_marker_on_status>False</set_marker_on_status>
+          </condition>
+          <set_marker_on_status>False</set_marker_on_status>
         </item>
-      </items><triggers>
+      </items>
+      <triggers>
         <trigger type="manual" id="ced6c6e8-b7fa-429d-b7ef-8e27fca23682">
           <roles>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
-          </roles><statuses>
+            <item slug="debug" role_id="25c4d67d05464af1adea67a3eb9d7266">Debug</item>
+          </roles>
+          <statuses>
             <statuse>12</statuse>
-          </statuses><allow_as_mass_action>True</allow_as_mass_action>
+          </statuses>
+          <allow_as_mass_action>True</allow_as_mass_action>
           <require_confirmation>True</require_confirmation>
           <confirmation_text>Souhaitez-vous vraiment annuler les commandes s&#233;lectionn&#233;es ? Les auteurs de ces commandes en seront notifi&#233;s, leur panier sera vid&#233; et leur &#233;ventuel solde sera lib&#233;r&#233;.</confirmation_text>
-        </trigger><trigger type="timeout" id="1cc50943-0921-41c6-a6a9-da5699e75316">
+        </trigger>
+        <trigger type="timeout" id="1cc50943-0921-41c6-a6a9-da5699e75316">
           <anchor>template</anchor>
+          <anchor_expression />
           <anchor_template>{{ form_var_date_annulation_non_paiement }}</anchor_template>
           <timeout>1</timeout>
         </trigger>
       </triggers>
     </action>
-  </global_actions><variables>
+  </global_actions>
+  <variables>
     <formdef>
       <name>-</name>
       <fields>
@@ -793,12 +924,14 @@ Il vous reste {{ form_workflow_wscall_montant_response_initial_balance|subtract:
           <max_choices type="int">0</max_choices>
           <data_source>
             <type>portail-parent-implantations_scolaires</type>
-          </data_source><in_filters type="bool">False</in_filters>
+          </data_source>
+          <in_filters type="bool">False</in_filters>
           <display_disabled_items type="bool">False</display_disabled_items>
           <image_desktop_size type="int">150</image_desktop_size>
           <image_mobile_size type="int">75</image_mobile_size>
           <id type="str">2</id>
-        </field><field>
+        </field>
+        <field>
           <type>item</type>
           <label type="str">Choisir le mois</label>
           <required type="bool">True</required>
@@ -809,41 +942,47 @@ Il vous reste {{ form_workflow_wscall_montant_response_initial_balance|subtract:
           <items />
           <data_source>
             <type>portail_parent_mois_des_repas</type>
-          </data_source><in_filters type="bool">False</in_filters>
+          </data_source>
+          <in_filters type="bool">False</in_filters>
           <display_disabled_items type="bool">False</display_disabled_items>
           <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
           <image_desktop_size type="int">150</image_desktop_size>
           <image_mobile_size type="int">75</image_mobile_size>
           <id type="str">3</id>
-        </field><field>
+        </field>
+        <field>
           <type>item</type>
           <label type="str">Mode de paiement</label>
           <required type="bool">True</required>
           <hint type="str">Le paiement en ligne enverra la commande du parent dans un panier, en fonction de la r&#233;gie. L'option paiement diff&#233;r&#233; implique que la facture devra &#234;tre envoy&#233;e de iA.AES dans un second temps.</hint>
           <varname type="str">mode_paiement</varname>
           <display_locations />
+          <anonymise type="str">no</anonymise>
           <display_mode type="str">radio</display_mode>
           <items>
             <item>Paiement en ligne</item>
             <item>Paiement diff&#233;r&#233;</item>
-          </items><in_filters type="bool">False</in_filters>
+          </items>
+          <in_filters type="bool">False</in_filters>
           <display_disabled_items type="bool">False</display_disabled_items>
           <use_hint_as_first_option type="bool">False</use_hint_as_first_option>
           <image_desktop_size type="str">150</image_desktop_size>
           <image_mobile_size type="str">75</image_mobile_size>
           <id type="str">c69e7c86-c829-42c0-b385-fb4333cdc05b</id>
-        </field><field>
+        </field>
+        <field>
           <type>item</type>
           <label type="str">R&#233;gie de paiement</label>
-          <required type="bool">True</required>
-          <hint type="str">La r&#233;gie de paiement d&#233;termine le panier qui r&#233;ceptionnera les demandes.</hint>
+          <required type="bool">False</required>
+          <hint type="str">&lt;p&gt;La r&#233;gie de paiement d&#233;termine le panier qui r&#233;ceptionnera les demandes.&lt;/p&gt;</hint>
           <varname type="str">regie_de_paiement</varname>
           <display_locations />
           <display_mode type="str">radio</display_mode>
           <data_source>
             <type>json</type>
             <value>{{portal_url}}/api/lingo/regies</value>
-          </data_source><in_filters type="bool">False</in_filters>
+          </data_source>
+          <in_filters type="bool">False</in_filters>
           <display_disabled_items type="bool">False</display_disabled_items>
           <use_hint_as_first_option type="bool">False</use_hint_as_first_option>
           <image_desktop_size type="str">150</image_desktop_size>
@@ -852,7 +991,8 @@ Il vous reste {{ form_workflow_wscall_montant_response_initial_balance|subtract:
         </field>
       </fields>
     </formdef>
-  </variables><backoffice-fields>
+  </variables>
+  <backoffice-fields>
     <formdef>
       <name>-</name>
       <fields>
@@ -864,9 +1004,11 @@ Il vous reste {{ form_workflow_wscall_montant_response_initial_balance|subtract:
           <display_locations>
             <item>summary</item>
             <item>listings</item>
-          </display_locations><anonymise type="str">final</anonymise>
+          </display_locations>
+          <anonymise type="str">final</anonymise>
           <id type="str">boeff53d08-31d0-4dba-a295-6d4c57b46205</id>
-        </field><field>
+        </field>
+        <field>
           <type>string</type>
           <label type="str">Implantation scolaire</label>
           <required type="bool">True</required>
@@ -874,9 +1016,11 @@ Il vous reste {{ form_workflow_wscall_montant_response_initial_balance|subtract:
           <display_locations>
             <item>summary</item>
             <item>listings</item>
-          </display_locations><anonymise type="str">final</anonymise>
+          </display_locations>
+          <anonymise type="str">final</anonymise>
           <id type="str">bo0233460c-9055-4e27-94bc-023bedda4b53</id>
-        </field><field>
+        </field>
+        <field>
           <type>string</type>
           <label type="str">Niveau</label>
           <required type="bool">True</required>
@@ -884,34 +1028,41 @@ Il vous reste {{ form_workflow_wscall_montant_response_initial_balance|subtract:
           <display_locations>
             <item>summary</item>
             <item>listings</item>
-          </display_locations><anonymise type="str">final</anonymise>
+          </display_locations>
+          <anonymise type="str">final</anonymise>
           <id type="str">bo532e3ef2-36a2-48c5-af65-54b11c186dba</id>
-        </field><field>
+        </field>
+        <field>
           <type>string</type>
           <label type="str">Annul&#233; par</label>
           <required type="bool">True</required>
           <varname type="str">annulateur</varname>
           <display_locations>
             <item>summary</item>
-          </display_locations><anonymise type="str">final</anonymise>
+          </display_locations>
+          <anonymise type="str">final</anonymise>
           <id type="str">bo372d0492-dd4b-4494-b6ed-c49fe27d3ec7</id>
-        </field><field>
+        </field>
+        <field>
           <type>string</type>
           <label type="str">Annul&#233; depuis</label>
           <required type="bool">True</required>
           <varname type="str">source_annulation</varname>
           <display_locations>
             <item>summary</item>
-          </display_locations><anonymise type="str">final</anonymise>
+          </display_locations>
+          <anonymise type="str">final</anonymise>
           <id type="str">boa3690e9a-9aae-4523-956c-0ae212988e16</id>
-        </field><field>
+        </field>
+        <field>
           <type>date</type>
           <label type="str">Date d'annulation en cas de non paiement</label>
           <required type="bool">True</required>
           <varname type="str">date_annulation_non_paiement</varname>
           <display_locations>
             <item>summary</item>
-          </display_locations><anonymise type="str">final</anonymise>
+          </display_locations>
+          <anonymise type="str">final</anonymise>
           <minimum_is_future type="bool">False</minimum_is_future>
           <date_in_the_past type="bool">False</date_in_the_past>
           <date_can_be_today type="bool">False</date_can_be_today>
