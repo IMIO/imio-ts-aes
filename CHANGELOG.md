@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.2.5
+----------------
+- [PP-534] Fix mode on automatic jumps.
+
 2.2.4
 ----------------
 
