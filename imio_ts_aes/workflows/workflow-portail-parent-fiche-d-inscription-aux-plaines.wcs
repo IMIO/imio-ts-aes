@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
-<workflow id="10" url="https://wcs.dev.publik.love/backoffice/workflows/10/">
+<workflow id="5" url="https://wcs.dev.publik.love/backoffice/workflows/5/">
   <name>Portail Parent - Fiche d'inscription aux plaines</name>
   <slug>portail-parent-fiche-d-inscription-aux-plaines</slug>
   <category slug="portail-parent" category_id="1">Portail parent</category>
   <roles>
     <role id="_receiver">Agent traitant</role>
-  </roles><possible_status>
+  </roles>
+  <possible_status>
     <status>
       <id>1</id>
       <name>En attente de validation</name>
@@ -15,37 +16,47 @@
         <item type="choice" id="1">
           <label>En attente de paiement</label>
           <by>
-            <item slug="debug" role_id="cd9db0054986459498570d862dccc069">Debug</item>
-          </by><status>3</status>
+            <item slug="debug" role_id="18e7ab5ef71146f0a584588e61393986">Debug</item>
+          </by>
+          <status>3</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="choice" id="2">
+        </item>
+        <item type="choice" id="2">
           <label>Annuler cette inscription</label>
           <by>
             <item role_id="_submitter">_submitter</item>
             <item role_id="_receiver">_receiver</item>
-          </by><status>6</status>
+          </by>
+          <status>6</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="3">
+        </item>
+        <item type="jump" id="3">
           <status>8</status>
           <condition>
             <type>django</type>
             <value>form_option_mode_de_paiement == "Paiement en ligne" or form_option_mode_de_paiement == "Paiement par virement"</value>
-          </condition><timeout>172800</timeout>
+          </condition>
+          <mode>timeout</mode>
+          <timeout>172800</timeout>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="4">
+        </item>
+        <item type="jump" id="4">
           <status>6</status>
           <condition>
             <type>django</type>
             <value>"en ligne" in form_option_mode_de_paiement and form_previous_status == "Alerte - un jour restant pour finaliser" or "virement" in form_option_mode_de_paiement and form_previous_status == "Alerte - un jour restant pour finaliser"</value>
-          </condition><timeout>86400</timeout>
+          </condition>
+          <mode>timeout</mode>
+          <timeout>86400</timeout>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>3</id>
       <name>En attente de paiement</name>
       <colour>#99FF66</colour>
@@ -54,26 +65,30 @@
         <item type="choice" id="1">
           <label>Cl&#244;turer la demande</label>
           <by>
-            <item slug="debug" role_id="cd9db0054986459498570d862dccc069">Debug</item>
-          </by><status>4</status>
+            <item slug="debug" role_id="18e7ab5ef71146f0a584588e61393986">Debug</item>
+          </by>
+          <status>4</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>4</id>
       <name>Cl&#244;tur&#233;</name>
       <colour>#00FF00</colour>
       <visibility />
       <items />
-    </status><status>
+    </status>
+    <status>
       <id>6</id>
       <name>Annulation de l'inscription</name>
       <colour>#FFFFFF</colour>
       <visibility>
         <role>__restricted__</role>
-      </visibility><items>
+      </visibility>
+      <items>
         <item type="webservice_call" id="1">
           <label>Annulation de l'inscription</label>
           <method>DELETE</method>
@@ -83,9 +98,12 @@
               <name>registration_id</name>
               <value>{{ form_var_inscription }}</value>
             </item>
-          </qs_data><post>False</post>
+          </qs_data>
+          <post>False</post>
           <response_type>json</response_type>
           <varname>annulation</varname>
+          <store_all_responses>False</store_all_responses>
+          <attach_file_to_history>True</attach_file_to_history>
           <action_on_app_error>7</action_on_app_error>
           <action_on_4xx>7</action_on_4xx>
           <action_on_5xx>7</action_on_5xx>
@@ -95,18 +113,21 @@
           <record_on_errors>True</record_on_errors>
           <notify_on_errors>False</notify_on_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="set-backoffice-fields" id="3">
+        </item>
+        <item type="set-backoffice-fields" id="2">
           <label>Date plaine</label>
           <fields>
             <field>
               <field_id>bo89a6c3b8-ed18-4f95-9eab-5cab22026241</field_id>
               <value>{% for plaine in form_parent_form_var_activities_plaines_structured %}{% if plaine|get:"text" ==  form_var_plaine %}{{ plaine|get:"start_date" }}{% endif %}{% endfor %}</value>
             </field>
-          </fields><condition>
+          </fields>
+          <condition>
             <type>django</type>
             <value>pp_redirection_navette</value>
           </condition>
-        </item><item type="external_workflow_global_action" id="4">
+        </item>
+        <item type="external_workflow_global_action" id="3">
           <slug>formdef:reservation-navette</slug>
           <trigger_id>action:annulation_navette_fiche</trigger_id>
           <target_mode>manual</target_mode>
@@ -115,12 +136,15 @@
             <type>django</type>
             <value>pp_redirection_navette</value>
           </condition>
-        </item><item type="jump" id="2">
+        </item>
+        <item type="jump" id="4">
           <status>5</status>
+          <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>7</id>
       <name>Erreur lors de l'annulation</name>
       <colour>#FF0000</colour>
@@ -132,16 +156,19 @@
 **Ne faites rien !** Votre administration a &#233;t&#233; contact&#233;e et le probl&#232;me sera corrig&#233; dans les plus bref d&#233;lai. Une fois celui-ci r&#233;solu, vous pourrez finaliser vos inscriptions.</message>
           <level>error</level>
           <position>top</position>
-        </item><item type="sendmail" id="2">
+        </item>
+        <item type="sendmail" id="2">
           <to>
             <item role_id="_receiver">_receiver</item>
-          </to><subject>Erreur lors de l'annulation {{ form_name|lower }} n&#176;{{ form_number }}</subject>
+          </to>
+          <subject>Erreur lors de l'annulation {{ form_name|lower }} n&#176;{{ form_number }}</subject>
           <body>Bonjour,
 
 Un parent a voulu annuler une inscription aux plaines, mais celle-ci est tomb&#233;e en erreur. La plaine est donc toujours r&#233;serv&#233;e dans iA.AES.
 
 `Consulter la demande &lt;{{ form_url_backoffice }}&gt;`_</body>
-        </item><item type="register-comment" id="3">
+        </item>
+        <item type="register-comment" id="3">
           <comment>&lt;p&gt;Un parent a voulu annuler cette inscription aux plaines, mais celle-ci est tomb&#233;e en erreur. La plaine est donc toujours r&#233;serv&#233;e dans iA.AES.&lt;/p&gt;
 
 &lt;p&gt;Si vous n'avez pu r&#233;soudre le probl&#232;me, vous pouvez contacter le support d'iMio.&lt;/p&gt;
@@ -149,22 +176,27 @@ Un parent a voulu annuler une inscription aux plaines, mais celle-ci est tomb&#2
 &lt;p&gt;&lt;a href="support.imio.be"&gt;Contacter le support d'iMio&lt;/a&gt;&lt;/p&gt;</comment>
           <to>
             <item role_id="_receiver">_receiver</item>
-          </to><level>error</level>
-        </item><item type="choice" id="4">
+          </to>
+          <level>error</level>
+        </item>
+        <item type="choice" id="4">
           <label>Annuler cette inscription</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-          </by><status>6</status>
+          </by>
+          <status>6</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Une fois l&amp;#39;erreur corrig&amp;eacute;e, vous pouvez &amp;agrave; nouveau tenter d&amp;#39;annuler cette inscription.&lt;/p&gt;
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="choice" id="5">
+        </item>
+        <item type="choice" id="5">
           <label>Noter cette inscription comme annul&#233;e</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-          </by><status>5</status>
+          </by>
+          <status>5</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Noter cette inscription comme annul&amp;eacute;e si elle l&amp;#39;a &amp;eacute;t&amp;eacute; depuis iA.AES.&lt;/p&gt;
 </backoffice_info_text>
@@ -172,7 +204,8 @@ Un parent a voulu annuler une inscription aux plaines, mais celle-ci est tomb&#2
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>5</id>
       <name>Inscription annul&#233;e</name>
       <colour>#999999</colour>
@@ -181,7 +214,8 @@ Un parent a voulu annuler une inscription aux plaines, mais celle-ci est tomb&#2
         <item type="sendmail" id="1">
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><subject>D&#233;sinscription confirm&#233;e</subject>
+          </to>
+          <subject>D&#233;sinscription confirm&#233;e</subject>
           <body>Bonjour,
 
 {{ form_var_enfant }} est maintenant d&#233;sinscrit&#183;e de la plaine {{ form_var_plaine }}.
@@ -193,7 +227,8 @@ Cordialement,</body>
           </condition>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>8</id>
       <name>Alerte - un jour restant pour finaliser</name>
       <colour>#FFFFFF</colour>
@@ -202,7 +237,8 @@ Cordialement,</body>
         <item type="sendmail" id="1">
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><subject>Alerte avant annulation - Veuillez finaliser vos inscriptions aux plaines de vacances</subject>
+          </to>
+          <subject>Alerte avant annulation - Veuillez finaliser vos inscriptions aux plaines de vacances</subject>
           <body>Bonjour,
 
 Vous n'avez pas finalis&#233; vos inscriptions aux plaines de vacances.
@@ -214,13 +250,16 @@ Attention, avant de finaliser vos inscriptions, veillez &#224; ce que tous vos e
 `Aller sur le Portail Parent &lt;{{ portal_url }}portail-parent/&gt;`_
 
 Cordialement,</body>
-        </item><item type="jump" id="2">
+        </item>
+        <item type="jump" id="2">
           <status>1</status>
+          <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
     </status>
-  </possible_status><global_actions>
+  </possible_status>
+  <global_actions>
     <action>
       <id>1</id>
       <name>Vers en attente de paiement</name>
@@ -230,14 +269,17 @@ Cordialement,</body>
           <condition>
             <type>django</type>
             <value>form_status == "En attente de validation"</value>
-          </condition><set_marker_on_status>False</set_marker_on_status>
+          </condition>
+          <set_marker_on_status>False</set_marker_on_status>
         </item>
-      </items><triggers>
+      </items>
+      <triggers>
         <trigger type="webservice" id="a1b0b712-fdc6-4f90-8ee5-f00d656e23b7">
           <identifier>validate</identifier>
         </trigger>
       </triggers>
-    </action><action>
+    </action>
+    <action>
       <id>2</id>
       <name>Cl&#244;turer la demande</name>
       <items>
@@ -246,14 +288,17 @@ Cordialement,</body>
           <condition>
             <type>django</type>
             <value>form_status == "En attente de paiement"</value>
-          </condition><set_marker_on_status>False</set_marker_on_status>
+          </condition>
+          <set_marker_on_status>False</set_marker_on_status>
         </item>
-      </items><triggers>
+      </items>
+      <triggers>
         <trigger type="webservice" id="8b29537b-d911-4dbd-b7ea-9bf80bf4f577">
           <identifier>closed</identifier>
         </trigger>
       </triggers>
-    </action><action>
+    </action>
+    <action>
       <id>3</id>
       <name>Annulation des inscriptions</name>
       <items>
@@ -261,25 +306,30 @@ Cordialement,</body>
           <status>6</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
-      </items><triggers>
+      </items>
+      <triggers>
         <trigger type="webservice" id="d9b73f03-0962-404b-9894-1eea457cb83c">
           <identifier>cancel</identifier>
         </trigger>
       </triggers>
-    </action><action>
+    </action>
+    <action>
       <id>4</id>
       <name>Suppression</name>
       <items>
         <item type="remove" id="1" />
-      </items><triggers>
+      </items>
+      <triggers>
         <trigger type="manual" id="8db2c86f-e855-4267-874e-9cd3d559143a">
           <roles>
-            <item slug="debug" role_id="cd9db0054986459498570d862dccc069">Debug</item>
-          </roles><allow_as_mass_action>True</allow_as_mass_action>
+            <item slug="debug" role_id="18e7ab5ef71146f0a584588e61393986">Debug</item>
+          </roles>
+          <allow_as_mass_action>True</allow_as_mass_action>
           <require_confirmation>False</require_confirmation>
         </trigger>
       </triggers>
-    </action><action>
+    </action>
+    <action>
       <id>5</id>
       <name>Demande Finalisation</name>
       <items>
@@ -291,13 +341,15 @@ Cordialement,</body>
             </field>
           </fields>
         </item>
-      </items><triggers>
+      </items>
+      <triggers>
         <trigger type="webservice" id="a7147cee-1566-4317-b34b-6d8d4c5d377d">
           <identifier>demande_finalisation</identifier>
         </trigger>
       </triggers>
     </action>
-  </global_actions><variables>
+  </global_actions>
+  <variables>
     <formdef>
       <name>-</name>
       <fields>
@@ -313,7 +365,8 @@ Cordialement,</body>
             <item>Paiement en ligne</item>
             <item>Paiement par virement</item>
             <item>Paiement diff&#233;r&#233;</item>
-          </items><in_filters type="bool">False</in_filters>
+          </items>
+          <in_filters type="bool">False</in_filters>
           <display_disabled_items type="bool">False</display_disabled_items>
           <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
           <image_desktop_size type="int">150</image_desktop_size>
@@ -322,7 +375,8 @@ Cordialement,</body>
         </field>
       </fields>
     </formdef>
-  </variables><backoffice-fields>
+  </variables>
+  <backoffice-fields>
     <formdef>
       <name>-</name>
       <fields>
@@ -332,36 +386,42 @@ Cordialement,</body>
           <required type="bool">True</required>
           <varname type="str">plaine</varname>
           <display_locations>
-            <display_location>summary</display_location>
-          </display_locations><anonymise type="str">no</anonymise>
+            <item>summary</item>
+          </display_locations>
+          <anonymise type="str">no</anonymise>
           <display_mode type="str">list</display_mode>
           <items />
           <data_source>
             <type>jsonvalue</type>
             <value>[{% for week in webservice.aes_get_available_plaines %}{% for activity in week|get:"activities" %}{{ activity|json_dumps }}{% if not forloop.last %}, {% endif %}{% endfor %}{% if not forloop.last %}, {% endif %}{% endfor %}]</value>
-          </data_source><in_filters type="bool">False</in_filters>
+          </data_source>
+          <in_filters type="bool">False</in_filters>
           <display_disabled_items type="bool">False</display_disabled_items>
           <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
           <image_desktop_size type="int">150</image_desktop_size>
           <image_mobile_size type="int">75</image_mobile_size>
           <id type="str">bo0a400754-416f-49bb-8c6d-50306a4e0240</id>
-        </field><field>
+        </field>
+        <field>
           <type>string</type>
           <label type="str">Demande Finalisation</label>
           <required type="bool">True</required>
           <varname type="str">demande_finalisation</varname>
           <display_locations>
-            <display_location>summary</display_location>
-          </display_locations><anonymise type="str">final</anonymise>
+            <item>summary</item>
+          </display_locations>
+          <anonymise type="str">final</anonymise>
           <id type="str">bob00a7c97-ae61-46e0-94e7-268e5f3a1375</id>
-        </field><field>
+        </field>
+        <field>
           <type>string</type>
           <label type="str">Date d&#233;but plaine</label>
           <required type="bool">True</required>
           <varname type="str">date_debut_plaine</varname>
           <display_locations>
             <item>summary</item>
-          </display_locations><anonymise type="str">final</anonymise>
+          </display_locations>
+          <anonymise type="str">final</anonymise>
           <id type="str">bo89a6c3b8-ed18-4f95-9eab-5cab22026241</id>
         </field>
       </fields>
