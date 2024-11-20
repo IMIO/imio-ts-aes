@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.2.6
+----------------
+
+- [PP-535] Replace allergies, diseases and medications fields with fields blocs
+
 2.2.5
 ----------------
 - [PP-534] Fix mode on automatic jumps.

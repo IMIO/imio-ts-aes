@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<block id="5" url="https://wcs.dev.publik.love/backoffice/forms/blocks/5/">
+  <name>Portail Parent - Allergies</name>
+  <slug>portail_parent_allergies</slug>
+  <fields>
+    <field>
+      <type>string</type>
+      <label type="str">Autre allergie</label>
+      <required type="bool">True</required>
+      <varname type="str">name</varname>
+      <display_locations>
+        <item>validation</item>
+        <item>summary</item>
+      </display_locations>
+      <extra_css_class type="str">grid-1-2</extra_css_class>
+      <anonymise type="str">final</anonymise>
+      <id type="str">bf3ecd5334-2ec3-4d0d-b5f0-a98b3e6ae00d</id>
+    </field>
+  </fields>
+</block>
