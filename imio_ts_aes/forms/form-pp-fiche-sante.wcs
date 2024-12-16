@@ -822,6 +822,8 @@
         <item>summary</item>
       </display_locations>
       <prefill>
+        <locked>False</locked>
+        <locked-unless-empty>False</locked-unless-empty>
         <type>string</type>
         <value>{{ form_var_fiche_sante.allergy_selection }}</value>
       </prefill>
@@ -838,8 +840,8 @@
       <in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
-      <image_desktop_size type="int">150</image_desktop_size>
-      <image_mobile_size type="int">75</image_mobile_size>
+      <image_desktop_size type="str">150</image_desktop_size>
+      <image_mobile_size type="str">75</image_mobile_size>
       <id type="str">170</id>
     </field>
     <field>
@@ -847,7 +849,7 @@
       <label type="str">Quelles sont les allergies de votre enfant ?</label>
       <condition>
         <type>django</type>
-        <value>form_var_allergie_raw  == 'yes'</value>
+        <value>form_var_allergie_raw == 'yes'</value>
       </condition>
       <required type="bool">False</required>
       <varname type="str">allergies</varname>
@@ -855,12 +857,14 @@
         <item>validation</item>
         <item>summary</item>
       </display_locations>
+      <extra_css_class type="str">newline</extra_css_class>
       <prefill>
+        <locked>False</locked>
+        <locked-unless-empty>False</locked-unless-empty>
         <type>string</type>
         <value>{{form_var_fiche_sante.allergy_ids}}</value>
       </prefill>
       <anonymise type="str">final</anonymise>
-      <items />
       <display_mode type="str">checkboxes</display_mode>
       <min_choices type="int">0</min_choices>
       <max_choices type="int">0</max_choices>
@@ -870,16 +874,44 @@
       </data_source>
       <in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
-      <image_desktop_size type="int">150</image_desktop_size>
-      <image_mobile_size type="int">75</image_mobile_size>
+      <image_desktop_size type="str">150</image_desktop_size>
+      <image_mobile_size type="str">75</image_mobile_size>
       <id type="str">520</id>
     </field>
     <field>
-      <type>block</type>
+      <type>item</type>
       <label type="str">Votre enfant a-t-il une allergie qui n'est pas dans la liste ?</label>
+      <required type="bool">True</required>
+      <varname type="str">a_autres_allergies</varname>
+      <display_locations>
+        <item>validation</item>
+        <item>summary</item>
+      </display_locations>
+      <prefill>
+        <locked>False</locked>
+        <locked-unless-empty>False</locked-unless-empty>
+        <type>string</type>
+        <value>Non</value>
+      </prefill>
+      <anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
+      <items>
+        <item>Non</item>
+        <item>Oui</item>
+      </items>
+      <in_filters type="bool">False</in_filters>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
+      <image_desktop_size type="str">150</image_desktop_size>
+      <image_mobile_size type="str">75</image_mobile_size>
+      <id type="str">75e3914c-5000-4d6b-9f53-19f244b060a8</id>
+    </field>
+    <field>
+      <type>block</type>
+      <label type="str">Autres allergies</label>
       <condition>
         <type>django</type>
-        <value>"new_allergies" in form_option_questions_raw</value>
+        <value>form_var_a_autres_allergies == 'Oui'</value>
       </condition>
       <required type="bool">False</required>
       <varname type="str">autres_allergies</varname>
@@ -887,22 +919,30 @@
         <item>validation</item>
         <item>summary</item>
       </display_locations>
-      <extra_css_class type="str">pk-blocks-zebra</extra_css_class>
       <anonymise type="str">final</anonymise>
       <default_items_count type="int">1</default_items_count>
       <max_items type="int">16</max_items>
       <add_element_label type="str">Renseigner une autre allergie</add_element_label>
-      <label_display type="str">normal</label_display>
+      <label_display type="str">subtitle</label_display>
       <remove_button type="bool">True</remove_button>
       <block_slug type="str">portail_parent_allergies</block_slug>
       <id type="str">d80b6890-4ac8-44d7-9c21-3ee91f1d2635</id>
     </field>
     <field>
+      <type>subtitle</type>
+      <label type="str">Cons&#233;quences et traitement</label>
+      <display_locations>
+        <item>validation</item>
+        <item>summary</item>
+      </display_locations>
+      <id type="str">7ab89c32-d251-4dd1-a51e-213f6531cde6</id>
+    </field>
+    <field>
       <type>text</type>
-      <label type="str">Quelles en sont les cons&#233;quences ?</label>
+      <label type="str">Quelles sont les cons&#233;quences de ces allergies ?</label>
       <condition>
         <type>django</type>
-        <value>form_var_allergie_raw  == 'yes'</value>
+        <value>form_var_allergie_raw == 'yes'</value>
       </condition>
       <required type="bool">False</required>
       <varname type="str">allergie_consequence</varname>
@@ -912,6 +952,8 @@
       </display_locations>
       <extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
+        <locked-unless-empty>False</locked-unless-empty>
         <type>string</type>
         <value>{{ form_var_fiche_sante.allergy_consequence }}</value>
       </prefill>
@@ -924,10 +966,10 @@
       <label type="str">Traitement &#233;ventuel</label>
       <condition>
         <type>django</type>
-        <value>form_var_allergie_raw  == 'yes'</value>
+        <value>form_var_allergie_raw == 'yes'</value>
       </condition>
       <required type="bool">False</required>
-      <hint type="str">Avec l'accord du m&#233;decin.</hint>
+      <hint type="str">&lt;p&gt;Avec l'accord du m&#233;decin.&lt;/p&gt;</hint>
       <varname type="str">allergie_traitement</varname>
       <display_locations>
         <item>validation</item>
@@ -935,6 +977,8 @@
       </display_locations>
       <extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
+        <locked-unless-empty>False</locked-unless-empty>
         <type>string</type>
         <value>{{ form_var_fiche_sante.allergy_treatment }}</value>
       </prefill>
@@ -965,8 +1009,8 @@
     </field>
     <field>
       <type>block</type>
-      <label type="str">Maladies</label>
-      <required type="bool">True</required>
+      <label type="str">Votre enfant souffre-t-il d'une maladie ?</label>
+      <required type="bool">False</required>
       <varname type="str">maladies</varname>
       <display_locations>
         <item>validation</item>
@@ -983,7 +1027,7 @@
       <default_items_count type="int">1</default_items_count>
       <max_items type="int">16</max_items>
       <add_element_label type="str">Renseigner une maladie</add_element_label>
-      <label_display type="str">hidden</label_display>
+      <label_display type="str">subtitle</label_display>
       <remove_button type="bool">True</remove_button>
       <block_slug type="str">portail_parent_maladies</block_slug>
       <id type="str">8d28281a-288e-4693-8c88-aeae15adcfe5</id>
