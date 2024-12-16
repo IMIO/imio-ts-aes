@@ -445,7 +445,7 @@
             </item>
             <item>
               <name>diseases</name>
-              <value>{{ form_var_diseases|getlistdict:"disease, other_disease, gravity, treatment" }}</value>
+              <value>{{ form_var_maladies|getlistdict:"disease, other_disease, gravity, treatment" }}</value>
             </item>
             <item>
               <name>healthsheet_id</name>
@@ -494,7 +494,8 @@
     <status>
       <id>4</id>
       <name>Fiche sant&#233; est enregistr&#233;e</name>
-      <colour>#00FF00</colour>
+      <colour>#00ff00</colour>
+      <forced_endpoint>true</forced_endpoint>
       <visibility />
       <items>
         <item type="register-comment" id="1">
