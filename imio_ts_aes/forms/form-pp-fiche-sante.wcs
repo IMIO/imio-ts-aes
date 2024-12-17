@@ -881,6 +881,10 @@
     <field>
       <type>item</type>
       <label type="str">Votre enfant a-t-il une allergie qui n'est pas dans la liste ?</label>
+      <condition>
+        <type>django</type>
+        <value>form_var_allergie_raw == 'yes'</value>
+      </condition>
       <required type="bool">True</required>
       <varname type="str">a_autres_allergies</varname>
       <display_locations>
@@ -1050,14 +1054,15 @@
         <item>validation</item>
         <item>summary</item>
       </display_locations>
-      <extra_css_class type="str">grid-1-2</extra_css_class>
+      <extra_css_class type="str">grid-1-1</extra_css_class>
       <prefill>
+        <locked>False</locked>
+        <locked-unless-empty>False</locked-unless-empty>
         <type>string</type>
         <value>{{ form_var_fiche_sante.has_medication }}</value>
       </prefill>
       <anonymise type="str">no</anonymise>
       <display_mode type="str">radio</display_mode>
-      <items />
       <data_source>
         <type>jsonvalue</type>
         <value>{{ form_var_fiche_sante_selections|get:"has_medication"|json_dumps }}</value>
@@ -1065,8 +1070,8 @@
       <in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
-      <image_desktop_size type="int">150</image_desktop_size>
-      <image_mobile_size type="int">75</image_mobile_size>
+      <image_desktop_size type="str">150</image_desktop_size>
+      <image_mobile_size type="str">75</image_mobile_size>
       <id type="str">588</id>
     </field>
     <field>
@@ -1084,6 +1089,10 @@
     <field>
       <type>block</type>
       <label type="str">Quels m&#233;dicaments votre enfant doit-il prendre ?</label>
+      <condition>
+        <type>django</type>
+        <value>form_var_has_medication_raw == "yes"</value>
+      </condition>
       <required type="bool">True</required>
       <varname type="str">medicaments</varname>
       <display_locations>
