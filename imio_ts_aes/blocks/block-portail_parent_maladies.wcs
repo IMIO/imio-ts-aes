@@ -33,7 +33,7 @@
       <label type="str">Autre maladie</label>
       <condition>
         <type>django</type>
-        <value>block_var_name_raw == "autre"</value>
+        <value>block_var_disease_raw == "autre"</value>
       </condition>
       <required type="bool">True</required>
       <varname type="str">other_disease</varname>
