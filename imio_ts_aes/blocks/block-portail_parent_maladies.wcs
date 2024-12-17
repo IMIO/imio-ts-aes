@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<block id="7" url="https://wcs.dev.publik.love/backoffice/forms/blocks/7/">
+  <name>Portail Parent - Maladies</name>
+  <slug>portail_parent_maladies</slug>
+  <digest_template>{{ block_var_disease }} - {{ block_var_gravity }}</digest_template>
+  <fields>
+    <field>
+      <type>item</type>
+      <label type="str">Maladie</label>
+      <required type="bool">True</required>
+      <hint type="str">&lt;p&gt;Choisissez&lt;/p&gt;</hint>
+      <varname type="str">disease</varname>
+      <display_locations>
+        <item>validation</item>
+        <item>summary</item>
+      </display_locations>
+      <extra_css_class type="str">grid-1-4</extra_css_class>
+      <anonymise type="str">no</anonymise>
+      <display_mode type="str">list</display_mode>
+      <data_source>
+        <type>jsonvalue</type>
+        <value>{{ data_source.aes_diseases|add:data_source.autre|json_dumps }}</value>
+      </data_source>
+      <in_filters type="bool">False</in_filters>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
+      <image_desktop_size type="str">150</image_desktop_size>
+      <image_mobile_size type="str">75</image_mobile_size>
+      <id type="str">bfc00a675c-9fc7-4983-8c20-a024f15a07d7</id>
+    </field>
+    <field>
+      <type>string</type>
+      <label type="str">Autre maladie</label>
+      <condition>
+        <type>django</type>
+        <value>block_var_disease_raw == "autre"</value>
+      </condition>
+      <required type="bool">True</required>
+      <varname type="str">other_disease</varname>
+      <display_locations>
+        <item>validation</item>
+        <item>summary</item>
+      </display_locations>
+      <extra_css_class type="str">grid-1-4</extra_css_class>
+      <anonymise type="str">final</anonymise>
+      <id type="str">bf0fc914ef-b246-4b16-a91f-772d6bfab79a</id>
+    </field>
+    <field>
+      <type>string</type>
+      <label type="str">Gravit&#233;</label>
+      <required type="bool">True</required>
+      <varname type="str">gravity</varname>
+      <display_locations>
+        <item>validation</item>
+        <item>summary</item>
+      </display_locations>
+      <extra_css_class type="str">newline grid-1-4</extra_css_class>
+      <anonymise type="str">final</anonymise>
+      <id type="str">bf6d8b14e1-adc1-44fc-8da2-b6eeddb0e9c6</id>
+    </field>
+    <field>
+      <type>string</type>
+      <label type="str">Traitement</label>
+      <required type="bool">True</required>
+      <varname type="str">treatment</varname>
+      <display_locations>
+        <item>validation</item>
+        <item>summary</item>
+      </display_locations>
+      <extra_css_class type="str">grid-8-12</extra_css_class>
+      <anonymise type="str">final</anonymise>
+      <id type="str">bfeeabd721-1489-4e30-b70d-951647532e28</id>
+    </field>
+  </fields>
+</block>

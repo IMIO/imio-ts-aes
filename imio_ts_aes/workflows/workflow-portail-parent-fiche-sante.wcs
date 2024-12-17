@@ -1,29 +1,34 @@
 <?xml version="1.0"?>
-<workflow id="5" url="https://wcs.dev.publik.love/backoffice/workflows/5/">
+<workflow id="4" url="https://wcs.dev.publik.love/backoffice/workflows/4/">
   <name>Portail Parent - Fiche sant&#233;</name>
   <slug>portail-parent-fiche-sante</slug>
-  <category slug="portail-parent" category_id="1">Portail Parent</category>
+  <category slug="portail-parent" category_id="1">Portail parent</category>
   <roles>
+    <role id="_agent-imio">Agent iMio</role>
     <role id="_receiver">Agent traitant</role>
-  </roles><possible_status>
+  </roles>
+  <possible_status>
     <status>
       <id>1</id>
       <name>Nouvelle fiche sant&#233;</name>
-      <colour>FFFFFF</colour>
+      <colour>#FFFFFF</colour>
       <visibility />
       <items>
         <item type="jump" id="1">
           <status>5</status>
+          <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>5</id>
       <name>Enregistrement du m&#233;decin</name>
-      <colour>FFFFFF</colour>
+      <colour>#FFFFFF</colour>
       <visibility>
-        <role>_receiver</role>
-      </visibility><items>
+        <role>__restricted__</role>
+      </visibility>
+      <items>
         <item type="webservice_call" id="1">
           <label>Enregistrement du m&#233;decin</label>
           <method>POST</method>
@@ -33,68 +38,85 @@
             <item>
               <name>firstname</name>
               <value>{{ form_var_other_doctor_firstname }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>lastname</name>
               <value>{{ form_var_other_doctor_name }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>street</name>
               <value>{{ form_var_other_doctor_street }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>phone</name>
               <value>{{ form_var_other_doctor_tel }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>mobile</name>
               <value>{{ form_var_other_doctor_gsm }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>locality_id</name>
               <value>{{ form_var_other_doctor_locality_raw }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>country_id</name>
               <value>{{ form_var_other_doctor_country_raw }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>zip</name>
               <value>{{ form_var_other_doctor_zipcode }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>city</name>
               <value>{{ form_var_other_doctor_city }}</value>
             </item>
-          </post_data><response_type>json</response_type>
+          </post_data>
+          <response_type>json</response_type>
           <varname>doctor</varname>
+          <store_all_responses>False</store_all_responses>
+          <attach_file_to_history>True</attach_file_to_history>
           <action_on_app_error>9</action_on_app_error>
           <action_on_4xx>9</action_on_4xx>
           <action_on_5xx>9</action_on_5xx>
           <action_on_bad_data>9</action_on_bad_data>
           <action_on_network_errors>9</action_on_network_errors>
-          <notify_on_errors>False</notify_on_errors>
-          <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
+          <record_on_errors>True</record_on_errors>
+          <notify_on_errors>False</notify_on_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="2">
+        </item>
+        <item type="jump" id="2">
           <status>7</status>
+          <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>9</id>
       <name>Erreur m&#233;decin</name>
-      <colour>FF0000</colour>
+      <colour>#FF0000</colour>
       <visibility>
-        <role>_receiver</role>
-      </visibility><items>
+        <role>__restricted__</role>
+      </visibility>
+      <items>
         <item type="choice" id="1">
           <label>Retenter l'enregistrement du m&#233;decin</label>
           <by>
-            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
-          </by><status>5</status>
+            <item slug="debug" role_id="18e7ab5ef71146f0a584588e61393986">Debug</item>
+          </by>
+          <status>5</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>7</id>
       <name>Enregistrement des contacts</name>
-      <colour>99FF00</colour>
+      <colour>#99FF00</colour>
       <visibility />
       <items>
         <item type="webservice_call" id="1">
@@ -106,46 +128,59 @@
             <item>
               <name>country_id</name>
               <value>{{ form_var_contact_0_country_raw }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>firstname</name>
               <value>{{ form_var_contact_0_firstname|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>is_company</name>
               <value>{{ False }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>lastname</name>
               <value>{{ form_var_contact_0_name }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>locality_id</name>
               <value>{{ form_var_contact_0_locality_raw }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>phone</name>
               <value>{{ form_var_contact_0_tel }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>street</name>
               <value>{{ form_var_contact_0_street }} {{ form_var_contact_0_number|default:"" }}{{ form_var_contact_0_box|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>zipcode</name>
               <value>{{ form_var_contact_0_zip_code }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>mobile</name>
               <value>{{ form_var_contact_0_tel }}</value>
             </item>
-          </post_data><response_type>json</response_type>
+          </post_data>
+          <response_type>json</response_type>
           <varname>contact_0</varname>
+          <store_all_responses>False</store_all_responses>
+          <attach_file_to_history>True</attach_file_to_history>
           <action_on_app_error>:pass</action_on_app_error>
           <action_on_4xx>8</action_on_4xx>
           <action_on_5xx>8</action_on_5xx>
           <action_on_bad_data>:pass</action_on_bad_data>
           <action_on_network_errors>8</action_on_network_errors>
-          <notify_on_errors>False</notify_on_errors>
-          <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
+          <record_on_errors>True</record_on_errors>
+          <notify_on_errors>False</notify_on_errors>
           <condition>
             <type>django</type>
             <value>form_var_contact_0_name and form_var_contact_0_tel</value>
-          </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item type="webservice_call" id="2">
+          </condition>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="webservice_call" id="2">
           <label>Cr&#233;ation du deuxi&#232;me contact</label>
           <method>POST</method>
           <url>{{ passerelle_url}}passerelle-imio-ia-aes/aes/contacts/create</url>
@@ -154,71 +189,88 @@
             <item>
               <name>country_id</name>
               <value>{{ form_var_contact_1_country_raw|default:20 }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>firstname</name>
               <value>{{ form_var_contact_1_firstname|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>is_company</name>
               <value>{{ False }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>lastname</name>
               <value>{{ form_var_contact_1_name }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>locality_id</name>
               <value>{{ form_var_contact_1_locality_raw }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>phone</name>
               <value>{{ form_var_contact_1_tel }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>street</name>
               <value>{{ form_var_contact_1_street|default:"" }} {{ form_var_contact_1_number|default:"" }}{{ form_var_contact_1_box|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>zipcode</name>
               <value>{{ form_var_contact_1_zip_code|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>mobile</name>
               <value>{{ form_var_contact_1_tel }}</value>
             </item>
-          </post_data><response_type>json</response_type>
+          </post_data>
+          <response_type>json</response_type>
           <varname>contact_1</varname>
+          <store_all_responses>False</store_all_responses>
+          <attach_file_to_history>True</attach_file_to_history>
           <action_on_app_error>:pass</action_on_app_error>
           <action_on_4xx>8</action_on_4xx>
           <action_on_5xx>8</action_on_5xx>
           <action_on_bad_data>:pass</action_on_bad_data>
           <action_on_network_errors>8</action_on_network_errors>
-          <notify_on_errors>False</notify_on_errors>
-          <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
+          <record_on_errors>True</record_on_errors>
+          <notify_on_errors>False</notify_on_errors>
           <condition>
             <type>django</type>
             <value>form_var_contact_1_name and form_var_contact_1_tel</value>
-          </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="3">
+          </condition>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="3">
           <status>2</status>
+          <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>8</id>
       <name>Erreur contact</name>
-      <colour>FF0000</colour>
+      <colour>#FF0000</colour>
       <visibility />
       <items>
         <item type="choice" id="1">
           <label>Retenter l'enregistrement des contacts</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
-          </by><status>7</status>
+            <item slug="debug" role_id="18e7ab5ef71146f0a584588e61393986">Debug</item>
+          </by>
+          <status>7</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>2</id>
       <name>Enregistrement de la fiche sant&#233;</name>
-      <colour>66FF00</colour>
+      <colour>#66FF00</colour>
       <visibility />
       <items>
         <item type="webservice_call" id="1">
@@ -230,254 +282,257 @@
             <item>
               <name>blood_type</name>
               <value>{{ form_var_blood_type_raw|default:""}}</value>
-            </item><item>
+            </item>
+            <item>
               <name>allergy_selection</name>
               <value>{{ form_var_allergie_raw }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>handicap_selection</name>
               <value>{{ form_var_handicap_raw }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>level_handicap</name>
               <value>{{ form_var_level_handicap_raw }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>specific_regime_selection</name>
               <value>{{ form_var_has_specific_regime_raw|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>activity_no_available_selection</name>
               <value>{{ form_var_activity_no_available_raw }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>facebook</name>
               <value>{{ form_var_facebook_raw }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>photo</name>
               <value>{{ form_var_photo_raw|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>swim</name>
               <value>{{ form_var_swim_raw|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>swim_level</name>
               <value>{{ form_var_swim_level_raw|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>intervention_selection</name>
               <value>{{ form_var_has_intervention_raw }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>arnica</name>
               <value>{{ form_var_arnica_raw|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>photo_general</name>
               <value>{{ form_var_photo_general_raw|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>to_go_alone</name>
               <value>{{ form_var_to_go_alone_raw|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>child_id</name>
               <value>{{ form_var_enfant_id }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>tetanus_selection</name>
               <value>{{ form_var_tetanos_raw|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>first_date_tetanus</name>
               <value>{{ form_var_first_date_tetanus|date|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>last_date_tetanus</name>
               <value>{{ form_var_last_date_tetanus|date|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>intervention_text</name>
               <value>{{ form_var_intervention_text|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>type_handicap</name>
               <value>{{ form_var_handicap_text|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>activity_no_available_text</name>
               <value>{{ form_var_activity_no_available_text|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>activity_no_available_reason</name>
               <value>{{ form_var_activity_no_available_reason|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>specific_regime_text</name>
               <value>{{ form_var_specific_regime|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>allergy_ids</name>
               <value>{{ form_var_allergies_raw }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>other_allergies</name>
-              <value>{{ form_var_autres_allergies|default:"" }}</value>
-            </item><item>
+              <value>{{ form_var_autres_allergies|getlistdict:"name" }}</value>
+            </item>
+            <item>
               <name>allergy_consequence</name>
               <value>{{ form_var_allergie_consequence|default:"" }}</value>
-            </item><item>
-              <name>disease_ids</name>
-              <value>{{ form_var_diseases_raw }}</value>
-            </item><item>
-              <name>disease_0_gravity</name>
-              <value>{{ form_var_disease_0_gravity|default:"" }}</value>
-            </item><item>
-              <name>disease_0_treatment</name>
-              <value>{{ form_var_disease_0_treatment|default:"" }}</value>
-            </item><item>
-              <name>disease_1_gravity</name>
-              <value>{{ form_var_disease_1_gravity|default:"" }}</value>
-            </item><item>
-              <name>disease_1_treatment</name>
-              <value>{{ form_var_disease_1_treatment|default:"" }}</value>
-            </item><item>
-              <name>disease_2_gravity</name>
-              <value>{{ form_var_disease_2_gravity|default:"" }}</value>
-            </item><item>
-              <name>disease_2_treatment</name>
-              <value>{{ form_var_disease_2_treatment|default:"" }}</value>
-            </item><item>
-              <name>disease_3_gravity</name>
-              <value>{{ form_var_disease_3_gravity|default:"" }}</value>
-            </item><item>
-              <name>disease_3_treatment</name>
-              <value>{{ form_var_disease_3_treatment|default:"" }}</value>
-            </item><item>
-              <name>disease_4_gravity</name>
-              <value>{{ form_var_disease_4_gravity|default:"" }}</value>
-            </item><item>
-              <name>disease_4_treatment</name>
-              <value>{{ form_var_disease_4_treatment|default:"" }}</value>
-            </item><item>
-              <name>disease_5_gravity</name>
-              <value>{{ form_var_disease_5_gravity|default:"" }}</value>
-            </item><item>
-              <name>disease_5_treatment</name>
-              <value>{{ form_var_disease_5_treatment|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>doctor_id</name>
               <value>{{ form_workflow_data_doctor_response_odoo_id }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>contact_0</name>
               <value>{% if form_workflow_data_contact_0_response_odoo_id %}{{ form_workflow_data_contact_0_response_odoo_id }} ; {{ form_var_contact_0_relation }}{% endif %}</value>
-            </item><item>
+            </item>
+            <item>
               <name>contact_1</name>
               <value>{% if form_workflow_data_contact_1_response_odoo_id %}{{ form_workflow_data_contact_1_response_odoo_id }} ; {{ form_var_contact_1_relation }}{% endif %}</value>
-            </item><item>
-              <name>medication_0</name>
-              <value>{{ form_var_medication_0_name }} - {{ form_var_medication_0_quantity }} - {{ form_var_medication_0_period }} - {{ form_var_medication_0_self_medication_raw }}</value>
-            </item><item>
-              <name>medication_1</name>
-              <value>{{ form_var_medication_1_name }} - {{ form_var_medication_1_quantity }} - {{ form_var_medication_1_period }} - {{ form_var_medication_1_self_medication_raw }}</value>
-            </item><item>
-              <name>medication_2</name>
-              <value>{{ form_var_medication_2_name }} - {{ form_var_medication_2_quantity }} - {{ form_var_medication_2_period }} - {{ form_var_medication_2_self_medication_raw }}</value>
-            </item><item>
-              <name>medication_3</name>
-              <value>{{ form_var_medication_3_name }} - {{ form_var_medication_3_quantity }} - {{ form_var_medication_3_period }} - {{ form_var_medication_3_self_medication_raw }}</value>
-            </item><item>
-              <name>medication_4</name>
-              <value>{{ form_var_medication_4_name }} - {{ form_var_medication_4_quantity }} - {{ form_var_medication_4_period }} - {{ form_var_medication_4_self_medication_raw }}</value>
-            </item><item>
-              <name>medication_5</name>
-              <value>{{ form_var_medication_5_name }} - {{ form_var_medication_5_quantity }} - {{ form_var_medication_5_period }} - {{ form_var_medication_5_self_medication_raw }}</value>
-            </item><item>
-              <name>medication_6</name>
-              <value>{{ form_var_medication_6_name }} - {{ form_var_medication_6_quantity }} - {{ form_var_medication_6_period }} - {{ form_var_medication_6_self_medication_raw }}</value>
-            </item><item>
-              <name>medication_7</name>
-              <value>{{ form_var_medication_7_name }} - {{ form_var_medication_7_quantity }} - {{ form_var_medication_7_period }} - {{ form_var_medication_7_self_medication_raw }}</value>
-            </item><item>
-              <name>medication_8</name>
-              <value>{{ form_var_medication_8_name }} - {{ form_var_medication_8_quantity }} - {{ form_var_medication_8_period }} - {{ form_var_medication_8_self_medication_raw }}</value>
-            </item><item>
-              <name>medication_9</name>
-              <value>{{ form_var_medication_9_name }} - {{ form_var_medication_9_quantity }} - {{ form_var_medication_9_period }} - {{ form_var_medication_9_self_medication_raw }}</value>
-            </item><item>
+            </item>
+            <item>
+              <name>medications</name>
+              <value>{{ form_var_medicaments|getlistdict:"name, quantity, period, self_medication_selection" }}</value>
+            </item>
+            <item>
               <name>comment</name>
               <value>{{ form_var_precisions_supp|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>mandatory_authorizations</name>
               <value>{{ form_var_autorisations_obligatoires_raw }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>bike</name>
               <value>{{ form_var_bike_raw|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>hearing_aid</name>
               <value>{{ form_var_hearing_aid_raw|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>glasses</name>
               <value>{{ form_var_glasses_raw|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>nap</name>
               <value>{{ form_var_nap_raw|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>emotional_support</name>
               <value>{{ form_var_emotional_support_raw|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>weight</name>
               <value>{{ form_var_weight|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>mutuality</name>
               <value>{{ form_var_mutuality|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>allergy_treatment</name>
               <value>{{ form_var_allergie_traitement|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>optional_authorizations</name>
               <value>{{ form_var_autorisations_facultatives_raw }}</value>
-            </item><item>
-              <name>other_diseases</name>
-              <value>{{ form_var_other_diseases|default:"" }}</value>
             </item>
-          </post_data><response_type>json</response_type>
+            <item>
+              <name>diseases</name>
+              <value>{{ form_var_maladies|getlistdict:"disease, other_disease, gravity, treatment" }}</value>
+            </item>
+            <item>
+              <name>healthsheet_id</name>
+              <value>{{ form_var_fiche_sante|get:"id" }}</value>
+            </item>
+          </post_data>
+          <response_type>json</response_type>
           <varname>enregistrement_fiche_sante</varname>
+          <store_all_responses>False</store_all_responses>
+          <attach_file_to_history>True</attach_file_to_history>
           <action_on_app_error>6</action_on_app_error>
           <action_on_4xx>6</action_on_4xx>
           <action_on_5xx>6</action_on_5xx>
           <action_on_bad_data>:stop</action_on_bad_data>
           <action_on_network_errors>6</action_on_network_errors>
-          <notify_on_errors>False</notify_on_errors>
-          <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
+          <record_on_errors>True</record_on_errors>
+          <notify_on_errors>False</notify_on_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="2">
+        </item>
+        <item type="jump" id="2">
           <status>4</status>
+          <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>6</id>
       <name>Erreur lors de l'enregistrement</name>
-      <colour>FF0000</colour>
+      <colour>#FF0000</colour>
       <visibility />
       <items>
         <item type="choice" id="1">
           <label>Retenter l'enregistrement</label>
           <by>
-            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
-          </by><status>2</status>
+            <item slug="debug" role_id="18e7ab5ef71146f0a584588e61393986">Debug</item>
+          </by>
+          <status>2</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>4</id>
       <name>Fiche sant&#233; est enregistr&#233;e</name>
-      <colour>00FF00</colour>
+      <colour>#00ff00</colour>
+      <forced_endpoint>true</forced_endpoint>
       <visibility />
       <items>
         <item type="register-comment" id="1">
           <comment>&lt;p&gt;&lt;a class="pk-button" href="{{ portal_url }}portail-parent/"&gt;Retourner sur le Portail Parent&lt;/a&gt;&lt;/p&gt;</comment>
         </item>
+        <item type="choice" id="2">
+          <label>Rejouer</label>
+          <by>
+            <item role_id="_agent-imio">_agent-imio</item>
+          </by>
+          <status>2</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
       </items>
     </status>
-  </possible_status><global_actions>
+  </possible_status>
+  <global_actions>
     <action>
       <id>1</id>
       <name>Suppression</name>
       <items>
         <item type="remove" id="1" />
-      </items><triggers>
+      </items>
+      <triggers>
         <trigger type="manual" id="b2d7dd83-ae14-4d6f-80db-6e1880047568">
           <roles>
-            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
+            <item slug="debug" role_id="18e7ab5ef71146f0a584588e61393986">Debug</item>
           </roles>
+          <allow_as_mass_action>True</allow_as_mass_action>
+          <require_confirmation>False</require_confirmation>
         </trigger>
       </triggers>
     </action>
-  </global_actions><variables>
+  </global_actions>
+  <variables>
     <formdef>
       <name>-</name>
       <fields>
@@ -487,17 +542,17 @@
           <required type="bool">False</required>
           <varname type="str">questions</varname>
           <display_locations>
-            <display_location>summary</display_location>
-          </display_locations><prefill>
-            <type>none</type>
-          </prefill><items />
+            <item>summary</item>
+          </display_locations>
+          <anonymise type="str">final</anonymise>
+          <items />
           <display_mode type="str">checkboxes</display_mode>
           <min_choices type="int">0</min_choices>
           <max_choices type="int">0</max_choices>
           <data_source>
             <type>aes_questions_fiche_sante</type>
-          </data_source><in_filters type="bool">False</in_filters>
-          <anonymise type="bool">True</anonymise>
+          </data_source>
+          <in_filters type="bool">False</in_filters>
           <display_disabled_items type="bool">False</display_disabled_items>
           <image_desktop_size type="int">150</image_desktop_size>
           <image_mobile_size type="int">75</image_mobile_size>
@@ -505,7 +560,8 @@
         </field>
       </fields>
     </formdef>
-  </variables><backoffice-fields>
+  </variables>
+  <backoffice-fields>
     <formdef>
       <name>-</name>
       <fields />
