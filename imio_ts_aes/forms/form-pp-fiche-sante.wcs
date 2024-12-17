@@ -935,6 +935,10 @@
     <field>
       <type>subtitle</type>
       <label type="str">Cons&#233;quences et traitement</label>
+      <condition>
+        <type>django</type>
+        <value>form_var_allergie_raw == 'yes'</value>
+      </condition>
       <display_locations>
         <item>validation</item>
         <item>summary</item>
@@ -1030,7 +1034,7 @@
       <anonymise type="str">final</anonymise>
       <default_items_count type="int">1</default_items_count>
       <max_items type="int">16</max_items>
-      <add_element_label type="str">Renseigner une maladie</add_element_label>
+      <add_element_label type="str">Renseigner une autre maladie</add_element_label>
       <label_display type="str">subtitle</label_display>
       <remove_button type="bool">True</remove_button>
       <block_slug type="str">portail_parent_maladies</block_slug>
