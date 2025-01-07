@@ -276,7 +276,17 @@ Il vous reste &lt;b&gt;{{ form_workflow_wscall_montant_response_initial_balance|
             <value>form_previous_status == "Ajout au panier"</value>
           </condition>
           <mode>timeout</mode>
-          <timeout>86400</timeout>
+          <timeout>129600</timeout>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="8">
+          <status>18</status>
+          <condition>
+            <type>django</type>
+            <value>form_previous_status == "Alerte non paiement"</value>
+          </condition>
+          <mode>timeout</mode>
+          <timeout>129600</timeout>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
         <item type="choice" id="6">
@@ -896,12 +906,6 @@ Il vous reste {{ form_workflow_wscall_montant_response_initial_balance|subtract:
           <allow_as_mass_action>True</allow_as_mass_action>
           <require_confirmation>True</require_confirmation>
           <confirmation_text>Souhaitez-vous vraiment annuler les commandes s&#233;lectionn&#233;es ? Les auteurs de ces commandes en seront notifi&#233;s, leur panier sera vid&#233; et leur &#233;ventuel solde sera lib&#233;r&#233;.</confirmation_text>
-        </trigger>
-        <trigger type="timeout" id="1cc50943-0921-41c6-a6a9-da5699e75316">
-          <anchor>template</anchor>
-          <anchor_expression />
-          <anchor_template>{{ form_var_date_annulation_non_paiement }}</anchor_template>
-          <timeout>1</timeout>
         </trigger>
       </triggers>
     </action>
