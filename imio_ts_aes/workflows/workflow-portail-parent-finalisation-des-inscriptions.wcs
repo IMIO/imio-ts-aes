@@ -1,10 +1,11 @@
 <?xml version="1.0"?>
-<workflow id="14" url="">
+<workflow id="6" url="https://wcs.dev.publik.love/backoffice/workflows/6/">
   <name>Portail Parent - Finalisation des inscriptions</name>
   <slug>portail-parent-finalisation-des-inscriptions</slug>
   <category slug="portail-parent" category_id="1">Portail parent</category>
   <roles>
     <role id="_receiver">Agent traitant</role>
+    <role id="_support-imio">Support iMio</role>
   </roles>
   <possible_status>
     <status>
@@ -286,7 +287,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <label>Calculer le total</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="25c4d67d05464af1adea67a3eb9d7266">Debug</item>
+            <item role_id="_support-imio">_support-imio</item>
           </by>
           <status>1</status>
           <require_confirmation>False</require_confirmation>
@@ -297,7 +298,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
         </item>
         <item type="form" id="4">
           <by>
-            <item slug="debug" role_id="25c4d67d05464af1adea67a3eb9d7266">Debug</item>
+            <item role_id="_support-imio">_support-imio</item>
           </by>
           <varname>erreur_calcul</varname>
           <hide_submit_button>True</hide_submit_button>
@@ -329,7 +330,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
         <item type="choice" id="5">
           <label>Valider le montant</label>
           <by>
-            <item slug="debug" role_id="25c4d67d05464af1adea67a3eb9d7266">Debug</item>
+            <item role_id="_support-imio">_support-imio</item>
           </by>
           <status>2</status>
           <require_confirmation>False</require_confirmation>
@@ -352,12 +353,13 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <comment>Une erreur s'est produite.</comment>
         </item>
         <item type="displaymsg" id="2">
-          <message>&lt;p&gt;{% if "404 Client Error: Not Found" in form_workflow_data_communication_structuree_error_response_err_desc %}Il semble que la communication structur&#233;e du parent n'ai pas &#233;t&#233; trouv&#233;e. V&#233;rifiez, dans la signal&#233;tique du parent de iA.AES, si son pr&#233;paiement dispose bien d'une ligne pour les plaines. Si ce n'est pas le cas, veuillez cr&#233;er les communications structur&#233;es manquantes. Ensuite, s&#233;lectionnez "Rechercher la communication structur&#233;e" ci-dessous. Si le probl&#232;me se produit &#224; nouveau, &lt;a href="https://support.imio.be" target="blank"&gt;contactez le support&lt;/a&gt;.{% else %}La r&#233;cup&#233;ration de la communication structur&#233;e sera relanc&#233;e dans 20 minutes.{% endif %}&lt;/p&gt;</message>
+          <message>&lt;p&gt;{% if "404 Client Error: Not Found" in form_workflow_data_communication_structuree_error_response_err_desc %}Il semble que la communication structur&amp;eacute;e du parent n&amp;#39;ai pas &amp;eacute;t&amp;eacute; trouv&amp;eacute;e. V&amp;eacute;rifiez, dans la signal&amp;eacute;tique du parent de iA.AES, si son pr&amp;eacute;paiement dispose bien d&amp;#39;une ligne pour les plaines. Si ce n&amp;#39;est pas le cas, veuillez cr&amp;eacute;er les communications structur&amp;eacute;es manquantes. Ensuite, s&amp;eacute;lectionnez &amp;quot;Rechercher la communication structur&amp;eacute;e&amp;quot; ci-dessous. Si le probl&amp;egrave;me se produit &amp;agrave; nouveau, &lt;a href="https://support.imio.be" target="blank" rel="nofollow"&gt;contactez le support&lt;/a&gt;.{% else %}La r&amp;eacute;cup&amp;eacute;ration de la communication structur&amp;eacute;e sera relanc&amp;eacute;e dans 20 minutes.{% endif %}&lt;/p&gt;
+</message>
           <level>error</level>
           <position>bottom</position>
           <to>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="25c4d67d05464af1adea67a3eb9d7266">Debug</item>
+            <item role_id="_support-imio">_support-imio</item>
           </to>
         </item>
         <item type="sendmail" id="3">
@@ -393,7 +395,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <label>Rechercher la communication structur&#233;e</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="25c4d67d05464af1adea67a3eb9d7266">Debug</item>
+            <item role_id="_support-imio">_support-imio</item>
           </by>
           <status>1</status>
           <require_confirmation>False</require_confirmation>
@@ -979,7 +981,7 @@ Cordialement,</body>
       <triggers>
         <trigger type="manual" id="58744480-1a3b-487d-963e-06239281e87d">
           <roles>
-            <item slug="debug" role_id="25c4d67d05464af1adea67a3eb9d7266">Debug</item>
+            <item role_id="_support-imio">_support-imio</item>
           </roles>
           <allow_as_mass_action>True</allow_as_mass_action>
           <require_confirmation>True</require_confirmation>

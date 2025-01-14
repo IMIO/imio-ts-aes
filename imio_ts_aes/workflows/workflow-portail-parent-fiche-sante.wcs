@@ -4,7 +4,7 @@
   <slug>portail-parent-fiche-sante</slug>
   <category slug="portail-parent" category_id="1">Portail parent</category>
   <roles>
-    <role id="_agent-imio">Agent iMio</role>
+    <role id="_agent-imio">Support iMio</role>
     <role id="_receiver">Agent traitant</role>
   </roles>
   <possible_status>
@@ -104,7 +104,7 @@
         <item type="choice" id="1">
           <label>Retenter l'enregistrement du m&#233;decin</label>
           <by>
-            <item slug="debug" role_id="18e7ab5ef71146f0a584588e61393986">Debug</item>
+            <item role_id="_agent-imio">_agent-imio</item>
           </by>
           <status>5</status>
           <require_confirmation>False</require_confirmation>
@@ -258,7 +258,7 @@
           <label>Retenter l'enregistrement des contacts</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="18e7ab5ef71146f0a584588e61393986">Debug</item>
+            <item role_id="_agent-imio">_agent-imio</item>
           </by>
           <status>7</status>
           <require_confirmation>False</require_confirmation>
@@ -482,7 +482,7 @@
         <item type="choice" id="1">
           <label>Retenter l'enregistrement</label>
           <by>
-            <item slug="debug" role_id="18e7ab5ef71146f0a584588e61393986">Debug</item>
+            <item role_id="_agent-imio">_agent-imio</item>
           </by>
           <status>2</status>
           <require_confirmation>False</require_confirmation>
@@ -524,7 +524,7 @@
       <triggers>
         <trigger type="manual" id="b2d7dd83-ae14-4d6f-80db-6e1880047568">
           <roles>
-            <item slug="debug" role_id="18e7ab5ef71146f0a584588e61393986">Debug</item>
+            <item role_id="_agent-imio">_agent-imio</item>
           </roles>
           <allow_as_mass_action>True</allow_as_mass_action>
           <require_confirmation>False</require_confirmation>

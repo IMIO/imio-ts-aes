@@ -1,18 +1,21 @@
 <?xml version="1.0"?>
-<workflow id="6" url="https://wcs.dev.publik.love/backoffice/workflows/6/">
+<workflow id="10" url="https://wcs.dev.publik.love/backoffice/workflows/10/">
   <name>Portail Parent - Plaines de vacances</name>
   <slug>portail-parent-plaines-de-vacances</slug>
   <category slug="portail-parent" category_id="1">Portail parent</category>
   <roles>
     <role id="_receiver">Agent traitant</role>
-  </roles><possible_status>
+    <role id="_support-imio">Support iMio</role>
+  </roles>
+  <possible_status>
     <status>
       <id>1</id>
       <name>Nouvelle demande</name>
-      <colour>FFFFFF</colour>
+      <colour>#FFFFFF</colour>
       <visibility>
-        <role>_receiver</role>
-      </visibility><items>
+        <role>__restricted__</role>
+      </visibility>
+      <items>
         <item type="set-backoffice-fields" id="1">
           <label>Initialisation du compteur</label>
           <fields>
@@ -21,15 +24,18 @@
               <value>0</value>
             </field>
           </fields>
-        </item><item type="jump" id="2">
+        </item>
+        <item type="jump" id="2">
           <status>2</status>
+          <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>2</id>
       <name>Inscription en cours</name>
-      <colour>FFFFFF</colour>
+      <colour>#FFFFFF</colour>
       <visibility />
       <items>
         <item type="webservice_call" id="1">
@@ -41,46 +47,59 @@
             <item>
               <name>child_id</name>
               <value>{{ form_var_enfant_id }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>plains</name>
               <value>{{ form_var_activities_plaines_structured }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>form_number</name>
               <value>{{ form_number_raw }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>parent_id</name>
               <value>{{ form_user_aes_id }}</value>
             </item>
-          </post_data><response_type>json</response_type>
+          </post_data>
+          <response_type>json</response_type>
           <varname>registration</varname>
+          <store_all_responses>False</store_all_responses>
+          <attach_file_to_history>True</attach_file_to_history>
           <action_on_app_error>6</action_on_app_error>
           <action_on_4xx>6</action_on_4xx>
           <action_on_5xx>6</action_on_5xx>
           <action_on_bad_data>:pass</action_on_bad_data>
           <action_on_network_errors>:stop</action_on_network_errors>
-          <notify_on_errors>False</notify_on_errors>
-          <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
-        </item><item type="jump" id="2">
+          <record_on_errors>True</record_on_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="2">
           <status>7</status>
           <condition>
             <type>django</type>
             <value>form_workflow_data_registration_response_success|length == 0</value>
-          </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="3">
+          </condition>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="3">
           <status>3</status>
+          <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>3</id>
       <name>Cr&#233;ation des fiches</name>
-      <colour>FFFFFF</colour>
+      <colour>#FFFFFF</colour>
       <visibility>
-        <role>_receiver</role>
-      </visibility><items>
+        <role>__restricted__</role>
+      </visibility>
+      <items>
         <item type="create_formdata" id="1">
-          <draft>False</draft>
           <formdef_slug>pp-fiche-inscription-plaine</formdef_slug>
           <map_fields_by_varname>False</map_fields_by_varname>
           <mappings>
@@ -88,22 +107,29 @@
             <mapping field_id="8">{{ form_workflow_data_registration_response_success|get:form_var_fiches_creees|get:"theme" }}</mapping>
             <mapping field_id="6">{{ form_workflow_data_registration_response_success|get:form_var_fiches_creees|get:"registration_id" }}</mapping>
             <mapping field_id="7">{{ form_workflow_data_registration_response_success|get:form_var_fiches_creees|get:"activity_id" }}</mapping>
-          </mappings><backoffice_submission>False</backoffice_submission>
+          </mappings>
+          <backoffice_submission>False</backoffice_submission>
+          <draft>False</draft>
+          <draft_edit_operation_mode>full</draft_edit_operation_mode>
           <user_association_mode>keep-user</user_association_mode>
           <keep_submission_context>True</keep_submission_context>
           <attach_to_history>True</attach_to_history>
-        </item><item type="jump" id="2">
+        </item>
+        <item type="jump" id="2">
           <status>4</status>
+          <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>4</id>
       <name>Y a-t-il d'autres fiches &#224; cr&#233;er ?</name>
-      <colour>FFFFFF</colour>
+      <colour>#FFFFFF</colour>
       <visibility>
-        <role>_receiver</role>
-      </visibility><items>
+        <role>__restricted__</role>
+      </visibility>
+      <items>
         <item type="set-backoffice-fields" id="1">
           <label>Gestion du compteur</label>
           <fields>
@@ -112,29 +138,37 @@
               <value>{{ form_var_fiches_creees|add:1 }}</value>
             </field>
           </fields>
-        </item><item type="register-comment" id="2">
+        </item>
+        <item type="register-comment" id="2">
           <comment>{{ form_var_fiches_creees }}</comment>
-        </item><item type="jump" id="3">
+        </item>
+        <item type="jump" id="3">
           <status>3</status>
           <condition>
             <type>django</type>
             <value>form_var_fiches_creees|add:0 &lt; form_workflow_data_registration_response_success|length</value>
-          </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="4">
+          </condition>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="4">
           <status>5</status>
           <condition>
             <type>django</type>
             <value>form_var_fiches_creees|add:0 &gt;=  form_workflow_data_registration_response_success|length</value>
-          </condition><set_marker_on_status>False</set_marker_on_status>
+          </condition>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>5</id>
       <name>Inscription enregist&#233;e</name>
-      <colour>00FF00</colour>
+      <colour>#00FF00</colour>
       <visibility />
       <items>
-        <item type="create_formdata" id="6">
+        <item type="create_formdata" id="1">
           <action_label>Navette</action_label>
           <formdef_slug>reservation-navette</formdef_slug>
           <map_fields_by_varname>True</map_fields_by_varname>
@@ -150,10 +184,12 @@
             <type>django</type>
             <value>form_var_redirection_navette</value>
           </condition>
-        </item><item type="sendmail" id="1">
+        </item>
+        <item type="sendmail" id="2">
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><subject>Inscription de {{ form_var_enfant }} aux {{ form_name|lower }}</subject>
+          </to>
+          <subject>Inscription de {{ form_var_enfant }} aux {{ form_name|lower }}</subject>
           <body>{{ form_var_enfant }} a bien &#233;t&#233; inscrit aux plaines de vacances suivantes :
 {% for registration in form_workflow_data_registration_response_success %}
 * {{ registration.theme}} du {{ registration.start_date|date:"j F Y" }} au {{ registration.end_date|date:"j F Y" }}
@@ -171,7 +207,8 @@
 `Consulter ma demande &lt;{{ form_url }}&gt;`_
 
 Une fois que vous aurez inscrits tous vos enfants, vous pouvez `finaliser vos inscriptions &lt;{{ portal_url }}portail-parent/&gt;`_.</body>
-        </item><item type="displaymsg" id="2">
+        </item>
+        <item type="displaymsg" id="3">
           <message>&lt;p&gt;Les inscriptions pour les semaines suivantes n'ont pu aboutir :&lt;/p&gt;&lt;ul&gt; {% for error in form_workflow_data_registration_response_error %}
 &lt;li&gt;Semaine du {{ error.start_date|date }} au {{ error.end_date|date }}&lt;/li&gt;
 {% endfor %}&lt;/ul&gt;</message>
@@ -179,11 +216,13 @@ Une fois que vous aurez inscrits tous vos enfants, vous pouvez `finaliser vos in
           <position>bottom</position>
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><condition>
+          </to>
+          <condition>
             <type>django</type>
             <value>form_workflow_data_registration_response_error</value>
           </condition>
-        </item><item type="displaymsg" id="3">
+        </item>
+        <item type="displaymsg" id="4">
           <message>&lt;p&gt;{{ form_var_enfant }} a bien &#233;t&#233; inscrit&#183;e pour les semaines suivantes  :&lt;/p&gt;&lt;ul&gt; {% for success in form_workflow_data_registration_response_success %}
 &lt;li&gt;Semaine du {{ success.start_date|date }} au {{ success.end_date|date }}&lt;/li&gt;
 {% endfor %}&lt;/ul&gt;
@@ -200,17 +239,20 @@ Une fois que vous aurez inscrits tous vos enfants, vous pouvez `finaliser vos in
           <to>
             <item role_id="_submitter">_submitter</item>
           </to>
-        </item><item type="displaymsg" id="4">
+        </item>
+        <item type="displaymsg" id="5">
           <message>Vous avez trois jours pour finaliser les inscriptions de vos enfants. Au-del&#224; de ce d&#233;lai, ils seront d&#233;sincrits.</message>
           <level>error</level>
           <position>bottom</position>
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><condition>
+          </to>
+          <condition>
             <type>django</type>
             <value>form_option_mode_de_paiement == "Paiement en ligne" or form_option_mode_de_paiement == "Paiement par virement"</value>
           </condition>
-        </item><item type="register-comment" id="5">
+        </item>
+        <item type="register-comment" id="6">
           <comment>&lt;p&gt;{{ form_var_enfant }} a bien &#233;t&#233; inscrit&#183;e pour les semaines suivantes  :&lt;/p&gt;&lt;ul&gt; {% for success in form_workflow_data_registration_response_success %}
 &lt;li&gt;Semaine du {{ success.start_date|date }} au {{ success.end_date|date }}&lt;/li&gt;
 {% endfor %}&lt;/ul&gt;
@@ -219,16 +261,18 @@ Une fois que vous aurez inscrits tous vos enfants, vous pouvez `finaliser vos in
 &lt;li&gt;Semaine du {{ error.start_date|date }} au {{ error.end_date|date }}&lt;/li&gt;
 {% endfor %}&lt;/ul&gt;{% endif %}</comment>
           <to>
-            <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
+            <item role_id="_support-imio">_support-imio</item>
             <item role_id="_receiver">_receiver</item>
           </to>
-        </item><item type="register-comment" id="8">
+        </item>
+        <item type="register-comment" id="7">
           <comment>{% if is_in_backoffice %}&lt;a href="{{ form_links_navette_form_backoffice_url }}"&gt;Lien vers la demande de r&#233;servation de navettes&lt;/a&gt;{% else %}&lt;a href="{{ form_links_navette_form_url }}"&gt;Lien vers la demande de r&#233;servation de navettes&lt;/a&gt;{% endif %}</comment>
           <condition>
             <type>django</type>
             <value>form_links_navette</value>
           </condition>
-        </item><item type="redirect_to_url" id="7">
+        </item>
+        <item type="redirect_to_url" id="8">
           <url>{{ form_links_navette_form_url }}</url>
           <condition>
             <type>django</type>
@@ -236,16 +280,18 @@ Une fois que vous aurez inscrits tous vos enfants, vous pouvez `finaliser vos in
           </condition>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>6</id>
       <name>Erreur lors de l'inscription</name>
-      <colour>FF0000</colour>
+      <colour>#FF0000</colour>
       <visibility />
       <items>
         <item type="sendmail" id="1">
           <to>
             <item role_id="_receiver">_receiver</item>
-          </to><subject>Erreur Portail Parent :  {{ form_name }} n&#176;{{ form_number }}</subject>
+          </to>
+          <subject>Erreur Portail Parent :  {{ form_name }} n&#176;{{ form_number }}</subject>
           <body>Une erreur est survenue lors de l'inscription de {{ form_var_enfant }}.
 
 Veuillez consulter la demande.
@@ -255,12 +301,14 @@ Veuillez consulter la demande.
 Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le support d'iMio
 
 `Contacter le support &lt;support.imio.be&gt;`_</body>
-        </item><item type="choice" id="2">
+        </item>
+        <item type="choice" id="2">
           <label>Relancer les inscriptions</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
-          </by><status>2</status>
+            <item role_id="_support-imio">_support-imio</item>
+          </by>
+          <status>2</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Une fois le probl&amp;egrave;me corrig&amp;eacute;, il est possible par ce biais de relancer les inscriptions dans AES.&lt;/p&gt;
 </backoffice_info_text>
@@ -268,100 +316,119 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>7</id>
       <name>Aucune inscription n'a pu aboutir</name>
-      <colour>FFFFFF</colour>
+      <colour>#FFFFFF</colour>
       <forced_endpoint>true</forced_endpoint>
       <visibility />
       <items>
         <item type="choice" id="1">
           <label>Retenter les inscriptions</label>
           <by>
-            <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
-          </by><status>2</status>
+            <item role_id="_support-imio">_support-imio</item>
+          </by>
+          <status>2</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="register-comment" id="2">
+        </item>
+        <item type="register-comment" id="2">
           <comment>&lt;div class="pk-error"&gt;&lt;p&gt;Les inscriptions pour les semaines suivantes n'ont pu aboutir car l'enfant y est d&#233;j&#224; inscrit ou il n'y a plus de places :&lt;/p&gt;&lt;ul&gt; {% for error in form_workflow_data_registration_response_error %}
 &lt;li&gt;Semaine du {{ error.start_date|date }} au {{ error.end_date|date }}&lt;/li&gt;
 {% endfor %}&lt;/ul&gt;&lt;/div&gt;</comment>
         </item>
       </items>
     </status>
-  </possible_status><global_actions>
+  </possible_status>
+  <global_actions>
     <action>
       <id>1</id>
       <name>Suppression</name>
       <items>
         <item type="remove" id="1" />
-      </items><triggers>
+      </items>
+      <triggers>
         <trigger type="manual" id="d169c805-50fd-441a-b4e0-439ee617deea">
           <roles>
-            <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
+            <item role_id="_support-imio">_support-imio</item>
           </roles>
+          <allow_as_mass_action>True</allow_as_mass_action>
+          <require_confirmation>False</require_confirmation>
         </trigger>
       </triggers>
     </action>
-  </global_actions><variables>
+  </global_actions>
+  <variables>
     <formdef>
       <name>-</name>
       <fields>
         <field>
+          <type>item</type>
           <label type="str">Mode de paiement</label>
-          <type type="str">item</type>
           <required type="bool">True</required>
           <hint type="str">Si Paiement en ligne, le parent sera notifi&#233; qu'il n'a que trois jours pour finaliser ses d&#233;marches avant d&#233;sinscription.</hint>
           <varname type="str">mode_de_paiement</varname>
           <display_locations />
+          <anonymise type="str">no</anonymise>
           <display_mode type="str">radio</display_mode>
           <items>
             <item>Paiement en ligne</item>
             <item>Paiement par virement</item>
             <item>Paiement diff&#233;r&#233;</item>
-          </items><in_filters type="bool">False</in_filters>
-          <anonymise type="bool">False</anonymise>
+          </items>
+          <in_filters type="bool">False</in_filters>
           <display_disabled_items type="bool">False</display_disabled_items>
+          <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
+          <image_desktop_size type="int">150</image_desktop_size>
+          <image_mobile_size type="int">75</image_mobile_size>
           <id type="str">4</id>
-        </field><field>
+        </field>
+        <field>
+          <type>item</type>
           <label type="str">N'ouvrir les plaines de vacances qu'aux habitants de la commune.</label>
-          <type type="str">item</type>
           <required type="bool">True</required>
           <varname type="str">ouvertes_aux_habitants</varname>
           <display_locations />
+          <anonymise type="str">no</anonymise>
           <display_mode type="str">radio</display_mode>
           <items>
             <item>Oui</item>
             <item>Ouvrir les plaines &#224; tous</item>
-          </items><in_filters type="bool">False</in_filters>
-          <anonymise type="bool">False</anonymise>
+          </items>
+          <in_filters type="bool">False</in_filters>
           <display_disabled_items type="bool">False</display_disabled_items>
+          <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
+          <image_desktop_size type="int">150</image_desktop_size>
+          <image_mobile_size type="int">75</image_mobile_size>
           <id type="str">5</id>
-        </field><field>
+        </field>
+        <field>
+          <type>string</type>
           <label type="str">Message &#224; afficher aux non-r&#233;sidents</label>
-          <type type="str">string</type>
           <required type="bool">True</required>
           <hint type="str">Par exemple : "Les inscriptions ne sont ouvertes que pour les Sprimontais jusqu'au 21 janvier 2023 &#224; 9h".</hint>
           <varname type="str">message_aux_non_residents</varname>
           <display_locations />
           <extra_css_class type="str">grid-1-1</extra_css_class>
-          <anonymise type="bool">True</anonymise>
+          <anonymise type="str">final</anonymise>
           <id type="str">6</id>
         </field>
       </fields>
     </formdef>
-  </variables><backoffice-fields>
+  </variables>
+  <backoffice-fields>
     <formdef>
       <name>-</name>
       <fields>
         <field>
+          <type>string</type>
           <label type="str">Fiches cr&#233;&#233;es</label>
-          <type type="str">string</type>
           <required type="bool">True</required>
           <varname type="str">fiches_creees</varname>
           <display_locations />
-          <anonymise type="bool">True</anonymise>
+          <anonymise type="str">final</anonymise>
           <id type="str">bo45617e34-2d32-4e82-928a-9d3bfaf2ce33</id>
         </field>
       </fields>

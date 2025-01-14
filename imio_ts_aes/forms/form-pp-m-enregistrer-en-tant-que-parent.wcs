@@ -1,19 +1,20 @@
 <?xml version="1.0"?>
-<formdef id="14" url="">
+<formdef id="7" url="https://wcs.dev.publik.love/backoffice/forms/7/">
   <name>M'enregistrer en tant que parent</name>
   <url_name>pp-m-enregistrer-en-tant-que-parent</url_name>
   <description>&lt;p&gt;S'enregistrer dans le portail parent permet ensuite d'y inscrire ses enfants, de compl&amp;eacute;ter leur fiche sant&amp;eacute; et de les inscrire &amp;agrave; des activit&amp;eacute;s.&lt;/p&gt;</description>
+  <submission_user_association>any</submission_user_association>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
-  <disabled>true</disabled>
+  <disabled>false</disabled>
   <only_allow_one>false</only_allow_one>
   <enable_tracking_codes>false</enable_tracking_codes>
   <confirmation>false</confirmation>
   <always_advertise>false</always_advertise>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category slug="portail-parent" category_id="1">Portail Parent</category>
-  <workflow slug="portail-parent-enregistrement-parent" workflow_id="2">Portail Parent - Enregistrement parent</workflow>
+  <category slug="portail-parents" category_id="5">Portail Parents</category>
+  <workflow slug="portail-parent-enregistrement-parent" workflow_id="3">Portail Parent - Enregistrement parent</workflow>
   <fields>
     <field>
       <type>comment</type>
@@ -23,67 +24,84 @@ enfants aux activit&amp;eacute;s extra-scolaires, aux repas scolaires et &amp;ag
 </label>
       <display_locations />
       <id type="str">19</id>
-    </field><field>
+    </field>
+    <field>
       <type>string</type>
       <label type="str">Num&#233;ro de registre national</label>
       <condition>
         <type>django</type>
         <value>form_var_registre_national</value>
-      </condition><required type="bool">True</required>
+      </condition>
+      <required type="bool">True</required>
       <hint type="str">Le num&#233;ro de registre national ne peut &#234;tre modifi&#233;. Merci de cliquer sur valider pour passer &#224; la suite.</hint>
       <varname type="str">registre_national</varname>
       <display_locations>
-        <display_location>validation</display_location>
-        <display_location>summary</display_location>
-        <display_location>listings</display_location>
-      </display_locations><prefill>
+        <item>validation</item>
+        <item>summary</item>
+        <item>listings</item>
+      </display_locations>
+      <prefill>
         <locked>True</locked>
         <type>user</type>
         <value>_niss</value>
-      </prefill><anonymise type="str">final</anonymise>
+      </prefill>
+      <anonymise type="str">final</anonymise>
       <id type="str">20</id>
-    </field><field>
+    </field>
+    <field>
       <type>string</type>
       <label type="str">Num&#233;ro de matricule</label>
       <condition>
         <type>django</type>
         <value>not form_var_registre_national</value>
-      </condition><required type="bool">True</required>
+      </condition>
+      <required type="bool">True</required>
       <hint type="str">Le num&#233;ro de matricule vous a &#233;t&#233; communiqu&#233; par votre administration communale. Si vous ne l'avez pas, merci de prendre contact avec elle.</hint>
       <varname type="str">matricule</varname>
       <display_locations>
-        <display_location>validation</display_location>
-        <display_location>summary</display_location>
-        <display_location>listings</display_location>
-      </display_locations><prefill>
+        <item>validation</item>
+        <item>summary</item>
+        <item>listings</item>
+      </display_locations>
+      <prefill>
         <type>none</type>
-      </prefill><anonymise type="str">final</anonymise>
+      </prefill>
+      <anonymise type="str">final</anonymise>
       <id type="str">21</id>
-    </field><field>
+    </field>
+    <field>
       <type>string</type>
       <label type="str">Num&#233;ro de t&#233;l&#233;phone</label>
       <condition>
         <type>django</type>
         <value>not form_user_var_phone</value>
-      </condition><required type="bool">True</required>
+      </condition>
+      <required type="bool">True</required>
       <hint type="str">Ce num&#233;ro de t&#233;l&#233;phone sera ajout&#233; &#224; votre profil.</hint>
       <varname type="str">telephone</varname>
       <display_locations>
-        <display_location>validation</display_location>
-        <display_location>summary</display_location>
-      </display_locations><anonymise type="str">final</anonymise>
+        <item>validation</item>
+        <item>summary</item>
+      </display_locations>
+      <anonymise type="str">final</anonymise>
       <validation>
         <type>phone</type>
-      </validation><id type="str">22</id>
+      </validation>
+      <id type="str">22</id>
     </field>
-  </fields><user-roles>
+  </fields>
+  <user-roles>
     <role role_id="logged-users">logged-users</role>
-  </user-roles><roles>
-    <role slug="agents-traitants-portail-parent" role_id="96c7aae8f5354e4ea05c50bef976dc6e" role_key="_receiver">Agents traitants - Portail parent</role>
-    <role slug="debug" role_id="72f464bb94204057b5376ec4f732ff83" role_key="_debug">Debug</role>
-  </roles><options>
+  </user-roles>
+  <roles>
+    <role slug="agent-traitant-portail-parents" role_id="107f7d8c8b5d400696d2ecdd6c5ff363" role_key="_receiver">Agent traitant - Portail Parents</role>
+    <role slug="debug" role_id="18e7ab5ef71146f0a584588e61393986" role_key="_debug">Debug</role>
+    <role slug="agent-imio-portail-parents" role_id="17ebb1be538243ae90fd1f40f240c120" role_key="_support-imio">Agent iMio - Portail Parents</role>
+  </roles>
+  <options>
     <option varname="autosave" />
-  </options><custom_views />
+  </options>
+  <custom_views />
   <geolocations />
   <management_sidebar_items>
     <item>__default__</item>

@@ -1,34 +1,41 @@
 <?xml version="1.0"?>
-<workflow id="10" url="">
+<workflow id="7" url="https://wcs.dev.publik.love/backoffice/workflows/7/">
   <name>Portail Parent - Me d&#233;signer facturable</name>
   <slug>portail-parent-me-designer-facturable</slug>
-  <category slug="portail-parent" category_id="3">Portail parent</category>
+  <category slug="portail-parent" category_id="1">Portail parent</category>
   <roles>
     <role id="_receiver">Agent traitant</role>
-  </roles><possible_status>
+    <role id="_support-imio">Support iMio</role>
+  </roles>
+  <possible_status>
     <status>
       <id>1</id>
       <name>Juste envoy&#233;</name>
       <colour>#deddda</colour>
       <visibility>
         <role>__restricted__</role>
-      </visibility><items>
+      </visibility>
+      <items>
         <item type="sendmail" id="1">
           <to>
             <item role_id="_receiver">_receiver</item>
-          </to><subject>Nouvelle demande pour {{ form_name }}</subject>
+          </to>
+          <subject>Nouvelle demande pour {{ form_name }}</subject>
           <body>Bonjour,
 
 Un parent souhaite devenir facturable pour son enfant. Il attend donc votre validation.
 
 `Consulter la demande &lt;{{ form_url_backoffice }}&gt;`_
 </body>
-        </item><item type="jump" id="2">
+        </item>
+        <item type="jump" id="2">
           <status>2</status>
+          <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>2</id>
       <name>En attente de v&#233;rification</name>
       <colour>#62a0ea</colour>
@@ -41,24 +48,29 @@ L'enfant a d&#233;j&#224; 3 parents facturables qui lui sont attribu&#233;s. Il 
 &lt;/p&gt;</comment>
           <to>
             <item role_id="_receiver">_receiver</item>
-          </to><level>warning</level>
+          </to>
+          <level>warning</level>
           <condition>
             <type>django</type>
             <value>form_var_enfant_invoiceable_parents|length &gt;= 3</value>
           </condition>
-        </item><item type="register-comment" id="5">
+        </item>
+        <item type="register-comment" id="2">
           <comment>&lt;h3&gt;Votre demande est en cours de traitement&lt;/h3&gt;
 &lt;p&gt;
 Votre demande a bien &#233;t&#233; enregistr&#233;e et est en cours de traitement par nos services.
 &lt;/p&gt;</comment>
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><level>info</level>
-        </item><item type="choice" id="2">
+          </to>
+          <level>info</level>
+        </item>
+        <item type="choice" id="3">
           <label>Ajout automatique</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-          </by><status>8</status>
+          </by>
+          <status>8</status>
           <require_confirmation>True</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Ajouter automatiquement le parent comme facturable pour l&amp;#39;enfant dans iA.AES.&lt;/p&gt;
 </backoffice_info_text>
@@ -68,21 +80,25 @@ Votre demande a bien &#233;t&#233; enregistr&#233;e et est en cours de traitemen
             <type>django</type>
             <value>form_var_enfant_invoiceable_parents|length &lt; 3</value>
           </condition>
-        </item><item type="choice" id="3">
+        </item>
+        <item type="choice" id="4">
           <label>Ajout manuel</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-          </by><status>7</status>
+          </by>
+          <status>7</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Ajouter manuellement le parent comme facturable pour l&amp;#39;enfant dans iA.AES.&lt;/p&gt;
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="choice" id="4">
+        </item>
+        <item type="choice" id="5">
           <label>Refuser la demande</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-          </by><status>10</status>
+          </by>
+          <status>10</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Permet de refuser la demande et d&amp;#39;y joindre une explication.&lt;/p&gt;
 </backoffice_info_text>
@@ -90,7 +106,8 @@ Votre demande a bien &#233;t&#233; enregistr&#233;e et est en cours de traitemen
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>7</id>
       <name>Ajout manuel</name>
       <colour>#deddda</colour>
@@ -100,7 +117,8 @@ Votre demande a bien &#233;t&#233; enregistr&#233;e et est en cours de traitemen
           <label>Valider la modification</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-          </by><status>4</status>
+          </by>
+          <status>4</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Cliquez ici une fois la modification faite &amp;agrave; la main dans iA.AES.&lt;/p&gt;
 </backoffice_info_text>
@@ -108,7 +126,8 @@ Votre demande a bien &#233;t&#233; enregistr&#233;e et est en cours de traitemen
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>8</id>
       <name>Ajout automatique</name>
       <colour>#deddda</colour>
@@ -123,12 +142,16 @@ Votre demande a bien &#233;t&#233; enregistr&#233;e et est en cours de traitemen
             <item>
               <name>is_attestable</name>
               <value>{{ form_var_facturable }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>is_invoiceable</name>
               <value>{{ form_var_facturable }}</value>
             </item>
-          </post_data><response_type>json</response_type>
+          </post_data>
+          <response_type>json</response_type>
           <varname>update_responsibility</varname>
+          <store_all_responses>False</store_all_responses>
+          <attach_file_to_history>True</attach_file_to_history>
           <action_on_app_error>6</action_on_app_error>
           <action_on_4xx>6</action_on_4xx>
           <action_on_5xx>6</action_on_5xx>
@@ -138,12 +161,15 @@ Votre demande a bien &#233;t&#233; enregistr&#233;e et est en cours de traitemen
           <record_on_errors>True</record_on_errors>
           <notify_on_errors>False</notify_on_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="2">
+        </item>
+        <item type="jump" id="2">
           <status>4</status>
+          <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>4</id>
       <name>Demande trait&#233;e</name>
       <colour>#57e389</colour>
@@ -153,25 +179,30 @@ Votre demande a bien &#233;t&#233; enregistr&#233;e et est en cours de traitemen
         <item type="sendmail" id="2">
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><subject>Portail Parent : {{form_name}} - demande valid&#233;e</subject>
+          </to>
+          <subject>Portail Parent : {{form_name}} - demande valid&#233;e</subject>
           <body>Bonjour,
 
 Votre demande pour devenir parent facturable de l&#8217;enfant {{ form_var_enfant }} a &#233;t&#233; valid&#233;e.
 Vous pouvez d&#233;sormais effectuer des inscriptions, vous recevrez les factures et les attestations fiscales associ&#233;es &#224; celles-ci.
 
 Cordialement,</body>
-        </item><item type="jump" id="3">
+        </item>
+        <item type="jump" id="3">
           <status>5</status>
+          <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>6</id>
       <name>Erreur lors de l'ajout automatique</name>
       <colour>#ed333b</colour>
       <visibility>
         <role>__restricted__</role>
-      </visibility><items>
+      </visibility>
+      <items>
         <item type="register-comment" id="1">
           <comment>&lt;h3&gt;Une erreur est survenue.&lt;/h3&gt;
 &lt;p&gt;Une erreur est survenue lors de la mise &#224; jour de la relation entre le parent et l'enfant.&lt;/p&gt;
@@ -183,13 +214,16 @@ Cordialement,</body>
 &lt;p&gt;S&#233;lectionnez &lt;em&gt;Revenir au statut "En attente de v&#233;rification"&lt;/em&gt;&lt;/p&gt;</comment>
           <to>
             <item role_id="_receiver">_receiver</item>
-          </to><level>error</level>
-        </item><item type="choice" id="2">
+          </to>
+          <level>error</level>
+        </item>
+        <item type="choice" id="2">
           <label>Revenir au statut "En attente de v&#233;rification"</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
-          </by><status>2</status>
+            <item role_id="_support-imio">_support-imio</item>
+          </by>
+          <status>2</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Permet de revenir au satut &lt;strong&gt;En attent de v&amp;eacute;rification&lt;/strong&gt;, qui vous permettra de choisir d&amp;#39;encoder le parent facturable manuellement ou automatiquement et eventuellement de refuser la demande.&lt;/p&gt;
 </backoffice_info_text>
@@ -197,17 +231,20 @@ Cordialement,</body>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>10</id>
       <name>Encodage du motif du refus</name>
       <colour>#deddda</colour>
       <visibility>
         <role>__restricted__</role>
-      </visibility><items>
+      </visibility>
+      <items>
         <item type="form" id="1">
           <by>
             <item role_id="_receiver">_receiver</item>
-          </by><varname>refus</varname>
+          </by>
+          <varname>refus</varname>
           <hide_submit_button>True</hide_submit_button>
           <formdef>
             <name>-</name>
@@ -218,19 +255,22 @@ Cordialement,</body>
                 <required type="bool">True</required>
                 <varname type="str">motif</varname>
                 <display_locations>
-                  <display_location>validation</display_location>
-                  <display_location>summary</display_location>
-                </display_locations><anonymise type="str">final</anonymise>
+                  <item>validation</item>
+                  <item>summary</item>
+                </display_locations>
+                <anonymise type="str">final</anonymise>
                 <display_mode type="str">pre</display_mode>
                 <id type="str">fde5bdf4-c8d7-4565-a505-85227a10c2fc</id>
               </field>
             </fields>
           </formdef>
-        </item><item type="choice" id="2">
+        </item>
+        <item type="choice" id="2">
           <label>Valider le refus</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-          </by><status>9</status>
+          </by>
+          <status>9</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Valide la justification et notifie le refus au parent.&lt;/p&gt;
 </backoffice_info_text>
@@ -238,29 +278,34 @@ Cordialement,</body>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>9</id>
       <name>Demande refus&#233;e</name>
       <colour>#ed333b</colour>
       <visibility />
       <items>
-        <item type="register-comment" id="2">
+        <item type="register-comment" id="1">
           <comment>{{ form_workflow_form_refus_var_motif }}</comment>
-        </item><item type="sendmail" id="1">
+        </item>
+        <item type="sendmail" id="2">
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><subject>Refus de votre demande pour devenir parent facturable</subject>
+          </to>
+          <subject>Refus de votre demande pour devenir parent facturable</subject>
           <body>{{ form_workflow_form_refus_var_motif }}</body>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>5</id>
       <name>Termin&#233;</name>
       <colour>#26a269</colour>
       <visibility />
       <items />
     </status>
-  </possible_status><variables>
+  </possible_status>
+  <variables>
     <formdef>
       <name>-</name>
       <fields>
@@ -270,6 +315,11 @@ Cordialement,</body>
           <required type="bool">False</required>
           <hint type="str">Demander l'ajout de pi&#232;ces jointes justificatives.</hint>
           <varname type="str">piece_jointe</varname>
+          <display_locations>
+            <item>validation</item>
+            <item>summary</item>
+          </display_locations>
+          <anonymise type="str">no</anonymise>
           <id type="str">9d6abc82-0793-4fea-bc41-9ed2ede5e0bd</id>
         </field>
       </fields>

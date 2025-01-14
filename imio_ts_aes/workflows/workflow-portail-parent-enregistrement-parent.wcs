@@ -1,15 +1,17 @@
 <?xml version="1.0"?>
-<workflow id="2" url="https://wcs.dev.publik.love/backoffice/workflows/2/">
+<workflow id="3" url="https://wcs.dev.publik.love/backoffice/workflows/3/">
   <name>Portail Parent - Enregistrement parent</name>
   <slug>portail-parent-enregistrement-parent</slug>
   <category slug="portail-parent" category_id="1">Portail parent</category>
   <roles>
     <role id="_receiver">Agent traitant</role>
-  </roles><possible_status>
+    <role id="_support-imio">Support iMio</role>
+  </roles>
+  <possible_status>
     <status>
       <id>3</id>
       <name>Enregistrement en cours</name>
-      <colour>FFFFFF</colour>
+      <colour>#FFFFFF</colour>
       <visibility />
       <items>
         <item type="update_user_profile" id="1">
@@ -18,19 +20,23 @@
               <field_id>phone</field_id>
               <value>{{ form_var_telephone }}</value>
             </field>
-          </fields><condition>
+          </fields>
+          <condition>
             <type>django</type>
             <value>form_var_telephone</value>
           </condition>
-        </item><item type="jump" id="2">
+        </item>
+        <item type="jump" id="2">
           <status>1</status>
+          <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>1</id>
       <name>Recherche du parent</name>
-      <colour>FFFFFF</colour>
+      <colour>#FFFFFF</colour>
       <visibility />
       <items>
         <item type="webservice_call" id="1">
@@ -41,39 +47,51 @@
             <item>
               <name>national_number</name>
               <value>{{ form_var_registre_national|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>registration_number</name>
               <value>{{ form_var_matricule|default:"" }}</value>
             </item>
-          </qs_data><post>False</post>
+          </qs_data>
+          <post>False</post>
           <response_type>json</response_type>
           <varname>recherche</varname>
+          <store_all_responses>False</store_all_responses>
+          <attach_file_to_history>True</attach_file_to_history>
           <action_on_app_error>5</action_on_app_error>
           <action_on_4xx>5</action_on_4xx>
           <action_on_5xx>5</action_on_5xx>
           <action_on_bad_data>5</action_on_bad_data>
           <action_on_network_errors>5</action_on_network_errors>
-          <notify_on_errors>False</notify_on_errors>
-          <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
-        </item><item type="jump" id="2">
+          <record_on_errors>True</record_on_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="2">
           <status>2</status>
           <condition>
             <type>django</type>
             <value>not form_workflow_data_recherche_response_parent_id</value>
-          </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="3">
+          </condition>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="3">
           <status>4</status>
           <condition>
             <type>django</type>
             <value>form_workflow_data_recherche_response_parent_id</value>
-          </condition><set_marker_on_status>False</set_marker_on_status>
+          </condition>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>5</id>
       <name>Erreur dans la recherche</name>
-      <colour>FF0000</colour>
+      <colour>#FF0000</colour>
       <visibility />
       <items>
         <item type="displaymsg" id="1">
@@ -83,10 +101,12 @@
           <to>
             <item role_id="_receiver">_receiver</item>
           </to>
-        </item><item type="sendmail" id="2">
+        </item>
+        <item type="sendmail" id="2">
           <to>
             <item role_id="_receiver">_receiver</item>
-          </to><subject>Erreur lors de la recherche d'un parent, formulaire {{ form_name }} n&#176;{{ form_number }}</subject>
+          </to>
+          <subject>Erreur lors de la recherche d'un parent, formulaire {{ form_name }} n&#176;{{ form_number }}</subject>
           <body>Une erreur est survenue lors de la recherche d'un parent. Celui-ci n'a donc pas pu &#234;tre retrouv&#233; ou cr&#233;&#233; dans iA.AES, et ne peut poursuivre les inscriptions de ses enfants.
 
 Veuillez consulter la demande.
@@ -96,21 +116,25 @@ Veuillez consulter la demande.
 Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le support d'iMio
 
 `Contacter le support &lt;support.imio.be&gt;`_</body>
-        </item><item type="choice" id="3">
+        </item>
+        <item type="choice" id="3">
           <label>Rechercher le parent</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-          </by><status>1</status>
+          </by>
+          <status>1</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Cette action relance la recherche du parent. &amp;Agrave; n&amp;#39;utiliser que si les probl&amp;egrave;mes rencontr&amp;eacute;s ont &amp;eacute;t&amp;eacute; r&amp;eacute;solus.&lt;/p&gt;
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="choice" id="4">
+        </item>
+        <item type="choice" id="4">
           <label>Noter la demande comme r&#233;gularis&#233;e</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-          </by><status>7</status>
+          </by>
+          <status>7</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Noter la demande comme r&amp;eacute;gularis&amp;eacute;e si le probl&amp;egrave;me rencontr&amp;eacute; par le parent a &amp;eacute;t&amp;eacute; r&amp;eacute;solu. Ceci permettra de consid&amp;eacute;rer la demande comme aboutie sans notifier le parent concern&amp;eacute;.&lt;/p&gt;
 </backoffice_info_text>
@@ -118,10 +142,11 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>2</id>
       <name>Cr&#233;ation du parent</name>
-      <colour>FFFFFF</colour>
+      <colour>#FFFFFF</colour>
       <visibility />
       <items>
         <item type="webservice_call" id="1">
@@ -133,59 +158,77 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
             <item>
               <name>firstname</name>
               <value>{{ form_user_var_first_name }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>lastname</name>
               <value>{{ form_user_var_last_name }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>email</name>
               <value>{{ form_user_email }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>phone</name>
               <value>{{ form_user_var_phone }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>street</name>
               <value>{% firstof form_user_var_address form_user_var_street %}</value>
-            </item><item>
+            </item>
+            <item>
               <name>locality</name>
               <value>{{ form_user_var_city }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>is_company</name>
               <value>{{ False }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>national_number</name>
               <value>{{ form_user_var_niss }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>registration_number</name>
               <value>{{ form_var_matricule }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>zipcode</name>
               <value>{{ form_user_var_zipcode }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>country</name>
               <value>{% firstof form_user_var_country "belgique" %}</value>
-            </item><item>
+            </item>
+            <item>
               <name>street_number</name>
               <value>{{ form_user_var_num_house|default:"" }}</value>
             </item>
-          </post_data><response_type>json</response_type>
+          </post_data>
+          <response_type>json</response_type>
           <varname>creation_parent</varname>
+          <store_all_responses>False</store_all_responses>
+          <attach_file_to_history>True</attach_file_to_history>
           <action_on_app_error>6</action_on_app_error>
           <action_on_4xx>6</action_on_4xx>
           <action_on_5xx>6</action_on_5xx>
           <action_on_bad_data>6</action_on_bad_data>
           <action_on_network_errors>6</action_on_network_errors>
-          <notify_on_errors>False</notify_on_errors>
-          <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
-        </item><item type="jump" id="2">
+          <record_on_errors>True</record_on_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="2">
           <status>4</status>
+          <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>4</id>
       <name>Enregistrement valid&#233;</name>
-      <colour>FFFFFF</colour>
+      <colour>#FFFFFF</colour>
       <visibility />
       <items>
         <item type="update_user_profile" id="1">
@@ -195,30 +238,36 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
               <value>{% firstof form_workflow_data_creation_parent_response_odoo_id form_workflow_data_recherche_response_parent_id %}</value>
             </field>
           </fields>
-        </item><item type="sendmail" id="3">
+        </item>
+        <item type="sendmail" id="2">
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><subject>Votre enregistrement en tant que parent</subject>
+          </to>
+          <subject>Votre enregistrement en tant que parent</subject>
           <body>Bonjour,
 
 Vous avez bien &#233;t&#233; enregistr&#233; en tant que parent.
 
 Cordialement,</body>
-        </item><item type="redirect_to_url" id="4">
+        </item>
+        <item type="redirect_to_url" id="3">
           <url>{{ portal_url }}/portail_parent</url>
           <condition>
             <type>django</type>
             <value>not form_submission_backoffice</value>
           </condition>
-        </item><item type="jump" id="2">
+        </item>
+        <item type="jump" id="4">
           <status>7</status>
+          <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>6</id>
       <name>Erreur lors de l'enregistrement</name>
-      <colour>FF0000</colour>
+      <colour>#FF0000</colour>
       <visibility />
       <items>
         <item type="displaymsg" id="1">
@@ -228,10 +277,12 @@ Cordialement,</body>
           <to>
             <item role_id="_receiver">_receiver</item>
           </to>
-        </item><item type="sendmail" id="2">
+        </item>
+        <item type="sendmail" id="2">
           <to>
             <item role_id="_receiver">_receiver</item>
-          </to><subject>Erreur lors de la cr&#233;ation d'un parent, formulaire {{ form_name }} n&#176;{{ form_number }}</subject>
+          </to>
+          <subject>Erreur lors de la cr&#233;ation d'un parent, formulaire {{ form_name }} n&#176;{{ form_number }}</subject>
           <body>Une erreur est survenue lors de la cr&#233;ation d'un parent. Celui-ci n'existait pas dans iA.AES et n'a pu &#234;tre cr&#233;&#233;. Il ne peut donc r&#233;aliser les inscriptions de ses enfants.
 
 Veuillez consulter la demande.
@@ -241,27 +292,32 @@ Veuillez consulter la demande.
 Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le support d'iMio
 
 `Contacter le support &lt;support.imio.be&gt;`_</body>
-        </item><item type="choice" id="3">
+        </item>
+        <item type="choice" id="3">
           <label>Cr&#233;er le parent</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-          </by><status>1</status>
+          </by>
+          <status>1</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Une fois la source du probl&amp;egrave;me r&amp;eacute;solu, vous pouvez retenter de cr&amp;eacute;er le parent dans iA.AES.&lt;/p&gt;
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="choice" id="4">
+        </item>
+        <item type="choice" id="4">
           <label>Noter la demande comme r&#233;gularis&#233;e</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-          </by><status>7</status>
+          </by>
+          <status>7</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Noter la demande comme r&amp;eacute;gularis&amp;eacute;e si le probl&amp;egrave;me rencontr&amp;eacute; par le parent a &amp;eacute;t&amp;eacute; r&amp;eacute;solu. Ceci permettra de consid&amp;eacute;rer la demande comme aboutie sans notifier le parent concern&amp;eacute;.&lt;/p&gt;
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="displaymsg" id="5">
+        </item>
+        <item type="displaymsg" id="5">
           <message>&lt;p&gt;{{ form_workflow_data_creation_parent_error_response_err_desc }}&lt;/p&gt;
 
 &lt;p&gt;Veuillez v&#233;rifier &lt;a href="{{ idp_url }}accounts/"&gt;votre profil&lt;/a&gt; et r&#233;essayer.&lt;/p&gt;</message>
@@ -273,24 +329,29 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           </condition>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>7</id>
       <name>Enregistrement termin&#233;</name>
-      <colour>00FF00</colour>
+      <colour>#00FF00</colour>
       <visibility />
       <items />
     </status>
-  </possible_status><global_actions>
+  </possible_status>
+  <global_actions>
     <action>
       <id>1</id>
       <name>Suppression</name>
       <items>
         <item type="remove" id="1" />
-      </items><triggers>
+      </items>
+      <triggers>
         <trigger type="manual" id="2f8b47e3-0a7e-4ada-b6cc-1fd1748cddd6">
           <roles>
-            <item slug="debug" role_id="1c075e10a382498689a357df0bc67631">Debug</item>
+            <item role_id="_support-imio">_support-imio</item>
           </roles>
+          <allow_as_mass_action>True</allow_as_mass_action>
+          <require_confirmation>False</require_confirmation>
         </trigger>
       </triggers>
     </action>

@@ -5,6 +5,7 @@
   <category slug="portail-parent" category_id="1">Portail parent</category>
   <roles>
     <role id="_receiver">Agent traitant</role>
+    <role id="_support-imio">Support iMio</role>
   </roles>
   <possible_status>
     <status>
@@ -16,7 +17,7 @@
         <item type="choice" id="1">
           <label>En attente de paiement</label>
           <by>
-            <item slug="debug" role_id="18e7ab5ef71146f0a584588e61393986">Debug</item>
+            <item role_id="_support-imio">_support-imio</item>
           </by>
           <status>3</status>
           <require_confirmation>False</require_confirmation>
@@ -65,7 +66,7 @@
         <item type="choice" id="1">
           <label>Cl&#244;turer la demande</label>
           <by>
-            <item slug="debug" role_id="18e7ab5ef71146f0a584588e61393986">Debug</item>
+            <item role_id="_support-imio">_support-imio</item>
           </by>
           <status>4</status>
           <require_confirmation>False</require_confirmation>
@@ -322,7 +323,7 @@ Cordialement,</body>
       <triggers>
         <trigger type="manual" id="8db2c86f-e855-4267-874e-9cd3d559143a">
           <roles>
-            <item slug="debug" role_id="18e7ab5ef71146f0a584588e61393986">Debug</item>
+            <item role_id="_support-imio">_support-imio</item>
           </roles>
           <allow_as_mass_action>True</allow_as_mass_action>
           <require_confirmation>False</require_confirmation>
