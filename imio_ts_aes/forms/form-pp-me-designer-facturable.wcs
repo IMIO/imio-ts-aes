@@ -12,7 +12,7 @@
   <always_advertise>false</always_advertise>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category slug="portail-parents" category_id="5">Portail Parents</category>
+  <category slug="portail-parent" category_id="10">Portail Parents</category>
   <workflow slug="portail-parent-me-designer-facturable" workflow_id="7">Portail Parent - Me d&#233;signer facturable</workflow>
   <fields>
     <field>

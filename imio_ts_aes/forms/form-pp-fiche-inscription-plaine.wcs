@@ -12,7 +12,7 @@
   <always_advertise>false</always_advertise>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category slug="portail-parents-fiches-d-inscription" category_id="9">Portail Parents - Fiches d'inscription</category>
+  <category slug="portail-parent-fiche-d-inscription" category_id="11">Portail Parents - Fiches d'inscription</category>
   <workflow slug="portail-parent-fiche-d-inscription-aux-plaines" workflow_id="5">Portail Parent - Fiche d'inscription aux plaines</workflow>
   <fields>
     <field>

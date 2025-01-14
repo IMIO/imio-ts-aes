@@ -13,7 +13,7 @@
   <always_advertise>false</always_advertise>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category slug="portail-parents-plaines" category_id="7">Portail Parents - Plaines</category>
+  <category slug="portail-parent" category_id="10">Portail Parents</category>
   <workflow slug="portail-parent-plaines-de-vacances" workflow_id="10">Portail Parent - Plaines de vacances</workflow>
   <fields>
     <field>

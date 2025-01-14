@@ -12,7 +12,7 @@
   <always_advertise>false</always_advertise>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category slug="portail-parents-repas" category_id="8">Portail Parents - Repas</category>
+  <category slug="portail-parent" category_id="10">Portail Parents</category>
   <workflow slug="portail-parent-repas-scolaires-desinscription" workflow_id="1">Portail Parent - Repas scolaires - D&#233;sinscription</workflow>
   <fields>
     <field>
