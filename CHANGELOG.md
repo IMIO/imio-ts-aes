@@ -6,7 +6,7 @@ Changelog
 
 - [SUP-41515] Use non-global automatic jump with expiration
 - [PP-60] Improve roles definition and usage
-
+- [SUP-41821] Fix message in delayed payment.
 
 2.2.6
 ----------------
