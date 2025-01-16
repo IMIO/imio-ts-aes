@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<wscall id="6" url="https://wcs.dev.publik.love/backoffice/settings/wscalls/6/">
+  <name>Portail Parent - Recherche pays</name>
+  <slug>portail_parent_recherche_pays</slug>
+  <request>
+    <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/countries/{{ form_var_country_id }}</url>
+    <request_signature_key />
+    <method>GET</method>
+    <timeout />
+    <cache_duration />
+    <qs_data />
+    <post_data />
+  </request>
+  <record_on_errors>true</record_on_errors>
+</wscall>

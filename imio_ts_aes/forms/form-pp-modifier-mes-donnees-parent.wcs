@@ -21,6 +21,14 @@
       <id type="str">1e469b6c-fc26-4533-a498-bc8a145bf0f1</id>
     </field>
     <field>
+      <type>computed</type>
+      <label type="str">Donn&#233;es initales</label>
+      <varname type="str">donnees_initiales</varname>
+      <value_template type="str">{{ webservice.portail_parent_donnees_parent }}</value_template>
+      <freeze_on_initial_value type="bool">True</freeze_on_initial_value>
+      <id type="str">e926273b-4835-4edf-acce-b97092641331</id>
+    </field>
+    <field>
       <type>title</type>
       <label type="str">Modifier mes donn&#233;es</label>
       <display_locations>

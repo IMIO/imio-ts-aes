@@ -14,6 +14,15 @@
       <colour>#FFFFFF</colour>
       <visibility />
       <items>
+        <item type="set-backoffice-fields" id="7">
+          <label>R&#233;cup&#233;ration de l'identifiant du pays</label>
+          <fields>
+            <field>
+              <field_id>boc8cce27d-25d3-41a2-992d-b06184e894dd</field_id>
+              <value>{{ form_var_donnees_initiales_country_id|get:"0" }}</value>
+            </field>
+          </fields>
+        </item>
         <item type="sendmail" id="1">
           <to>
             <item role_id="_receiver">_receiver</item>
@@ -26,6 +35,36 @@
  souhaite modifier les donn&#233;es de son enfant {{ form_var_enfant }}.{% endif %}
 
 `Consulter la demande &lt;{{ form_url_backoffice }}&gt;`_ pour les v&#233;rifier et les valider.</body>
+        </item>
+        <item type="register-comment" id="5">
+          <comment>{% with di=form_var_donnees_initiales %}&lt;p&gt;&lt;b&gt;Donn&#233;es modifi&#233;es :&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Email :&lt;/b&gt; {{ di.email|default:"Non sp&#233;cifi&#233;" }} &#8594; &lt;b&gt;{{ form_var_email }}&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;T&#233;l&#233;phone :&lt;/b&gt; {{ di.phone|default:"Non sp&#233;cifi&#233;" }} &#8594; &lt;b&gt;{{ form_var_telephone|default:"Non sp&#233;cifi&#233;" }}&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;T&#233;l&#233;phone mobile :&lt;/b&gt; {{ di.mobile|default:"Non sp&#233;cifi&#233;" }} &#8594; &lt;b&gt;{{ form_var_telephone_mobile|default:"Non sp&#233;cifi&#233;" }}&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;T&#233;l&#233;phone professionnel :&lt;/b&gt; {{ di.professionnal_phone|default:"Non sp&#233;cifi&#233;" }} &#8594; &lt;b&gt;{{ form_var_telephone_pro }}&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Rue :&lt;/b&gt; {{ di.street|default:"Non sp&#233;cifi&#233;" }} &#8594; &lt;b&gt;{{ form_var_rue }}&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Num&#233;ro :&lt;/b&gt; n&#176;{{ di.street_number|default:"Non sp&#233;cifi&#233;" }} &#8594; &lt;b&gt;{{ form_var_numero }}&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Bo&#238;te :&lt;/b&gt; {{ di.locality_box|default:"Non sp&#233;cifi&#233;" }} &#8594; &lt;b&gt;{{ form_var_boite }}&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Code postal et localit&#233; :&lt;/b&gt; {% if di.country_id|get:"1"|lower == "belgium" %}{{ di.locality_id|get:"1"|default:"Non sp&#233;cifi&#233;" }}{% else %}{{ di.zip }} - {{ di.city }}{% endif %} &#8594; &lt;b&gt;{% if form_var_pays|lower == "belgique" %}{{ form_var_adresse_structured_zip|default:"Non sp&#233;cifi&#233;" }} - {{ form_var_adresse_structured_name|default:"Non sp&#233;cifi&#233;" }}{% else %}{{ form_var_code_postal|default:"Non sp&#233;cifi&#233;" }} - {{ form_var_localite|default:"Non sp&#233;cifi&#233;" }}{% endif %}&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Pays :&lt;/b&gt; {{ webservice.portail_parent_recherche_pays|get:"name"|default:"Non sp&#233;cifi&#233;" }} &#8594; &lt;b&gt;{{ form_var_pays }}&lt;/b&gt;&lt;/p&gt;{% endwith %}</comment>
+          <level>info</level>
+          <condition>
+            <type>django</type>
+            <value>form_slug == "pp-modifier-mes-donnees-parent"</value>
+          </condition>
+        </item>
+        <item type="register-comment" id="6">
+          <comment>{% with di=form_var_enfant %}&lt;p&gt;&lt;b&gt;Donn&#233;es modifi&#233;es :&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Nom :&lt;/b&gt; {{ di.lastname|default:"Non sp&#233;cifi&#233;" }} &#8594; &lt;b&gt;{{ form_var_nouveau_nom|default:"Non sp&#233;cifi&#233;" }}&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Pr&#233;nom :&lt;/b&gt; {{ di.firstname|default:"Non sp&#233;cifi&#233;" }} &#8594; &lt;b&gt;{{ form_var_nouveau_prenom|default:"Non sp&#233;cifi&#233;" }}&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Date de naissance :&lt;/b&gt; {{ di.birthdate_date|default:"Non sp&#233;cifi&#233;" }} &#8594; &lt;b&gt;{{ form_var_enfant_nouvelle_date_naissance|default:"Non sp&#233;cifi&#233;" }}&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Num&#233;ro national :&lt;/b&gt; {{ di.national_number|default:"Non sp&#233;cifi&#233;" }} &#8594; &lt;b&gt;{{ form_var_enfant_nouveau_numero_national|default:"Non sp&#233;cifi&#233;" }}&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Implantation scolaire :&lt;/b&gt; {{ di.school_implantation|get:"1"|default:"Non sp&#233;cifi&#233;" }} &#8594; &lt;b&gt;{{ form_var_enfant_nouvelle_implantation_scolaire|default:"Non sp&#233;cifi&#233;" }}&lt;/b&gt;&lt;/p&gt;{% endwith %}</comment>
+          <level>info</level>
+          <condition>
+            <type>django</type>
+            <value>form_slug == "pp-modifier-les-donnees-d-un-enfant"</value>
+          </condition>
         </item>
         <item type="jump" id="2">
           <status>1</status>
@@ -404,4 +443,22 @@ Une erreur a &#233;t&#233; rencontr&#233;e pour une demande du formulaire {{ for
       </fields>
     </formdef>
   </variables>
+  <backoffice-fields>
+    <formdef>
+      <name>-</name>
+      <fields>
+        <field>
+          <type>numeric</type>
+          <label type="str">country_id</label>
+          <required type="bool">True</required>
+          <varname type="str">country_id</varname>
+          <display_locations />
+          <anonymise type="str">final</anonymise>
+          <restrict_to_integers type="bool">True</restrict_to_integers>
+          <min_value type="decimal">0</min_value>
+          <id type="str">boc8cce27d-25d3-41a2-992d-b06184e894dd</id>
+        </field>
+      </fields>
+    </formdef>
+  </backoffice-fields>
 </workflow>
