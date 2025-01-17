@@ -1,10 +1,11 @@
 <?xml version="1.0"?>
-<workflow id="16" url="https://wcs.dev.publik.love/backoffice/workflows/16/">
+<workflow id="11" url="https://wcs.dev.publik.love/backoffice/workflows/11/">
   <name>Portail Parent - Repas scolaires</name>
   <slug>portail-parent-repas-scolaires</slug>
   <category slug="portail-parent" category_id="1">Portail parent</category>
   <roles>
     <role id="_receiver">Agents traitants</role>
+    <role id="_support-imio">Support iMio</role>
   </roles>
   <possible_status>
     <status>
@@ -132,7 +133,7 @@
           <label>Mettre en erreur</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="25c4d67d05464af1adea67a3eb9d7266">Debug</item>
+            <item role_id="_support-imio">_support-imio</item>
           </by>
           <status>11</status>
           <require_confirmation>False</require_confirmation>
@@ -168,10 +169,19 @@
           <label>Calculer le montant</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="25c4d67d05464af1adea67a3eb9d7266">Debug</item>
+            <item role_id="_support-imio">_support-imio</item>
           </by>
           <status>9</status>
           <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Relance le calcul du montant, ce qui a plusieurs effets :&lt;/p&gt;
+
+&lt;ul&gt;
+	&lt;li&gt;calcul du montant total de la commande, en se basant sur les repas command&amp;eacute;s,&lt;/li&gt;
+	&lt;li&gt;r&amp;eacute;cup&amp;eacute;ration du solde du parent pour la m&amp;ecirc;me p&amp;eacute;riode,&lt;/li&gt;
+	&lt;li&gt;calcul du montant pay&amp;eacute; automatiquement par le solde et du montant restant &amp;agrave; payer&lt;/li&gt;
+	&lt;li&gt;et enfin r&amp;eacute;servation de la portion du solde consomm&amp;eacute; pour que le parent n&amp;#39;en b&amp;eacute;n&amp;eacute;ficie pas plusieurs fois.&lt;/li&gt;
+&lt;/ul&gt;
+</backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -276,14 +286,24 @@ Il vous reste &lt;b&gt;{{ form_workflow_wscall_montant_response_initial_balance|
             <value>form_previous_status == "Ajout au panier"</value>
           </condition>
           <mode>timeout</mode>
-          <timeout>86400</timeout>
+          <timeout>129600</timeout>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="8">
+          <status>18</status>
+          <condition>
+            <type>django</type>
+            <value>form_previous_status == "Alerte non paiement"</value>
+          </condition>
+          <mode>timeout</mode>
+          <timeout>129600</timeout>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
         <item type="choice" id="6">
           <label>Annuler la commande en notifiant le parent</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="25c4d67d05464af1adea67a3eb9d7266">Debug</item>
+            <item role_id="_support-imio">_support-imio</item>
           </by>
           <status>18</status>
           <require_confirmation>False</require_confirmation>
@@ -445,17 +465,6 @@ Si vous avez pass&#233; d'autres commandes pour le m&#234;me enfant pour la m&#2
           <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
-        <item type="choice" id="3">
-          <label>Bouge !</label>
-          <by>
-            <item slug="agents-traitants-portail-parent" role_id="8306f3ea064c497aa340c902cae107d5">Agents traitants - Portail parent</item>
-            <item slug="debug" role_id="25c4d67d05464af1adea67a3eb9d7266">Debug</item>
-          </by>
-          <status>15</status>
-          <require_confirmation>False</require_confirmation>
-          <ignore_form_errors>False</ignore_form_errors>
-          <set_marker_on_status>False</set_marker_on_status>
-        </item>
       </items>
     </status>
     <status>
@@ -498,10 +507,12 @@ Si vous avez pass&#233; d'autres commandes pour le m&#234;me enfant pour la m&#2
           <label>Mettre en erreur</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="25c4d67d05464af1adea67a3eb9d7266">Debug</item>
+            <item role_id="_support-imio">_support-imio</item>
           </by>
           <status>14</status>
           <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Indique que la lib&amp;eacute;ration du solde a rencontr&amp;eacute; une erreur. Tant que la p&amp;eacute;riode de la commande n&amp;#39;aura pas &amp;eacute;t&amp;eacute; factur&amp;eacute;e, le parent ne pourra pas en b&amp;eacute;n&amp;eacute;ficier.&lt;/p&gt;
+</backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -532,10 +543,12 @@ Si vous avez pass&#233; d'autres commandes pour le m&#234;me enfant pour la m&#2
           <label>Lib&#233;rer le solde</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="25c4d67d05464af1adea67a3eb9d7266">Debug</item>
+            <item role_id="_support-imio">_support-imio</item>
           </by>
           <status>15</status>
           <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Retente de lib&amp;eacute;rer le solde r&amp;eacute;serv&amp;eacute; par cette commande. Tant que ce solde n&amp;#39;est pas lib&amp;eacute;r&amp;eacute;, le parent ne pourra en b&amp;eacute;n&amp;eacute;ficier pour ses diff&amp;eacute;rentes commandes.&lt;/p&gt;
+</backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -691,7 +704,7 @@ Si vous avez pass&#233; d'autres commandes pour le m&#234;me enfant pour la m&#2
         <item type="choice" id="2">
           <label>R&#233;encoder le paiement</label>
           <by>
-            <item slug="agents-traitants-portail-parent" role_id="8306f3ea064c497aa340c902cae107d5">Agents traitants - Portail parent</item>
+            <item slug="agents-traitants-portail-parent" role_id="c31622c806114a2797abae9d21c488c7">Agents traitants - Portail parent</item>
           </by>
           <status>16</status>
           <require_confirmation>False</require_confirmation>
@@ -795,20 +808,24 @@ Il vous reste {{ form_workflow_wscall_montant_response_initial_balance|subtract:
         <item type="choice" id="2">
           <label>Retenter l'enregistrement</label>
           <by>
-            <item slug="debug" role_id="25c4d67d05464af1adea67a3eb9d7266">Debug</item>
+            <item role_id="_support-imio">_support-imio</item>
           </by>
           <status>1</status>
           <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Relance le webservice charg&amp;eacute; de l&amp;#39;encodage des inscriptions aux repas.&lt;/p&gt;
+</backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
         <item type="choice" id="3">
           <label>Signaler la situation comme r&#233;gularis&#233;e sans notifier l'usager</label>
           <by>
-            <item role_id="_debug">_debug</item>
+            <item role_id="_support-imio">_support-imio</item>
           </by>
           <status>7</status>
           <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Cette action permet de cl&amp;ocirc;turer la demande sans retenter d&amp;#39;enregistrer les repas qui y ont &amp;eacute;t&amp;eacute; s&amp;eacute;lectionn&amp;eacute;s et donc d&amp;#39;&amp;eacute;viter d&amp;#39;&amp;eacute;craser d&amp;#39;&amp;eacute;ventuelles inscriptions r&amp;eacute;alis&amp;eacute;es directement dans iA.AES. De plus, cette action ne notifie pas l&amp;#39;usager.&lt;/p&gt;
+</backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -832,7 +849,7 @@ Il vous reste {{ form_workflow_wscall_montant_response_initial_balance|subtract:
       <triggers>
         <trigger type="manual" id="10284ecc-faf1-46d3-a567-7748e0d799d0">
           <roles>
-            <item slug="debug" role_id="25c4d67d05464af1adea67a3eb9d7266">Debug</item>
+            <item role_id="_support-imio">_support-imio</item>
           </roles>
           <allow_as_mass_action>True</allow_as_mass_action>
           <require_confirmation>False</require_confirmation>
@@ -888,7 +905,7 @@ Il vous reste {{ form_workflow_wscall_montant_response_initial_balance|subtract:
         <trigger type="manual" id="ced6c6e8-b7fa-429d-b7ef-8e27fca23682">
           <roles>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="25c4d67d05464af1adea67a3eb9d7266">Debug</item>
+            <item role_id="_support-imio">_support-imio</item>
           </roles>
           <statuses>
             <statuse>12</statuse>
@@ -896,12 +913,6 @@ Il vous reste {{ form_workflow_wscall_montant_response_initial_balance|subtract:
           <allow_as_mass_action>True</allow_as_mass_action>
           <require_confirmation>True</require_confirmation>
           <confirmation_text>Souhaitez-vous vraiment annuler les commandes s&#233;lectionn&#233;es ? Les auteurs de ces commandes en seront notifi&#233;s, leur panier sera vid&#233; et leur &#233;ventuel solde sera lib&#233;r&#233;.</confirmation_text>
-        </trigger>
-        <trigger type="timeout" id="1cc50943-0921-41c6-a6a9-da5699e75316">
-          <anchor>template</anchor>
-          <anchor_expression />
-          <anchor_template>{{ form_var_date_annulation_non_paiement }}</anchor_template>
-          <timeout>1</timeout>
         </trigger>
       </triggers>
     </action>
@@ -977,7 +988,9 @@ Il vous reste {{ form_workflow_wscall_montant_response_initial_balance|subtract:
           <hint type="str">&lt;p&gt;La r&#233;gie de paiement d&#233;termine le panier qui r&#233;ceptionnera les demandes.&lt;/p&gt;</hint>
           <varname type="str">regie_de_paiement</varname>
           <display_locations />
+          <anonymise type="str">no</anonymise>
           <display_mode type="str">radio</display_mode>
+          <items />
           <data_source>
             <type>json</type>
             <value>{{portal_url}}/api/lingo/regies</value>

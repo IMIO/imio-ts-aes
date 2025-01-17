@@ -1,21 +1,33 @@
 <?xml version="1.0"?>
-<workflow id="11" url="">
+<workflow id="8" url="https://wcs.dev.publik.love/backoffice/workflows/8/">
   <name>Portail Parent - Mise &#224; jour</name>
   <slug>portail-parent-mise-a-jour</slug>
-  <category slug="portail-parent" category_id="3">Portail parent</category>
+  <category slug="portail-parent" category_id="1">Portail parent</category>
   <roles>
     <role id="_receiver">Agent traitant</role>
-  </roles><possible_status>
+    <role id="_support-imio">Support iMio</role>
+  </roles>
+  <possible_status>
     <status>
       <id>5</id>
       <name>Nouveau</name>
       <colour>#FFFFFF</colour>
       <visibility />
       <items>
+        <item type="set-backoffice-fields" id="7">
+          <label>R&#233;cup&#233;ration de l'identifiant du pays</label>
+          <fields>
+            <field>
+              <field_id>boc8cce27d-25d3-41a2-992d-b06184e894dd</field_id>
+              <value>{{ form_var_donnees_initiales_country_id|get:"0" }}</value>
+            </field>
+          </fields>
+        </item>
         <item type="sendmail" id="1">
           <to>
             <item role_id="_receiver">_receiver</item>
-          </to><subject>Portail Parent : Nouvelle demande de modification de donn&#233;es</subject>
+          </to>
+          <subject>Portail Parent : Nouvelle demande de modification de donn&#233;es</subject>
           <body>Bonjour,
 
 {% if form_slug == "pp-modifier-mes-donnees-parent" %}Le parent {{ form_user_display_name }}
@@ -23,27 +35,68 @@
  souhaite modifier les donn&#233;es de son enfant {{ form_var_enfant }}.{% endif %}
 
 `Consulter la demande &lt;{{ form_url_backoffice }}&gt;`_ pour les v&#233;rifier et les valider.</body>
-        </item><item type="jump" id="2">
+          <condition>
+            <type>django</type>
+            <value>not form_option_validation_automatique</value>
+          </condition>
+        </item>
+        <item type="register-comment" id="5">
+          <comment>{% with di=form_var_donnees_initiales %}&lt;p&gt;&lt;b&gt;Donn&#233;es modifi&#233;es :&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Email :&lt;/b&gt; {{ di.email|default:"Non sp&#233;cifi&#233;" }} &#8594; &lt;b&gt;{{ form_var_email }}&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;T&#233;l&#233;phone :&lt;/b&gt; {{ di.phone|default:"Non sp&#233;cifi&#233;" }} &#8594; &lt;b&gt;{{ form_var_telephone|default:"Non sp&#233;cifi&#233;" }}&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;T&#233;l&#233;phone mobile :&lt;/b&gt; {{ di.mobile|default:"Non sp&#233;cifi&#233;" }} &#8594; &lt;b&gt;{{ form_var_telephone_mobile|default:"Non sp&#233;cifi&#233;" }}&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;T&#233;l&#233;phone professionnel :&lt;/b&gt; {{ di.professionnal_phone|default:"Non sp&#233;cifi&#233;" }} &#8594; &lt;b&gt;{{ form_var_telephone_pro }}&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Rue :&lt;/b&gt; {{ di.street|default:"Non sp&#233;cifi&#233;" }} &#8594; &lt;b&gt;{{ form_var_rue }}&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Num&#233;ro :&lt;/b&gt; n&#176;{{ di.street_number|default:"Non sp&#233;cifi&#233;" }} &#8594; &lt;b&gt;{{ form_var_numero }}&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Bo&#238;te :&lt;/b&gt; {{ di.locality_box|default:"Non sp&#233;cifi&#233;" }} &#8594; &lt;b&gt;{{ form_var_boite }}&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Code postal et localit&#233; :&lt;/b&gt; {% if di.country_id|get:"1"|lower == "belgium" %}{{ di.locality_id|get:"1"|default:"Non sp&#233;cifi&#233;" }}{% else %}{{ di.zip }} - {{ di.city }}{% endif %} &#8594; &lt;b&gt;{% if form_var_pays|lower == "belgique" %}{{ form_var_adresse_structured_zip|default:"Non sp&#233;cifi&#233;" }} - {{ form_var_adresse_structured_name|default:"Non sp&#233;cifi&#233;" }}{% else %}{{ form_var_code_postal|default:"Non sp&#233;cifi&#233;" }} - {{ form_var_localite|default:"Non sp&#233;cifi&#233;" }}{% endif %}&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Pays :&lt;/b&gt; {{ webservice.portail_parent_recherche_pays|get:"name"|default:"Non sp&#233;cifi&#233;" }} &#8594; &lt;b&gt;{{ form_var_pays }}&lt;/b&gt;&lt;/p&gt;{% endwith %}</comment>
+          <level>info</level>
+          <condition>
+            <type>django</type>
+            <value>form_slug == "pp-modifier-mes-donnees-parent"</value>
+          </condition>
+        </item>
+        <item type="register-comment" id="6">
+          <comment>{% with di=form_var_enfant %}&lt;p&gt;&lt;b&gt;Donn&#233;es modifi&#233;es :&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Nom :&lt;/b&gt; {{ di.lastname|default:"Non sp&#233;cifi&#233;" }} &#8594; &lt;b&gt;{{ form_var_nouveau_nom|default:"Non sp&#233;cifi&#233;" }}&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Pr&#233;nom :&lt;/b&gt; {{ di.firstname|default:"Non sp&#233;cifi&#233;" }} &#8594; &lt;b&gt;{{ form_var_nouveau_prenom|default:"Non sp&#233;cifi&#233;" }}&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Date de naissance :&lt;/b&gt; {{ di.birthdate_date|default:"Non sp&#233;cifi&#233;" }} &#8594; &lt;b&gt;{{ form_var_enfant_nouvelle_date_naissance|default:"Non sp&#233;cifi&#233;" }}&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Num&#233;ro national :&lt;/b&gt; {{ di.national_number|default:"Non sp&#233;cifi&#233;" }} &#8594; &lt;b&gt;{{ form_var_enfant_nouveau_numero_national|default:"Non sp&#233;cifi&#233;" }}&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Implantation scolaire :&lt;/b&gt; {{ di.school_implantation|get:"1"|default:"Non sp&#233;cifi&#233;" }} &#8594; &lt;b&gt;{{ form_var_enfant_nouvelle_implantation_scolaire|default:"Non sp&#233;cifi&#233;" }}&lt;/b&gt;&lt;/p&gt;{% endwith %}</comment>
+          <level>info</level>
+          <condition>
+            <type>django</type>
+            <value>form_slug == "pp-modifier-les-donnees-d-un-enfant"</value>
+          </condition>
+        </item>
+        <item type="jump" id="2">
           <status>1</status>
           <condition>
             <type>django</type>
             <value>form_option_validation_automatique</value>
-          </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item type="choice" id="3">
+          </condition>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="choice" id="3">
           <label>Valider</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-          </by><status>1</status>
+          </by>
+          <status>1</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Valider la demande pour enregistrer automatiquement les donn&amp;eacute;es.&lt;/p&gt;
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="choice" id="4">
+        </item>
+        <item type="choice" id="4">
           <label>Refuser</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-          </by><status>7</status>
+          </by>
+          <status>7</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Refuser la demande de mise &amp;agrave; jour des donn&amp;eacute;es. Vous devrez encoder la raison pour laquelle vous refuser la demande du parent. Celle-ci lui sera ensuite envoy&amp;eacute;e par courriel et enregistr&amp;eacute;e dans l&amp;#39;historique.&lt;/p&gt;
 </backoffice_info_text>
@@ -51,7 +104,8 @@
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>1</id>
       <name>En cours d'enregistrement</name>
       <colour>#FFFFFF</colour>
@@ -66,63 +120,84 @@
             <item>
               <name>parent_email</name>
               <value>{% firstof form_var_email form_user_var_email %}</value>
-            </item><item>
+            </item>
+            <item>
               <name>parent_street</name>
               <value>{% firstof form_var_rue form_user_var_street %}</value>
-            </item><item>
+            </item>
+            <item>
               <name>parent_num_box</name>
               <value>{% firstof form_var_boite form_user_var_num_box %}</value>
-            </item><item>
+            </item>
+            <item>
               <name>parent_num_house</name>
               <value>{% firstof form_var_numero form_user_var_num_house %}</value>
-            </item><item>
+            </item>
+            <item>
               <name>parent_phone</name>
               <value>{% firstof form_var_telephone form_user_var_phone %}</value>
-            </item><item>
+            </item>
+            <item>
               <name>parent_locality_id</name>
               <value>{% firstof form_var_adresse.id form_user_var_city %}</value>
-            </item><item>
+            </item>
+            <item>
               <name>parent_zipcode</name>
               <value>{% firstof form_var_code_postal form_user_var_zipcode %}</value>
-            </item><item>
+            </item>
+            <item>
               <name>child_birthdate</name>
               <value>{{ form_var_enfant_nouvelle_date_naissance }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>child_national_number</name>
               <value>{{ form_var_enfant_nouveau_numero_national }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>child_school_implantation</name>
               <value>{{ form_var_enfant_nouvelle_implantation_scolaire_raw }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>parent_country</name>
               <value>{{ form_var_pays }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>parent_city</name>
               <value>{% firstof form_var_city form_user_var_city %}</value>
-            </item><item>
+            </item>
+            <item>
               <name>parent_professional_phone</name>
               <value>{{ form_var_telephone_pro }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>parent_country_id</name>
               <value>{{ form_var_pays_raw }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>form_var_mobile_phone</name>
               <value>{{ form_var_telephone_mobile }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>parent_mobile_phone</name>
               <value>{{ form_var_telephone_mobile }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>municipality_zipcodes</name>
               <value>{{ commune_cp }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>child_lastname</name>
               <value>{{ form_var_nouveau_nom }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>child_firstname</name>
               <value>{{ form_var_nouveau_prenom }}</value>
             </item>
-          </post_data><response_type>json</response_type>
+          </post_data>
+          <response_type>json</response_type>
           <varname>enregistrement</varname>
+          <store_all_responses>False</store_all_responses>
+          <attach_file_to_history>True</attach_file_to_history>
           <action_on_app_error>3</action_on_app_error>
           <action_on_4xx>3</action_on_4xx>
           <action_on_5xx>3</action_on_5xx>
@@ -132,43 +207,55 @@
           <record_on_errors>False</record_on_errors>
           <notify_on_errors>False</notify_on_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="update_user_profile" id="2">
+        </item>
+        <item type="update_user_profile" id="2">
           <fields>
             <field>
               <field_id>zipcode</field_id>
               <value>{% firstof form_var_adresse.zipcode form_user_var_zipcode %}</value>
-            </field><field>
+            </field>
+            <field>
               <field_id>city</field_id>
               <value>{% firstof form_var_adresse.locality form_user_var_city %}</value>
-            </field><field>
+            </field>
+            <field>
               <field_id>phone</field_id>
               <value>{% firstof form_var_telephone firstof form_user_var_phone %}</value>
-            </field><field>
+            </field>
+            <field>
               <field_id>num_house</field_id>
               <value>{% firstof form_var_num_house firstof form_user_var_num_house %}</value>
-            </field><field>
+            </field>
+            <field>
               <field_id>street</field_id>
               <value>{% firstof form_var_street firstof form_user_var_street %}</value>
-            </field><field>
+            </field>
+            <field>
               <field_id>country</field_id>
               <value>{% firstof form_var_pays firstof form_user_var_country %}</value>
-            </field><field>
+            </field>
+            <field>
               <field_id>num_box</field_id>
               <value>{% firstof form_var_num_box firstof form_user_var_num_box %}</value>
-            </field><field>
+            </field>
+            <field>
               <field_id>email</field_id>
               <value>{% firstof form_var_email firstof form_user_var_email %}</value>
             </field>
-          </fields><condition>
+          </fields>
+          <condition>
             <type>django</type>
             <value>"parent" in form_slug</value>
           </condition>
-        </item><item type="jump" id="3">
+        </item>
+        <item type="jump" id="3">
           <status>2</status>
+          <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>2</id>
       <name>Enregistrement r&#233;ussi</name>
       <colour>#8ff0a4</colour>
@@ -177,33 +264,44 @@
         <item type="sendmail" id="1">
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><subject>Portail Parent : Modification de donn&#233;es effectu&#233;e</subject>
+          </to>
+          <subject>Portail Parent : Modification de donn&#233;es effectu&#233;e</subject>
           <body>Bonjour,
 
 {% if form_slug == "pp-modifier-mes-donnees-parent" %}Nous vous informons que votre demande de modification de vos coordonn&#233;es a &#233;t&#233; valid&#233;e.{% else %}Nous vous informons que votre demande de modification des donn&#233;es de votre enfant {{ form_var_enfant}} a &#233;t&#233; valid&#233;e.{% endif %}
 
 Cordialement,</body>
-        </item><item type="sendmail" id="2">
+        </item>
+        <item type="sendmail" id="2">
           <to>
             <item role_id="_receiver">_receiver</item>
-          </to><subject>Portail Parent : Modification de donn&#233;es effectu&#233;e</subject>
+          </to>
+          <subject>Portail Parent : Modification de donn&#233;es effectu&#233;e</subject>
           <body>Bonjour,
 
 {% if form_slug == "pp-modifier-mes-donnees-parent" %}Les coordonn&#233;es du parent {{ form_user_display_name }} ont &#233;t&#233; modifi&#233;es.{% else %}Les donn&#233;es de l&#8217;enfant {{ form_var_enfant }} ont &#233;t&#233; modifi&#233;es &#224; la demande de son parent {{ form_user_display_name }}.{% endif %}
 
 `Consulter la demande &lt;{{ form_url_backoffice }}&gt;`_</body>
-        </item><item type="jump" id="3">
+          <condition>
+            <type>django</type>
+            <value>form_option_email_confirmation</value>
+          </condition>
+        </item>
+        <item type="jump" id="3">
           <status>4</status>
+          <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>3</id>
       <name>Erreur lors de l'enregistrement</name>
       <colour>#ed333b</colour>
       <visibility>
         <role>__restricted__</role>
-      </visibility><items>
+      </visibility>
+      <items>
         <item type="displaymsg" id="1">
           <message>&lt;p&gt;Une erreur est survenue lors de la mise &#224; jour des donn&#233;es. Celle-ci n'a donc pas pu se faire.&lt;/p&gt;</message>
           <level>error</level>
@@ -211,31 +309,37 @@ Cordialement,</body>
           <to>
             <item role_id="_receiver">_receiver</item>
           </to>
-        </item><item type="register-comment" id="2" />
+        </item>
+        <item type="register-comment" id="2" />
         <item type="sendmail" id="3">
           <to>
             <item role_id="_receiver">_receiver</item>
-          </to><subject>{{ form_name }} {{ form_number }} Une erreur est survenue</subject>
+          </to>
+          <subject>{{ form_name }} {{ form_number }} Une erreur est survenue</subject>
           <body>Bonjour,
 
 Une erreur a &#233;t&#233; rencontr&#233;e pour une demande du formulaire {{ form_name }}.
 
 `Consulter la demande &lt;{{ form_url_backoffice }}&gt;`_ </body>
-        </item><item type="choice" id="4">
+        </item>
+        <item type="choice" id="4">
           <label>Enregistrer les donn&#233;es</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-          </by><status>1</status>
+          </by>
+          <status>1</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Relance l&amp;#39;enregistrement des donn&amp;eacute;es. Permets de d&amp;eacute;bloquer une demande de mise &amp;agrave; jour qui a rencontr&amp;eacute; une erreur.&lt;/p&gt;
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="choice" id="5">
+        </item>
+        <item type="choice" id="5">
           <label>R&#233;gulariser</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-          </by><status>4</status>
+          </by>
+          <status>4</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;R&amp;eacute;gularise la demande sans notifier le parent.&lt;/p&gt;
 </backoffice_info_text>
@@ -243,13 +347,15 @@ Une erreur a &#233;t&#233; rencontr&#233;e pour une demande du formulaire {{ for
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>4</id>
       <name>Termin&#233;</name>
       <colour>#57e389</colour>
       <visibility />
       <items />
-    </status><status>
+    </status>
+    <status>
       <id>7</id>
       <name>Encodage du motif du refus</name>
       <colour>#deddda</colour>
@@ -258,7 +364,8 @@ Une erreur a &#233;t&#233; rencontr&#233;e pour une demande du formulaire {{ for
         <item type="form" id="1">
           <by>
             <item role_id="_receiver">_receiver</item>
-          </by><varname>refus</varname>
+          </by>
+          <varname>refus</varname>
           <hide_submit_button>True</hide_submit_button>
           <formdef>
             <name>-</name>
@@ -270,20 +377,23 @@ Une erreur a &#233;t&#233; rencontr&#233;e pour une demande du formulaire {{ for
                 <hint type="str">La raison du refus sera envoy&#233;e telle quelle au parent.</hint>
                 <varname type="str">motif</varname>
                 <display_locations>
-                  <display_location>validation</display_location>
-                  <display_location>summary</display_location>
-                </display_locations><anonymise type="str">final</anonymise>
+                  <item>validation</item>
+                  <item>summary</item>
+                </display_locations>
+                <anonymise type="str">final</anonymise>
                 <display_mode type="str">pre</display_mode>
                 <id type="str">b87dbbc5-94ce-4b57-8d45-cfda6ebe0788</id>
               </field>
             </fields>
           </formdef>
-        </item><item type="jumponsubmit" id="2">
+        </item>
+        <item type="jumponsubmit" id="2">
           <status>6</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>6</id>
       <name>Refus&#233;</name>
       <colour>#e01b24</colour>
@@ -292,30 +402,36 @@ Une erreur a &#233;t&#233; rencontr&#233;e pour une demande du formulaire {{ for
         <item type="register-comment" id="1">
           <comment>&lt;h3&gt;La demande a &#233;t&#233; refus&#233;e&lt;h3&gt;
 {{ form_workflow_form_refus_var_motif }}</comment>
-        </item><item type="sendmail" id="2">
+        </item>
+        <item type="sendmail" id="2">
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><subject>Portail Parent : Modification de donn&#233;es refus&#233;e</subject>
+          </to>
+          <subject>Portail Parent : Modification de donn&#233;es refus&#233;e</subject>
           <body>{{ form_workflow_form_refus_var_motif }}</body>
         </item>
       </items>
     </status>
-  </possible_status><global_actions>
+  </possible_status>
+  <global_actions>
     <action>
       <id>1</id>
       <name>Suppression d&#233;finitive et absolue</name>
       <items>
         <item type="remove" id="1" />
-      </items><triggers>
+      </items>
+      <triggers>
         <trigger type="manual" id="6d61f9f1-1742-47f9-b8f5-b0ba1af1d42d">
           <roles>
             <item role_id="_receiver">_receiver</item>
-          </roles><allow_as_mass_action>True</allow_as_mass_action>
+          </roles>
+          <allow_as_mass_action>True</allow_as_mass_action>
           <require_confirmation>False</require_confirmation>
         </trigger>
       </triggers>
     </action>
-  </global_actions><variables>
+  </global_actions>
+  <variables>
     <formdef>
       <name>-</name>
       <fields>
@@ -325,9 +441,41 @@ Une erreur a &#233;t&#233; rencontr&#233;e pour une demande du formulaire {{ for
           <required type="bool">False</required>
           <hint type="str">Les donn&#233;es mises &#224; jour par le parent seront automatiquement modifi&#233;es dans iA.AES. En d&#233;cochant cette case, un agent traitant devra valider la demande manuellement.</hint>
           <varname type="str">validation_automatique</varname>
+          <display_locations>
+            <item>validation</item>
+            <item>summary</item>
+          </display_locations>
+          <anonymise type="str">no</anonymise>
           <id type="str">c2e6a9e7-6b83-4dee-8680-b770c44945cf</id>
+        </field>
+        <field>
+          <type>bool</type>
+          <label type="str">Recevoir une confirmation d'un changement</label>
+          <required type="bool">False</required>
+          <hint type="str">&lt;p&gt;Cochez cette case pour recevoir une notification par email lorsqu'une la mise &#224; jour a &#233;t&#233; accept&#233;e.&lt;/p&gt;</hint>
+          <varname type="str">email_confirmation</varname>
+          <display_locations />
+          <id type="str">433c2d07-e7be-4080-92e3-073d14c13f7d</id>
         </field>
       </fields>
     </formdef>
   </variables>
+  <backoffice-fields>
+    <formdef>
+      <name>-</name>
+      <fields>
+        <field>
+          <type>numeric</type>
+          <label type="str">country_id</label>
+          <required type="bool">True</required>
+          <varname type="str">country_id</varname>
+          <display_locations />
+          <anonymise type="str">final</anonymise>
+          <restrict_to_integers type="bool">True</restrict_to_integers>
+          <min_value type="decimal">0</min_value>
+          <id type="str">boc8cce27d-25d3-41a2-992d-b06184e894dd</id>
+        </field>
+      </fields>
+    </formdef>
+  </backoffice-fields>
 </workflow>

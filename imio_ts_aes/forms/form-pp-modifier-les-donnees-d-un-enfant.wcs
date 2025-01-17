@@ -1,18 +1,19 @@
 <?xml version="1.0"?>
-<formdef id="17" url="">
+<formdef id="8" url="https://wcs.dev.publik.love/backoffice/forms/8/">
   <name>Modifier les donn&#233;es d'un enfant</name>
   <url_name>pp-modifier-les-donnees-d-un-enfant</url_name>
+  <submission_user_association>any</submission_user_association>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
-  <disabled>true</disabled>
+  <disabled>false</disabled>
   <only_allow_one>false</only_allow_one>
   <enable_tracking_codes>false</enable_tracking_codes>
   <confirmation>true</confirmation>
   <always_advertise>false</always_advertise>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category slug="portail-parent" category_id="1">Portail Parent</category>
-  <workflow slug="portail-parent-mise-a-jour" workflow_id="9">Portail Parent - Mise &#224; jour</workflow>
+  <category slug="portail-parent" category_id="10">Portail Parents</category>
+  <workflow slug="portail-parent-mise-a-jour" workflow_id="8">Portail Parent - Mise &#224; jour</workflow>
   <fields>
     <field>
       <type>computed</type>
@@ -21,136 +22,163 @@
       <value_template type="str">{{request.GET.enfant|default:""}}</value_template>
       <freeze_on_initial_value type="bool">True</freeze_on_initial_value>
       <id type="str">6cbda02a-2684-42ed-b1d8-a93cf6806495</id>
-    </field><field>
+    </field>
+    <field>
       <type>item</type>
       <label type="str">Enfant</label>
       <required type="bool">True</required>
       <varname type="str">enfant</varname>
       <display_locations>
-        <display_location>validation</display_location>
-        <display_location>summary</display_location>
-        <display_location>listings</display_location>
-      </display_locations><extra_css_class type="str">hidden</extra_css_class>
+        <item>validation</item>
+        <item>summary</item>
+        <item>listings</item>
+      </display_locations>
+      <extra_css_class type="str">hidden</extra_css_class>
       <prefill>
         <locked>True</locked>
         <type>string</type>
         <value>{{ form_var_enfant_id }}</value>
-      </prefill><anonymise type="str">final</anonymise>
+      </prefill>
+      <anonymise type="str">final</anonymise>
       <display_mode type="str">radio</display_mode>
+      <items />
       <data_source>
         <type>portail_parent_enfants</type>
-      </data_source><in_filters type="bool">False</in_filters>
+      </data_source>
+      <in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
       <image_mobile_size type="int">75</image_mobile_size>
       <id type="str">6428c3f1-7653-4168-bc25-056f6b69fa7a</id>
-    </field><field>
+    </field>
+    <field>
       <type>comment</type>
       <label type="str">&lt;p&gt;Vous modifiez les donn&amp;eacute;es de &lt;strong&gt;{{ form_var_enfant }}&lt;/strong&gt;.&lt;/p&gt;
 </label>
       <condition>
         <type>django</type>
         <value>form_var_enfant</value>
-      </condition><extra_css_class type="str">pk-information</extra_css_class>
+      </condition>
+      <extra_css_class type="str">pk-information</extra_css_class>
+      <display_locations />
       <id type="str">8d7fe80d-63ee-4794-84ee-49c0dbb12d39</id>
-    </field><field>
+    </field>
+    <field>
       <type>string</type>
       <label type="str">Nom</label>
       <required type="bool">True</required>
       <varname type="str">nouveau_nom</varname>
       <display_locations>
-        <display_location>validation</display_location>
-        <display_location>summary</display_location>
-      </display_locations><extra_css_class type="str">grid-1-4</extra_css_class>
+        <item>validation</item>
+        <item>summary</item>
+      </display_locations>
+      <extra_css_class type="str">grid-1-4</extra_css_class>
       <prefill>
-        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_enfant.lastname }}</value>
-      </prefill><anonymise type="str">final</anonymise>
+      </prefill>
+      <anonymise type="str">final</anonymise>
       <id type="str">652d7622-c0fa-4b2d-be0f-bc42aa301a92</id>
-    </field><field>
+    </field>
+    <field>
       <type>string</type>
       <label type="str">Pr&#233;nom</label>
       <required type="bool">True</required>
       <varname type="str">nouveau_prenom</varname>
       <display_locations>
-        <display_location>validation</display_location>
-        <display_location>summary</display_location>
-        <display_location>listings</display_location>
-      </display_locations><extra_css_class type="str">grid-1-4</extra_css_class>
+        <item>validation</item>
+        <item>summary</item>
+        <item>listings</item>
+      </display_locations>
+      <extra_css_class type="str">grid-1-4</extra_css_class>
       <prefill>
-        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_enfant.firstname }}</value>
-      </prefill><anonymise type="str">final</anonymise>
+      </prefill>
+      <anonymise type="str">final</anonymise>
       <id type="str">55d124d1-1eda-402f-a7f1-7f62c9ff7364</id>
-    </field><field>
+    </field>
+    <field>
       <type>date</type>
       <label type="str">Date de naissance</label>
       <required type="bool">True</required>
       <varname type="str">enfant_nouvelle_date_naissance</varname>
       <display_locations>
-        <display_location>validation</display_location>
-        <display_location>summary</display_location>
-      </display_locations><extra_css_class type="str">newline grid-1-3</extra_css_class>
+        <item>validation</item>
+        <item>summary</item>
+      </display_locations>
+      <extra_css_class type="str">newline grid-1-3</extra_css_class>
       <prefill>
-        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_enfant.birthdate_date }}</value>
-      </prefill><anonymise type="str">final</anonymise>
+      </prefill>
+      <anonymise type="str">final</anonymise>
       <minimum_is_future type="bool">False</minimum_is_future>
       <date_in_the_past type="bool">True</date_in_the_past>
       <date_can_be_today type="bool">False</date_can_be_today>
       <id type="str">c884e046-55a6-4fdd-b71e-5c528c925768</id>
-    </field><field>
+    </field>
+    <field>
       <type>string</type>
       <label type="str">Num&#233;ro national</label>
       <required type="bool">True</required>
       <hint type="str">Vous trouverez cette information sur la carte d'identit&#233; &#233;lectronique de votre enfant. Si vous ne l'avez pas, vous pouvez la demander &#224; votre administration communale.</hint>
       <varname type="str">enfant_nouveau_numero_national</varname>
       <display_locations>
-        <display_location>validation</display_location>
-        <display_location>summary</display_location>
-      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+        <item>validation</item>
+        <item>summary</item>
+      </display_locations>
+      <extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
-        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_enfant.national_number }}</value>
-      </prefill><anonymise type="str">final</anonymise>
+      </prefill>
+      <anonymise type="str">final</anonymise>
       <validation>
         <type>nrn-be</type>
-      </validation><maxlength type="str">11</maxlength>
+      </validation>
+      <maxlength type="str">11</maxlength>
       <id type="str">6615e0b9-9df8-4157-b5d0-782670ea0f07</id>
-    </field><field>
+    </field>
+    <field>
       <type>item</type>
       <label type="str">implantation scolaire</label>
       <required type="bool">True</required>
       <varname type="str">enfant_nouvelle_implantation_scolaire</varname>
       <display_locations>
-        <display_location>validation</display_location>
-        <display_location>summary</display_location>
-      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+        <item>validation</item>
+        <item>summary</item>
+      </display_locations>
+      <extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
-        <locked>False</locked>
         <type>string</type>
         <value>{{ form_var_enfant.school_implantation|get:0 }}</value>
-      </prefill><anonymise type="str">final</anonymise>
+      </prefill>
+      <anonymise type="str">final</anonymise>
       <display_mode type="str">list</display_mode>
+      <items />
       <data_source>
         <type>portail-parent-implantations_scolaires</type>
-      </data_source><in_filters type="bool">False</in_filters>
+      </data_source>
+      <in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
       <image_mobile_size type="int">75</image_mobile_size>
       <id type="str">684f2643-d2da-40eb-ad93-14049c4819e0</id>
     </field>
-  </fields><user-roles>
+  </fields>
+  <user-roles>
     <role role_id="logged-users">logged-users</role>
-  </user-roles><roles>
-    <role slug="agents-traitants-portail-parent" role_id="96c7aae8f5354e4ea05c50bef976dc6e" role_key="_receiver">Agents traitants - Portail parent</role>
-  </roles><options />
+  </user-roles>
+  <roles>
+    <role slug="agent-traitant-portail-parents" role_id="107f7d8c8b5d400696d2ecdd6c5ff363" role_key="_receiver">Agent traitant - Portail Parents</role>
+    <role slug="agent-imio-portail-parents" role_id="17ebb1be538243ae90fd1f40f240c120" role_key="_support-imio">Agent iMio - Portail Parents</role>
+  </roles>
+  <options>
+    <option varname="validation_automatique" type="bool">true</option>
+  </options>
   <custom_views />
   <geolocations />
   <management_sidebar_items>

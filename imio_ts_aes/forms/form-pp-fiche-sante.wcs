@@ -12,7 +12,7 @@
   <always_advertise>true</always_advertise>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category slug="portail-parent" category_id="1">Portail Parent</category>
+  <category slug="portail-parent" category_id="10">Portail Parents</category>
   <workflow slug="portail-parent-fiche-sante" workflow_id="4">Portail Parent - Fiche sant&#233;</workflow>
   <fields>
     <field>
@@ -2333,9 +2333,9 @@
     <role role_id="logged-users">logged-users</role>
   </user-roles>
   <roles>
-    <role slug="agents-traitants-portail-parent" role_id="c31622c806114a2797abae9d21c488c7" role_key="_receiver">Agents traitants - Portail parent</role>
+    <role slug="agent-traitant-portail-parents" role_id="107f7d8c8b5d400696d2ecdd6c5ff363" role_key="_receiver">Agent traitant - Portail Parents</role>
     <role slug="debug" role_id="18e7ab5ef71146f0a584588e61393986" role_key="_debug">Debug</role>
-    <role slug="debug" role_id="18e7ab5ef71146f0a584588e61393986" role_key="_agent-imio">Debug</role>
+    <role slug="agent-imio-portail-parents" role_id="17ebb1be538243ae90fd1f40f240c120" role_key="_agent-imio">Agent iMio - Portail Parents</role>
   </roles>
   <options>
     <option varname="compte">BE80 0910 2100 5377</option>

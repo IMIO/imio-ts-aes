@@ -1,14 +1,187 @@
 {
-  "roles": [
-    {
-      "name": "Parent",
-      "slug": "parent",
-      "ou": {"slug": "default"}
-    },
-    {
-      "name": "Agents traitants - Portail parent",
-      "slug": "agents-traitants-portail-parent",
-      "ou": {"slug": "default"}
-    }
-  ]
+    "roles": [
+        {
+            "slug": "agent-admin-portail-parents-plaines",
+            "name": "Agent admin - Portail Parents - Plaines",
+            "ou": {
+                "slug": "default"
+            },
+            "parents": [
+                {
+                    "name": "Administrateur du r\u00f4le \u00ab\u00a0Agent traitant - Portail Parents - Plaines\u00a0\u00bb",
+                    "ou": {
+                        "slug": "default"
+                    },
+                    "slug": "_a2-managers-of-role-agent-traitant-portail-parents-plaines"
+                },
+                {
+                    "service": null,
+                    "name": "Agent",
+                    "ou": {
+                        "slug": "default"
+                    },
+                    "slug": "agent"
+                }
+            ]
+        },
+        {
+            "slug": "agent-admin-portail-parents-repas",
+            "name": "Agent admin - Portail Parents - Repas",
+            "ou": {
+                "slug": "default"
+            },
+            "parents": [
+                {
+                    "ou": {
+                        "slug": "default"
+                    },
+                    "slug": "_a2-managers-of-role-agent-traitant-portail-parents-repas"
+                },
+                {
+                    "name": "Agent",
+                    "ou": {
+                        "slug": "default"
+                    },
+                    "slug": "agent"
+                }
+            ]
+        },
+        {
+            "slug": "agent-imio-portail-parents",
+            "name": "Agent iMio - Portail Parents",
+            "ou": {
+                "slug": "default"
+            },
+            "parents": [
+                {
+                    "name": "Administrateur des utilisateurs",
+                    "slug": "_a2-administrateur-des-utilisateurs"
+                },
+                {
+                    "name": "Agent",
+                    "ou": {
+                        "slug": "default"
+                    },
+                    "slug": "agent"
+                },
+                {
+                    "name": "Administrateur du r\u00f4le \u00ab\u00a0Agent admin - Portail Parents - Plaines\u00a0\u00bb",
+                    "ou": {
+                        "name": "Collectivit\u00e9 par d\u00e9faut",
+                        "slug": "default"
+                    },
+                    "slug": "_a2-managers-of-role-agent-admin-portail-parents-plaines"
+                },
+                {
+                    "name": "Administrateur du r\u00f4le \u00ab\u00a0Agent admin - Portail Parents - Repas\u00a0\u00bb",
+                    "ou": {
+                        "name": "Collectivit\u00e9 par d\u00e9faut",
+                        "slug": "default"
+                    },
+                    "slug": "_a2-managers-of-role-agent-admin-portail-parents-repas"
+                },
+                {
+                    "name": "Administrateur du r\u00f4le \u00ab\u00a0Agents traitants - Portail parent\u00a0\u00bb",
+                    "ou": {
+                        "slug": "default"
+                    },
+                    "slug": "_a2-managers-of-role-agents-traitants-portail-parent"
+                },
+                {
+                    "name": "Administrateur du r\u00f4le \u00ab\u00a0Agent traitant - Portail Parents - Plaines\u00a0\u00bb",
+                    "ou": {
+                        "slug": "default"
+                    },
+                    "slug": "_a2-managers-of-role-agent-traitant-portail-parents-plaines"
+                },
+                {
+                    "name": "Administrateur du r\u00f4le \u00ab\u00a0Agent traitant - Portail Parents - Repas\u00a0\u00bb",
+                    "ou": {
+                        "name": "Collectivit\u00e9 par d\u00e9faut",
+                        "slug": "default"
+                    },
+                    "slug": "_a2-managers-of-role-agent-traitant-portail-parents-repas"
+                }
+            ]
+        },
+        {
+            "slug": "agent",
+            "name": "Agent",
+            "ou": {
+                "name": "Collectivit\u00e9 par d\u00e9faut",
+                "slug": "default"
+            }
+        },
+        {
+            "slug": "agents-traitants-portail-parent",
+            "name": "Agents traitants - Portail parent",
+            "ou": {
+                "name": "Collectivit\u00e9 par d\u00e9faut",
+                "slug": "default"
+            }
+        },
+        {
+            "slug": "agent-traitant-portail-parents-plaines",
+            "name": "Agent traitant - Portail Parents - Plaines",
+            "ou": {
+                "name": "Collectivit\u00e9 par d\u00e9faut",
+                "slug": "default"
+            },
+            "parents": [
+                {
+                    "name": "Agent",
+                    "ou": {
+                        "name": "Collectivit\u00e9 par d\u00e9faut",
+                        "slug": "default"
+                    },
+                    "slug": "agent"
+                },
+                {
+                    "service": null,
+                    "name": "Agent traitant - Portail Parents",
+                    "ou": {
+                        "name": "Collectivit\u00e9 par d\u00e9faut",
+                        "slug": "default"
+                    },
+                    "slug": "agent-traitant-portail-parents"
+                }
+            ]
+        },
+        {
+            "slug": "agent-traitant-portail-parents-repas",
+            "name": "Agent traitant - Portail Parents - Repas",
+            "ou": {
+                "name": "Collectivit\u00e9 par d\u00e9faut",
+                "slug": "default"
+            },
+            "parents": [
+                {
+                    "name": "Agent",
+                    "ou": {
+                        "name": "Collectivit\u00e9 par d\u00e9faut",
+                        "slug": "default"
+                    },
+                    "slug": "agent"
+                },
+                {
+                    "service": null,
+                    "name": "Agent traitant - Portail Parents",
+                    "ou": {
+                        "name": "Collectivit\u00e9 par d\u00e9faut",
+                        "slug": "default"
+                    },
+                    "slug": "agent-traitant-portail-parents"
+                }
+            ]
+        },
+        {
+            "slug": "agent-traitant-portail-parents",
+            "name": "Agent traitant - Portail Parents",
+            "ou": {
+                "name": "Collectivit\u00e9 par d\u00e9faut",
+                "slug": "default"
+            },
+            "service": null
+        }
+    ]
 }

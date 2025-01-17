@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<formdef id="2" url="https://wcs.dev.publik.love/backoffice/forms/2/">
+<formdef id="3" url="https://wcs.dev.publik.love/backoffice/forms/3/">
   <name>Fiche d'inscription aux plaines</name>
   <url_name>pp-fiche-inscription-plaine</url_name>
-  <internal_identifier>fiche-d-inscription-aux-plaines</internal_identifier>
+  <submission_user_association>any</submission_user_association>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
   <disabled>false</disabled>
@@ -10,80 +10,95 @@
   <enable_tracking_codes>false</enable_tracking_codes>
   <confirmation>true</confirmation>
   <always_advertise>false</always_advertise>
-  <include_download_all_button>false</include_download_all_button>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category slug="portail-parent-fiche-d-inscription" category_id="2">Portail Parent - Fiche d'inscription</category>
-  <workflow slug="portail-parent-fiche-d-inscription-aux-plaines" workflow_id="16">Portail Parent - Fiche d'inscription aux plaines</workflow>
-  <max_field_id>10</max_field_id>
+  <category slug="portail-parent-fiche-d-inscription" category_id="11">Portail Parents - Fiches d'inscription</category>
+  <workflow slug="portail-parent-fiche-d-inscription-aux-plaines" workflow_id="5">Portail Parent - Fiche d'inscription aux plaines</workflow>
   <fields>
     <field>
+      <type>page</type>
       <label type="str">Enfant</label>
-      <type type="str">page</type>
       <id type="str">3</id>
-    </field><field>
+    </field>
+    <field>
+      <type>item</type>
       <label type="str">Enfant</label>
-      <type type="str">item</type>
       <required type="bool">True</required>
       <varname type="str">enfant</varname>
       <display_locations>
-        <display_location>validation</display_location>
-        <display_location>summary</display_location>
-        <display_location>listings</display_location>
-      </display_locations><prefill>
-        <locked>False</locked>
+        <item>validation</item>
+        <item>summary</item>
+        <item>listings</item>
+      </display_locations>
+      <prefill>
         <type>none</type>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill>
+      <anonymise type="str">final</anonymise>
+      <display_mode type="str">radio</display_mode>
+      <items />
       <data_source>
         <type>portail_parent_enfants</type>
         <value>webservice.aes_get_children_by_parent_nrn.get('data')</value>
-      </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="bool">True</anonymise>
+      </data_source>
+      <in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
+      <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
+      <image_desktop_size type="int">150</image_desktop_size>
+      <image_mobile_size type="int">75</image_mobile_size>
       <id type="str">1</id>
-    </field><field>
+    </field>
+    <field>
+      <type>string</type>
       <label type="str">Plaine</label>
-      <type type="str">string</type>
       <required type="bool">True</required>
       <varname type="str">plaine</varname>
       <display_locations>
-        <display_location>validation</display_location>
-        <display_location>summary</display_location>
-        <display_location>listings</display_location>
-      </display_locations><prefill>
-        <locked>False</locked>
+        <item>validation</item>
+        <item>summary</item>
+        <item>listings</item>
+      </display_locations>
+      <prefill>
         <type>none</type>
-      </prefill><anonymise type="bool">True</anonymise>
+      </prefill>
+      <anonymise type="str">final</anonymise>
       <id type="str">8</id>
-    </field><field>
+    </field>
+    <field>
+      <type>string</type>
       <label type="str">Num&#233;ro d'inscription</label>
-      <type type="str">string</type>
       <required type="bool">True</required>
       <varname type="str">inscription</varname>
       <display_locations>
-        <display_location>validation</display_location>
-        <display_location>summary</display_location>
-        <display_location>listings</display_location>
-      </display_locations><prefill>
-        <locked>False</locked>
+        <item>validation</item>
+        <item>summary</item>
+        <item>listings</item>
+      </display_locations>
+      <prefill>
         <type>none</type>
-      </prefill><anonymise type="bool">True</anonymise>
+      </prefill>
+      <anonymise type="str">final</anonymise>
       <id type="str">6</id>
-    </field><field>
+    </field>
+    <field>
+      <type>string</type>
       <label type="str">Identifiant de la plaine</label>
-      <type type="str">string</type>
       <required type="bool">True</required>
       <varname type="str">id_plaine</varname>
       <display_locations />
       <prefill>
-        <locked>False</locked>
         <type>none</type>
-      </prefill><anonymise type="bool">True</anonymise>
+      </prefill>
+      <anonymise type="str">final</anonymise>
       <id type="str">7</id>
     </field>
-  </fields><user-roles>
-    <role slug="parent" role_id="9568ff2000794db8a6711bd2ff596ceb">Parent</role>
-  </user-roles><roles />
+  </fields>
+  <user-roles>
+    <role role_id="logged-users">logged-users</role>
+  </user-roles>
+  <roles>
+    <role slug="agent-traitant-portail-parents-plaines" role_id="dd1d6a0d74404a8a94fd27ba590f5b2d" role_key="_receiver">Agent traitant - Portail Parents - Plaines</role>
+    <role slug="agent-imio-portail-parents" role_id="17ebb1be538243ae90fd1f40f240c120" role_key="_support-imio">Agent iMio - Portail Parents</role>
+  </roles>
   <options>
     <option varname="categorie_activite">Plaine</option>
     <option varname="categorie_activites">Plaine</option>
@@ -92,8 +107,12 @@
     <option varname="mode_de_paiement">Paiement en ligne</option>
     <option varname="mode_de_paiement_display">Paiement en ligne</option>
     <option varname="mode_de_paiement_structured" />
-  </options><custom_views />
+  </options>
+  <custom_views />
   <geolocations />
+  <management_sidebar_items>
+    <item>__default__</item>
+  </management_sidebar_items>
   <digest_templates>
     <template key="default">{{ form_var_enfant }} {{ form_var_plaine }}</template>
   </digest_templates>

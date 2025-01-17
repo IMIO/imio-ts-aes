@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<formdef id="1" url="https://wcs.dev.publik.love/backoffice/forms/1/">
+<formdef id="2" url="https://wcs.dev.publik.love/backoffice/forms/2/">
   <name>Enregistrer un enfant</name>
   <url_name>pp-enregistrer-un-enfant</url_name>
-  <internal_identifier>enregistrer-un-enfant</internal_identifier>
+  <submission_user_association>any</submission_user_association>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
   <disabled>false</disabled>
@@ -10,177 +10,220 @@
   <enable_tracking_codes>false</enable_tracking_codes>
   <confirmation>true</confirmation>
   <always_advertise>false</always_advertise>
-  <include_download_all_button>false</include_download_all_button>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category slug="portail-parent" category_id="1">Portail Parent</category>
-  <workflow slug="portail-parent-enregistrement-enfant" workflow_id="14">Portail Parent - Enregistrement enfant</workflow>
-  <max_field_id>31</max_field_id>
+  <category slug="portail-parent" category_id="10">Portail Parents</category>
+  <workflow slug="portail-parent-enregistrement-enfant" workflow_id="2">Portail Parent - Enregistrement enfant</workflow>
   <fields>
     <field>
+      <type>page</type>
       <label type="str">Nouvel enfant &#224; enregistrer</label>
-      <type type="str">page</type>
       <id type="str">14</id>
-    </field><field>
+    </field>
+    <field>
+      <type>title</type>
       <label type="str">Signal&#233;tique de votre enfant</label>
-      <type type="str">title</type>
       <display_locations>
-        <display_location>validation</display_location>
-        <display_location>summary</display_location>
-      </display_locations><id type="str">23</id>
-    </field><field>
+        <item>validation</item>
+        <item>summary</item>
+      </display_locations>
+      <id type="str">23</id>
+    </field>
+    <field>
+      <type>string</type>
       <label type="str">Pr&#233;nom de l'enfant</label>
-      <type type="str">string</type>
       <required type="bool">True</required>
       <varname type="str">enfant_prenom</varname>
       <display_locations>
-        <display_location>validation</display_location>
-        <display_location>summary</display_location>
-        <display_location>listings</display_location>
-      </display_locations><extra_css_class type="str">grid-1-4</extra_css_class>
+        <item>validation</item>
+        <item>summary</item>
+        <item>listings</item>
+      </display_locations>
+      <extra_css_class type="str">grid-1-4</extra_css_class>
       <prefill>
-        <locked>False</locked>
         <type>none</type>
-      </prefill><anonymise type="bool">True</anonymise>
+      </prefill>
+      <anonymise type="str">final</anonymise>
       <id type="str">17</id>
-    </field><field>
+    </field>
+    <field>
+      <type>string</type>
       <label type="str">Nom de l'enfant</label>
-      <type type="str">string</type>
       <required type="bool">True</required>
       <varname type="str">enfant_nom</varname>
       <display_locations>
-        <display_location>validation</display_location>
-        <display_location>summary</display_location>
-        <display_location>listings</display_location>
-      </display_locations><extra_css_class type="str">grid-1-4</extra_css_class>
+        <item>validation</item>
+        <item>summary</item>
+        <item>listings</item>
+      </display_locations>
+      <extra_css_class type="str">grid-1-4</extra_css_class>
       <prefill>
-        <locked>False</locked>
         <type>none</type>
-      </prefill><anonymise type="bool">True</anonymise>
+      </prefill>
+      <anonymise type="str">final</anonymise>
       <id type="str">16</id>
-    </field><field>
+    </field>
+    <field>
+      <type>date</type>
       <label type="str">Date de naissance</label>
-      <type type="str">date</type>
       <required type="bool">True</required>
       <varname type="str">enfant_date_naissance</varname>
       <display_locations>
-        <display_location>validation</display_location>
-        <display_location>summary</display_location>
-        <display_location>listings</display_location>
-      </display_locations><extra_css_class type="str">newline grid-1-3</extra_css_class>
+        <item>validation</item>
+        <item>summary</item>
+        <item>listings</item>
+      </display_locations>
+      <extra_css_class type="str">newline grid-1-3</extra_css_class>
       <prefill>
-        <locked>False</locked>
         <type>none</type>
-      </prefill><minimum_is_future type="bool">False</minimum_is_future>
+      </prefill>
+      <anonymise type="str">final</anonymise>
+      <minimum_is_future type="bool">False</minimum_is_future>
       <date_in_the_past type="bool">True</date_in_the_past>
       <date_can_be_today type="bool">False</date_can_be_today>
       <id type="str">19</id>
-    </field><field>
+    </field>
+    <field>
+      <type>item</type>
       <label type="str">Mon enfant poss&#232;de un num&#233;ro de registre national belge ou bis.</label>
-      <type type="str">item</type>
       <required type="bool">True</required>
       <hint type="str">Si votre enfant a la nationalit&#233; belge, son num&#233;ro de registre national se trouve sur sa carte d'identit&#233;, sa carte de mutuelle ou sur son acte de naissance. </hint>
       <varname type="str">a_un_rn</varname>
       <display_locations>
-        <display_location>validation</display_location>
-        <display_location>summary</display_location>
-      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+        <item>validation</item>
+        <item>summary</item>
+      </display_locations>
+      <extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
-        <locked>False</locked>
         <type>none</type>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill>
+      <anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
       <items>
         <item>Oui</item>
         <item>Non</item>
-      </items><in_filters type="bool">False</in_filters>
-      <anonymise type="bool">False</anonymise>
+      </items>
+      <in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
+      <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
+      <image_desktop_size type="int">150</image_desktop_size>
+      <image_mobile_size type="int">75</image_mobile_size>
       <id type="str">31</id>
-    </field><field>
+    </field>
+    <field>
+      <type>string</type>
       <label type="str">Num&#233;ro de registre national de l'enfant</label>
-      <type type="str">string</type>
       <condition>
         <type>django</type>
         <value>form_var_a_un_rn|lower == "oui"</value>
-      </condition><required type="bool">True</required>
+      </condition>
+      <required type="bool">True</required>
       <hint type="str">Vous trouverez cette information sur la carte d'identit&#233; &#233;lectronique de votre enfant. Si vous ne l'avez pas, vous pouvez la demander &#224; votre administration communale.</hint>
       <varname type="str">enfant_nrn</varname>
       <display_locations>
-        <display_location>validation</display_location>
-        <display_location>summary</display_location>
-      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+        <item>validation</item>
+        <item>summary</item>
+      </display_locations>
+      <extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
-        <locked>False</locked>
         <type>none</type>
-      </prefill><validation>
+      </prefill>
+      <anonymise type="str">final</anonymise>
+      <validation>
         <type>nrn-be</type>
-      </validation><anonymise type="bool">True</anonymise>
+      </validation>
       <id type="str">20</id>
-    </field><field>
+    </field>
+    <field>
+      <type>comment</type>
       <label type="str">&lt;div&gt;{% if webservice.aes_is_registered_child %}&lt;div class="pk-error"&gt;&lt;p&gt;Votre enfant existe d&amp;eacute;j&amp;agrave; dans notre base de donn&amp;eacute;es. V&amp;eacute;rifiez tout d'abord s'il est pr&amp;eacute;sent dans la liste de vos enfants sur &lt;a href="{{ portal_url }}portail_parent" target="_blank"&gt;la page d'accueil du Portail Parent&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Si ce n'est pas le cas, c'est qu'il est probablement d&amp;eacute;j&amp;agrave; inscrit et associ&amp;eacute; avec le compte de son autre parent. Merci de vous reconnecter au Portail Parent avec la carte d'identit&amp;eacute; de son autre parent et de v&amp;eacute;rifier si votre enfant appara&amp;icirc;t bien dans le Portail. Vous pourrez alors l'inscrire.&lt;/p&gt;
 
 &lt;p&gt;Si l'enfant n'appara&amp;icirc;t toujours pas dans le compte de son autre parent, merci de contacter l'administration communale en charge des plaines ou des repas scolaires.&lt;/p&gt;&lt;/div&gt;{% endif %}&lt;/div&gt;</label>
-      <type type="str">comment</type>
       <condition>
         <type>django</type>
         <value>form_var_enfant_nrn</value>
-      </condition><display_locations />
+      </condition>
+      <display_locations />
       <id type="str">30</id>
-    </field><field>
+    </field>
+    <field>
+      <type>item</type>
       <label type="str">Implantation scolaire</label>
-      <type type="str">item</type>
       <required type="bool">True</required>
       <hint type="str">---</hint>
       <varname type="str">implantation_scolaire</varname>
       <display_locations>
-        <display_location>validation</display_location>
-        <display_location>summary</display_location>
-      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+        <item>validation</item>
+        <item>summary</item>
+      </display_locations>
+      <extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
-        <locked>False</locked>
         <type>none</type>
-      </prefill><display_mode type="str">list</display_mode>
+      </prefill>
+      <anonymise type="str">no</anonymise>
+      <display_mode type="str">list</display_mode>
+      <items />
       <data_source>
         <type>portail-parent-implantations_scolaires</type>
         <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/places</value>
-      </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="bool">False</anonymise>
+      </data_source>
+      <in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
+      <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
+      <image_desktop_size type="int">150</image_desktop_size>
+      <image_mobile_size type="int">75</image_mobile_size>
       <id type="str">24</id>
-    </field><field>
+    </field>
+    <field>
+      <type>item</type>
       <label type="str">Ann&#233;e scolaire</label>
-      <type type="str">item</type>
       <required type="bool">True</required>
       <varname type="str">annee_scolaire</varname>
       <display_locations>
-        <display_location>validation</display_location>
-        <display_location>summary</display_location>
-      </display_locations><extra_css_class type="str">newline grid-1-2</extra_css_class>
+        <item>validation</item>
+        <item>summary</item>
+      </display_locations>
+      <extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
-        <locked>False</locked>
         <type>none</type>
-      </prefill><display_mode type="str">radio</display_mode>
+      </prefill>
+      <anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
+      <items />
       <data_source>
         <type>portail_parent_niveaux</type>
         <value>webservice.aes_get_levels.get("data")</value>
-      </data_source><in_filters type="bool">False</in_filters>
-      <anonymise type="bool">False</anonymise>
+      </data_source>
+      <in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
+      <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
+      <image_desktop_size type="int">150</image_desktop_size>
+      <image_mobile_size type="int">75</image_mobile_size>
       <id type="str">25</id>
     </field>
-  </fields><user-roles>
+  </fields>
+  <user-roles>
     <role role_id="logged-users">logged-users</role>
-  </user-roles><roles>
-    <role slug="debug" role_id="5162edec67c74e23bc26251709ab4101" role_key="_receiver">Debug</role>
-    <role slug="debug" role_id="5162edec67c74e23bc26251709ab4101" role_key="_debug">Debug</role>
-  </roles><options>
+  </user-roles>
+  <roles>
+    <role slug="agent-traitant-portail-parents" role_id="107f7d8c8b5d400696d2ecdd6c5ff363" role_key="_receiver">Agent traitant - Portail Parents</role>
+    <role slug="agent-imio-portail-parents" role_id="17ebb1be538243ae90fd1f40f240c120" role_key="_debug">Agent iMio - Portail Parents</role>
+  </roles>
+  <options>
     <option varname="autosave" />
     <option varname="child_type_facturation">oui</option>
     <option varname="child_type_facturation_display">Oui</option>
     <option varname="child_type_facturation_structured" />
     <option varname="child_type_id_default_value">1</option>
-  </options><custom_views />
+    <option varname="prefered_school_pricing">non</option>
+    <option varname="prefered_school_pricing_display">Non</option>
+    <option varname="prefered_school_pricing_structured" />
+  </options>
+  <custom_views />
   <geolocations />
+  <management_sidebar_items>
+    <item>__default__</item>
+  </management_sidebar_items>
 </formdef>

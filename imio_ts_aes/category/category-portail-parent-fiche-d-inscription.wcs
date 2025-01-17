@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<category id="11" url="https://wcs.dev.publik.love/backoffice/forms/categories/11/">
+  <name>Portail Parents - Fiches d'inscription</name>
+  <url_name>portail-parent-fiche-d-inscription</url_name>
+  <position>2</position>
+  <export_roles>
+    <role role-id="e765fbfbd2764498ae3bb31765d3cc9a" role-slug="agent-admin-portail-parents-plaines">Agent admin - Portail Parents - Plaines</role>
+    <role role-id="5467c9bdd7744aaebf3ccb25a02e5ce5" role-slug="agent-admin-portail-parents-repas">Agent admin - Portail Parents - Repas</role>
+    <role role-id="17ebb1be538243ae90fd1f40f240c120" role-slug="agent-imio-portail-parents">Agent iMio - Portail Parents</role>
+    <role role-id="107f7d8c8b5d400696d2ecdd6c5ff363" role-slug="agent-traitant-portail-parents">Agent traitant - Portail Parents</role>
+  </export_roles>
+  <statistics_roles>
+    <role role-id="e765fbfbd2764498ae3bb31765d3cc9a" role-slug="agent-admin-portail-parents-plaines">Agent admin - Portail Parents - Plaines</role>
+    <role role-id="5467c9bdd7744aaebf3ccb25a02e5ce5" role-slug="agent-admin-portail-parents-repas">Agent admin - Portail Parents - Repas</role>
+    <role role-id="17ebb1be538243ae90fd1f40f240c120" role-slug="agent-imio-portail-parents">Agent iMio - Portail Parents</role>
+    <role role-id="107f7d8c8b5d400696d2ecdd6c5ff363" role-slug="agent-traitant-portail-parents">Agent traitant - Portail Parents</role>
+  </statistics_roles>
+  <management_roles>
+    <role role-id="e765fbfbd2764498ae3bb31765d3cc9a" role-slug="agent-admin-portail-parents-plaines">Agent admin - Portail Parents - Plaines</role>
+    <role role-id="5467c9bdd7744aaebf3ccb25a02e5ce5" role-slug="agent-admin-portail-parents-repas">Agent admin - Portail Parents - Repas</role>
+    <role role-id="17ebb1be538243ae90fd1f40f240c120" role-slug="agent-imio-portail-parents">Agent iMio - Portail Parents</role>
+    <role role-id="107f7d8c8b5d400696d2ecdd6c5ff363" role-slug="agent-traitant-portail-parents">Agent traitant - Portail Parents</role>
+  </management_roles>
+</category>

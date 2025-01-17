@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<formdef id="16" url="">
+<formdef id="11" url="https://wcs.dev.publik.love/backoffice/forms/11/">
   <name>Repas scolaires</name>
   <url_name>pp-repas-scolaires</url_name>
   <drafts_lifespan>2</drafts_lifespan>
@@ -13,8 +13,8 @@
   <always_advertise>false</always_advertise>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category slug="portail-parent" category_id="1">Portail Parent</category>
-  <workflow slug="portail-parent-repas-scolaires" workflow_id="12">Portail Parent - Repas scolaires</workflow>
+  <category slug="portail-parent" category_id="10">Portail Parents</category>
+  <workflow slug="portail-parent-repas-scolaires" workflow_id="11">Portail Parent - Repas scolaires</workflow>
   <fields>
     <field>
       <type>page</type>
@@ -24,22 +24,28 @@
           <condition>
             <type>django</type>
             <value>not form_option_implantations_scolaires or form_var_enfant.school_implantation|first|stringformat:"s" in form_option_implantations_scolaires_raw</value>
-          </condition><error_message>L'&#233;cole de votre enfant ne propose actuellement pas d'inscription aux repas scolaires &#224; travers le Portail Parent.</error_message>
-        </post_condition><post_condition>
+          </condition>
+          <error_message>L'&#233;cole de votre enfant ne propose actuellement pas d'inscription aux repas scolaires &#224; travers le Portail Parent.</error_message>
+        </post_condition>
+        <post_condition>
           <condition>
             <type>django</type>
             <value>form_var_parents_facturables|split:", "|length or form_user_aes_id in form_var_parents_facturables|split:", "</value>
-          </condition><error_message>Vous n'&#234;tes pas un parent facturable pour cet enfant</error_message>
+          </condition>
+          <error_message>Vous n'&#234;tes pas un parent facturable pour cet enfant</error_message>
         </post_condition>
-      </post_conditions><id type="str">47</id>
-    </field><field>
+      </post_conditions>
+      <id type="str">47</id>
+    </field>
+    <field>
       <type>computed</type>
       <label type="str">Identifiant de l'enfant</label>
       <varname type="str">id_enfant</varname>
       <value_template type="str">{{request.GET.enfant|default:""}}</value_template>
       <freeze_on_initial_value type="bool">True</freeze_on_initial_value>
       <id type="str">53</id>
-    </field><field>
+    </field>
+    <field>
       <type>item</type>
       <label type="str">Enfant</label>
       <required type="bool">True</required>
@@ -48,30 +54,35 @@
         <item>validation</item>
         <item>summary</item>
         <item>listings</item>
-      </display_locations><extra_css_class type="str">hidden</extra_css_class>
+      </display_locations>
+      <extra_css_class type="str">hidden</extra_css_class>
       <prefill>
         <locked>True</locked>
         <type>string</type>
         <value>{{ form_var_id_enfant }}</value>
-      </prefill><anonymise type="str">no</anonymise>
+      </prefill>
+      <anonymise type="str">no</anonymise>
       <display_mode type="str">radio</display_mode>
       <items />
       <data_source>
         <type>portail_parent_enfants</type>
-      </data_source><in_filters type="bool">False</in_filters>
+      </data_source>
+      <in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="int">150</image_desktop_size>
       <image_mobile_size type="int">75</image_mobile_size>
       <id type="str">54</id>
-    </field><field>
+    </field>
+    <field>
       <type>computed</type>
       <label type="str">Parents facturables</label>
       <varname type="str">parents_facturables</varname>
       <value_template type="str">{% for parent in form_var_enfant_invoiceable_parents %}{{ parent|get:"id" }}{% if not forloop.last %}, {% endif %}{% endfor %}</value_template>
       <freeze_on_initial_value type="bool">False</freeze_on_initial_value>
       <id type="str">64cd4241-33e3-404f-a8d6-13ff3644f031</id>
-    </field><field>
+    </field>
+    <field>
       <type>comment</type>
       <label type="str">&lt;div class="pk-information"&gt;
 &lt;p&gt;Vous inscrivez &lt;strong&gt;&lt;span class="varname"&gt;{{ form_var_enfant }}&lt;/span&gt;&lt;/strong&gt; aux repas scolaires.&lt;/p&gt;
@@ -80,26 +91,32 @@
       <condition>
         <type>django</type>
         <value>form_var_enfant</value>
-      </condition><display_locations />
+      </condition>
+      <display_locations />
       <id type="str">56</id>
-    </field><field>
+    </field>
+    <field>
       <type>comment</type>
       <label type="str">&lt;div&gt;{% with amount=webservice.portail_parent_solde|get:"amount" already_reserved_amount=webservice.portail_parent_solde|get:"already_reserved_amount" %}{% if amount or already_reserved_amount %}&lt;div class="pk-information"&gt;&lt;p&gt;{% if amount|subtract:already_reserved_amount &gt; 0 %}Il reste {{ amount|subtract:already_reserved_amount|decimal:2 }}&#8364; dans votre solde. Ce montant sera d&#233;duit lors du paiement.{% endif %} {% if already_reserved_amount &gt; 0 %}Vous aviez d&#233;j&#224; command&#233; pour {{ already_reserved_amount|decimal:2 }}&#8364; pour cette enfant, pour ce mois. En cas de changement dans cette commande, ce montant sera d&#233;duit de votre panier.{% endif %}&lt;/p&gt;&lt;/div&gt;{% endif %}{% endwith %}&lt;/div&gt;</label>
       <condition>
         <type>django</type>
         <value>form_option_mode_paiement == "Paiement en ligne"</value>
-      </condition><display_locations />
+      </condition>
+      <display_locations />
       <id type="str">1fa06dbf-7db4-48ef-af4f-6ac3a4374a03</id>
-    </field><field>
+    </field>
+    <field>
       <type>comment</type>
       <label type="str">&lt;p&gt;Pour inscrire votre enfant, cliquez sur le type de repas de votre choix. Ne cochez rien s&amp;#39;il ne doit pas &amp;ecirc;tre inscrit pour une ou plusieurs dates. Vous pourrez encore modifier votre choix jusqu&amp;#39;&amp;agrave; la fin des inscriptions de ce mois-ci.&lt;/p&gt;
 </label>
       <condition>
         <type>django</type>
         <value>form_var_enfant</value>
-      </condition><display_locations />
+      </condition>
+      <display_locations />
       <id type="str">488591d8-187b-4a6a-ab17-72505c94841a</id>
-    </field><field>
+    </field>
+    <field>
       <type>items</type>
       <label type="str">Menu</label>
       <required type="bool">True</required>
@@ -107,11 +124,13 @@
       <display_locations>
         <item>validation</item>
         <item>summary</item>
-      </display_locations><extra_css_class type="str">hidden</extra_css_class>
+      </display_locations>
+      <extra_css_class type="str">hidden</extra_css_class>
       <prefill>
         <type>string</type>
         <value>{% for repas in data_source.portail_parent_inscriptions_aux_repas %}{{ repas|get:"id" }}|{% endfor %}</value>
-      </prefill><anonymise type="str">final</anonymise>
+      </prefill>
+      <anonymise type="str">final</anonymise>
       <items />
       <display_mode type="str">checkboxes</display_mode>
       <min_choices type="int">1</min_choices>
@@ -119,12 +138,14 @@
       <data_source>
         <type>portail_parent_repas_scolaires</type>
         <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/menus?child_id=22&amp;month=1</value>
-      </data_source><in_filters type="bool">False</in_filters>
+      </data_source>
+      <in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <image_desktop_size type="int">150</image_desktop_size>
       <image_mobile_size type="int">75</image_mobile_size>
       <id type="str">39</id>
-    </field><field>
+    </field>
+    <field>
       <type>comment</type>
       <label type="str">&lt;p&gt;Repas&lt;/p&gt;
 </label>
@@ -132,28 +153,34 @@
       <display_locations />
       <id type="str">57</id>
     </field>
-  </fields><user-roles>
+  </fields>
+  <user-roles>
     <role role_id="logged-users">logged-users</role>
-  </user-roles><roles>
-    <role slug="agents-traitants-portail-parent" role_id="96c7aae8f5354e4ea05c50bef976dc6e" role_key="_receiver">Agents traitants - Portail parent</role>
-  </roles><options>
+  </user-roles>
+  <roles>
+    <role slug="agent-traitant-portail-parents-repas" role_id="991b23fc3ce6475ca66605d77c0c6ecb" role_key="_receiver">Agent traitant - Portail Parents - Repas</role>
+    <role slug="agent-imio-portail-parents" role_id="17ebb1be538243ae90fd1f40f240c120" role_key="_support-imio">Agent iMio - Portail Parents</role>
+  </roles>
+  <options>
     <option varname="implantations_scolaires" />
     <option varname="implantations_scolaires_display" />
     <option varname="implantations_scolaires_structured" />
-    <option varname="mode_paiement">Paiement diff&#233;r&#233;</option>
-    <option varname="mode_paiement_display">Paiement diff&#233;r&#233;</option>
+    <option varname="mode_paiement">Paiement en ligne</option>
+    <option varname="mode_paiement_display">Paiement en ligne</option>
     <option varname="mode_paiement_structured" />
     <option varname="mois">1</option>
     <option varname="mois_display">Mois prochain</option>
     <option varname="mois_structured" />
-    <option varname="regie_de_paiement">worldline_test</option>
-    <option varname="regie_de_paiement_display">Worldline Test</option>
+    <option varname="regie_de_paiement">portail_parents_repas_scolaires</option>
+    <option varname="regie_de_paiement_display">Portail Parents - Repas scolaires</option>
     <option varname="regie_de_paiement_structured" type="dict">
-      <id>worldline_test</id>
-      <text>Worldline Test</text>
-      <description>R&#233;gie de test Worldline</description>
-    </option><option varname="test" />
-  </options><custom_views />
+      <id>portail_parents_repas_scolaires</id>
+      <text>Portail Parents - Repas scolaires</text>
+      <description>Portail Parent Repas scolaires</description>
+    </option>
+    <option varname="test" />
+  </options>
+  <custom_views />
   <geolocations />
   <management_sidebar_items>
     <item>__default__</item>

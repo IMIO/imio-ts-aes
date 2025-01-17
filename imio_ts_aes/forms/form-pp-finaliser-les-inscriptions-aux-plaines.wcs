@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<formdef id="4" url="https://wcs.dev.publik.love/backoffice/forms/4/">
+<formdef id="5" url="https://wcs.dev.publik.love/backoffice/forms/5/">
   <name>Finaliser les inscriptions aux plaines</name>
   <url_name>pp-finaliser-les-inscriptions-aux-plaines</url_name>
-  <internal_identifier>finaliser-les-inscriptions-aux-plaines</internal_identifier>
+  <submission_user_association>any</submission_user_association>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
   <disabled>false</disabled>
@@ -10,21 +10,22 @@
   <enable_tracking_codes>false</enable_tracking_codes>
   <confirmation>false</confirmation>
   <always_advertise>false</always_advertise>
-  <include_download_all_button>false</include_download_all_button>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category slug="portail-parent" category_id="1">Portail Parent</category>
-  <workflow slug="portail-parent-finalisation-des-inscriptions" workflow_id="18">Portail Parent - Finalisation des inscriptions</workflow>
-  <max_field_id>3</max_field_id>
+  <category slug="portail-parent" category_id="10">Portail Parents</category>
+  <workflow slug="portail-parent-finalisation-des-inscriptions" workflow_id="6">Portail Parent - Finalisation des inscriptions</workflow>
   <fields>
     <field>
+      <type>title</type>
       <label type="str">R&#233;capitulatif des inscriptions aux plaines de vos enfants</label>
-      <type type="str">title</type>
       <display_locations>
-        <display_location>validation</display_location>
-        <display_location>summary</display_location>
-      </display_locations><id type="str">3</id>
-    </field><field>
+        <item>validation</item>
+        <item>summary</item>
+      </display_locations>
+      <id type="str">3</id>
+    </field>
+    <field>
+      <type>comment</type>
       <label type="str">&lt;div&gt;{% if form_user_email %}
 
     &lt;ol&gt;{% for registration in forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de validation" %}
@@ -35,15 +36,21 @@
     {% endfor %}&lt;/ol&gt;
 
 {% else %}&lt;p&gt;Pas d'utilisateur d&#233;tect&#233; - Peut-&#234;tre &#234;tes vous dans la fabrique de formulaires ?&lt;/p&gt;{% endif %}&lt;/div&gt;</label>
-      <type type="str">comment</type>
       <display_locations />
       <id type="str">2</id>
     </field>
-  </fields><backoffice-submission-roles>
-    <role slug="debug" role_id="5162edec67c74e23bc26251709ab4101">Debug</role>
-  </backoffice-submission-roles><roles>
-    <role slug="agent-traitant-portail-parent" role_id="d0b8282bf6114da680fa4c848da76167" role_key="_receiver">Agent traitant - Portail Parent</role>
-  </roles><options>
+  </fields>
+  <user-roles>
+    <role role_id="logged-users">logged-users</role>
+  </user-roles>
+  <backoffice-submission-roles>
+    <role slug="debug" role_id="18e7ab5ef71146f0a584588e61393986">Debug</role>
+  </backoffice-submission-roles>
+  <roles>
+    <role slug="agent-traitant-portail-parents-plaines" role_id="dd1d6a0d74404a8a94fd27ba590f5b2d" role_key="_receiver">Agent traitant - Portail Parents - Plaines</role>
+    <role slug="agent-imio-portail-parents" role_id="17ebb1be538243ae90fd1f40f240c120" role_key="_support-imio">Agent iMio - Portail Parents</role>
+  </roles>
+  <options>
     <option varname="calcul_montant">Demander le montant &#224; AES</option>
     <option varname="calcul_montant_display">Demander le montant &#224; AES</option>
     <option varname="calcul_montant_structured" />
@@ -55,6 +62,10 @@
     <option varname="regie_de_paiement">portail_parent</option>
     <option varname="regie_de_paiement_display">Portail Parent</option>
     <option varname="regie_de_paiement_structured" />
-  </options><custom_views />
+  </options>
+  <custom_views />
   <geolocations />
+  <management_sidebar_items>
+    <item>__default__</item>
+  </management_sidebar_items>
 </formdef>

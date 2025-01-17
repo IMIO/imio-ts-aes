@@ -2,27 +2,31 @@
 <workflow id="1" url="https://wcs.dev.publik.love/backoffice/workflows/1/">
   <name>Portail Parent - Repas scolaires - D&#233;sinscription</name>
   <slug>portail-parent-repas-scolaires-desinscription</slug>
-  <category slug="portail-parent" category_id="1">Portail Parent</category>
+  <category slug="portail-parent" category_id="1">Portail parent</category>
   <roles>
     <role id="_receiver">Agent traitant</role>
-  </roles><possible_status>
+    <role id="_support-imio">Support iMio</role>
+  </roles>
+  <possible_status>
     <status>
       <id>1</id>
       <name>D&#233;sinscription</name>
-      <colour>FFFFFF</colour>
+      <colour>#FFFFFF</colour>
       <visibility />
       <items>
-        <item type="set-backoffice-fields" id="3">
+        <item type="set-backoffice-fields" id="1">
           <fields>
             <field>
               <field_id>bo9b3aabbf-e014-43c6-921d-80e2466f699e</field_id>
               <value>{{ form_var_enfant_school_implantation|get:1 }}</value>
-            </field><field>
+            </field>
+            <field>
               <field_id>boac3839af-df8a-46bc-9b5f-f225e1dcec98</field_id>
               <value>{{ form_var_enfant_level|get:1 }}</value>
             </field>
           </fields>
-        </item><item type="webservice_call" id="1">
+        </item>
+        <item type="webservice_call" id="2">
           <label>D&#233;sinscription</label>
           <method>POST</method>
           <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/children/registrations/delete</url>
@@ -32,32 +36,39 @@
               <name>meals</name>
               <value>{{ form_var_repas_structured }}</value>
             </item>
-          </post_data><response_type>json</response_type>
+          </post_data>
+          <response_type>json</response_type>
           <varname>unregistration</varname>
+          <store_all_responses>False</store_all_responses>
+          <attach_file_to_history>True</attach_file_to_history>
           <action_on_app_error>3</action_on_app_error>
           <action_on_4xx>3</action_on_4xx>
           <action_on_5xx>3</action_on_5xx>
           <action_on_bad_data>3</action_on_bad_data>
           <action_on_network_errors>3</action_on_network_errors>
-          <notify_on_errors>False</notify_on_errors>
-          <record_on_errors>True</record_on_errors>
           <record_errors>False</record_errors>
+          <record_on_errors>True</record_on_errors>
+          <notify_on_errors>False</notify_on_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="2">
+        </item>
+        <item type="jump" id="3">
           <status>2</status>
+          <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>2</id>
       <name>D&#233;sinscription enregistr&#233;e</name>
-      <colour>00FF00</colour>
+      <colour>#00FF00</colour>
       <visibility />
       <items>
         <item type="sendmail" id="1">
           <to>
             <item role_id="_receiver">_receiver</item>
-          </to><subject>{{ form_name }} : d&#233;sinscription des repas pour {{ form_var_enfant }}</subject>
+          </to>
+          <subject>{{ form_name }} : d&#233;sinscription des repas pour {{ form_var_enfant }}</subject>
           <body>Bonjour,
 
 Le parent {{ form_user_display_name }} a d&#233;sinscrit son enfant {{ form_var_enfant }}, pour les dates suivantes :
@@ -74,10 +85,12 @@ Cordialement,</body>
             <type>django</type>
             <value>"oui" in form_option_notifier_service|lower</value>
           </condition>
-        </item><item type="sendmail" id="2">
+        </item>
+        <item type="sendmail" id="2">
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><subject>{{ form_name }} n&#176;{{ form_number }}</subject>
+          </to>
+          <subject>{{ form_name }} n&#176;{{ form_number }}</subject>
           <body>Bonjour,
 
 Nous avons bien re&#231;u votre demande de d&#233;sinscription de repas pour {{ form_var_enfant }}.
@@ -87,7 +100,8 @@ Nous avons bien re&#231;u votre demande de d&#233;sinscription de repas pour {{ 
 {% endfor %}
 
 Cordialement,</body>
-        </item><item type="displaymsg" id="3">
+        </item>
+        <item type="displaymsg" id="3">
           <message>La d&#233;sinscription de {{ form_var_enfant }} a bien &#233;t&#233; enregistr&#233;e pour les repas suivants :
 &lt;ul&gt;{% for repas in form_var_repas_structured %}
 &lt;li&gt;{{ repas.text }}&lt;/li&gt;
@@ -96,18 +110,21 @@ Cordialement,</body>
           <position>top</position>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>3</id>
       <name>Erreur lors de la d&#233;sinscription</name>
-      <colour>FF0000</colour>
+      <colour>#FF0000</colour>
       <visibility />
       <items>
         <item type="displaymsg" id="1">
           <position>top</position>
-        </item><item type="sendmail" id="2">
+        </item>
+        <item type="sendmail" id="2">
           <to>
             <item role_id="_receiver">_receiver</item>
-          </to><subject>Erreur Portail Parent :  {{ form_name }} n&#176;{{ form_number }}</subject>
+          </to>
+          <subject>Erreur Portail Parent :  {{ form_name }} n&#176;{{ form_number }}</subject>
           <body>Une erreur est survenue lors de la d&#233;sinscription de {{ form_var_enfant }} des repas.
 
 Veuillez consulter la demande.
@@ -117,23 +134,27 @@ Veuillez consulter la demande.
 Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le support d'iMio
 
 `Contacter le support &lt;support.imio.be&gt;`_</body>
-        </item><item type="choice" id="3">
+        </item>
+        <item type="choice" id="3">
           <label>Relancer la d&#233;sinscription</label>
           <by>
             <item role_id="_receiver">_receiver</item>
             <item role_id="_submitter">_submitter</item>
             <item role_id="logged-users">logged-users</item>
-          </by><status>1</status>
+          </by>
+          <status>1</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Si les probl&amp;egrave;mes ont &amp;eacute;t&amp;eacute; r&amp;eacute;solus, cette action permet de relancer la d&amp;eacute;sinscription dans AES.&lt;/p&gt;
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="choice" id="4">
+        </item>
+        <item type="choice" id="4">
           <label>Signaler la d&#233;sincription comme effective</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-          </by><status>2</status>
+          </by>
+          <status>2</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Si la demande de d&amp;eacute;sinscription a &amp;eacute;&amp;eacute;t enregstr&amp;eacute;e manuellement dans AES, cette action terminera la demande.&lt;/p&gt;
 </backoffice_info_text>
@@ -142,7 +163,8 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
         </item>
       </items>
     </status>
-  </possible_status><variables>
+  </possible_status>
+  <variables>
     <formdef>
       <name>-</name>
       <fields>
@@ -153,45 +175,51 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <hint type="str">Si "Oui", un courriel sera envoy&#233; aux agents traitants pour chaque nouvelle demande de d&#233;sinscription.</hint>
           <varname type="str">notifier_service</varname>
           <display_locations />
+          <anonymise type="str">no</anonymise>
           <display_mode type="str">radio</display_mode>
           <items>
             <item>Oui</item>
             <item>Non</item>
-          </items><in_filters type="bool">False</in_filters>
-          <anonymise type="bool">False</anonymise>
+          </items>
+          <in_filters type="bool">False</in_filters>
           <display_disabled_items type="bool">False</display_disabled_items>
           <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
           <image_desktop_size type="int">150</image_desktop_size>
           <image_mobile_size type="int">75</image_mobile_size>
           <id type="str">1</id>
-        </field><field>
+        </field>
+        <field>
           <type>string</type>
           <label type="str">D&#233;lai, en jours</label>
           <required type="bool">True</required>
           <hint type="str">Indiquez un chiffre &#233;gal ou sup&#233;rieur &#224; 1. Indiquez 0 pour le jour m&#234;me, 1 pour la veille, 2 pour l'avant-veille, etc.</hint>
           <varname type="str">delai_en_jours</varname>
           <display_locations />
+          <anonymise type="str">final</anonymise>
           <validation>
             <type>digits</type>
-          </validation><anonymise type="str">final</anonymise>
+          </validation>
           <id type="str">3</id>
-        </field><field>
+        </field>
+        <field>
           <type>string</type>
           <label type="str">Heure limite</label>
           <required type="bool">True</required>
           <hint type="str">Derni&#232;re heure limite pour la d&#233;sinscription, lors du dernier jour permis par le d&#233;lai, au format hh:mm. </hint>
           <varname type="str">heure_limite</varname>
           <display_locations />
+          <anonymise type="str">final</anonymise>
           <validation>
             <error_message>Indiquez une heure valide, au format hh:mm.</error_message>
             <type>django</type>
             <value>value|time and value|length == 5</value>
-          </validation><anonymise type="str">final</anonymise>
+          </validation>
           <id type="str">2</id>
         </field>
       </fields>
     </formdef>
-  </variables><backoffice-fields>
+  </variables>
+  <backoffice-fields>
     <formdef>
       <name>-</name>
       <fields>
@@ -201,19 +229,22 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <required type="bool">True</required>
           <varname type="str">implantation_scolaire</varname>
           <display_locations>
-            <display_location>summary</display_location>
-            <display_location>listings</display_location>
-          </display_locations><anonymise type="str">final</anonymise>
+            <item>summary</item>
+            <item>listings</item>
+          </display_locations>
+          <anonymise type="str">final</anonymise>
           <id type="str">bo9b3aabbf-e014-43c6-921d-80e2466f699e</id>
-        </field><field>
+        </field>
+        <field>
           <type>string</type>
           <label type="str">Niveau</label>
           <required type="bool">True</required>
           <varname type="str">niveau</varname>
           <display_locations>
-            <display_location>summary</display_location>
-            <display_location>listings</display_location>
-          </display_locations><anonymise type="str">final</anonymise>
+            <item>summary</item>
+            <item>listings</item>
+          </display_locations>
+          <anonymise type="str">final</anonymise>
           <id type="str">boac3839af-df8a-46bc-9b5f-f225e1dcec98</id>
         </field>
       </fields>

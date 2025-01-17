@@ -1,19 +1,21 @@
 <?xml version="1.0"?>
-<workflow id="1" url="https://wcs.dev.publik.love/backoffice/workflows/1/">
+<workflow id="2" url="https://wcs.dev.publik.love/backoffice/workflows/2/">
   <name>Portail Parent - Enregistrement enfant</name>
   <slug>portail-parent-enregistrement-enfant</slug>
-  <category slug="portail-parent" category_id="3">Portail parent</category>
+  <category slug="portail-parent" category_id="1">Portail parent</category>
   <roles>
-    <role id="_debug">Debug</role>
+    <role id="_debug">Support iMio</role>
     <role id="_receiver">Agent traitant</role>
-  </roles><possible_status>
+  </roles>
+  <possible_status>
     <status>
       <id>6</id>
       <name>V&#233;rification de l'existance de l'enfant</name>
       <colour>#FFFFFF</colour>
       <visibility>
         <role>__restricted__</role>
-      </visibility><items>
+      </visibility>
+      <items>
         <item type="webservice_call" id="1">
           <label>V&#233;rification de l'existence de l'enfant</label>
           <method>GET</method>
@@ -22,19 +24,25 @@
             <item>
               <name>national_number</name>
               <value>{{ form_var_enfant_nrn|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>lastname</name>
               <value>{{ form_var_enfant_nom|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>firstname</name>
               <value>{{ form_var_enfant_prenom|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>birthdate</name>
               <value>{{ form_var_enfant_date_naissance|date:"Y-m-d" }}</value>
             </item>
-          </qs_data><post>False</post>
+          </qs_data>
+          <post>False</post>
           <response_type>json</response_type>
           <varname>verification_existance_enfant</varname>
+          <store_all_responses>False</store_all_responses>
+          <attach_file_to_history>True</attach_file_to_history>
           <action_on_app_error>:pass</action_on_app_error>
           <action_on_4xx>:stop</action_on_4xx>
           <action_on_5xx>:stop</action_on_5xx>
@@ -44,53 +52,72 @@
           <record_on_errors>True</record_on_errors>
           <notify_on_errors>False</notify_on_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="2">
+        </item>
+        <item type="jump" id="2">
           <status>7</status>
           <condition>
             <type>django</type>
             <value>form_workflow_data_verification_existance_enfant_response_child</value>
-          </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="3">
+          </condition>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="3">
           <status>1</status>
           <condition>
             <type>django</type>
             <value>form_workflow_data_verification_existance_enfant_response_child is None</value>
-          </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item type="choice" id="4">
-          <label>debg</label>
+          </condition>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="choice" id="4">
+          <label>Enregistrer l'enfant sans v&#233;rification</label>
           <by>
-            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
-          </by><status>1</status>
+            <item role_id="_debug">_debug</item>
+          </by>
+          <status>1</status>
           <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Enregistre l&amp;#39;enfant sans v&amp;eacute;rifier l&amp;#39;existance de doublons.&lt;/p&gt;
+</backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="choice" id="5">
-          <label>Erroner</label>
+        </item>
+        <item type="choice" id="5">
+          <label>Mettre en erreur - deux enfants trouv&#233;s</label>
           <by>
-            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
-          </by><status>11</status>
+            <item role_id="_debug">_debug</item>
+          </by>
+          <status>11</status>
           <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Indique explicitement qu&amp;#39;une erreur est survenue car deux enfants ont &amp;eacute;t&amp;eacute; trouv&amp;eacute;s. Permet de rev&amp;eacute;rifier l&amp;#39;existance d&amp;#39;un doublon avant l&amp;#39;enregistrement de l&amp;#39;enfant.&lt;/p&gt;
+</backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>11</id>
       <name>Erreur - deux enfants trouv&#233;s</name>
       <colour>#FFFFFF</colour>
       <visibility />
       <items>
         <item type="choice" id="1">
-          <label>Rejouer</label>
+          <label>Relancer l'enregistrement de l'enfant</label>
           <by>
-            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
-          </by><status>6</status>
+            <item role_id="_debug">_debug</item>
+          </by>
+          <status>6</status>
           <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;V&amp;eacute;rifie si l&amp;#39;enfant n&amp;#39;existe pas d&amp;eacute;j&amp;agrave; dans iA.AES puis relance l&amp;#39;enregistrement.&lt;/p&gt;
+</backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>1</id>
       <name>Enregistrement de l'enfant</name>
       <colour>#FFFFFF</colour>
@@ -105,39 +132,52 @@
             <item>
               <name>school_implantation_id</name>
               <value>{{ form_var_implantation_scolaire_raw }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>national_number</name>
               <value>{{ form_var_enfant_nrn|default:"" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>level_id</name>
               <value>{{ form_var_annee_scolaire_raw }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>firstname</name>
               <value>{{ form_var_enfant_prenom }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>birthdate</name>
               <value>{{ form_var_enfant_date_naissance|date:"Y-m-d" }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>lastname</name>
               <value>{{ form_var_enfant_nom }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>parent_zipcode</name>
               <value>{{ form_user_var_zipcode }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>municipality_zipcodes</name>
               <value>{{ commune_cp }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>invoicing_differs_by_home</name>
               <value>{{ form_option_child_type_facturation_raw }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>school_implantation</name>
               <value>{{ form_var_implantation_scolaire }}</value>
-            </item><item>
+            </item>
+            <item>
               <name>invoicing_differs_by_school</name>
               <value>{{ form_option_prefered_school_pricing_raw }}</value>
             </item>
-          </post_data><response_type>json</response_type>
+          </post_data>
+          <response_type>json</response_type>
           <varname>enregistrement_enfant</varname>
+          <store_all_responses>False</store_all_responses>
+          <attach_file_to_history>True</attach_file_to_history>
           <action_on_app_error>2</action_on_app_error>
           <action_on_4xx>:stop</action_on_4xx>
           <action_on_5xx>:stop</action_on_5xx>
@@ -147,24 +187,30 @@
           <record_on_errors>True</record_on_errors>
           <notify_on_errors>False</notify_on_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="2">
+        </item>
+        <item type="jump" id="2">
           <status>3</status>
+          <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>7</id>
       <name>L'enfant existe d&#233;j&#224;</name>
       <colour>#FF9900</colour>
       <visibility>
         <role>__restricted__</role>
-      </visibility><items>
+      </visibility>
+      <items>
         <item type="jump" id="1">
           <status>9</status>
+          <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>3</id>
       <name>Votre enfant est bien enregistr&#233;</name>
       <colour>#00FF00</colour>
@@ -181,7 +227,8 @@
           <to>
             <item role_id="_submitter">_submitter</item>
           </to>
-        </item><item type="register-comment" id="2">
+        </item>
+        <item type="register-comment" id="2">
           <comment>&lt;div&gt;
 {% if form_submission_backoffice %}
 &lt;p&gt;
@@ -193,10 +240,12 @@ Retourner sur le &lt;a href="{{ portal_user_url }}portail_parent/"&gt;portail pa
 &lt;/p&gt;
 {% endif %}
 &lt;/div&gt;</comment>
-        </item><item type="sendmail" id="3">
+        </item>
+        <item type="sendmail" id="3">
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><subject>Portail parent : Confirmation de votre enregistrement</subject>
+          </to>
+          <subject>Portail parent : Confirmation de votre enregistrement</subject>
           <body>{{ form_user_var_title }} {{ form_user_var_last_name }} {{ form_user_var_first_name }},
 
 L'inscription de {{form_var_enfant_prenom}} dans notre portail parent a &#233;t&#233; correctement r&#233;alis&#233;e.
@@ -210,7 +259,8 @@ Pour rappel vous pouvez acc&#233;der au portail parent via ce lien :
 Bien cordialement,</body>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>2</id>
       <name>&#201;chec lors de l'enregistrement</name>
       <colour>#FF0000</colour>
@@ -220,10 +270,12 @@ Bien cordialement,</body>
           <message>Une erreur est survenue lors de la cr&#233;ation de l'enfant. Son parent ne peut donc poursuivre les inscriptions de ses enfants.</message>
           <level>error</level>
           <position>top</position>
-        </item><item type="sendmail" id="2">
+        </item>
+        <item type="sendmail" id="2">
           <to>
             <item role_id="_receiver">_receiver</item>
-          </to><subject>Portail parent Erreur : Probl&#232;me d'enregistrement d'un enfant ({{ site_name }})</subject>
+          </to>
+          <subject>Portail parent Erreur : Probl&#232;me d'enregistrement d'un enfant ({{ site_name }})</subject>
           <body>Une erreur est survenue lors de la cr&#233;ation d'un enfant. Celui-ci n'existait pas dans iA.AES et n'a pu &#234;tre cr&#233;&#233;. Il ne peut donc poursuivre les inscriptions de ses enfants.
 
 Veuillez consulter la demande.
@@ -233,32 +285,40 @@ Veuillez consulter la demande.
 Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le support d'iMio
 
 `support.imio.be &lt;support.imio.be&gt;`_</body>
-        </item><item type="choice" id="3">
+        </item>
+        <item type="choice" id="3">
           <label>Relancer l'inscription</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
-          </by><status>6</status>
+            <item role_id="_debug">_debug</item>
+          </by>
+          <status>6</status>
           <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Rev&amp;eacute;rifie et retente l&amp;#39;enregistrement de l&amp;#39;enfant.&lt;/p&gt;
+</backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="choice" id="4">
+        </item>
+        <item type="choice" id="4">
           <label>Noter la demande comme r&#233;gularis&#233;e</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-          </by><status>8</status>
+          </by>
+          <status>8</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>8</id>
       <name>La situation est r&#233;gularis&#233;e</name>
       <colour>#99FF00</colour>
       <visibility />
       <items />
-    </status><status>
+    </status>
+    <status>
       <id>9</id>
       <name>Ajouter un parent</name>
       <colour>#FFFFFF</colour>
@@ -274,8 +334,11 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
               <name>parent_id</name>
               <value>{{ form_user_var_aes_id }}</value>
             </item>
-          </post_data><response_type>json</response_type>
+          </post_data>
+          <response_type>json</response_type>
           <varname>ajout_parent</varname>
+          <store_all_responses>False</store_all_responses>
+          <attach_file_to_history>True</attach_file_to_history>
           <action_on_app_error>12</action_on_app_error>
           <action_on_4xx>12</action_on_4xx>
           <action_on_5xx>12</action_on_5xx>
@@ -285,20 +348,27 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <record_on_errors>True</record_on_errors>
           <notify_on_errors>False</notify_on_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="jump" id="2">
+        </item>
+        <item type="jump" id="2">
           <status>10</status>
+          <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="choice" id="3">
+        </item>
+        <item type="choice" id="3">
           <label>Rejouer l'ajout du parent</label>
           <by>
-            <item slug="debug" role_id="72f464bb94204057b5376ec4f732ff83">Debug</item>
-          </by><status>7</status>
+            <item role_id="_debug">_debug</item>
+          </by>
+          <status>7</status>
           <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Retenter d&amp;#39;ajouter le parent sur l&amp;#39;enfant.&lt;/p&gt;
+</backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>12</id>
       <name>Erreur lors de l'ajout d'un parent</name>
       <colour>#FF0000</colour>
@@ -311,10 +381,12 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <to>
             <item role_id="_receiver">_receiver</item>
           </to>
-        </item><item type="sendmail" id="2">
+        </item>
+        <item type="sendmail" id="2">
           <to>
             <item role_id="_receiver">_receiver</item>
-          </to><subject>Erreur {{ form_name }} n&#176;{{ form_number }}</subject>
+          </to>
+          <subject>Erreur {{ form_name }} n&#176;{{ form_number }}</subject>
           <body>Une erreur est survenue lors de la cr&#233;ation du lien entre l'enfant et le parent. Ce dernier ne peut donc poursuivre les inscriptions de ses enfants.
 
 Veuillez consulter la demande.
@@ -324,48 +396,57 @@ Veuillez consulter la demande.
 Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le support d'iMio
 
 `support.imio.be &lt;support.imio.be&gt;`_</body>
-        </item><item type="choice" id="3">
+        </item>
+        <item type="choice" id="3">
           <label>Relancer l'enregistrement</label>
           <by>
             <item role_id="_receiver">_receiver</item>
             <item role_id="_debug">_debug</item>
-          </by><status>6</status>
+          </by>
+          <status>6</status>
           <require_confirmation>True</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item><item type="choice" id="4">
+        </item>
+        <item type="choice" id="4">
           <label>Noter la demande comme r&#233;gularis&#233;e</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-          </by><status>8</status>
+          </by>
+          <status>8</status>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
+    </status>
+    <status>
       <id>10</id>
       <name>Demande trait&#233;e</name>
       <colour>#00FF00</colour>
       <visibility />
       <items />
     </status>
-  </possible_status><global_actions>
+  </possible_status>
+  <global_actions>
     <action>
       <id>1</id>
       <name>Suppression</name>
       <items>
         <item type="remove" id="1" />
-      </items><triggers>
+      </items>
+      <triggers>
         <trigger type="manual" id="61aa72c2-a964-4143-9c95-a161e7ebba10">
           <roles>
             <item role_id="_debug">_debug</item>
-          </roles><allow_as_mass_action>True</allow_as_mass_action>
+          </roles>
+          <allow_as_mass_action>True</allow_as_mass_action>
           <require_confirmation>False</require_confirmation>
         </trigger>
       </triggers>
     </action>
-  </global_actions><variables>
+  </global_actions>
+  <variables>
     <formdef>
       <name>-</name>
       <fields>
@@ -381,23 +462,32 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <items />
           <data_source>
             <type>aes_oui_non</type>
-          </data_source><in_filters type="bool">False</in_filters>
+          </data_source>
+          <in_filters type="bool">False</in_filters>
           <display_disabled_items type="bool">False</display_disabled_items>
           <initial_zoom type="str">13</initial_zoom>
           <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
           <image_desktop_size type="int">150</image_desktop_size>
           <image_mobile_size type="int">75</image_mobile_size>
           <id type="str">3</id>
-        </field><field>
+        </field>
+        <field>
           <type>item</type>
           <label type="str">Faut-il appliquer le tarif pr&#233;f&#233;rentiel aux enfants scolaris&#233;s dans la commune ?</label>
           <required type="bool">True</required>
           <hint type="str">Si oui, les enfants scolaris&#233;s dans une implantation scolaire de la commune recevront la cat&#233;gorie tarifaire "Commune".</hint>
           <varname type="str">prefered_school_pricing</varname>
+          <display_locations>
+            <item>validation</item>
+            <item>summary</item>
+          </display_locations>
+          <anonymise type="str">no</anonymise>
           <display_mode type="str">radio</display_mode>
+          <items />
           <data_source>
             <type>aes_oui_non</type>
-          </data_source><in_filters type="bool">False</in_filters>
+          </data_source>
+          <in_filters type="bool">False</in_filters>
           <display_disabled_items type="bool">False</display_disabled_items>
           <use_hint_as_first_option type="bool">False</use_hint_as_first_option>
           <image_desktop_size type="int">150</image_desktop_size>
@@ -406,7 +496,8 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
         </field>
       </fields>
     </formdef>
-  </variables><backoffice-fields>
+  </variables>
+  <backoffice-fields>
     <formdef>
       <name>-</name>
       <fields>
@@ -417,8 +508,9 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <hint type="str">Cette information est utilis&#233;e pour d&#233;terminer le type de facturation &#224; appliquer ; typiquement s'il s'agit d'un enfant de la commune ou non.</hint>
           <varname type="str">child_tariff_category</varname>
           <display_locations>
-            <display_location>summary</display_location>
-          </display_locations><anonymise type="str">final</anonymise>
+            <item>summary</item>
+          </display_locations>
+          <anonymise type="str">final</anonymise>
           <id type="str">bo7cd21660-67d9-42f7-a364-ebec2e10657b</id>
         </field>
       </fields>
