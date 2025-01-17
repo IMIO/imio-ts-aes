@@ -4,6 +4,7 @@ Changelog
 2.2.7
 ----------------
 
+- [PP-543] Fixed: send less notifications when updating parent or child.
 - [PP-542] Added: before-after view when updating parent or child
 - [SUP-41515] Use non-global automatic jump with expiration
 - [PP-60] Improve roles definition and usage

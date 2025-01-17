@@ -35,6 +35,10 @@
  souhaite modifier les donn&#233;es de son enfant {{ form_var_enfant }}.{% endif %}
 
 `Consulter la demande &lt;{{ form_url_backoffice }}&gt;`_ pour les v&#233;rifier et les valider.</body>
+          <condition>
+            <type>django</type>
+            <value>not form_option_validation_automatique</value>
+          </condition>
         </item>
         <item type="register-comment" id="5">
           <comment>{% with di=form_var_donnees_initiales %}&lt;p&gt;&lt;b&gt;Donn&#233;es modifi&#233;es :&lt;/b&gt;&lt;/p&gt;
@@ -278,6 +282,10 @@ Cordialement,</body>
 {% if form_slug == "pp-modifier-mes-donnees-parent" %}Les coordonn&#233;es du parent {{ form_user_display_name }} ont &#233;t&#233; modifi&#233;es.{% else %}Les donn&#233;es de l&#8217;enfant {{ form_var_enfant }} ont &#233;t&#233; modifi&#233;es &#224; la demande de son parent {{ form_user_display_name }}.{% endif %}
 
 `Consulter la demande &lt;{{ form_url_backoffice }}&gt;`_</body>
+          <condition>
+            <type>django</type>
+            <value>form_option_email_confirmation</value>
+          </condition>
         </item>
         <item type="jump" id="3">
           <status>4</status>
@@ -439,6 +447,15 @@ Une erreur a &#233;t&#233; rencontr&#233;e pour une demande du formulaire {{ for
           </display_locations>
           <anonymise type="str">no</anonymise>
           <id type="str">c2e6a9e7-6b83-4dee-8680-b770c44945cf</id>
+        </field>
+        <field>
+          <type>bool</type>
+          <label type="str">Recevoir une confirmation d'un changement</label>
+          <required type="bool">False</required>
+          <hint type="str">&lt;p&gt;Cochez cette case pour recevoir une notification par email lorsqu'une la mise &#224; jour a &#233;t&#233; accept&#233;e.&lt;/p&gt;</hint>
+          <varname type="str">email_confirmation</varname>
+          <display_locations />
+          <id type="str">433c2d07-e7be-4080-92e3-073d14c13f7d</id>
         </field>
       </fields>
     </formdef>
