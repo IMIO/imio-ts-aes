@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.2.8
+----------------
+
+- [TELE-2025] Updated: remove passerelle_imio_aes_meal from aes.py.
+- [TELE-2025] Updated: remove passerelle_imio_aes_health from aes.py.
+
 2.2.7
 ----------------
 
