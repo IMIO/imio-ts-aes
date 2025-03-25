@@ -38,6 +38,11 @@
       <colour>#FFFFFF</colour>
       <visibility />
       <items>
+        <item type="displaymsg" id="4">
+          <message>&lt;p&gt;Inscriptions en cours d'enregistrement. Veuillez patienter quelques minutes.&lt;/p&gt;</message>
+          <level>info</level>
+          <position>top</position>
+        </item>
         <item type="webservice_call" id="1">
           <label>Inscriptions aux plaines</label>
           <method>POST</method>
@@ -69,7 +74,7 @@
           <action_on_4xx>6</action_on_4xx>
           <action_on_5xx>6</action_on_5xx>
           <action_on_bad_data>:pass</action_on_bad_data>
-          <action_on_network_errors>:stop</action_on_network_errors>
+          <action_on_network_errors>8</action_on_network_errors>
           <record_errors>False</record_errors>
           <record_on_errors>True</record_on_errors>
           <notify_on_errors>False</notify_on_errors>
@@ -318,6 +323,28 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
       </items>
     </status>
     <status>
+      <id>8</id>
+      <name>Erreur r&#233;seau lors de l'inscription</name>
+      <colour>#ff0000</colour>
+      <visibility>
+        <role>__restricted__</role>
+      </visibility>
+      <items>
+        <item type="choice" id="2">
+          <label>Relancer les inscriptions</label>
+          <by>
+            <item role_id="_support-imio">_support-imio</item>
+          </by>
+          <status>2</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Relance le webservice qui enregistre les inscriptions dans iA.AES. &lt;strong&gt;Attention&lt;/strong&gt; : malgr&amp;eacute; cette erreur, il peut arriver que les inscriptions soient d&amp;eacute;j&amp;agrave; dans iA.AES. Si c&amp;#39;est le cas, il faudra les supprimer juste avant de relancer les inscriptions. Le risque est que les fiches d&amp;#39;inscriptions ne soient pas cr&amp;eacute;&amp;eacute;es et le processus sera bloqu&amp;eacute; dans le statut &amp;quot;Aucune inscription n&amp;#39;a pu aboutir&amp;quot;.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+    <status>
       <id>7</id>
       <name>Aucune inscription n'a pu aboutir</name>
       <colour>#FFFFFF</colour>
@@ -355,7 +382,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
             <item role_id="_support-imio">_support-imio</item>
           </roles>
           <allow_as_mass_action>True</allow_as_mass_action>
-          <require_confirmation>False</require_confirmation>
+          <require_confirmation>True</require_confirmation>
         </trigger>
       </triggers>
     </action>

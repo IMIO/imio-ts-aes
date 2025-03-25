@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.2.9
+----------------
+
+- [PP-556] Added: network error management in workflow Plaines de vacances.
+- [PP-556] Changed: global action to delete Plaines de vacances request requires confirmation.
+
 2.2.8
 ----------------
 
