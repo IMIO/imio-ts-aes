@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.2.10
+----------------
+
+- [PP-559] Removed: obsolete comment field displayed in form when being registered child that already exists.
+
 2.2.9
 ----------------
 
