@@ -3,12 +3,29 @@
   <name>Portail Parent - Maladies</name>
   <slug>portail_parent_maladies</slug>
   <digest_template>{{ block_var_disease }} - {{ block_var_gravity }}</digest_template>
+  <category slug="portail-parents" category_id="1">Portail Parents</category>
   <fields>
+    <field>
+      <type>comment</type>
+      <label type="str">&lt;div&gt;
+&lt;div&gt;
+&lt;p&gt;Si votre enfant ne pr&amp;eacute;sente pas de maladie, merci de cliquer directement sur &amp;ldquo;Suivant&amp;rdquo;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</label>
+      <condition>
+        <type>django</type>
+        <value>block_counter.index == 1</value>
+      </condition>
+      <extra_css_class type="str">pk-information</extra_css_class>
+      <display_locations />
+      <id type="str">bf8fb2bd2d-c189-4f77-9a0e-7e84d1cab0d2</id>
+    </field>
     <field>
       <type>item</type>
       <label type="str">Maladie</label>
       <required type="bool">True</required>
-      <hint type="str">&lt;p&gt;Choisissez&lt;/p&gt;</hint>
+      <hint type="str">&lt;p&gt;Pas de maladie&lt;/p&gt;</hint>
       <varname type="str">disease</varname>
       <display_locations>
         <item>validation</item>
