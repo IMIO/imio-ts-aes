@@ -98,6 +98,7 @@
           <label>Mettre cette demande en erreur</label>
           <by>
             <item role_id="_support-imio">_support-imio</item>
+            <item role_id="_receiver">_receiver</item>
           </by>
           <status>6</status>
           <require_confirmation>False</require_confirmation>
