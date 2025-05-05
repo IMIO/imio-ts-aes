@@ -94,6 +94,18 @@
           <mode>immediate</mode>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
+        <item type="choice" id="5">
+          <label>Mettre cette demande en erreur</label>
+          <by>
+            <item role_id="_support-imio">_support-imio</item>
+          </by>
+          <status>6</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Indique qu&amp;#39;une erreur s&amp;#39;est produite lors de l&amp;#39;enregistrement des inscriptions, ce qui permet de relancer les inscriptions.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
       </items>
     </status>
     <status>

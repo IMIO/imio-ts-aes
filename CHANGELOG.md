@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.2.11
+----------------
+
+- [PP] Added: Manual jump on "Inscription aux plaines" status in "Plaines de vacances" workflow
+
 2.2.10
 ----------------
 
