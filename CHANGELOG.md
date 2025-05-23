@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.2.12
+----------------
+
+- [SUP-44639] Changed: Use parent from compute amount to create reserved balance and payment in school meals.
+
 2.2.11
 ----------------
 

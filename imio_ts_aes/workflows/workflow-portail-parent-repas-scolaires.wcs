@@ -570,7 +570,7 @@ Si vous avez pass&#233; d'autres commandes pour le m&#234;me enfant pour la m&#2
         <item type="webservice_call" id="1">
           <label>Encodage du paiement</label>
           <method>POST</method>
-          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ form_user_var_aes_id }}/payments/</url>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ form_workflow_data_montant_response_parent_id }}/payments/</url>
           <post>False</post>
           <post_data>
             <item>
@@ -615,7 +615,7 @@ Si vous avez pass&#233; d'autres commandes pour le m&#234;me enfant pour la m&#2
         <item type="webservice_call" id="2">
           <label>R&#233;servation du solde</label>
           <method>POST</method>
-          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ form_user_var_aes_id }}/reserved-balances/</url>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ form_workflow_data_montant_response_parent_id }}/reserved-balances/</url>
           <post>False</post>
           <post_data>
             <item>
