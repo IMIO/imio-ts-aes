@@ -66,7 +66,7 @@ JSON_CELL_TYPES.update(
       "pp_bienvenue_portail_parent": {
          "name": "Portail Parent - Bienvenue sur le Portail Parent",
          "cache_duration": 0,
-         "url": "w"
+         "url": "{{ idp_url }}api/users/{{ user_nameid }}"
       }
    }
 )
@@ -133,7 +133,7 @@ JSON_CELL_TYPES.update(
       "pp_general_factures_attestations": {
          "name": "Portail Parent - Général Factures et Attestations",
          "cache_duration": 0,
-         "url": "w"
+         "url": "{{ idp_url }}api/users/{{ user_nameid }}",
       }
    }
 )
