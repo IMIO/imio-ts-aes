@@ -47,6 +47,50 @@
             ]
         },
         {
+            "slug": "agent-admin-portail-parents-accueil",
+            "name": "Agent admin - Portail Parents - Accueil",
+            "ou": {
+                "slug": "default"
+            },
+            "parents": [
+                {
+                    "ou": {
+                        "slug": "default"
+                    },
+                    "slug": "_a2-managers-of-role-agent-traitant-portail-parents-accueil"
+                },
+                {
+                    "name": "Agent",
+                    "ou": {
+                        "slug": "default"
+                    },
+                    "slug": "agent"
+                }
+            ]
+        },
+        {
+            "slug": "agent-admin-portail-parents-finance",
+            "name": "Agent admin - Portail Parents - Finance",
+            "ou": {
+                "slug": "default"
+            },
+            "parents": [
+                {
+                    "ou": {
+                        "slug": "default"
+                    },
+                    "slug": "_a2-managers-of-role-agent-traitant-portail-parents-finance"
+                },
+                {
+                    "name": "Agent",
+                    "ou": {
+                        "slug": "default"
+                    },
+                    "slug": "agent"
+                }
+            ]
+        },
+        {
             "slug": "agent-imio-portail-parents",
             "name": "Agent iMio - Portail Parents",
             "ou": {
@@ -150,6 +194,60 @@
         {
             "slug": "agent-traitant-portail-parents-repas",
             "name": "Agent traitant - Portail Parents - Repas",
+            "ou": {
+                "name": "Collectivit\u00e9 par d\u00e9faut",
+                "slug": "default"
+            },
+            "parents": [
+                {
+                    "name": "Agent",
+                    "ou": {
+                        "name": "Collectivit\u00e9 par d\u00e9faut",
+                        "slug": "default"
+                    },
+                    "slug": "agent"
+                },
+                {
+                    "service": null,
+                    "name": "Agent traitant - Portail Parents",
+                    "ou": {
+                        "name": "Collectivit\u00e9 par d\u00e9faut",
+                        "slug": "default"
+                    },
+                    "slug": "agent-traitant-portail-parents"
+                }
+            ]
+        },
+        {
+            "slug": "agent-traitant-portail-parents-accueil",
+            "name": "Agent traitant - Portail Parents - Accueil",
+            "ou": {
+                "name": "Collectivit\u00e9 par d\u00e9faut",
+                "slug": "default"
+            },
+            "parents": [
+                {
+                    "name": "Agent",
+                    "ou": {
+                        "name": "Collectivit\u00e9 par d\u00e9faut",
+                        "slug": "default"
+                    },
+                    "slug": "agent"
+                },
+                {
+                    "service": null,
+                    "name": "Agent traitant - Portail Parents",
+                    "ou": {
+                        "name": "Collectivit\u00e9 par d\u00e9faut",
+                        "slug": "default"
+                    },
+                    "slug": "agent-traitant-portail-parents"
+                }
+            ]
+        },
+        {
+            "slug": "agent-traitant-portail-parents-finance",
+            "name": "Agent traitant - Portail Parents - Finance",
             "ou": {
                 "name": "Collectivit\u00e9 par d\u00e9faut",
                 "slug": "default"

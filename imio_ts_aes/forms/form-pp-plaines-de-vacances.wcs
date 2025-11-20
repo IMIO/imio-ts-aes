@@ -2,8 +2,10 @@
 <formdef id="10" url="https://wcs.dev.publik.love/backoffice/forms/10/">
   <name>Plaines de vacances</name>
   <url_name>pp-plaines-de-vacances</url_name>
+  <keywords>Plaines de vacances, inscriptions</keywords>
   <drafts_lifespan>2</drafts_lifespan>
   <submission_user_association>any</submission_user_association>
+  <history_pane_default_mode>expanded</history_pane_default_mode>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
   <disabled>false</disabled>
@@ -13,7 +15,7 @@
   <always_advertise>false</always_advertise>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category slug="portail-parent" category_id="10">Portail Parents</category>
+  <category slug="portail-parent" category_id="5">Portail Parents</category>
   <workflow slug="portail-parent-plaines-de-vacances" workflow_id="10">Portail Parent - Plaines de vacances</workflow>
   <fields>
     <field>
@@ -58,7 +60,7 @@
     <field>
       <type>item</type>
       <label type="str">Choisissez l'enfant &#224; inscrire aux plaines</label>
-      <required type="bool">False</required>
+      <required type="str">optional</required>
       <varname type="str">enfant</varname>
       <display_locations>
         <item>validation</item>
@@ -100,7 +102,7 @@
     <field>
       <type>items</type>
       <label type="str">Plaines</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <hint type="str">Choisissez vos plaines</hint>
       <varname type="str">activities_plaines</varname>
       <display_locations>
@@ -148,7 +150,7 @@
         <type>django</type>
         <value>pp_redirection_navette</value>
       </condition>
-      <required type="bool">False</required>
+      <required type="str">optional</required>
       <hint type="str">Vous serez redirig&#233;s vers un formulaire pour la r&#233;servation de navette.</hint>
       <varname type="str">redirection_navette</varname>
       <display_locations />
@@ -169,8 +171,8 @@
     <option varname="mode_de_paiement">Paiement en ligne</option>
     <option varname="mode_de_paiement_display">Paiement en ligne</option>
     <option varname="mode_de_paiement_structured" />
-    <option varname="ouvertes_aux_habitants">Oui</option>
-    <option varname="ouvertes_aux_habitants_display">Oui</option>
+    <option varname="ouvertes_aux_habitants">Ouvrir les plaines &#224; tous</option>
+    <option varname="ouvertes_aux_habitants_display">Ouvrir les plaines &#224; tous</option>
     <option varname="ouvertes_aux_habitants_structured" />
   </options>
   <custom_views />
@@ -178,4 +180,7 @@
   <management_sidebar_items>
     <item>__default__</item>
   </management_sidebar_items>
+  <submission_sidebar_items>
+    <item>__default__</item>
+  </submission_sidebar_items>
 </formdef>

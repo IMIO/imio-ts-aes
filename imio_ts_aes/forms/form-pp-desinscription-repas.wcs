@@ -2,7 +2,9 @@
 <formdef id="1" url="https://wcs.dev.publik.love/backoffice/forms/1/">
   <name>D&#233;sinscription Repas scolaires</name>
   <url_name>pp-desinscription-repas</url_name>
+  <keywords>Repas scolaires, d&#233;sinscriptions</keywords>
   <submission_user_association>any</submission_user_association>
+  <history_pane_default_mode>expanded</history_pane_default_mode>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
   <disabled>false</disabled>
@@ -12,7 +14,7 @@
   <always_advertise>false</always_advertise>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category slug="portail-parent" category_id="10">Portail Parents</category>
+  <category slug="portail-parent" category_id="5">Portail Parents</category>
   <workflow slug="portail-parent-repas-scolaires-desinscription" workflow_id="1">Portail Parent - Repas scolaires - D&#233;sinscription</workflow>
   <fields>
     <field>
@@ -40,7 +42,7 @@
     <field>
       <type>item</type>
       <label type="str">Enfant</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">enfant</varname>
       <display_locations>
         <item>validation</item>
@@ -89,7 +91,7 @@
     <field>
       <type>items</type>
       <label type="str">Cochez les dates desquelles vous souhaitez d&#233;sinscrire votre enfant des repas scolaires :</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">repas</varname>
       <display_locations>
         <item>validation</item>
@@ -131,4 +133,7 @@
   <management_sidebar_items>
     <item>__default__</item>
   </management_sidebar_items>
+  <submission_sidebar_items>
+    <item>__default__</item>
+  </submission_sidebar_items>
 </formdef>

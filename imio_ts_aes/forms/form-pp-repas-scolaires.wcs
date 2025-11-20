@@ -2,8 +2,10 @@
 <formdef id="11" url="https://wcs.dev.publik.love/backoffice/forms/11/">
   <name>Repas scolaires</name>
   <url_name>pp-repas-scolaires</url_name>
+  <keywords>Repas scolaires, inscriptions</keywords>
   <drafts_lifespan>2</drafts_lifespan>
   <submission_user_association>any</submission_user_association>
+  <history_pane_default_mode>expanded</history_pane_default_mode>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
   <disabled>false</disabled>
@@ -13,7 +15,7 @@
   <always_advertise>false</always_advertise>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category slug="portail-parent" category_id="10">Portail Parents</category>
+  <category slug="portail-parent" category_id="5">Portail Parents</category>
   <workflow slug="portail-parent-repas-scolaires" workflow_id="11">Portail Parent - Repas scolaires</workflow>
   <fields>
     <field>
@@ -48,7 +50,7 @@
     <field>
       <type>item</type>
       <label type="str">Enfant</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">enfant</varname>
       <display_locations>
         <item>validation</item>
@@ -119,7 +121,7 @@
     <field>
       <type>items</type>
       <label type="str">Menu</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">repas</varname>
       <display_locations>
         <item>validation</item>
@@ -185,4 +187,7 @@
   <management_sidebar_items>
     <item>__default__</item>
   </management_sidebar_items>
+  <submission_sidebar_items>
+    <item>__default__</item>
+  </submission_sidebar_items>
 </formdef>

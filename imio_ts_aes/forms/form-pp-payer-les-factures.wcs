@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<formdef id="16" url="https://wcs.dev.publik.love/backoffice/forms/16/">
+  <name>Payer l'ensemble des factures</name>
+  <url_name>pp-payer-les-factures</url_name>
+  <submission_user_association>any</submission_user_association>
+  <history_pane_default_mode>expanded</history_pane_default_mode>
+  <discussion>false</discussion>
+  <detailed_emails>true</detailed_emails>
+  <disabled>false</disabled>
+  <only_allow_one>false</only_allow_one>
+  <enable_tracking_codes>false</enable_tracking_codes>
+  <confirmation>false</confirmation>
+  <always_advertise>false</always_advertise>
+  <has_captcha>false</has_captcha>
+  <skip_from_360_view>false</skip_from_360_view>
+  <category slug="portail-parent" category_id="5">Portail Parents</category>
+  <workflow slug="pp-tout-payer" workflow_id="23">iMio - Portail Parent - Tout payer</workflow>
+  <fields>
+    <field>
+      <type>items</type>
+      <label type="str">Factures</label>
+      <required type="str">required</required>
+      <varname type="str">factures</varname>
+      <display_locations>
+        <item>validation</item>
+        <item>summary</item>
+      </display_locations>
+      <extra_css_class type="str">hidden</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <locked-unless-empty>False</locked-unless-empty>
+        <type>string</type>
+        <value>{{request.GET.factures|split:","}}</value>
+      </prefill>
+      <anonymise type="str">final</anonymise>
+      <display_mode type="str">checkboxes</display_mode>
+      <min_choices type="int">1</min_choices>
+      <max_choices type="int">0</max_choices>
+      <data_source>
+        <type>pp_factures_impayees</type>
+      </data_source>
+      <in_filters type="bool">False</in_filters>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <image_desktop_size type="str">150</image_desktop_size>
+      <image_mobile_size type="str">75</image_mobile_size>
+      <id type="str">57a87837-9d9e-4353-a436-726f1003375e</id>
+    </field>
+    <field>
+      <type>comment</type>
+      <label type="str">&lt;p&gt;factures&lt;/p&gt;
+</label>
+      <extra_css_class type="str">template-pp_payer_toutes_factures</extra_css_class>
+      <display_locations />
+      <id type="str">ee913930-d491-4ba9-a7d1-c77518f731bc</id>
+    </field>
+  </fields>
+  <user-roles>
+    <role role_id="logged-users">logged-users</role>
+  </user-roles>
+  <roles>
+    <role slug="agent-imio-portail-parents" role_id="17ebb1be538243ae90fd1f40f240c120" role_key="_support-imio">Agent iMio - Portail Parents</role>
+    <role slug="agent-traitant-portail-parents-finance" role_id="30c3484b8d2946d6bd9620bd470d0cd2" role_key="_receiver">Agent traitant - Portail Parents - Finance</role>
+  </roles>
+  <options />
+  <custom_views />
+  <geolocations />
+  <management_sidebar_items>
+    <item>__default__</item>
+  </management_sidebar_items>
+  <submission_sidebar_items>
+    <item>__default__</item>
+  </submission_sidebar_items>
+</formdef>

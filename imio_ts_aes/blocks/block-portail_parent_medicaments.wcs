@@ -3,11 +3,12 @@
   <name>Portail Parent - M&#233;dicaments</name>
   <slug>portail_parent_medicaments</slug>
   <digest_template>{{ block_var_name }} - {{ block_var_quantity }}/jour {{ block_var_period }}</digest_template>
+  <category slug="imio-portail-parent" category_id="10">iMio - Portail Parent</category>
   <fields>
     <field>
       <type>string</type>
       <label type="str">Nom du m&#233;dicament</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">name</varname>
       <display_locations>
         <item>validation</item>
@@ -20,7 +21,7 @@
     <field>
       <type>string</type>
       <label type="str">Prises par jour</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">quantity</varname>
       <display_locations>
         <item>validation</item>
@@ -36,7 +37,7 @@
     <field>
       <type>string</type>
       <label type="str">P&#233;riodes de prise</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">period</varname>
       <display_locations>
         <item>validation</item>
@@ -49,7 +50,7 @@
     <field>
       <type>item</type>
       <label type="str">Votre enfant peut-il prendre ce m&#233;dicament seul ?</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">self_medication_selection</varname>
       <display_locations>
         <item>validation</item>
@@ -58,6 +59,7 @@
       <extra_css_class type="str">newline grid-1-2</extra_css_class>
       <anonymise type="str">no</anonymise>
       <display_mode type="str">radio</display_mode>
+      <items />
       <data_source>
         <type>jsonvalue</type>
         <value>{{ form_var_fiche_sante_selections|get:"self_medication"|json_dumps }}</value>

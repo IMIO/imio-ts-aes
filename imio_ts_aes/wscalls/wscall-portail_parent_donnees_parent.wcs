@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<wscall id="portail_parent_donnees_parent" url="">
+<wscall id="4" url="https://wcs.dev.publik.love/backoffice/settings/wscalls/4/">
   <name>Portail Parent - Donn&#233;es du parent</name>
   <slug>portail_parent_donnees_parent</slug>
   <request>
@@ -10,5 +10,6 @@
     <cache_duration>60</cache_duration>
     <qs_data />
     <post_data />
-  </request><record_on_errors>true</record_on_errors>
+  </request>
+  <record_on_errors>true</record_on_errors>
 </wscall>

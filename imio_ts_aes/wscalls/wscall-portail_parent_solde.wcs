@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<wscall id="portail_parent_solde" url="https://wcs.dev.publik.love/backoffice/settings/wscalls/portail_parent_solde/">
+<wscall id="2" url="https://wcs.dev.publik.love/backoffice/settings/wscalls/2/">
   <name>Portail Parent - Solde</name>
   <slug>portail_parent_solde</slug>
   <request>
@@ -9,8 +9,9 @@
     <timeout />
     <cache_duration />
     <qs_data>
-      <param key="child_id">{{ form_var_enfant_id }}</param>
       <param key="month">{{ form_option_mois_raw }}</param>
-    </qs_data><post_data />
+      <param key="child_id">{{ form_var_enfant_id }}</param>
+    </qs_data>
+    <post_data />
   </request>
 </wscall>

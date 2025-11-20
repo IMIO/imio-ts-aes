@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<datasource id="25" url="https://wcs.dev.publik.love/backoffice/settings/data-sources/25/">
+  <name>Portail Parent - Cat&#233;gories d'activit&#233;s</name>
+  <slug>pp_category_prepaid</slug>
+  <cache_duration>600</cache_duration>
+  <data_attribute>items</data_attribute>
+  <text_attribute>name</text_attribute>
+  <data_source>
+    <type>json</type>
+    <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/activity_categories/activity-categories</value>
+  </data_source>
+  <category slug="portail-parent" category_id="11">Portail Parent</category>
+</datasource>

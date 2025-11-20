@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<datasource id="13" url="https://wcs.dev.publik.love/backoffice/settings/data-sources/13/">
+<datasource id="8" url="https://wcs.dev.publik.love/backoffice/settings/data-sources/8/">
   <name>Portail Parent - Niveaux</name>
   <slug>portail_parent_niveaux</slug>
   <data_attribute>items</data_attribute>
@@ -9,4 +9,5 @@
     <type>json</type>
     <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/levels</value>
   </data_source>
+  <category slug="portail-parent" category_id="11">Portail Parent</category>
 </datasource>

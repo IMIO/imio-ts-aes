@@ -1,0 +1,402 @@
+<?xml version="1.0"?>
+<workflow id="21" url="https://wcs.dev.publik.love/backoffice/workflows/21/">
+  <name>iMio - Portail Parent - Payer une facture</name>
+  <slug>imio-portail-parent-payer-une-facture</slug>
+  <category slug="portail-parent" category_id="8">Portail parent</category>
+  <roles>
+    <role id="_receiver">Agent traitant</role>
+    <role id="_support-imio">Support iMio</role>
+  </roles>
+  <possible_status>
+    <status>
+      <id>1</id>
+      <name>Juste envoy&#233;</name>
+      <colour>#FFFFFF</colour>
+      <visibility>
+        <role>__restricted__</role>
+      </visibility>
+      <items>
+        <item type="set-backoffice-fields" id="1">
+          <label>Paiement</label>
+          <fields>
+            <field>
+              <field_id>bo4413471e-d2b0-4d57-8ac8-c42a5a5ecc7b</field_id>
+              <value>{{ form_var_facture_due_amount|decimal }}</value>
+            </field>
+            <field>
+              <field_id>bo4167a755-1f4f-43e7-8bd6-1d4e987cfb10</field_id>
+              <value>{{cards|objects:"pp-regie-categorie"|filter_by:"id_categorie"|in|filter_value:form_var_facture_activity_categories|first|get:"form_var_id_regie_de_paiement"}}</value>
+            </field>
+            <field>
+              <field_id>bob9f56be7-ffcd-438e-9309-96e2c5f6f909</field_id>
+              <value>{{cards|objects:"pp-regie-categorie"|filter_by:"id_categorie"|in|filter_value:form_var_facture_activity_categories|first|get:"form_var_id_categorie"}}</value>
+            </field>
+          </fields>
+        </item>
+        <item type="jump" id="3">
+          <status>16</status>
+          <condition>
+            <type>django</type>
+            <value>forms|objects:"pp-payer-une-facture"|filter_by:"facture"|filter_value:form_var_facture_structured_id|pending|length &gt; 1</value>
+          </condition>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="2">
+          <status>2</status>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+    <status>
+      <id>2</id>
+      <name>Paiement en ligne</name>
+      <colour>#f9f06b</colour>
+      <visibility />
+      <items>
+        <item type="webservice_call" id="1">
+          <label>paiement en ligne</label>
+          <method>POST</method>
+          <url>{{portal_url}}api/lingo/add-basket-item?NameId={{form_user_name_identifier_0}}</url>
+          <qs_data>
+            <item>
+              <name>regie_id</name>
+              <value>{{ form_var_regie_de_paiement }}</value>
+            </item>
+          </qs_data>
+          <post>False</post>
+          <post_data>
+            <item>
+              <name>url</name>
+              <value>{{form_url}}</value>
+            </item>
+            <item>
+              <name>display_name</name>
+              <value>{{form_display_name}}</value>
+            </item>
+            <item>
+              <name>amount</name>
+              <value>{{form_var_wf_total}}</value>
+            </item>
+          </post_data>
+          <response_type>json</response_type>
+          <varname>transaction_info</varname>
+          <store_all_responses>False</store_all_responses>
+          <attach_file_to_history>True</attach_file_to_history>
+          <action_on_app_error>14</action_on_app_error>
+          <action_on_4xx>:stop</action_on_4xx>
+          <action_on_5xx>:stop</action_on_5xx>
+          <action_on_bad_data>:pass</action_on_bad_data>
+          <action_on_network_errors>:stop</action_on_network_errors>
+          <record_errors>False</record_errors>
+          <record_on_errors>True</record_on_errors>
+          <notify_on_errors>True</notify_on_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="register-comment" id="2">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
+          <comment>&lt;p&gt;L'article se trouve dans votre panier.&lt;br&gt;
+Veuillez r&#233;gler votre commande.&lt;/p&gt;
+&lt;p&gt;
+&lt;a href="{{portal_user_url}}panier" class="pk-button"&gt;Acc&#233;der au panier&lt;/a&gt;
+&lt;/p&gt;</comment>
+          <level>info</level>
+        </item>
+        <item type="displaymsg" id="3">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
+          <message>&lt;p&gt;L'article se trouve dans votre panier.&lt;br&gt;
+Veuillez r&#233;gler votre commande.&lt;/p&gt;
+&lt;p&gt;
+&lt;a href="{{portal_user_url}}panier" class="pk-button"&gt;Acc&#233;der au panier&lt;/a&gt;
+&lt;/p&gt;</message>
+          <level>info</level>
+          <position>top</position>
+        </item>
+        <item type="jump" id="4">
+          <status>3</status>
+          <mode>trigger</mode>
+          <trigger>cancelled</trigger>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="5">
+          <status>4</status>
+          <mode>trigger</mode>
+          <trigger>paid</trigger>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+    <status>
+      <id>3</id>
+      <name>Paiement annul&#233;</name>
+      <colour>#999999</colour>
+      <forced_endpoint>true</forced_endpoint>
+      <visibility />
+      <items />
+    </status>
+    <status>
+      <id>4</id>
+      <name>Paiement re&#231;u</name>
+      <colour>#00FF66</colour>
+      <visibility />
+      <items>
+        <item type="webservice_call" id="4">
+          <label>Encodage du paiement</label>
+          <method>POST</method>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ form_user_var_aes_id }}/invoices/{{form_var_facture_id}}/pay</url>
+          <post>False</post>
+          <post_data>
+            <item>
+              <name>activity_category_id</name>
+              <value>{{ form_var_categorie_d_activite }}</value>
+            </item>
+            <item>
+              <name>amount</name>
+              <value>{{ form_var_wf_total|decimal }}</value>
+            </item>
+            <item>
+              <name>comment</name>
+              <value>Paiement par le Portail Parent</value>
+            </item>
+            <item>
+              <name>prepayment_by_category_id</name>
+              <value>{{ form_var_prepaiement_id }}</value>
+            </item>
+            <item>
+              <name>transaction_id</name>
+              <value>{{form_workflow_data_bank_transaction_id}}</value>
+            </item>
+            <item>
+              <name>date</name>
+              <value>{{today}}</value>
+            </item>
+            <item>
+              <name>type</name>
+              <value>online</value>
+            </item>
+            <item>
+              <name>form_url</name>
+              <value>{{ form_url_backoffice }}</value>
+            </item>
+          </post_data>
+          <response_type>json</response_type>
+          <varname>encodage_paiement</varname>
+          <store_all_responses>False</store_all_responses>
+          <attach_file_to_history>True</attach_file_to_history>
+          <action_on_app_error>15</action_on_app_error>
+          <action_on_4xx>15</action_on_4xx>
+          <action_on_5xx>15</action_on_5xx>
+          <action_on_bad_data>15</action_on_bad_data>
+          <action_on_network_errors>15</action_on_network_errors>
+          <record_errors>True</record_errors>
+          <record_on_errors>True</record_on_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="3">
+          <status>12</status>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+    <status>
+      <id>12</id>
+      <name>Trait&#233;</name>
+      <colour>#00FF66</colour>
+      <forced_endpoint>true</forced_endpoint>
+      <visibility />
+      <items>
+        <item type="sendmail" id="1">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
+          <subject>{{form_name}} - Paiement receptionn&#233;</subject>
+          <body>Bonjour,
+
+Nous avons bien r&#233;ceptionn&#233; votre paiement de {{form_var_wf_total}} &#8364;.
+
+Bien &#224; vous</body>
+        </item>
+        <item type="register-comment" id="2">
+          <comment>Nous avons bien r&#233;ceptionn&#233; votre paiement de {{form_var_wf_total}} &#8364; .
+</comment>
+          <level>success</level>
+        </item>
+      </items>
+    </status>
+    <status>
+      <id>13</id>
+      <name>Suppression</name>
+      <colour>#FFFFFF</colour>
+      <forced_endpoint>true</forced_endpoint>
+      <visibility />
+      <items>
+        <item type="webservice_call" id="1">
+          <label>Supprimer du panier</label>
+          <method>POST</method>
+          <url>{{portal_url}}api/lingo/remove-basket-item?NameId={{form_user_name_identifier_0}}</url>
+          <post>False</post>
+          <post_data>
+            <item>
+              <name>basket_item_id</name>
+              <value>{{ transaction_info_response_id }}</value>
+            </item>
+            <item>
+              <name>skip_notification</name>
+              <value>skip</value>
+            </item>
+          </post_data>
+          <response_type>json</response_type>
+          <varname>annulation</varname>
+          <store_all_responses>False</store_all_responses>
+          <attach_file_to_history>True</attach_file_to_history>
+          <action_on_app_error>:pass</action_on_app_error>
+          <action_on_4xx>:stop</action_on_4xx>
+          <action_on_5xx>:stop</action_on_5xx>
+          <action_on_bad_data>:pass</action_on_bad_data>
+          <action_on_network_errors>:stop</action_on_network_errors>
+          <record_errors>False</record_errors>
+          <record_on_errors>True</record_on_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <condition>
+            <type>django</type>
+            <value>form_workflow_data_transaction_info_status == 200 and not form_workflow_data_bank_transaction_id</value>
+          </condition>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="remove" id="2" />
+      </items>
+    </status>
+    <status>
+      <id>14</id>
+      <name>Une erreur s'est produite</name>
+      <colour>#FF0000</colour>
+      <visibility />
+      <items>
+        <item type="sendmail" id="2">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to>
+          <subject>{{form_name}}</subject>
+          <body>Une demande a besoin de votre attention : {{ form_url_backoffice }}</body>
+        </item>
+        <item type="choice" id="3">
+          <label>Revenir &#224; paiement en ligne</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+            <item role_id="_support-imio">_support-imio</item>
+          </by>
+          <status>2</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;A n&amp;#39;utiliser que quand le probl&amp;egrave;me est r&amp;eacute;gl&amp;eacute;.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+    <status>
+      <id>15</id>
+      <name>Erreur lors de la r&#233;ception du paiement</name>
+      <colour>#ff0000</colour>
+      <visibility />
+      <items>
+        <item type="sendmail" id="2">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to>
+          <subject>{{form_name}}</subject>
+          <body>Une demande a besoin de votre attention : {{ form_url_backoffice }}</body>
+        </item>
+        <item type="choice" id="1">
+          <label>R&#233;encoder le paiement</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+            <item role_id="_support-imio">_support-imio</item>
+          </by>
+          <status>4</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+    <status>
+      <id>16</id>
+      <name>Facture d&#233;j&#224; dans le panier</name>
+      <colour>#77767b</colour>
+      <forced_endpoint>true</forced_endpoint>
+      <visibility />
+      <items />
+    </status>
+  </possible_status>
+  <global_actions>
+    <action>
+      <id>1</id>
+      <name>Supprimer la demande</name>
+      <items>
+        <item type="jump" id="2">
+          <status>13</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+      <triggers>
+        <trigger type="manual" id="054193c1-0c48-45d4-a695-b0d6502b5863">
+          <roles>
+            <item role_id="_support-imio">_support-imio</item>
+          </roles>
+          <allow_as_mass_action>True</allow_as_mass_action>
+          <require_confirmation>True</require_confirmation>
+        </trigger>
+      </triggers>
+    </action>
+  </global_actions>
+  <backoffice-fields>
+    <formdef>
+      <name>-</name>
+      <fields>
+        <field>
+          <type>string</type>
+          <label type="str">total</label>
+          <required type="str">required</required>
+          <varname type="str">wf_total</varname>
+          <display_locations>
+            <item>summary</item>
+          </display_locations>
+          <anonymise type="str">final</anonymise>
+          <id type="str">bo4413471e-d2b0-4d57-8ac8-c42a5a5ecc7b</id>
+        </field>
+        <field>
+          <type>string</type>
+          <label type="str">r&#233;gie de paiement</label>
+          <required type="str">required</required>
+          <varname type="str">regie_de_paiement</varname>
+          <display_locations>
+            <item>validation</item>
+            <item>summary</item>
+          </display_locations>
+          <anonymise type="str">final</anonymise>
+          <id type="str">bo4167a755-1f4f-43e7-8bd6-1d4e987cfb10</id>
+        </field>
+        <field>
+          <type>string</type>
+          <label type="str">Cat&#233;gorie d'activit&#233;</label>
+          <required type="str">required</required>
+          <varname type="str">categorie_d_activite</varname>
+          <display_locations>
+            <item>validation</item>
+            <item>summary</item>
+          </display_locations>
+          <anonymise type="str">final</anonymise>
+          <id type="str">bob9f56be7-ffcd-438e-9309-96e2c5f6f909</id>
+        </field>
+      </fields>
+    </formdef>
+  </backoffice-fields>
+</workflow>

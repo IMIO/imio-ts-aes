@@ -2,7 +2,7 @@
 <workflow id="6" url="https://wcs.dev.publik.love/backoffice/workflows/6/">
   <name>Portail Parent - Finalisation des inscriptions</name>
   <slug>portail-parent-finalisation-des-inscriptions</slug>
-  <category slug="portail-parent" category_id="1">Portail parent</category>
+  <category slug="portail-parent" category_id="8">Portail parent</category>
   <roles>
     <role id="_receiver">Agent traitant</role>
     <role id="_support-imio">Support iMio</role>
@@ -161,13 +161,14 @@
             <type>django</type>
             <value>form_option_calcul_montant in "Calculer le montant manuellement, Demander le montant &#224; AES avec validation" and form_option_mode_paiement == "Paiement par virement"</value>
           </condition>
+          <include_in_form_history>False</include_in_form_history>
           <formdef>
             <name>-</name>
             <fields>
               <field>
                 <type>string</type>
                 <label type="str">Montant</label>
-                <required type="bool">True</required>
+                <required type="str">required</required>
                 <hint type="str">Indiquez le montant &#224; payer, en euros. Ne pr&#233;cisez pas la monnaie.</hint>
                 <varname type="str">montant</varname>
                 <display_locations />
@@ -186,7 +187,7 @@
               <field>
                 <type>string</type>
                 <label type="str">Communication</label>
-                <required type="bool">False</required>
+                <required type="str">optional</required>
                 <hint type="str">Si vide, le num&#233;ro de suivi du formulaire est envoy&#233;.</hint>
                 <varname type="str">communication</varname>
                 <display_locations />
@@ -200,7 +201,7 @@
               <field>
                 <type>text</type>
                 <label type="str">Informations compl&#233;mentaires</label>
-                <required type="bool">False</required>
+                <required type="str">optional</required>
                 <hint type="str">Indiquez les d&#233;lais pour effectuer le virement ainsi que toute autre information utile au parent.</hint>
                 <varname type="str">info_complementaires</varname>
                 <display_locations />
@@ -242,12 +243,12 @@
           </condition>
         </item>
         <item type="displaymsg" id="7">
-          <message>Nous vous confirmons les inscriptions effectu&#233;es. Les places sont r&#233;serv&#233;es pour le moment. Vous recevrez prochainement un email contenant les modalit&#233;s de paiement par virement bancaire. Une fois le paiement effectu&#233; et valid&#233; par nos services, les places seront d&#233;finitivement r&#233;serv&#233;es. Si le paiement n'a pas &#233;t&#233; effectu&#233; dans les d&#233;lais impartis, les places seront lib&#233;r&#233;es.</message>
-          <level>success</level>
-          <position>top</position>
           <to>
             <item role_id="_submitter">_submitter</item>
           </to>
+          <message>Nous vous confirmons les inscriptions effectu&#233;es. Les places sont r&#233;serv&#233;es pour le moment. Vous recevrez prochainement un email contenant les modalit&#233;s de paiement par virement bancaire. Une fois le paiement effectu&#233; et valid&#233; par nos services, les places seront d&#233;finitivement r&#233;serv&#233;es. Si le paiement n'a pas &#233;t&#233; effectu&#233; dans les d&#233;lais impartis, les places seront lib&#233;r&#233;es.</message>
+          <level>success</level>
+          <position>top</position>
           <condition>
             <type>django</type>
             <value>form_option_mode_paiement == "Paiement par virement"</value>
@@ -306,13 +307,14 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
             <type>django</type>
             <value>form_option_mode_paiement == "Paiement en ligne"</value>
           </condition>
+          <include_in_form_history>False</include_in_form_history>
           <formdef>
             <name>-</name>
             <fields>
               <field>
                 <type>numeric</type>
                 <label type="str">Montant</label>
-                <required type="bool">True</required>
+                <required type="str">required</required>
                 <hint type="str">Indiquez le montant puis validez. Ce montant sera directement disponible dans le panier de l'utilisateur.</hint>
                 <varname type="str">montant</varname>
                 <display_locations>
@@ -353,14 +355,14 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <comment>Une erreur s'est produite.</comment>
         </item>
         <item type="displaymsg" id="2">
-          <message>&lt;p&gt;{% if "404 Client Error: Not Found" in form_workflow_data_communication_structuree_error_response_err_desc %}Il semble que la communication structur&amp;eacute;e du parent n&amp;#39;ai pas &amp;eacute;t&amp;eacute; trouv&amp;eacute;e. V&amp;eacute;rifiez, dans la signal&amp;eacute;tique du parent de iA.AES, si son pr&amp;eacute;paiement dispose bien d&amp;#39;une ligne pour les plaines. Si ce n&amp;#39;est pas le cas, veuillez cr&amp;eacute;er les communications structur&amp;eacute;es manquantes. Ensuite, s&amp;eacute;lectionnez &amp;quot;Rechercher la communication structur&amp;eacute;e&amp;quot; ci-dessous. Si le probl&amp;egrave;me se produit &amp;agrave; nouveau, &lt;a href="https://support.imio.be" target="blank" rel="nofollow"&gt;contactez le support&lt;/a&gt;.{% else %}La r&amp;eacute;cup&amp;eacute;ration de la communication structur&amp;eacute;e sera relanc&amp;eacute;e dans 20 minutes.{% endif %}&lt;/p&gt;
-</message>
-          <level>error</level>
-          <position>bottom</position>
           <to>
             <item role_id="_receiver">_receiver</item>
             <item role_id="_support-imio">_support-imio</item>
           </to>
+          <message>&lt;p&gt;{% if "404 Client Error: Not Found" in form_workflow_data_communication_structuree_error_response_err_desc %}Il semble que la communication structur&amp;eacute;e du parent n&amp;#39;ai pas &amp;eacute;t&amp;eacute; trouv&amp;eacute;e. V&amp;eacute;rifiez, dans la signal&amp;eacute;tique du parent de iA.AES, si son pr&amp;eacute;paiement dispose bien d&amp;#39;une ligne pour les plaines. Si ce n&amp;#39;est pas le cas, veuillez cr&amp;eacute;er les communications structur&amp;eacute;es manquantes. Ensuite, s&amp;eacute;lectionnez &amp;quot;Rechercher la communication structur&amp;eacute;e&amp;quot; ci-dessous. Si le probl&amp;egrave;me se produit &amp;agrave; nouveau, &lt;a href="https://support.imio.be" target="blank" rel="nofollow"&gt;contactez le support&lt;/a&gt;.{% else %}La r&amp;eacute;cup&amp;eacute;ration de la communication structur&amp;eacute;e sera relanc&amp;eacute;e dans 20 minutes.{% endif %}&lt;/p&gt;
+</message>
+          <level>error</level>
+          <position>bottom</position>
         </item>
         <item type="sendmail" id="3">
           <to>
@@ -764,6 +766,10 @@ Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en me
 {% firstof form_workflow_form_calcul_var_info_complementaires form_option_preremplir_info_complementaires %}</body>
         </item>
         <item type="displaymsg" id="2">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+            <item role_id="_receiver">_receiver</item>
+          </to>
           <message>&lt;h3&gt;Merci pour vos inscriptions&lt;/h3&gt;
 &lt;p&gt;Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en mentionnant les instructions de paiement suivantes :&lt;/p&gt;
 &lt;ul&gt;
@@ -775,16 +781,12 @@ Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en me
 {% if form_option_preremplir_info_complementaires or form_workflow_form_calcul_var_info_complementaires %}&lt;p&gt;&lt;b&gt;Informations compl&#233;mentaires :&lt;/b&gt;&lt;br/&gt;{% firstof form_workflow_form_calcul_var_info_complementaires form_option_preremplir_info_complementaires %}&lt;/p&gt;{% endif %}</message>
           <level>info</level>
           <position>top</position>
-          <to>
-            <item role_id="_submitter">_submitter</item>
-            <item role_id="_receiver">_receiver</item>
-          </to>
         </item>
         <item type="register-comment" id="3">
-          <comment>Vos inscriptions ont bien &#233;t&#233; enregistr&#233;es.</comment>
           <to>
             <item role_id="_submitter">_submitter</item>
           </to>
+          <comment>Vos inscriptions ont bien &#233;t&#233; enregistr&#233;es.</comment>
         </item>
         <item type="choice" id="4">
           <label>Valider le paiement</label>
@@ -909,12 +911,12 @@ Cordialement,</body>
           <comment>Vos inscriptions sont finalis&#233;es. Merci d'avoir utilis&#233; nos services.</comment>
         </item>
         <item type="displaymsg" id="2">
-          <message>Nous vous confirmons les inscriptions effectu&#233;es. Les places sont r&#233;serv&#233;es. Les plaines seront factur&#233;es a posteriori.</message>
-          <level>success</level>
-          <position>top</position>
           <to>
             <item role_id="_submitter">_submitter</item>
           </to>
+          <message>Nous vous confirmons les inscriptions effectu&#233;es. Les places sont r&#233;serv&#233;es. Les plaines seront factur&#233;es a posteriori.</message>
+          <level>success</level>
+          <position>top</position>
           <condition>
             <type>django</type>
             <value>form_option_mode_paiement == "Paiement diff&#233;r&#233;"</value>
@@ -1006,7 +1008,7 @@ Cordialement,</body>
         <field>
           <type>item</type>
           <label type="str">Mode de paiement</label>
-          <required type="bool">True</required>
+          <required type="str">required</required>
           <varname type="str">mode_paiement</varname>
           <display_locations />
           <anonymise type="str">no</anonymise>
@@ -1035,7 +1037,7 @@ Cordialement,</body>
         <field>
           <type>item</type>
           <label type="str">R&#233;gie de paiement</label>
-          <required type="bool">False</required>
+          <required type="str">optional</required>
           <hint type="str">Celle-ci d&#233;fini le panier sp&#233;cifique pour les plaines.</hint>
           <varname type="str">regie_de_paiement</varname>
           <display_locations />
@@ -1056,7 +1058,7 @@ Cordialement,</body>
         <field>
           <type>bool</type>
           <label type="str">Ne pas annuler les inscriptions apr&#232;s un d&#233;lai</label>
-          <required type="bool">False</required>
+          <required type="str">optional</required>
           <hint type="str">Veiller &#224; ce que les inscriptions aux plaines ne soient pas annul&#233;es automatiquement apr&#232;s un d&#233;lai. Pas d'effet sur les paiements par virements ou diff&#233;r&#233;s.</hint>
           <varname type="str">non_auto_annulation</varname>
           <display_locations />
@@ -1075,7 +1077,7 @@ Cordialement,</body>
         <field>
           <type>string</type>
           <label type="str">Num&#233;ro de compte</label>
-          <required type="bool">False</required>
+          <required type="str">optional</required>
           <hint type="str">&#192; compl&#233;ter si le mode de paiement est "Paiement par virement", ce num&#233;ro sera affich&#233; &#224; l'usager lorsqu'il sera invit&#233; &#224; payer.</hint>
           <varname type="str">iban</varname>
           <display_locations />
@@ -1085,7 +1087,7 @@ Cordialement,</body>
         <field>
           <type>item</type>
           <label type="str">Comment calculer le montant ?</label>
-          <required type="bool">False</required>
+          <required type="str">optional</required>
           <hint type="str">Quand le paiement doit &#234;tre fait par virement, il faut indiquer comment le montant est calcul&#233;.</hint>
           <varname type="str">calcul_montant</varname>
           <display_locations />
@@ -1106,7 +1108,7 @@ Cordialement,</body>
         <field>
           <type>text</type>
           <label type="str">Pr&#233;remplir les informations compl&#233;mentaires</label>
-          <required type="bool">False</required>
+          <required type="str">optional</required>
           <hint type="str">Ce texte ira pr&#233;remplir le champ "informations compl&#233;mentaires" du formulaire que les agents traitants doivent compl&#233;ter lors du paiement par virement.</hint>
           <varname type="str">preremplir_info_complementaires</varname>
           <display_locations />
@@ -1125,7 +1127,7 @@ Cordialement,</body>
         <field>
           <type>string</type>
           <label type="str">Enfants</label>
-          <required type="bool">True</required>
+          <required type="str">required</required>
           <varname type="str">enfants</varname>
           <display_locations>
             <item>summary</item>
@@ -1137,7 +1139,7 @@ Cordialement,</body>
         <field>
           <type>string</type>
           <label type="str">Inscriptions concern&#233;es</label>
-          <required type="bool">True</required>
+          <required type="str">required</required>
           <varname type="str">inscriptions_concernees</varname>
           <display_locations />
           <anonymise type="str">final</anonymise>

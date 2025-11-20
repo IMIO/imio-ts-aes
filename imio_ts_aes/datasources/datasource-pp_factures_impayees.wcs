@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<datasource id="26" url="https://wcs.dev.publik.love/backoffice/settings/data-sources/26/">
+  <name>Portail Parent - Factures impay&#233;es</name>
+  <slug>pp_factures_impayees</slug>
+  <data_attribute>items.unpaid_invoices</data_attribute>
+  <data_source>
+    <type>json</type>
+    <value>{{passerelle_url}}passerelle-imio-ia-aes/aes/parents/{{form_user_var_aes_id}}/invoices/</value>
+  </data_source>
+  <category slug="portail-parent" category_id="11">Portail Parent</category>
+</datasource>

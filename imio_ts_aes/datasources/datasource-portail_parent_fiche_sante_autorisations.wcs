@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
-<datasource id="17" url="https://wcs.dev.publik.love/backoffice/settings/data-sources/17/">
+<datasource id="10" url="https://wcs.dev.publik.love/backoffice/settings/data-sources/10/">
   <name>Portail Parent - Fiche sant&#233; - Autorisations obligatoires</name>
   <slug>portail_parent_fiche_sante_autorisations</slug>
-  <description>Liste des autorisations obligatoires. Une autorisation est un accord donn&#233; par un parent vis-&#224;-vis de son enfant.</description>
   <cache_duration>3600</cache_duration>
   <text_attribute>description</text_attribute>
   <data_source>
     <type>json</type>
     <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/authorizations?filter=mandatory</value>
-  </data_source><category slug="portail-parent" category_id="1">Portail Parent</category>
+  </data_source>
+  <category slug="portail-parent" category_id="11">Portail Parent</category>
 </datasource>

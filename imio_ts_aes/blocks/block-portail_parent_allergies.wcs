@@ -2,11 +2,12 @@
 <block id="5" url="https://wcs.dev.publik.love/backoffice/forms/blocks/5/">
   <name>Portail Parent - Allergies</name>
   <slug>portail_parent_allergies</slug>
+  <category slug="imio-portail-parent" category_id="10">iMio - Portail Parent</category>
   <fields>
     <field>
       <type>string</type>
       <label type="str">Autre allergie</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">name</varname>
       <display_locations>
         <item>validation</item>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<wscall id="27" url="https://wcs.dev.publik.love/backoffice/settings/wscalls/27/">
+  <name>Portail Parent - Solde Accueil</name>
+  <slug>portail_parent_solde_accueil</slug>
+  <request>
+    <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ form_user_var_aes_id }}/balance/childcare</url>
+    <request_signature_key />
+    <method>GET</method>
+    <timeout />
+    <cache_duration />
+    <qs_data />
+    <post_data />
+  </request>
+  <record_on_errors>true</record_on_errors>
+</wscall>

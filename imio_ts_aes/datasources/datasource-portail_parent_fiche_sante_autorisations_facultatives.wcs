@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
-<datasource id="18" url="https://wcs.dev.publik.love/backoffice/settings/data-sources/18/">
+<datasource id="11" url="https://wcs.dev.publik.love/backoffice/settings/data-sources/11/">
   <name>Portail Parent - Fiche sant&#233; - Autorisations facultatives</name>
   <slug>portail_parent_fiche_sante_autorisations_facultatives</slug>
-  <description>Liste des autorisations facultatives. Une autorisation est un accord donn&#233; par un parent vis-&#224;-vis de son enfant.</description>
   <cache_duration>3600</cache_duration>
   <text_attribute>description</text_attribute>
   <data_source>
     <type>json</type>
     <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/authorizations?filter=optional</value>
-  </data_source><category slug="portail-parent" category_id="1">Portail Parent</category>
+  </data_source>
+  <category slug="portail-parent" category_id="11">Portail Parent</category>
 </datasource>

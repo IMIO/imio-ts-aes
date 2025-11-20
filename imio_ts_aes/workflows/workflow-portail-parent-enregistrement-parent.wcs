@@ -2,7 +2,7 @@
 <workflow id="3" url="https://wcs.dev.publik.love/backoffice/workflows/3/">
   <name>Portail Parent - Enregistrement parent</name>
   <slug>portail-parent-enregistrement-parent</slug>
-  <category slug="portail-parent" category_id="1">Portail parent</category>
+  <category slug="portail-parent" category_id="8">Portail parent</category>
   <roles>
     <role id="_receiver">Agent traitant</role>
     <role id="_support-imio">Support iMio</role>
@@ -95,12 +95,12 @@
       <visibility />
       <items>
         <item type="displaymsg" id="1">
-          <message>Une erreur est survenue lors de la recherche d'un parent. Celui-ci n'a donc pas pu &#234;tre retrouv&#233; ou cr&#233;&#233; dans iA.AES, et ne peut poursuivre les inscriptions de ses enfants.</message>
-          <level>error</level>
-          <position>top</position>
           <to>
             <item role_id="_receiver">_receiver</item>
           </to>
+          <message>Une erreur est survenue lors de la recherche d'un parent. Celui-ci n'a donc pas pu &#234;tre retrouv&#233; ou cr&#233;&#233; dans iA.AES, et ne peut poursuivre les inscriptions de ses enfants.</message>
+          <level>error</level>
+          <position>top</position>
         </item>
         <item type="sendmail" id="2">
           <to>
@@ -271,12 +271,12 @@ Cordialement,</body>
       <visibility />
       <items>
         <item type="displaymsg" id="1">
-          <message>Une erreur est survenue lors de la cr&#233;ation d'un parent. Celui-ci n'existait pas dans iA.AES et n'a pu &#234;tre cr&#233;&#233;. Il ne peut donc r&#233;aliser les inscriptions de ses enfants.</message>
-          <level>error</level>
-          <position>top</position>
           <to>
             <item role_id="_receiver">_receiver</item>
           </to>
+          <message>Une erreur est survenue lors de la cr&#233;ation d'un parent. Celui-ci n'existait pas dans iA.AES et n'a pu &#234;tre cr&#233;&#233;. Il ne peut donc r&#233;aliser les inscriptions de ses enfants.</message>
+          <level>error</level>
+          <position>top</position>
         </item>
         <item type="sendmail" id="2">
           <to>

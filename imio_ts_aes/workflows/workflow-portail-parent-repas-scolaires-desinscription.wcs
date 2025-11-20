@@ -2,7 +2,7 @@
 <workflow id="1" url="https://wcs.dev.publik.love/backoffice/workflows/1/">
   <name>Portail Parent - Repas scolaires - D&#233;sinscription</name>
   <slug>portail-parent-repas-scolaires-desinscription</slug>
-  <category slug="portail-parent" category_id="1">Portail parent</category>
+  <category slug="portail-parent" category_id="8">Portail parent</category>
   <roles>
     <role id="_receiver">Agent traitant</role>
     <role id="_support-imio">Support iMio</role>
@@ -171,7 +171,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
         <field>
           <type>item</type>
           <label type="str">Faut-il notifier le service lors d'une d&#233;sinscription ?</label>
-          <required type="bool">True</required>
+          <required type="str">required</required>
           <hint type="str">Si "Oui", un courriel sera envoy&#233; aux agents traitants pour chaque nouvelle demande de d&#233;sinscription.</hint>
           <varname type="str">notifier_service</varname>
           <display_locations />
@@ -191,7 +191,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
         <field>
           <type>string</type>
           <label type="str">D&#233;lai, en jours</label>
-          <required type="bool">True</required>
+          <required type="str">required</required>
           <hint type="str">Indiquez un chiffre &#233;gal ou sup&#233;rieur &#224; 1. Indiquez 0 pour le jour m&#234;me, 1 pour la veille, 2 pour l'avant-veille, etc.</hint>
           <varname type="str">delai_en_jours</varname>
           <display_locations />
@@ -204,7 +204,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
         <field>
           <type>string</type>
           <label type="str">Heure limite</label>
-          <required type="bool">True</required>
+          <required type="str">required</required>
           <hint type="str">Derni&#232;re heure limite pour la d&#233;sinscription, lors du dernier jour permis par le d&#233;lai, au format hh:mm. </hint>
           <varname type="str">heure_limite</varname>
           <display_locations />
@@ -226,7 +226,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
         <field>
           <type>string</type>
           <label type="str">Implantation scolaire</label>
-          <required type="bool">True</required>
+          <required type="str">required</required>
           <varname type="str">implantation_scolaire</varname>
           <display_locations>
             <item>summary</item>
@@ -238,7 +238,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
         <field>
           <type>string</type>
           <label type="str">Niveau</label>
-          <required type="bool">True</required>
+          <required type="str">required</required>
           <varname type="str">niveau</varname>
           <display_locations>
             <item>summary</item>

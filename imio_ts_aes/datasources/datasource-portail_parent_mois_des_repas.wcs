@@ -6,4 +6,5 @@
     <type>jsonvalue</type>
     <value>[     {"id":"0","text":"Mois courant"},     {"id":"1","text":"Mois prochain"},     {"id":"2","text":"Dans deux mois"} ]</value>
   </data_source>
+  <category slug="portail-parent" category_id="11">Portail Parent</category>
 </datasource>

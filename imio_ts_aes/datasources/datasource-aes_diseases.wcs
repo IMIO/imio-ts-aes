@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
-<datasource id="5" url="https://wcs.dev.publik.love/backoffice/settings/data-sources/5/">
+<datasource id="3" url="https://wcs.dev.publik.love/backoffice/settings/data-sources/3/">
   <name>AES Diseases</name>
   <slug>aes_diseases</slug>
-  <description>Liste des maladies qu'il est possible de s&#233;lectionner dans la fiche sant&#233;.</description>
   <text_attribute>name</text_attribute>
   <data_source>
     <type>json</type>
     <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/diseases{% if form_var_fiche_sante.id %}?healthsheet={{ form_var_fiche_sante.id }}{% endif %}</value>
   </data_source>
+  <category slug="portail-parent" category_id="11">Portail Parent</category>
 </datasource>

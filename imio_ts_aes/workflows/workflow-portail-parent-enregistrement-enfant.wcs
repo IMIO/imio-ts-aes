@@ -2,7 +2,7 @@
 <workflow id="2" url="https://wcs.dev.publik.love/backoffice/workflows/2/">
   <name>Portail Parent - Enregistrement enfant</name>
   <slug>portail-parent-enregistrement-enfant</slug>
-  <category slug="portail-parent" category_id="1">Portail parent</category>
+  <category slug="portail-parent" category_id="8">Portail parent</category>
   <roles>
     <role id="_debug">Support iMio</role>
     <role id="_receiver">Agent traitant</role>
@@ -218,15 +218,15 @@
       <visibility />
       <items>
         <item type="register-comment" id="1">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
           <comment>&lt;div&gt;
 &lt;p&gt;
 &lt;a class="pk-button" href="{{ portal_url }}portail_parent/"&gt;Page d'accueil&lt;/a&gt;
 &lt;a class="pk-button" href="{{ eservices_url }}pp-enregistrer-un-enfant/"&gt;Enregister un autre enfant&lt;/a&gt;
 &lt;/p&gt;
 &lt;/div&gt;</comment>
-          <to>
-            <item role_id="_submitter">_submitter</item>
-          </to>
         </item>
         <item type="register-comment" id="2">
           <comment>&lt;div&gt;
@@ -375,12 +375,12 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
       <visibility />
       <items>
         <item type="displaymsg" id="1">
-          <message>Une erreur est survenue lors de la cr&#233;ation du lien entre l'enfant et le parent. Ce dernier ne peut donc poursuivre les inscriptions de ses enfants.</message>
-          <level>error</level>
-          <position>top</position>
           <to>
             <item role_id="_receiver">_receiver</item>
           </to>
+          <message>Une erreur est survenue lors de la cr&#233;ation du lien entre l'enfant et le parent. Ce dernier ne peut donc poursuivre les inscriptions de ses enfants.</message>
+          <level>error</level>
+          <position>top</position>
         </item>
         <item type="sendmail" id="2">
           <to>
@@ -453,7 +453,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
         <field>
           <type>item</type>
           <label type="str">Faut-il facturer le parent diff&#233;rement selon qu'il habite la commune ou non ?</label>
-          <required type="bool">True</required>
+          <required type="str">required</required>
           <hint type="str">Ce champ permet de d&#233;finir le type de facturation qui sera utilis&#233;e pour l'enfant qui sera inscrit.</hint>
           <varname type="str">child_type_facturation</varname>
           <display_locations />
@@ -474,7 +474,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
         <field>
           <type>item</type>
           <label type="str">Faut-il appliquer le tarif pr&#233;f&#233;rentiel aux enfants scolaris&#233;s dans la commune ?</label>
-          <required type="bool">True</required>
+          <required type="str">required</required>
           <hint type="str">Si oui, les enfants scolaris&#233;s dans une implantation scolaire de la commune recevront la cat&#233;gorie tarifaire "Commune".</hint>
           <varname type="str">prefered_school_pricing</varname>
           <display_locations>
@@ -504,7 +504,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
         <field>
           <type>string</type>
           <label type="str">Cat&#233;gorie tarifaire de l'enfant</label>
-          <required type="bool">True</required>
+          <required type="str">required</required>
           <hint type="str">Cette information est utilis&#233;e pour d&#233;terminer le type de facturation &#224; appliquer ; typiquement s'il s'agit d'un enfant de la commune ou non.</hint>
           <varname type="str">child_tariff_category</varname>
           <display_locations>

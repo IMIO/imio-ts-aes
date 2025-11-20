@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<datasource id="8" url="https://wcs.dev.publik.love/backoffice/settings/data-sources/8/">
+<datasource id="14" url="https://wcs.dev.publik.love/backoffice/settings/data-sources/14/">
   <name>Portail Parent - Localit&#233;s</name>
   <slug>portail_parent_localites</slug>
   <data_attribute>items</data_attribute>
@@ -7,5 +7,6 @@
   <data_source>
     <type>json</type>
     <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/localities</value>
-  </data_source><category slug="portail-parent" category_id="1">Portail Parent</category>
+  </data_source>
+  <category slug="portail-parent" category_id="11">Portail Parent</category>
 </datasource>

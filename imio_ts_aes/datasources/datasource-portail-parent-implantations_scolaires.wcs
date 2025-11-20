@@ -2,7 +2,6 @@
 <datasource id="12" url="https://wcs.dev.publik.love/backoffice/settings/data-sources/12/">
   <name>Portail Parent - Implantations scolaires</name>
   <slug>portail-parent-implantations_scolaires</slug>
-  <description>Implantations scolaires issues de AES pour le Portail Parent.</description>
   <cache_duration>600</cache_duration>
   <data_attribute>items</data_attribute>
   <id_attribute>id</id_attribute>
@@ -11,4 +10,5 @@
     <type>json</type>
     <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/school-implantations</value>
   </data_source>
+  <category slug="portail-parent" category_id="11">Portail Parent</category>
 </datasource>

@@ -1,9 +1,10 @@
 <?xml version="1.0"?>
-<datasource id="168" url="">
+<datasource id="5" url="https://wcs.dev.publik.love/backoffice/settings/data-sources/5/">
   <name>Autre</name>
   <slug>autre</slug>
   <data_source>
     <type>jsonvalue</type>
     <value>[{"id": "autre","text": "Autre"}]</value>
   </data_source>
+  <category slug="portail-parent" category_id="11">Portail Parent</category>
 </datasource>

@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
-<datasource id="3" url="https://wcs.dev.publik.love/backoffice/settings/data-sources/3/">
+<datasource id="4" url="https://wcs.dev.publik.love/backoffice/settings/data-sources/4/">
   <name>Portail Parent - Fiche sant&#233; - Questions</name>
   <slug>aes_questions_fiche_sante</slug>
-  <description>Liste des questions que peut poser la fiche sant&#233;. Cette liste sert en tant qu'option de la fiche sant&#233; pour permettre aux agents de la personnaliser.</description>
   <cache_duration>3600</cache_duration>
   <data_source>
     <type>json</type>
     <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/healthsheet-questions</value>
-  </data_source><category slug="portail-parent" category_id="1">Portail Parent</category>
+  </data_source>
+  <category slug="portail-parent" category_id="11">Portail Parent</category>
 </datasource>

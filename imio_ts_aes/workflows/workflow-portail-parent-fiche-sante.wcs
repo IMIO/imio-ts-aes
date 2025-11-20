@@ -2,7 +2,7 @@
 <workflow id="4" url="https://wcs.dev.publik.love/backoffice/workflows/4/">
   <name>Portail Parent - Fiche sant&#233;</name>
   <slug>portail-parent-fiche-sante</slug>
-  <category slug="portail-parent" category_id="1">Portail parent</category>
+  <category slug="portail-parent" category_id="8">Portail parent</category>
   <roles>
     <role id="_agent-imio">Support iMio</role>
     <role id="_receiver">Agent traitant</role>
@@ -539,7 +539,7 @@
         <field>
           <type>items</type>
           <label type="str">Questions &#224; poser aux parents</label>
-          <required type="bool">False</required>
+          <required type="str">optional</required>
           <varname type="str">questions</varname>
           <display_locations>
             <item>summary</item>

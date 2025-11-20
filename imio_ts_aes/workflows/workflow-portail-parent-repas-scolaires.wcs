@@ -2,7 +2,7 @@
 <workflow id="11" url="https://wcs.dev.publik.love/backoffice/workflows/11/">
   <name>Portail Parent - Repas scolaires</name>
   <slug>portail-parent-repas-scolaires</slug>
-  <category slug="portail-parent" category_id="1">Portail parent</category>
+  <category slug="portail-parent" category_id="8">Portail parent</category>
   <roles>
     <role id="_receiver">Agents traitants</role>
     <role id="_support-imio">Support iMio</role>
@@ -106,8 +106,8 @@
           <action_on_5xx>11</action_on_5xx>
           <action_on_bad_data>11</action_on_bad_data>
           <action_on_network_errors>11</action_on_network_errors>
-          <record_errors>False</record_errors>
-          <record_on_errors>False</record_on_errors>
+          <record_errors>True</record_errors>
+          <record_on_errors>True</record_on_errors>
           <notify_on_errors>False</notify_on_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -924,7 +924,7 @@ Il vous reste {{ form_workflow_wscall_montant_response_initial_balance|subtract:
         <field>
           <type>items</type>
           <label type="str">Implantations scolaires</label>
-          <required type="bool">False</required>
+          <required type="str">optional</required>
           <hint type="str">Filtrer les enfants en fonction des &#233;coles coch&#233;es. Si aucune &#233;cole n'est coch&#233;e, les enfants ne sont pas filtr&#233;s.</hint>
           <varname type="str">implantations_scolaires</varname>
           <display_locations />
@@ -945,7 +945,7 @@ Il vous reste {{ form_workflow_wscall_montant_response_initial_balance|subtract:
         <field>
           <type>item</type>
           <label type="str">Choisir le mois</label>
-          <required type="bool">True</required>
+          <required type="str">required</required>
           <varname type="str">mois</varname>
           <display_locations />
           <anonymise type="str">no</anonymise>
@@ -964,7 +964,7 @@ Il vous reste {{ form_workflow_wscall_montant_response_initial_balance|subtract:
         <field>
           <type>item</type>
           <label type="str">Mode de paiement</label>
-          <required type="bool">True</required>
+          <required type="str">required</required>
           <hint type="str">Le paiement en ligne enverra la commande du parent dans un panier, en fonction de la r&#233;gie. L'option paiement diff&#233;r&#233; implique que la facture devra &#234;tre envoy&#233;e de iA.AES dans un second temps.</hint>
           <varname type="str">mode_paiement</varname>
           <display_locations />
@@ -984,7 +984,7 @@ Il vous reste {{ form_workflow_wscall_montant_response_initial_balance|subtract:
         <field>
           <type>item</type>
           <label type="str">R&#233;gie de paiement</label>
-          <required type="bool">False</required>
+          <required type="str">optional</required>
           <hint type="str">&lt;p&gt;La r&#233;gie de paiement d&#233;termine le panier qui r&#233;ceptionnera les demandes.&lt;/p&gt;</hint>
           <varname type="str">regie_de_paiement</varname>
           <display_locations />
@@ -1012,7 +1012,7 @@ Il vous reste {{ form_workflow_wscall_montant_response_initial_balance|subtract:
         <field>
           <type>string</type>
           <label type="str">Adresse &#233;lectronique</label>
-          <required type="bool">True</required>
+          <required type="str">required</required>
           <varname type="str">email</varname>
           <display_locations>
             <item>summary</item>
@@ -1024,7 +1024,7 @@ Il vous reste {{ form_workflow_wscall_montant_response_initial_balance|subtract:
         <field>
           <type>string</type>
           <label type="str">Implantation scolaire</label>
-          <required type="bool">True</required>
+          <required type="str">required</required>
           <varname type="str">implantation_scolaire</varname>
           <display_locations>
             <item>summary</item>
@@ -1036,7 +1036,7 @@ Il vous reste {{ form_workflow_wscall_montant_response_initial_balance|subtract:
         <field>
           <type>string</type>
           <label type="str">Niveau</label>
-          <required type="bool">True</required>
+          <required type="str">required</required>
           <varname type="str">niveau</varname>
           <display_locations>
             <item>summary</item>
@@ -1048,7 +1048,7 @@ Il vous reste {{ form_workflow_wscall_montant_response_initial_balance|subtract:
         <field>
           <type>string</type>
           <label type="str">Annul&#233; par</label>
-          <required type="bool">True</required>
+          <required type="str">required</required>
           <varname type="str">annulateur</varname>
           <display_locations>
             <item>summary</item>
@@ -1059,7 +1059,7 @@ Il vous reste {{ form_workflow_wscall_montant_response_initial_balance|subtract:
         <field>
           <type>string</type>
           <label type="str">Annul&#233; depuis</label>
-          <required type="bool">True</required>
+          <required type="str">required</required>
           <varname type="str">source_annulation</varname>
           <display_locations>
             <item>summary</item>
@@ -1070,7 +1070,7 @@ Il vous reste {{ form_workflow_wscall_montant_response_initial_balance|subtract:
         <field>
           <type>date</type>
           <label type="str">Date d'annulation en cas de non paiement</label>
-          <required type="bool">True</required>
+          <required type="str">required</required>
           <varname type="str">date_annulation_non_paiement</varname>
           <display_locations>
             <item>summary</item>

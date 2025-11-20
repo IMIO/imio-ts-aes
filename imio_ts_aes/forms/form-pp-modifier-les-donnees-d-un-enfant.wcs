@@ -3,6 +3,7 @@
   <name>Modifier les donn&#233;es d'un enfant</name>
   <url_name>pp-modifier-les-donnees-d-un-enfant</url_name>
   <submission_user_association>any</submission_user_association>
+  <history_pane_default_mode>expanded</history_pane_default_mode>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
   <disabled>false</disabled>
@@ -12,7 +13,7 @@
   <always_advertise>false</always_advertise>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category slug="portail-parent" category_id="10">Portail Parents</category>
+  <category slug="portail-parent" category_id="5">Portail Parents</category>
   <workflow slug="portail-parent-mise-a-jour" workflow_id="8">Portail Parent - Mise &#224; jour</workflow>
   <fields>
     <field>
@@ -26,7 +27,7 @@
     <field>
       <type>item</type>
       <label type="str">Enfant</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">enfant</varname>
       <display_locations>
         <item>validation</item>
@@ -67,7 +68,7 @@
     <field>
       <type>string</type>
       <label type="str">Nom</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">nouveau_nom</varname>
       <display_locations>
         <item>validation</item>
@@ -84,7 +85,7 @@
     <field>
       <type>string</type>
       <label type="str">Pr&#233;nom</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">nouveau_prenom</varname>
       <display_locations>
         <item>validation</item>
@@ -102,7 +103,7 @@
     <field>
       <type>date</type>
       <label type="str">Date de naissance</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">enfant_nouvelle_date_naissance</varname>
       <display_locations>
         <item>validation</item>
@@ -122,7 +123,7 @@
     <field>
       <type>string</type>
       <label type="str">Num&#233;ro national</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <hint type="str">Vous trouverez cette information sur la carte d'identit&#233; &#233;lectronique de votre enfant. Si vous ne l'avez pas, vous pouvez la demander &#224; votre administration communale.</hint>
       <varname type="str">enfant_nouveau_numero_national</varname>
       <display_locations>
@@ -143,8 +144,8 @@
     </field>
     <field>
       <type>item</type>
-      <label type="str">implantation scolaire</label>
-      <required type="bool">True</required>
+      <label type="str">Implantation scolaire</label>
+      <required type="str">required</required>
       <varname type="str">enfant_nouvelle_implantation_scolaire</varname>
       <display_locations>
         <item>validation</item>
@@ -152,20 +153,21 @@
       </display_locations>
       <extra_css_class type="str">newline grid-1-2</extra_css_class>
       <prefill>
+        <locked>False</locked>
+        <locked-unless-empty>False</locked-unless-empty>
         <type>string</type>
         <value>{{ form_var_enfant.school_implantation|get:0 }}</value>
       </prefill>
       <anonymise type="str">final</anonymise>
       <display_mode type="str">list</display_mode>
-      <items />
       <data_source>
         <type>portail-parent-implantations_scolaires</type>
       </data_source>
       <in_filters type="bool">False</in_filters>
       <display_disabled_items type="bool">False</display_disabled_items>
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
-      <image_desktop_size type="int">150</image_desktop_size>
-      <image_mobile_size type="int">75</image_mobile_size>
+      <image_desktop_size type="str">150</image_desktop_size>
+      <image_mobile_size type="str">75</image_mobile_size>
       <id type="str">684f2643-d2da-40eb-ad93-14049c4819e0</id>
     </field>
   </fields>
@@ -184,4 +186,7 @@
   <management_sidebar_items>
     <item>__default__</item>
   </management_sidebar_items>
+  <submission_sidebar_items>
+    <item>__default__</item>
+  </submission_sidebar_items>
 </formdef>

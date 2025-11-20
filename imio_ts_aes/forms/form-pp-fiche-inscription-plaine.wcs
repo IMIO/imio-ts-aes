@@ -3,6 +3,7 @@
   <name>Fiche d'inscription aux plaines</name>
   <url_name>pp-fiche-inscription-plaine</url_name>
   <submission_user_association>any</submission_user_association>
+  <history_pane_default_mode>expanded</history_pane_default_mode>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
   <disabled>false</disabled>
@@ -12,7 +13,7 @@
   <always_advertise>false</always_advertise>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category slug="portail-parent-fiche-d-inscription" category_id="11">Portail Parents - Fiches d'inscription</category>
+  <category slug="portail-parent-fiche-d-inscription" category_id="6">Portail Parents - Fiches d'inscription</category>
   <workflow slug="portail-parent-fiche-d-inscription-aux-plaines" workflow_id="5">Portail Parent - Fiche d'inscription aux plaines</workflow>
   <fields>
     <field>
@@ -23,7 +24,7 @@
     <field>
       <type>item</type>
       <label type="str">Enfant</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">enfant</varname>
       <display_locations>
         <item>validation</item>
@@ -50,7 +51,7 @@
     <field>
       <type>string</type>
       <label type="str">Plaine</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">plaine</varname>
       <display_locations>
         <item>validation</item>
@@ -66,7 +67,7 @@
     <field>
       <type>string</type>
       <label type="str">Num&#233;ro d'inscription</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">inscription</varname>
       <display_locations>
         <item>validation</item>
@@ -82,7 +83,7 @@
     <field>
       <type>string</type>
       <label type="str">Identifiant de la plaine</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">id_plaine</varname>
       <display_locations />
       <prefill>
@@ -113,6 +114,9 @@
   <management_sidebar_items>
     <item>__default__</item>
   </management_sidebar_items>
+  <submission_sidebar_items>
+    <item>__default__</item>
+  </submission_sidebar_items>
   <digest_templates>
     <template key="default">{{ form_var_enfant }} {{ form_var_plaine }}</template>
   </digest_templates>

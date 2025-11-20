@@ -1,12 +1,15 @@
 <?xml version="1.0"?>
-<wscall id="portail_parent_fiche_sante_selections">
+<wscall id="1" url="https://wcs.dev.publik.love/backoffice/settings/wscalls/1/">
   <name>Portail Parent - Fiche sant&#233; - S&#233;lections</name>
   <slug>portail_parent_fiche_sante_selections</slug>
   <request>
     <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/healtsheet-fields</url>
     <request_signature_key />
     <method>GET</method>
+    <timeout />
+    <cache_duration />
     <qs_data />
     <post_data />
-  </request><record_on_errors>true</record_on_errors>
+  </request>
+  <record_on_errors>true</record_on_errors>
 </wscall>

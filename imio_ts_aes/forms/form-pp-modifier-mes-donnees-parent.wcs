@@ -3,6 +3,7 @@
   <name>Modifier mes donn&#233;es parent</name>
   <url_name>pp-modifier-mes-donnees-parent</url_name>
   <submission_user_association>any</submission_user_association>
+  <history_pane_default_mode>expanded</history_pane_default_mode>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
   <disabled>false</disabled>
@@ -12,7 +13,7 @@
   <always_advertise>false</always_advertise>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category slug="portail-parent" category_id="10">Portail Parents</category>
+  <category slug="portail-parent" category_id="5">Portail Parents</category>
   <workflow slug="portail-parent-mise-a-jour" workflow_id="8">Portail Parent - Mise &#224; jour</workflow>
   <fields>
     <field>
@@ -49,7 +50,7 @@
     <field>
       <type>email</type>
       <label type="str">Adresse &#233;lectronique</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">email</varname>
       <display_locations>
         <item>validation</item>
@@ -66,7 +67,7 @@
     <field>
       <type>string</type>
       <label type="str">T&#233;l&#233;phone</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">telephone</varname>
       <display_locations>
         <item>validation</item>
@@ -86,7 +87,7 @@
     <field>
       <type>string</type>
       <label type="str">T&#233;l&#233;phone professionnel</label>
-      <required type="bool">False</required>
+      <required type="str">optional</required>
       <varname type="str">telephone_pro</varname>
       <display_locations>
         <item>validation</item>
@@ -106,7 +107,7 @@
     <field>
       <type>string</type>
       <label type="str">T&#233;l&#233;phone mobile</label>
-      <required type="bool">False</required>
+      <required type="str">optional</required>
       <varname type="str">telephone_mobile</varname>
       <display_locations>
         <item>validation</item>
@@ -135,7 +136,7 @@
     <field>
       <type>item</type>
       <label type="str">Pays</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">pays</varname>
       <display_locations>
         <item>validation</item>
@@ -162,7 +163,7 @@
     <field>
       <type>string</type>
       <label type="str">Rue</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">rue</varname>
       <display_locations>
         <item>validation</item>
@@ -179,7 +180,7 @@
     <field>
       <type>string</type>
       <label type="str">Num&#233;ro</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">numero</varname>
       <display_locations>
         <item>validation</item>
@@ -196,7 +197,7 @@
     <field>
       <type>string</type>
       <label type="str">Bo&#238;te</label>
-      <required type="bool">False</required>
+      <required type="str">optional</required>
       <varname type="str">boite</varname>
       <display_locations>
         <item>validation</item>
@@ -217,7 +218,7 @@
         <type>django</type>
         <value>"belgique" in form_var_pays|lower</value>
       </condition>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">adresse</varname>
       <display_locations>
         <item>validation</item>
@@ -248,7 +249,7 @@
         <type>django</type>
         <value>"belgique" not in form_var_pays|lower</value>
       </condition>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">code_postal</varname>
       <display_locations>
         <item>validation</item>
@@ -269,7 +270,7 @@
         <type>django</type>
         <value>"belgique" not in form_var_pays|lower</value>
       </condition>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">localite</varname>
       <display_locations>
         <item>validation</item>
@@ -291,10 +292,16 @@
     <role slug="agent-traitant-portail-parents" role_id="107f7d8c8b5d400696d2ecdd6c5ff363" role_key="_receiver">Agent traitant - Portail Parents</role>
     <role slug="agent-imio-portail-parents" role_id="17ebb1be538243ae90fd1f40f240c120" role_key="_support-imio">Agent iMio - Portail Parents</role>
   </roles>
-  <options />
+  <options>
+    <option varname="email_confirmation" type="bool">false</option>
+    <option varname="validation_automatique" type="bool">true</option>
+  </options>
   <custom_views />
   <geolocations />
   <management_sidebar_items>
     <item>__default__</item>
   </management_sidebar_items>
+  <submission_sidebar_items>
+    <item>__default__</item>
+  </submission_sidebar_items>
 </formdef>

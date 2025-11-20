@@ -4,6 +4,7 @@
   <url_name>pp-m-enregistrer-en-tant-que-parent</url_name>
   <description>&lt;p&gt;S'enregistrer dans le portail parent permet ensuite d'y inscrire ses enfants, de compl&amp;eacute;ter leur fiche sant&amp;eacute; et de les inscrire &amp;agrave; des activit&amp;eacute;s.&lt;/p&gt;</description>
   <submission_user_association>any</submission_user_association>
+  <history_pane_default_mode>expanded</history_pane_default_mode>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
   <disabled>false</disabled>
@@ -13,7 +14,7 @@
   <always_advertise>false</always_advertise>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category slug="portail-parent" category_id="10">Portail Parents</category>
+  <category slug="portail-parent" category_id="5">Portail Parents</category>
   <workflow slug="portail-parent-enregistrement-parent" workflow_id="3">Portail Parent - Enregistrement parent</workflow>
   <fields>
     <field>
@@ -32,7 +33,7 @@ enfants aux activit&amp;eacute;s extra-scolaires, aux repas scolaires et &amp;ag
         <type>django</type>
         <value>form_var_registre_national</value>
       </condition>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <hint type="str">Le num&#233;ro de registre national ne peut &#234;tre modifi&#233;. Merci de cliquer sur valider pour passer &#224; la suite.</hint>
       <varname type="str">registre_national</varname>
       <display_locations>
@@ -55,7 +56,7 @@ enfants aux activit&amp;eacute;s extra-scolaires, aux repas scolaires et &amp;ag
         <type>django</type>
         <value>not form_var_registre_national</value>
       </condition>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <hint type="str">Le num&#233;ro de matricule vous a &#233;t&#233; communiqu&#233; par votre administration communale. Si vous ne l'avez pas, merci de prendre contact avec elle.</hint>
       <varname type="str">matricule</varname>
       <display_locations>
@@ -76,7 +77,7 @@ enfants aux activit&amp;eacute;s extra-scolaires, aux repas scolaires et &amp;ag
         <type>django</type>
         <value>not form_user_var_phone</value>
       </condition>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <hint type="str">Ce num&#233;ro de t&#233;l&#233;phone sera ajout&#233; &#224; votre profil.</hint>
       <varname type="str">telephone</varname>
       <display_locations>
@@ -106,4 +107,7 @@ enfants aux activit&amp;eacute;s extra-scolaires, aux repas scolaires et &amp;ag
   <management_sidebar_items>
     <item>__default__</item>
   </management_sidebar_items>
+  <submission_sidebar_items>
+    <item>__default__</item>
+  </submission_sidebar_items>
 </formdef>

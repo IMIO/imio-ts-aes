@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<wscall id="14" url="https://wcs.dev.publik.love/backoffice/settings/wscalls/14/">
+  <name>AES Plaines possibles</name>
+  <slug>aes_get_available_plaines</slug>
+  <request>
+    <url>{{ passerelle_url }}/passerelle-imio-ia-aes/aes/plains</url>
+    <request_signature_key />
+    <method>GET</method>
+    <timeout />
+    <cache_duration />
+    <qs_data>
+      <param key="child_id">{% firstof form_var_id_enfant form_var_enfant_raw %}</param>
+    </qs_data>
+    <post_data />
+  </request>
+</wscall>

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<datasource id="16" url="">
+<datasource id="7" url="https://wcs.dev.publik.love/backoffice/settings/data-sources/7/">
   <name>Portail Parent - Repas scolaires</name>
   <slug>portail_parent_repas_scolaires</slug>
   <id_parameter>id</id_parameter>
@@ -9,4 +9,5 @@
     <type>json</type>
     <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/menus?child_id={{ form_var_id_enfant }}&amp;month={{ form_option_mois_raw }}&amp;parent_id={{ form_user_var_aes_id }}</value>
   </data_source>
+  <category slug="portail-parent" category_id="11">Portail Parent</category>
 </datasource>

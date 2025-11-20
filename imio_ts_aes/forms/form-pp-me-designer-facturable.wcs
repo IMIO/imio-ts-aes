@@ -3,6 +3,7 @@
   <name>Me d&#233;signer comme parent facturable</name>
   <url_name>pp-me-designer-facturable</url_name>
   <submission_user_association>any</submission_user_association>
+  <history_pane_default_mode>expanded</history_pane_default_mode>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
   <disabled>false</disabled>
@@ -12,7 +13,7 @@
   <always_advertise>false</always_advertise>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category slug="portail-parent" category_id="10">Portail Parents</category>
+  <category slug="portail-parent" category_id="5">Portail Parents</category>
   <workflow slug="portail-parent-me-designer-facturable" workflow_id="7">Portail Parent - Me d&#233;signer facturable</workflow>
   <fields>
     <field>
@@ -31,7 +32,7 @@
     <field>
       <type>item</type>
       <label type="str">Enfant</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">enfant</varname>
       <display_locations>
         <item>validation</item>
@@ -75,7 +76,7 @@
     <field>
       <type>bool</type>
       <label type="str">J'aimerais pouvoir r&#233;aliser des inscriptions pour cet enfant.</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">facturable</varname>
       <display_locations>
         <item>validation</item>
@@ -89,7 +90,7 @@
     <field>
       <type>block</type>
       <label type="str">Pi&#232;ce(s) justificative(s)</label>
-      <required type="bool">False</required>
+      <required type="str">optional</required>
       <display_locations>
         <item>validation</item>
         <item>summary</item>
@@ -101,6 +102,7 @@
       <add_element_label type="str">Ajouter un fichier</add_element_label>
       <label_display type="str">subtitle</label_display>
       <remove_button type="bool">True</remove_button>
+      <remove_element_label type="str" />
       <block_slug type="str">pp_ajouter_un_fichier</block_slug>
       <id type="str">78dcc0a2-3baa-4aa0-827f-f81d167f7b2e</id>
     </field>
@@ -120,4 +122,7 @@
   <management_sidebar_items>
     <item>__default__</item>
   </management_sidebar_items>
+  <submission_sidebar_items>
+    <item>__default__</item>
+  </submission_sidebar_items>
 </formdef>

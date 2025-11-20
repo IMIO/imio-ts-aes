@@ -2,7 +2,7 @@
 <workflow id="5" url="https://wcs.dev.publik.love/backoffice/workflows/5/">
   <name>Portail Parent - Fiche d'inscription aux plaines</name>
   <slug>portail-parent-fiche-d-inscription-aux-plaines</slug>
-  <category slug="portail-parent" category_id="1">Portail parent</category>
+  <category slug="portail-parent" category_id="8">Portail parent</category>
   <roles>
     <role id="_receiver">Agent traitant</role>
     <role id="_support-imio">Support iMio</role>
@@ -170,14 +170,14 @@ Un parent a voulu annuler une inscription aux plaines, mais celle-ci est tomb&#2
 `Consulter la demande &lt;{{ form_url_backoffice }}&gt;`_</body>
         </item>
         <item type="register-comment" id="3">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to>
           <comment>&lt;p&gt;Un parent a voulu annuler cette inscription aux plaines, mais celle-ci est tomb&#233;e en erreur. La plaine est donc toujours r&#233;serv&#233;e dans iA.AES.&lt;/p&gt;
 
 &lt;p&gt;Si vous n'avez pu r&#233;soudre le probl&#232;me, vous pouvez contacter le support d'iMio.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href="support.imio.be"&gt;Contacter le support d'iMio&lt;/a&gt;&lt;/p&gt;</comment>
-          <to>
-            <item role_id="_receiver">_receiver</item>
-          </to>
           <level>error</level>
         </item>
         <item type="choice" id="4">
@@ -357,7 +357,7 @@ Cordialement,</body>
         <field>
           <type>item</type>
           <label type="str">Mode de paiement</label>
-          <required type="bool">True</required>
+          <required type="str">required</required>
           <varname type="str">mode_de_paiement</varname>
           <display_locations />
           <anonymise type="str">no</anonymise>
@@ -384,7 +384,7 @@ Cordialement,</body>
         <field>
           <type>item</type>
           <label type="str">Plaine</label>
-          <required type="bool">True</required>
+          <required type="str">required</required>
           <varname type="str">plaine</varname>
           <display_locations>
             <item>summary</item>
@@ -406,7 +406,7 @@ Cordialement,</body>
         <field>
           <type>string</type>
           <label type="str">Demande Finalisation</label>
-          <required type="bool">True</required>
+          <required type="str">required</required>
           <varname type="str">demande_finalisation</varname>
           <display_locations>
             <item>summary</item>
@@ -417,7 +417,7 @@ Cordialement,</body>
         <field>
           <type>string</type>
           <label type="str">Date d&#233;but plaine</label>
-          <required type="bool">True</required>
+          <required type="str">required</required>
           <varname type="str">date_debut_plaine</varname>
           <display_locations>
             <item>summary</item>

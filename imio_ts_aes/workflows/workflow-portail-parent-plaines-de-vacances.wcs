@@ -2,7 +2,7 @@
 <workflow id="10" url="https://wcs.dev.publik.love/backoffice/workflows/10/">
   <name>Portail Parent - Plaines de vacances</name>
   <slug>portail-parent-plaines-de-vacances</slug>
-  <category slug="portail-parent" category_id="1">Portail parent</category>
+  <category slug="portail-parent" category_id="8">Portail parent</category>
   <roles>
     <role id="_receiver">Agent traitant</role>
     <role id="_support-imio">Support iMio</role>
@@ -227,20 +227,23 @@
 Une fois que vous aurez inscrits tous vos enfants, vous pouvez `finaliser vos inscriptions &lt;{{ portal_url }}portail-parent/&gt;`_.</body>
         </item>
         <item type="displaymsg" id="3">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
           <message>&lt;p&gt;Les inscriptions pour les semaines suivantes n'ont pu aboutir :&lt;/p&gt;&lt;ul&gt; {% for error in form_workflow_data_registration_response_error %}
 &lt;li&gt;Semaine du {{ error.start_date|date }} au {{ error.end_date|date }}&lt;/li&gt;
 {% endfor %}&lt;/ul&gt;</message>
           <level>warning</level>
           <position>bottom</position>
-          <to>
-            <item role_id="_submitter">_submitter</item>
-          </to>
           <condition>
             <type>django</type>
             <value>form_workflow_data_registration_response_error</value>
           </condition>
         </item>
         <item type="displaymsg" id="4">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
           <message>&lt;p&gt;{{ form_var_enfant }} a bien &#233;t&#233; inscrit&#183;e pour les semaines suivantes  :&lt;/p&gt;&lt;ul&gt; {% for success in form_workflow_data_registration_response_success %}
 &lt;li&gt;Semaine du {{ success.start_date|date }} au {{ success.end_date|date }}&lt;/li&gt;
 {% endfor %}&lt;/ul&gt;
@@ -254,23 +257,24 @@ Une fois que vous aurez inscrits tous vos enfants, vous pouvez `finaliser vos in
 &lt;p&gt;&lt;a class="pk-button" href="{{ eservices_url }}pp-finaliser-les-inscriptions-aux-plaines"&gt;Finaliser vos inscriptions&lt;/a&gt;&lt;/p&gt;</message>
           <level>success</level>
           <position>bottom</position>
+        </item>
+        <item type="displaymsg" id="5">
           <to>
             <item role_id="_submitter">_submitter</item>
           </to>
-        </item>
-        <item type="displaymsg" id="5">
           <message>Vous avez trois jours pour finaliser les inscriptions de vos enfants. Au-del&#224; de ce d&#233;lai, ils seront d&#233;sincrits.</message>
           <level>error</level>
           <position>bottom</position>
-          <to>
-            <item role_id="_submitter">_submitter</item>
-          </to>
           <condition>
             <type>django</type>
             <value>form_option_mode_de_paiement == "Paiement en ligne" or form_option_mode_de_paiement == "Paiement par virement"</value>
           </condition>
         </item>
         <item type="register-comment" id="6">
+          <to>
+            <item role_id="_support-imio">_support-imio</item>
+            <item role_id="_receiver">_receiver</item>
+          </to>
           <comment>&lt;p&gt;{{ form_var_enfant }} a bien &#233;t&#233; inscrit&#183;e pour les semaines suivantes  :&lt;/p&gt;&lt;ul&gt; {% for success in form_workflow_data_registration_response_success %}
 &lt;li&gt;Semaine du {{ success.start_date|date }} au {{ success.end_date|date }}&lt;/li&gt;
 {% endfor %}&lt;/ul&gt;
@@ -278,10 +282,6 @@ Une fois que vous aurez inscrits tous vos enfants, vous pouvez `finaliser vos in
 {% if form_workflow_data_registration_response_error %}&lt;p&gt;Les inscriptions pour les semaines suivantes n'ont pu aboutir :&lt;/p&gt;&lt;ul&gt; {% for error in form_workflow_data_registration_response_error %}
 &lt;li&gt;Semaine du {{ error.start_date|date }} au {{ error.end_date|date }}&lt;/li&gt;
 {% endfor %}&lt;/ul&gt;{% endif %}</comment>
-          <to>
-            <item role_id="_support-imio">_support-imio</item>
-            <item role_id="_receiver">_receiver</item>
-          </to>
         </item>
         <item type="register-comment" id="7">
           <comment>{% if is_in_backoffice %}&lt;a href="{{ form_links_navette_form_backoffice_url }}"&gt;Lien vers la demande de r&#233;servation de navettes&lt;/a&gt;{% else %}&lt;a href="{{ form_links_navette_form_url }}"&gt;Lien vers la demande de r&#233;servation de navettes&lt;/a&gt;{% endif %}</comment>
@@ -407,7 +407,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
         <field>
           <type>item</type>
           <label type="str">Mode de paiement</label>
-          <required type="bool">True</required>
+          <required type="str">required</required>
           <hint type="str">Si Paiement en ligne, le parent sera notifi&#233; qu'il n'a que trois jours pour finaliser ses d&#233;marches avant d&#233;sinscription.</hint>
           <varname type="str">mode_de_paiement</varname>
           <display_locations />
@@ -428,7 +428,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
         <field>
           <type>item</type>
           <label type="str">N'ouvrir les plaines de vacances qu'aux habitants de la commune.</label>
-          <required type="bool">True</required>
+          <required type="str">required</required>
           <varname type="str">ouvertes_aux_habitants</varname>
           <display_locations />
           <anonymise type="str">no</anonymise>
@@ -447,7 +447,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
         <field>
           <type>string</type>
           <label type="str">Message &#224; afficher aux non-r&#233;sidents</label>
-          <required type="bool">True</required>
+          <required type="str">required</required>
           <hint type="str">Par exemple : "Les inscriptions ne sont ouvertes que pour les Sprimontais jusqu'au 21 janvier 2023 &#224; 9h".</hint>
           <varname type="str">message_aux_non_residents</varname>
           <display_locations />
@@ -465,7 +465,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
         <field>
           <type>string</type>
           <label type="str">Fiches cr&#233;&#233;es</label>
-          <required type="bool">True</required>
+          <required type="str">required</required>
           <varname type="str">fiches_creees</varname>
           <display_locations />
           <anonymise type="str">final</anonymise>

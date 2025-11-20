@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<formdef id="18" url="https://wcs.dev.publik.love/backoffice/forms/18/">
+  <name>Portefeuille</name>
+  <url_name>portefeuille</url_name>
+  <submission_user_association>any</submission_user_association>
+  <history_pane_default_mode>expanded</history_pane_default_mode>
+  <discussion>false</discussion>
+  <detailed_emails>true</detailed_emails>
+  <disabled>false</disabled>
+  <only_allow_one>false</only_allow_one>
+  <enable_tracking_codes>false</enable_tracking_codes>
+  <confirmation>true</confirmation>
+  <always_advertise>false</always_advertise>
+  <has_captcha>false</has_captcha>
+  <skip_from_360_view>false</skip_from_360_view>
+  <category slug="portail-parent" category_id="5">Portail Parents</category>
+  <workflow slug="imio-portail-parent-portefeuille" workflow_id="20">iMio - Portail Parent - Portefeuille</workflow>
+  <fields>
+    <field>
+      <type>computed</type>
+      <label type="str">identifiant du pr&#233;paiement</label>
+      <varname type="str">id_prepaiement</varname>
+      <value_template type="str">{{request.GET.categorie|default:""}}</value_template>
+      <freeze_on_initial_value type="bool">True</freeze_on_initial_value>
+      <id type="str">b04fdadf-32e5-4f27-b3cf-56b53df198bb</id>
+    </field>
+    <field>
+      <type>item</type>
+      <label type="str">Pour quels types d'activit&#233;s souhaitez-vous alimenter votre portefeuille ?</label>
+      <required type="str">required</required>
+      <hint type="str">&lt;p&gt;En raison de la configuration du paiement en ligne, il n&#8217;est possible de s&#233;lectionner qu&#8217;un seul type d&#8217;activit&#233; &#224; la fois.&lt;/p&gt;</hint>
+      <varname type="str">prepaiement</varname>
+      <display_locations>
+        <item>validation</item>
+        <item>summary</item>
+      </display_locations>
+      <extra_css_class type="str">pk-important</extra_css_class>
+      <prefill>
+        <locked>False</locked>
+        <locked-unless-empty>False</locked-unless-empty>
+        <type>string</type>
+        <value>{{form_var_id_prepaiement}}</value>
+      </prefill>
+      <anonymise type="str">no</anonymise>
+      <display_mode type="str">radio</display_mode>
+      <items>
+        <item>Accueil</item>
+        <item>Piscine</item>
+        <item>Repas scolaires</item>
+      </items>
+      <data_source>
+        <type>pp_prepaiement_par_categorie</type>
+      </data_source>
+      <in_filters type="bool">False</in_filters>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
+      <image_desktop_size type="str">150</image_desktop_size>
+      <image_mobile_size type="str">75</image_mobile_size>
+      <id type="str">00bfef93-6213-4450-aeb5-ded9fed24cf7</id>
+    </field>
+    <field>
+      <type>numeric</type>
+      <label type="str">Montant (&#8364;)</label>
+      <required type="str">required</required>
+      <hint type="str">&lt;p&gt;N'encodez que des chiffres.&lt;/p&gt;</hint>
+      <varname type="str">montant</varname>
+      <display_locations>
+        <item>validation</item>
+        <item>summary</item>
+      </display_locations>
+      <extra_css_class type="str">pk-important</extra_css_class>
+      <anonymise type="str">final</anonymise>
+      <restrict_to_integers type="bool">True</restrict_to_integers>
+      <min_value type="decimal">0</min_value>
+      <id type="str">c5cd500f-38c2-4d22-97ce-1a4b961fb212</id>
+    </field>
+  </fields>
+  <user-roles>
+    <role role_id="logged-users">logged-users</role>
+  </user-roles>
+  <roles>
+    <role slug="agent-imio-portail-parents" role_id="17ebb1be538243ae90fd1f40f240c120" role_key="_support-imio">Agent iMio - Portail Parents</role>
+    <role slug="agent-traitant-portail-parents-finance" role_id="30c3484b8d2946d6bd9620bd470d0cd2" role_key="_receiver">Agent traitant - Portail Parents - Finance</role>
+  </roles>
+  <options />
+  <custom_views />
+  <geolocations />
+  <management_sidebar_items>
+    <item>__default__</item>
+  </management_sidebar_items>
+  <submission_sidebar_items>
+    <item>__default__</item>
+  </submission_sidebar_items>
+  <workflow-migrations>
+    <migration old-workflow="_default" new-workflow="imio-portail-parent-portefeuille" timestamp="2025-07-07T11:30:20.914821+02:00">
+      <timestamp>2025-07-07T11:30:20.914821+02:00</timestamp>
+      <status-mapping />
+    </migration>
+  </workflow-migrations>
+</formdef>

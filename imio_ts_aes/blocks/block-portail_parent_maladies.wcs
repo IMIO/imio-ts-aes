@@ -3,7 +3,7 @@
   <name>Portail Parent - Maladies</name>
   <slug>portail_parent_maladies</slug>
   <digest_template>{{ block_var_disease }} - {{ block_var_gravity }}</digest_template>
-  <category slug="portail-parents" category_id="1">Portail Parents</category>
+  <category slug="imio-portail-parent" category_id="10">iMio - Portail Parent</category>
   <fields>
     <field>
       <type>comment</type>
@@ -24,7 +24,7 @@
     <field>
       <type>item</type>
       <label type="str">Maladie</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <hint type="str">&lt;p&gt;Pas de maladie&lt;/p&gt;</hint>
       <varname type="str">disease</varname>
       <display_locations>
@@ -34,6 +34,7 @@
       <extra_css_class type="str">grid-1-4</extra_css_class>
       <anonymise type="str">no</anonymise>
       <display_mode type="str">list</display_mode>
+      <items />
       <data_source>
         <type>jsonvalue</type>
         <value>{{ data_source.aes_diseases|add:data_source.autre|json_dumps }}</value>
@@ -52,7 +53,7 @@
         <type>django</type>
         <value>block_var_disease_raw == "autre"</value>
       </condition>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">other_disease</varname>
       <display_locations>
         <item>validation</item>
@@ -65,7 +66,7 @@
     <field>
       <type>string</type>
       <label type="str">Gravit&#233;</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">gravity</varname>
       <display_locations>
         <item>validation</item>
@@ -78,7 +79,7 @@
     <field>
       <type>string</type>
       <label type="str">Traitement</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">treatment</varname>
       <display_locations>
         <item>validation</item>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<datasource id="27" url="https://wcs.dev.publik.love/backoffice/settings/data-sources/27/">
+  <name>Portail Parent - Pr&#233;paiement par cat&#233;gorie</name>
+  <slug>pp_prepaiement_par_categorie</slug>
+  <data_attribute>prepayment_by_categories</data_attribute>
+  <text_attribute>activity_category_name</text_attribute>
+  <data_source>
+    <type>json</type>
+    <value>{{passerelle_url}}passerelle-imio-ia-aes/aes/parents/{{form_user_var_aes_id}}/balances</value>
+  </data_source>
+  <category slug="portail-parent" category_id="11">Portail Parent</category>
+</datasource>

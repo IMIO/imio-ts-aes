@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<datasource id="16" url="https://wcs.dev.publik.love/backoffice/settings/data-sources/16/">
+  <name>iMio - Portail Parent - Mercredis apr&#232;s-midi</name>
+  <slug>pp_wednesdays_afternoon</slug>
+  <data_attribute>items</data_attribute>
+  <text_attribute>text</text_attribute>
+  <data_source>
+    <type>json</type>
+    <value>{{passerelle_url}}passerelle-imio-ia-aes/aes/wednesday-afternoon?parent_id={{ form_user_aes_id }}&amp;end_date={{ form_option_delai_en_jours }}</value>
+  </data_source>
+  <category slug="portail-parent" category_id="11">Portail Parent</category>
+</datasource>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<datasource id="2" url="https://wcs.dev.publik.love/backoffice/settings/data-sources/2/">
+  <name>AES Oui - Non</name>
+  <slug>aes_oui_non</slug>
+  <data_source>
+    <type>jsonvalue</type>
+    <value>[{"id": "oui","text": "Oui"}, {"id": "non", "text": "Non"},{"id": "non_renseigne", "text": "Non renseign&#233;"}]</value>
+  </data_source>
+  <category slug="portail-parent" category_id="11">Portail Parent</category>
+</datasource>

@@ -2,16 +2,18 @@
 <block id="1" url="https://wcs.dev.publik.love/backoffice/forms/blocks/1/">
   <name>Portail Parent - Ajouter un fichier</name>
   <slug>pp_ajouter_un_fichier</slug>
+  <category slug="imio-portail-parent" category_id="10">iMio - Portail Parent</category>
   <fields>
     <field>
       <type>file</type>
       <label type="str">Fichier</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">fichier</varname>
       <display_locations>
-        <display_location>validation</display_location>
-        <display_location>summary</display_location>
-      </display_locations><extra_css_class type="str">pk-compact-file</extra_css_class>
+        <item>validation</item>
+        <item>summary</item>
+      </display_locations>
+      <extra_css_class type="str">pk-compact-file</extra_css_class>
       <anonymise type="str">final</anonymise>
       <allow_portfolio_picking type="bool">False</allow_portfolio_picking>
       <automatic_image_resize type="bool">False</automatic_image_resize>

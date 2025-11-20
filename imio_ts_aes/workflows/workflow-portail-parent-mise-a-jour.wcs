@@ -2,7 +2,7 @@
 <workflow id="8" url="https://wcs.dev.publik.love/backoffice/workflows/8/">
   <name>Portail Parent - Mise &#224; jour</name>
   <slug>portail-parent-mise-a-jour</slug>
-  <category slug="portail-parent" category_id="1">Portail parent</category>
+  <category slug="portail-parent" category_id="8">Portail parent</category>
   <roles>
     <role id="_receiver">Agent traitant</role>
     <role id="_support-imio">Support iMio</role>
@@ -303,12 +303,12 @@ Cordialement,</body>
       </visibility>
       <items>
         <item type="displaymsg" id="1">
-          <message>&lt;p&gt;Une erreur est survenue lors de la mise &#224; jour des donn&#233;es. Celle-ci n'a donc pas pu se faire.&lt;/p&gt;</message>
-          <level>error</level>
-          <position>top</position>
           <to>
             <item role_id="_receiver">_receiver</item>
           </to>
+          <message>&lt;p&gt;Une erreur est survenue lors de la mise &#224; jour des donn&#233;es. Celle-ci n'a donc pas pu se faire.&lt;/p&gt;</message>
+          <level>error</level>
+          <position>top</position>
         </item>
         <item type="register-comment" id="2" />
         <item type="sendmail" id="3">
@@ -367,13 +367,14 @@ Une erreur a &#233;t&#233; rencontr&#233;e pour une demande du formulaire {{ for
           </by>
           <varname>refus</varname>
           <hide_submit_button>True</hide_submit_button>
+          <include_in_form_history>False</include_in_form_history>
           <formdef>
             <name>-</name>
             <fields>
               <field>
                 <type>text</type>
                 <label type="str">Motif du refus</label>
-                <required type="bool">True</required>
+                <required type="str">required</required>
                 <hint type="str">La raison du refus sera envoy&#233;e telle quelle au parent.</hint>
                 <varname type="str">motif</varname>
                 <display_locations>
@@ -438,7 +439,7 @@ Une erreur a &#233;t&#233; rencontr&#233;e pour une demande du formulaire {{ for
         <field>
           <type>bool</type>
           <label type="str">Accepter automatiquement la mise &#224; jour</label>
-          <required type="bool">False</required>
+          <required type="str">optional</required>
           <hint type="str">Les donn&#233;es mises &#224; jour par le parent seront automatiquement modifi&#233;es dans iA.AES. En d&#233;cochant cette case, un agent traitant devra valider la demande manuellement.</hint>
           <varname type="str">validation_automatique</varname>
           <display_locations>
@@ -451,10 +452,11 @@ Une erreur a &#233;t&#233; rencontr&#233;e pour une demande du formulaire {{ for
         <field>
           <type>bool</type>
           <label type="str">Recevoir une confirmation d'un changement</label>
-          <required type="bool">False</required>
+          <required type="str">optional</required>
           <hint type="str">&lt;p&gt;Cochez cette case pour recevoir une notification par email lorsqu'une la mise &#224; jour a &#233;t&#233; accept&#233;e.&lt;/p&gt;</hint>
           <varname type="str">email_confirmation</varname>
           <display_locations />
+          <anonymise type="str">no</anonymise>
           <id type="str">433c2d07-e7be-4080-92e3-073d14c13f7d</id>
         </field>
       </fields>
@@ -467,7 +469,7 @@ Une erreur a &#233;t&#233; rencontr&#233;e pour une demande du formulaire {{ for
         <field>
           <type>numeric</type>
           <label type="str">country_id</label>
-          <required type="bool">True</required>
+          <required type="str">required</required>
           <varname type="str">country_id</varname>
           <display_locations />
           <anonymise type="str">final</anonymise>

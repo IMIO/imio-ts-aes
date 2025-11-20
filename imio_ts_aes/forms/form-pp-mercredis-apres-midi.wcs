@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<formdef id="14" url="https://wcs.dev.publik.love/backoffice/forms/14/">
+  <name>Mercredis apr&#232;s-midi</name>
+  <url_name>pp-mercredis-apres-midi</url_name>
+  <keywords>mercredis, Inscriptions</keywords>
+  <drafts_lifespan>2</drafts_lifespan>
+  <submission_user_association>any</submission_user_association>
+  <history_pane_default_mode>expanded</history_pane_default_mode>
+  <discussion>false</discussion>
+  <detailed_emails>true</detailed_emails>
+  <disabled>false</disabled>
+  <only_allow_one>false</only_allow_one>
+  <enable_tracking_codes>false</enable_tracking_codes>
+  <confirmation>false</confirmation>
+  <always_advertise>false</always_advertise>
+  <has_captcha>false</has_captcha>
+  <skip_from_360_view>false</skip_from_360_view>
+  <category slug="portail-parent" category_id="5">Portail Parents</category>
+  <workflow slug="imio-portail-parent-inscription-a-des-activites-diverses" workflow_id="19">iMio - Portail Parent - Inscription &#224; des activit&#233;s diverses</workflow>
+  <fields>
+    <field>
+      <type>page</type>
+      <label type="str">S&#233;lection des mercredis apr&#232;s-midi</label>
+      <id type="str">47</id>
+    </field>
+    <field>
+      <type>comment</type>
+      <label type="str">&lt;p&gt;{% with amount=webservice.portail_parent_solde_accueil|get:"amount" already_reserved_amount=webservice.portail_parent_solde_accueil|get:"already_reserved_amount" %}{% if amount or already_reserved_amount %} {% if amount|subtract:already_reserved_amount &gt; 0 %}Il reste {{ amount|subtract:already_reserved_amount|decimal:2 }}&#8364; dans votre solde. Ce montant sera d&#233;duit lors du paiement.{% endif %}{% endif %}{% endwith %}&lt;/p&gt;
+</label>
+      <display_locations />
+      <id type="str">1fa06dbf-7db4-48ef-af4f-6ac3a4374a03</id>
+    </field>
+    <field>
+      <type>comment</type>
+      <label type="str">&lt;div class="AutoHeight" style="width: 100%; height: auto; overflow: visible;"&gt;
+&lt;div&gt;
+&lt;div class="post-message post-message--collapsed"&gt;
+&lt;div class="post-message__text-container" style=""&gt;
+&lt;div class="post-message__text" dir="auto" id="postMessageText_gb8b4gd3k3y1tgwoabn7weozka"&gt;
+&lt;p&gt;Cochez les dates auxquelles vous souhaitez inscrire le ou les enfant(s).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</label>
+      <display_locations />
+      <id type="str">488591d8-187b-4a6a-ab17-72505c94841a</id>
+    </field>
+    <field>
+      <type>items</type>
+      <label type="str">Mercredis apr&#232;s-midi</label>
+      <required type="str">required</required>
+      <varname type="str">inscriptions</varname>
+      <display_locations>
+        <item>validation</item>
+        <item>summary</item>
+      </display_locations>
+      <extra_css_class type="str">pk-important</extra_css_class>
+      <anonymise type="str">final</anonymise>
+      <display_mode type="str">checkboxes</display_mode>
+      <min_choices type="int">1</min_choices>
+      <max_choices type="int">0</max_choices>
+      <data_source>
+        <type>pp_wednesdays_afternoon</type>
+        <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/menus?child_id=22&amp;month=1</value>
+      </data_source>
+      <in_filters type="bool">False</in_filters>
+      <display_disabled_items type="bool">True</display_disabled_items>
+      <image_desktop_size type="str">150</image_desktop_size>
+      <image_mobile_size type="str">75</image_mobile_size>
+      <id type="str">39</id>
+    </field>
+  </fields>
+  <user-roles>
+    <role role_id="logged-users">logged-users</role>
+  </user-roles>
+  <roles>
+    <role slug="agent-imio-portail-parents" role_id="17ebb1be538243ae90fd1f40f240c120" role_key="_support-imio">Agent iMio - Portail Parents</role>
+    <role slug="agent-traitant-portail-parents-accueil" role_id="06525384cfce4ba1b6972cd50ecee3aa" role_key="_receiver">Agent traitant - Portail Parents - Accueil</role>
+  </roles>
+  <options>
+    <option varname="delai_en_jours">90</option>
+    <option varname="heure_limite">12:00</option>
+    <option varname="implantations_scolaires" type="list">
+      <item>2</item>
+      <item>36</item>
+    </option>
+    <option varname="implantations_scolaires_display">Implantation scolaire n&#176;1, Implantation scolaire n&#176;2</option>
+    <option varname="implantations_scolaires_structured" type="list">
+      <item type="dict">
+        <id type="int">2</id>
+        <name>Implantation scolaire n&#176;1</name>
+        <text>Implantation scolaire n&#176;1</text>
+      </item>
+      <item type="dict">
+        <id type="int">36</id>
+        <name>Implantation scolaire n&#176;2</name>
+        <text>Implantation scolaire n&#176;2</text>
+      </item>
+    </option>
+    <option varname="mode_paiement">Paiement en ligne</option>
+    <option varname="mode_paiement_display">Paiement en ligne</option>
+    <option varname="mode_paiement_structured" />
+    <option varname="mois">1</option>
+    <option varname="mois_display">Mois prochain</option>
+    <option varname="mois_structured" />
+    <option varname="regie_de_paiement">pp_accueil</option>
+    <option varname="regie_de_paiement_display">Portail parents - Accueil</option>
+    <option varname="regie_de_paiement_structured" type="dict">
+      <id>pp_accueil</id>
+      <text>Portail parents - Accueil</text>
+      <description>R&#233;gie de l'Accueil ES.</description>
+    </option>
+    <option varname="test" />
+  </options>
+  <custom_views />
+  <geolocations />
+  <management_sidebar_items>
+    <item>__default__</item>
+  </management_sidebar_items>
+  <submission_sidebar_items>
+    <item>__default__</item>
+  </submission_sidebar_items>
+  <workflow-migrations>
+    <migration old-workflow="portail-parent-repas-scolaires" new-workflow="imio-portail-parent-journee-pedagogique-1" timestamp="2025-07-16T10:33:26.561866+02:00">
+      <timestamp>2025-07-16T10:33:26.561866+02:00</timestamp>
+      <status-mapping />
+    </migration>
+    <migration old-workflow="imio-portail-parent-journee-pedagogique-1" new-workflow="pp-journees-pedagogiques-test" timestamp="2025-07-22T12:53:30.562626+02:00">
+      <timestamp>2025-07-22T12:53:30.562626+02:00</timestamp>
+      <status-mapping />
+    </migration>
+    <migration old-workflow="pp-journees-pedagogiques" new-workflow="pp-mercredis-apres-midi-1" timestamp="2025-10-27T13:47:55.658811+01:00">
+      <timestamp>2025-10-27T13:47:55.658811+01:00</timestamp>
+      <status-mapping />
+    </migration>
+    <migration old-workflow="pp-mercredis-apres-midi-1" new-workflow="imio-portail-parent-inscription-a-des-activites-diverses" timestamp="2025-11-14T12:09:04.095171+01:00">
+      <timestamp>2025-11-14T12:09:04.095171+01:00</timestamp>
+      <status-mapping />
+    </migration>
+  </workflow-migrations>
+</formdef>

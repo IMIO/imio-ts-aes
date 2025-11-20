@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<workflow id="23" url="https://wcs.dev.publik.love/backoffice/workflows/23/">
+  <name>iMio - Portail Parent - Tout payer</name>
+  <slug>pp-tout-payer</slug>
+  <category slug="portail-parent" category_id="8">Portail parent</category>
+  <roles>
+    <role id="_receiver">Destinataire</role>
+    <role id="_support-imio">Support iMio</role>
+  </roles>
+  <possible_status>
+    <status>
+      <id>1</id>
+      <name>Ajout des factures au panier</name>
+      <colour>#ffffff</colour>
+      <loop_items_template>{{ form_var_factures }}</loop_items_template>
+      <after_loop_status>2</after_loop_status>
+      <visibility />
+      <items>
+        <item type="register-comment" id="2">
+          <to>
+            <item role_id="_support-imio">_support-imio</item>
+          </to>
+          <comment>{{ status_loop.current_item }}</comment>
+          <level>info</level>
+        </item>
+        <item type="create_formdata" id="1">
+          <action_label>Payer une facture</action_label>
+          <formdef_slug>pp-payer-une-facture</formdef_slug>
+          <map_fields_by_varname>False</map_fields_by_varname>
+          <mappings>
+            <mapping field_id="6516224f-20a1-43ac-b081-d351a1f48fb0">{{ status_loop.current_item|get:"id" }}</mapping>
+            <mapping field_id="334e97c3-1f98-4565-a1f0-31d07da66a43">{{ status_loop.current_item|get:"id" }}</mapping>
+          </mappings>
+          <backoffice_submission>False</backoffice_submission>
+          <draft>False</draft>
+          <draft_edit_operation_mode>full</draft_edit_operation_mode>
+          <user_association_mode>keep-user</user_association_mode>
+          <keep_submission_context>False</keep_submission_context>
+          <varname>facture</varname>
+          <attach_to_history>True</attach_to_history>
+        </item>
+      </items>
+    </status>
+    <status>
+      <id>2</id>
+      <name>Fin</name>
+      <colour>#FFFFFF</colour>
+      <visibility />
+      <items>
+        <item type="redirect_to_url" id="1">
+          <url>{{portal_url}}panier/</url>
+        </item>
+      </items>
+    </status>
+  </possible_status>
+</workflow>

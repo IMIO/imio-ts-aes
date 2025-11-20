@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<carddef id="1" url="https://wcs.dev.publik.love/backoffice/cards/1/">
+  <name>PP - R&#233;gie par cat&#233;gorie d'activit&#233;</name>
+  <url_name>pp-regie-categorie</url_name>
+  <id_template>{{form_var_id_categorie}}</id_template>
+  <submission_user_association>none</submission_user_association>
+  <history_pane_default_mode>collapsed</history_pane_default_mode>
+  <discussion>false</discussion>
+  <detailed_emails>true</detailed_emails>
+  <disabled>false</disabled>
+  <only_allow_one>false</only_allow_one>
+  <enable_tracking_codes>false</enable_tracking_codes>
+  <confirmation>false</confirmation>
+  <always_advertise>false</always_advertise>
+  <has_captcha>false</has_captcha>
+  <skip_from_360_view>false</skip_from_360_view>
+  <category slug="portail-parent" category_id="12">Portail Parent</category>
+  <workflow slug="_carddef_default" workflow_id="_carddef_default">Par d&#233;faut (fiches)</workflow>
+  <fields>
+    <field>
+      <type>item</type>
+      <label type="str">Cat&#233;gorie</label>
+      <required type="str">required</required>
+      <varname type="str">categorie</varname>
+      <display_locations>
+        <item>validation</item>
+        <item>summary</item>
+        <item>listings</item>
+      </display_locations>
+      <anonymise type="str">no</anonymise>
+      <display_mode type="str">list</display_mode>
+      <items />
+      <data_source>
+        <type>pp_category_prepaid</type>
+      </data_source>
+      <in_filters type="bool">False</in_filters>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
+      <image_desktop_size type="str">150</image_desktop_size>
+      <image_mobile_size type="str">75</image_mobile_size>
+      <id type="str">e9d1a3cb-5cc7-4e09-a9c8-e6b2c11317f7</id>
+    </field>
+    <field>
+      <type>item</type>
+      <label type="str">R&#233;gie de paiement</label>
+      <required type="str">required</required>
+      <varname type="str">regie_de_paiement</varname>
+      <display_locations>
+        <item>validation</item>
+        <item>summary</item>
+        <item>listings</item>
+      </display_locations>
+      <anonymise type="str">no</anonymise>
+      <display_mode type="str">list</display_mode>
+      <data_source>
+        <type>json</type>
+        <value>{{portal_url}}api/lingo/regies</value>
+      </data_source>
+      <in_filters type="bool">False</in_filters>
+      <display_disabled_items type="bool">False</display_disabled_items>
+      <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
+      <image_desktop_size type="str">150</image_desktop_size>
+      <image_mobile_size type="str">75</image_mobile_size>
+      <id type="str">72c37312-5c63-4996-9f92-84b08aa181bd</id>
+    </field>
+    <field>
+      <type>string</type>
+      <label type="str">id cat&#233;gorie</label>
+      <required type="str">required</required>
+      <varname type="str">id_categorie</varname>
+      <display_locations>
+        <item>validation</item>
+        <item>summary</item>
+      </display_locations>
+      <prefill>
+        <locked>True</locked>
+        <type>string</type>
+        <value>{{form_var_categorie_raw}}</value>
+      </prefill>
+      <anonymise type="str">final</anonymise>
+      <id type="str">d86bfc0d-652e-4c8c-9088-67c9cfc6031f</id>
+    </field>
+    <field>
+      <type>string</type>
+      <label type="str">id r&#233;gie de paiement</label>
+      <required type="str">required</required>
+      <varname type="str">id_regie_de_paiement</varname>
+      <display_locations>
+        <item>validation</item>
+        <item>summary</item>
+      </display_locations>
+      <prefill>
+        <locked>True</locked>
+        <type>string</type>
+        <value>{{form_var_regie_de_paiement_raw}}</value>
+      </prefill>
+      <anonymise type="str">final</anonymise>
+      <id type="str">f845e04f-bc92-434b-af4e-662f29fff7cf</id>
+    </field>
+  </fields>
+  <user-roles>
+    <role slug="agent-traitant-portail-parents-finance" role_id="30c3484b8d2946d6bd9620bd470d0cd2">Agent traitant - Portail Parents - Finance</role>
+  </user-roles>
+  <backoffice-submission-roles>
+    <role slug="agent-traitant-portail-parents-finance" role_id="30c3484b8d2946d6bd9620bd470d0cd2">Agent traitant - Portail Parents - Finance</role>
+  </backoffice-submission-roles>
+  <roles>
+    <role slug="agent-traitant-portail-parents-finance" role_id="30c3484b8d2946d6bd9620bd470d0cd2" role_key="_editor">Agent traitant - Portail Parents - Finance</role>
+    <role slug="agent-traitant-portail-parents-finance" role_id="30c3484b8d2946d6bd9620bd470d0cd2" role_key="_viewer">Agent traitant - Portail Parents - Finance</role>
+  </roles>
+  <options />
+  <custom_views />
+  <geolocations />
+  <management_sidebar_items>
+    <item>__default__</item>
+  </management_sidebar_items>
+  <submission_sidebar_items>
+    <item>__default__</item>
+  </submission_sidebar_items>
+  <digest_templates>
+    <template key="default">{{ form_var_categorie }}</template>
+  </digest_templates>
+</carddef>

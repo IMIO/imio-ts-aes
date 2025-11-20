@@ -1,0 +1,981 @@
+<?xml version="1.0"?>
+<workflow id="19" url="https://wcs.dev.publik.love/backoffice/workflows/19/">
+  <name>iMio - Portail Parent - Inscription &#224; des activit&#233;s diverses</name>
+  <slug>imio-portail-parent-inscription-a-des-activites-diverses</slug>
+  <category slug="portail-parent" category_id="8">Portail parent</category>
+  <roles>
+    <role id="_receiver">Agent traitant</role>
+    <role id="_support-imio">Support iMio</role>
+  </roles>
+  <possible_status>
+    <status>
+      <id>8</id>
+      <name>Nouvelle demande</name>
+      <colour>#FFFFFF</colour>
+      <visibility />
+      <items>
+        <item type="external_workflow_global_action" id="1">
+          <slug>formdef:pp-journee-pedagogique</slug>
+          <trigger_id>action:cancel</trigger_id>
+          <target_mode>manual</target_mode>
+          <target_id>{{ form_objects|filter_by_user:form_user|filter_by_status:"En attente de paiement"|exclude_self }}</target_id>
+          <condition>
+            <type>django</type>
+            <value>form_slug == "pp-journee-pedagogique"</value>
+          </condition>
+        </item>
+        <item type="external_workflow_global_action" id="4">
+          <slug>formdef:pp-mercredis-apres-midi</slug>
+          <trigger_id>action:cancel</trigger_id>
+          <target_mode>manual</target_mode>
+          <target_id>{{ form_objects|filter_by_user:form_user|filter_by_status:"En attente de paiement"|exclude_self }}</target_id>
+          <condition>
+            <type>django</type>
+            <value>form_slug == "pp-mercredis-apres-midi"</value>
+          </condition>
+        </item>
+        <item type="jump" id="3">
+          <status>1</status>
+          <condition>
+            <type>django</type>
+            <value>form_option_mode_paiement != "Paiement en ligne"</value>
+          </condition>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="2">
+          <status>19</status>
+          <condition>
+            <type>django</type>
+            <value>form_option_mode_paiement == "Paiement en ligne"</value>
+          </condition>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+    <status>
+      <id>19</id>
+      <name>R&#233;cup&#233;ration solde initial</name>
+      <colour>#ffffff</colour>
+      <visibility>
+        <role>__restricted__</role>
+      </visibility>
+      <items>
+        <item type="webservice_call" id="2">
+          <label>Lecture du solde initial</label>
+          <method>GET</method>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{form_user_aes_id}}/balance/childcare</url>
+          <post>False</post>
+          <response_type>json</response_type>
+          <varname>solde_initial</varname>
+          <store_all_responses>False</store_all_responses>
+          <attach_file_to_history>True</attach_file_to_history>
+          <action_on_app_error>6</action_on_app_error>
+          <action_on_4xx>6</action_on_4xx>
+          <action_on_5xx>6</action_on_5xx>
+          <action_on_bad_data>6</action_on_bad_data>
+          <action_on_network_errors>6</action_on_network_errors>
+          <record_errors>True</record_errors>
+          <record_on_errors>False</record_on_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="1">
+          <status>4</status>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+    <status>
+      <id>4</id>
+      <name>Calcul du montant</name>
+      <colour>#ffffff</colour>
+      <visibility>
+        <role>__restricted__</role>
+      </visibility>
+      <items>
+        <item type="webservice_call" id="5">
+          <label>Calcul du montant</label>
+          <method>POST</method>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{form_user_aes_id}}/childcare/registrations/cost</url>
+          <post>False</post>
+          <post_data>
+            <item>
+              <name>registrations</name>
+              <value>{{form_var_inscriptions_structured}}</value>
+            </item>
+            <item>
+              <name>activity_category_id</name>
+              <value>{{form_workflow_wscall_solde_initial_response_activity_category_id}}</value>
+            </item>
+            <item>
+              <name>already_reserved_amount</name>
+              <value>{{form_workflow_wscall_solde_initial_response_already_reserved_amount}}</value>
+            </item>
+            <item>
+              <name>initial_balance</name>
+              <value>{{form_workflow_wscall_solde_initial_response_amount}}</value>
+            </item>
+            <item>
+              <name>prepayment_by_category_id</name>
+              <value>{{form_workflow_wscall_solde_initial_response_prepayment_by_category_id}}</value>
+            </item>
+            <item>
+              <name>form_number_raw</name>
+              <value>{{form_number_raw}}</value>
+            </item>
+            <item>
+              <name>form_url</name>
+              <value>{{form_url_backoffice}}</value>
+            </item>
+            <item>
+              <name>comment</name>
+              <value>{{ form_name }} - {{form_number}}</value>
+            </item>
+          </post_data>
+          <response_type>json</response_type>
+          <varname>montant</varname>
+          <store_all_responses>False</store_all_responses>
+          <attach_file_to_history>True</attach_file_to_history>
+          <action_on_app_error>6</action_on_app_error>
+          <action_on_4xx>6</action_on_4xx>
+          <action_on_5xx>6</action_on_5xx>
+          <action_on_bad_data>6</action_on_bad_data>
+          <action_on_network_errors>6</action_on_network_errors>
+          <record_errors>True</record_errors>
+          <record_on_errors>False</record_on_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="choice" id="4">
+          <label>Mettre en erreur</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+            <item role_id="_support-imio">_support-imio</item>
+          </by>
+          <status>6</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Mettre la demande en erreur lors du calcul du montant. Cela notifiera les agents traitants par courriel et permettra de relancer l&amp;#39;op&amp;eacute;ration.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="7">
+          <status>20</status>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+    <status>
+      <id>6</id>
+      <name>Erreur lors du calcul du montant</name>
+      <colour>#ff0000</colour>
+      <visibility />
+      <items>
+        <item type="sendmail" id="2">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to>
+          <subject>{{ form_name }} n&#176;{{ form_number }} - Erreur lors du calcul du montant</subject>
+          <body>Une erreur est survenue lors d'un calcul de montant pour le formulaire {{ form_name}}. Le parent ne peut donc finaliser sa commande.
+
+`Consulter la commande &lt;{{ form_url_backoffice }}&gt;`_
+
+`Consulter la documentation relative &#224; l'erreur &lt;https://docs.imio.be/portailparent/gestion-erreurs/&gt;`_
+
+`Envoyer un ticket au support &lt;https://support.imio.be&gt;`_</body>
+        </item>
+        <item type="choice" id="1">
+          <label>Calculer le montant</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+            <item role_id="_support-imio">_support-imio</item>
+          </by>
+          <status>19</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Relance le calcul du montant, ce qui a plusieurs effets :&lt;/p&gt;
+
+&lt;ul&gt;
+	&lt;li&gt;calcul du montant total de la commande, en se basant sur les repas command&amp;eacute;s,&lt;/li&gt;
+	&lt;li&gt;r&amp;eacute;cup&amp;eacute;ration du solde du parent pour la m&amp;ecirc;me p&amp;eacute;riode,&lt;/li&gt;
+	&lt;li&gt;calcul du montant pay&amp;eacute; automatiquement par le solde et du montant restant &amp;agrave; payer&lt;/li&gt;
+	&lt;li&gt;et enfin r&amp;eacute;servation de la portion du solde consomm&amp;eacute; pour que le parent n&amp;#39;en b&amp;eacute;n&amp;eacute;ficie pas plusieurs fois.&lt;/li&gt;
+&lt;/ul&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+    <status>
+      <id>20</id>
+      <name>R&#233;servation du solde</name>
+      <colour>#ffffff</colour>
+      <visibility>
+        <role>__restricted__</role>
+      </visibility>
+      <items>
+        <item type="webservice_call" id="1">
+          <label>R&#233;servation de solde</label>
+          <method>POST</method>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/reserved-balances</url>
+          <post>False</post>
+          <post_data>
+            <item>
+              <name>reserved_balances</name>
+              <value>{{form_workflow_data_montant_response_reserved_balances}}</value>
+            </item>
+          </post_data>
+          <response_type>json</response_type>
+          <varname>reservation_solde</varname>
+          <store_all_responses>False</store_all_responses>
+          <attach_file_to_history>True</attach_file_to_history>
+          <action_on_app_error>6</action_on_app_error>
+          <action_on_4xx>6</action_on_4xx>
+          <action_on_5xx>6</action_on_5xx>
+          <action_on_bad_data>6</action_on_bad_data>
+          <action_on_network_errors>6</action_on_network_errors>
+          <record_errors>True</record_errors>
+          <record_on_errors>False</record_on_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="3">
+          <status>1</status>
+          <condition>
+            <type>django</type>
+            <value>form_workflow_data_montant_response_due_amount &lt;= 0</value>
+          </condition>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="2">
+          <status>5</status>
+          <condition>
+            <type>django</type>
+            <value>form_workflow_data_montant_response_due_amount &gt; 0</value>
+          </condition>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+    <status>
+      <id>5</id>
+      <name>Ajout au panier</name>
+      <colour>#FFFFFF</colour>
+      <visibility />
+      <items>
+        <item type="webservice_call" id="1">
+          <label>Ajout au panier</label>
+          <method>POST</method>
+          <url>{{ portal_url }}api/lingo/add-basket-item?NameId={{ form_user_name_identifier_0 }}</url>
+          <qs_data>
+            <item>
+              <name>regie_id</name>
+              <value>{{form_option_regie_de_paiement_raw}}</value>
+            </item>
+          </qs_data>
+          <post>False</post>
+          <post_data>
+            <item>
+              <name>amount</name>
+              <value>{{ form_workflow_data_montant_response_due_amount|decimal:2  }}</value>
+            </item>
+            <item>
+              <name>display_name</name>
+              <value>{{ form_name }}</value>
+            </item>
+            <item>
+              <name>url</name>
+              <value>{{ form_url }}</value>
+            </item>
+          </post_data>
+          <response_type>json</response_type>
+          <varname>ajout_panier</varname>
+          <store_all_responses>False</store_all_responses>
+          <attach_file_to_history>True</attach_file_to_history>
+          <action_on_app_error>:pass</action_on_app_error>
+          <action_on_4xx>:stop</action_on_4xx>
+          <action_on_5xx>:stop</action_on_5xx>
+          <action_on_bad_data>:pass</action_on_bad_data>
+          <action_on_network_errors>:stop</action_on_network_errors>
+          <record_errors>False</record_errors>
+          <record_on_errors>True</record_on_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="2">
+          <status>7</status>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="choice" id="3">
+          <label>Ajout au panier</label>
+          <by>
+            <item role_id="_support-imio">_support-imio</item>
+          </by>
+          <status>5</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+    <status>
+      <id>7</id>
+      <name>En attente de paiement</name>
+      <colour>#f8e45c</colour>
+      <visibility />
+      <items>
+        <item type="displaymsg" id="1">
+          <message>&lt;p&gt;Votre commande attend d'&#234;tre r&#233;gl&#233;e et se trouve dans votre panier.&lt;br&gt;&lt;br&gt;&lt;a href="{{portal_user_url}}panier" rel="nofollow"&gt;R&#233;gler ma commande&lt;/a&gt;&lt;/p&gt;</message>
+          <level>info</level>
+          <position>top</position>
+        </item>
+        <item type="register-comment" id="2">
+          <comment>&lt;a href="{{ portal_url }}panier" title="Cliquez pour &#234;tre redirig&#233; vers le panier" class="pk-button"&gt;R&#233;gler ma commande&lt;/a&gt;
+&lt;p&gt;
+</comment>
+        </item>
+        <item type="jump" id="3">
+          <status>11</status>
+          <mode>trigger</mode>
+          <trigger>cancelled</trigger>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="4">
+          <status>12</status>
+          <mode>trigger</mode>
+          <trigger>paid</trigger>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="5">
+          <status>9</status>
+          <condition>
+            <type>django</type>
+            <value>form_previous_status == "Ajout au panier"</value>
+          </condition>
+          <mode>timeout</mode>
+          <timeout>129600</timeout>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="6">
+          <status>10</status>
+          <condition>
+            <type>django</type>
+            <value>form_previous_status == "Alerte non paiement"</value>
+          </condition>
+          <mode>timeout</mode>
+          <timeout>129600</timeout>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="choice" id="7">
+          <label>Annuler la commande en notifiant le parent</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+            <item role_id="_support-imio">_support-imio</item>
+          </by>
+          <status>10</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Annule la commande. Le parent sera notifi&amp;eacute; de l&amp;#39;annulation, son panier sera vid&amp;eacute; et l&amp;#39;&amp;eacute;ventuel solde r&amp;eacute;serv&amp;eacute; sera lib&amp;eacute;r&amp;eacute;.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="choice" id="8">
+          <label>Annuler la commande, sans notifier le parent</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by>
+          <status>11</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Annule la commande. Le panier du parent sera vid&amp;eacute; et son &amp;eacute;ventuel solde r&amp;eacute;serv&amp;eacute; sera lib&amp;eacute;r&amp;eacute;.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+    <status>
+      <id>9</id>
+      <name>Alerte non paiement</name>
+      <colour>#FFFFFF</colour>
+      <visibility />
+      <items>
+        <item type="sendmail" id="2">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
+          <subject>Portail Parent - {{ form_name }} - Paiement en attente</subject>
+          <body>Bonjour,
+
+Vous avez r&#233;alis&#233; une ou plusieurs inscriptions, mais n'avez pas r&#233;gl&#233; votre panier. L'inscription n'est donc pas prise en compte.
+
+`Consulter votre commande &lt;{{ form_url }}&gt;`_</body>
+        </item>
+        <item type="jump" id="1">
+          <status>7</status>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+    <status>
+      <id>10</id>
+      <name>Notification pour non paiement</name>
+      <colour>#FFFFFF</colour>
+      <visibility />
+      <items>
+        <item type="sendmail" id="1">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
+          <subject>Portail Parent - {{ form_name }} - Annulation de l'inscription</subject>
+          <body>Bonjour,
+
+Votre demande d'inscription(s) a &#233;t&#233; annul&#233;e pour non-paiement.
+
+Bien &#224; vous</body>
+        </item>
+        <item type="jump" id="2">
+          <status>11</status>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+    <status>
+      <id>11</id>
+      <name>Annulation en cours</name>
+      <colour>#FFFFFF</colour>
+      <visibility />
+      <items>
+        <item type="webservice_call" id="1">
+          <label>Vider le panier</label>
+          <method>POST</method>
+          <url>{{ portal_url }}/api/lingo/remove-basket-item?NameId={{ form_user_name_identifier_0 }}</url>
+          <post>False</post>
+          <post_data>
+            <item>
+              <name>basket_item_id</name>
+              <value>{{ajout_panier_response_id}}</value>
+            </item>
+            <item>
+              <name>skip_notification</name>
+              <value>skip</value>
+            </item>
+          </post_data>
+          <response_type>json</response_type>
+          <varname>vide_panier</varname>
+          <store_all_responses>False</store_all_responses>
+          <attach_file_to_history>True</attach_file_to_history>
+          <action_on_app_error>:pass</action_on_app_error>
+          <action_on_4xx>:stop</action_on_4xx>
+          <action_on_5xx>:stop</action_on_5xx>
+          <action_on_bad_data>:pass</action_on_bad_data>
+          <action_on_network_errors>:stop</action_on_network_errors>
+          <record_errors>False</record_errors>
+          <record_on_errors>True</record_on_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <condition>
+            <type>django</type>
+            <value>not form_workflow_wscall_vide_panier_success</value>
+          </condition>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="2">
+          <status>14</status>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+    <status>
+      <id>14</id>
+      <name>Lib&#233;ration du solde</name>
+      <colour>#ffffff</colour>
+      <visibility>
+        <role>__restricted__</role>
+      </visibility>
+      <items>
+        <item type="webservice_call" id="1">
+          <label>Lib&#233;ration du solde</label>
+          <method>DELETE</method>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/reserved-balances</url>
+          <post>False</post>
+          <post_data>
+            <item>
+              <name>reserved_balances</name>
+              <value>{{ form_workflow_wscall_reservation_solde_response_reserved_balance_ids }}</value>
+            </item>
+          </post_data>
+          <response_type>json</response_type>
+          <varname>liberation_solde</varname>
+          <store_all_responses>False</store_all_responses>
+          <attach_file_to_history>True</attach_file_to_history>
+          <action_on_app_error>15</action_on_app_error>
+          <action_on_4xx>15</action_on_4xx>
+          <action_on_5xx>15</action_on_5xx>
+          <action_on_bad_data>15</action_on_bad_data>
+          <action_on_network_errors>15</action_on_network_errors>
+          <record_errors>True</record_errors>
+          <record_on_errors>False</record_on_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <condition>
+            <type>django</type>
+            <value>form_workflow_data_reservation_solde_response_reserved_balance_ids and not form_workflow_wscall_liberation_solde_success</value>
+          </condition>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="2">
+          <status>16</status>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="choice" id="3">
+          <label>Mettre en erreur</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+            <item role_id="_support-imio">_support-imio</item>
+          </by>
+          <status>15</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Indique que la lib&amp;eacute;ration du solde a rencontr&amp;eacute; une erreur. Tant que la p&amp;eacute;riode de la commande n&amp;#39;aura pas &amp;eacute;t&amp;eacute; factur&amp;eacute;e, le parent ne pourra pas en b&amp;eacute;n&amp;eacute;ficier.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+    <status>
+      <id>16</id>
+      <name>Annul&#233;</name>
+      <colour>#999999</colour>
+      <visibility />
+      <items />
+    </status>
+    <status>
+      <id>15</id>
+      <name>Erreur lors de la lib&#233;ration d'un solde</name>
+      <colour>#ff0000</colour>
+      <visibility />
+      <items>
+        <item type="sendmail" id="1">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to>
+          <subject>{{ form_name }} n&#176;{{ form_number }} - Erreur lors de la lib&#233;ration du solde</subject>
+          <body>Un parent a annul&#233; une inscription, mais son solde utilis&#233; pour diminuer le montant de son panier ne s'est pas lib&#233;r&#233;. Ce parent risque donc de payer trop lors sa prochaine inscription.
+
+`Consulter la commande &lt;{{ form_url_backoffice }}&gt;`_
+
+`Consulter la documentation relative &#224; l'erreur &lt;https://docs.imio.be/portailparent/gestion-erreurs/&gt;`_
+
+`Envoyer un ticket au support &lt;https://support.imio.be&gt;`_</body>
+        </item>
+        <item type="choice" id="2">
+          <label>Lib&#233;rer le solde</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+            <item role_id="_support-imio">_support-imio</item>
+          </by>
+          <status>14</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Retente de lib&amp;eacute;rer le solde r&amp;eacute;serv&amp;eacute; par cette commande. Tant que ce solde n&amp;#39;est pas lib&amp;eacute;r&amp;eacute;, le parent ne pourra en b&amp;eacute;n&amp;eacute;ficier pour ses diff&amp;eacute;rentes commandes.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+    <status>
+      <id>12</id>
+      <name>Paiement re&#231;u</name>
+      <colour>#8ff0a4</colour>
+      <visibility />
+      <items>
+        <item type="webservice_call" id="1">
+          <label>Encodage du paiement</label>
+          <method>POST</method>
+          <url>{{ passerelle_url}}passerelle-imio-ia-aes/aes/payments/create</url>
+          <post>False</post>
+          <post_data>
+            <item>
+              <name>transaction_id</name>
+              <value>{{form_workflow_data_bank_transaction_id}}</value>
+            </item>
+            <item>
+              <name>date</name>
+              <value>{{ form_workflow_data_bank_transaction_date|date:"Y-m-d" }}</value>
+            </item>
+            <item>
+              <name>details</name>
+              <value>{{form_workflow_data_montant_response_payments}}</value>
+            </item>
+            <item>
+              <name>comment</name>
+              <value>{{ form_name }}- {{form_number}}</value>
+            </item>
+            <item>
+              <name>form_url</name>
+              <value>{{form_url_backoffice}}</value>
+            </item>
+            <item>
+              <name>amount</name>
+              <value>{{form_workflow_data_montant_response_due_amount|decimal:2}}</value>
+            </item>
+          </post_data>
+          <response_type>json</response_type>
+          <varname>encodage_paiement</varname>
+          <store_all_responses>False</store_all_responses>
+          <attach_file_to_history>True</attach_file_to_history>
+          <action_on_app_error>13</action_on_app_error>
+          <action_on_4xx>13</action_on_4xx>
+          <action_on_5xx>13</action_on_5xx>
+          <action_on_bad_data>13</action_on_bad_data>
+          <action_on_network_errors>13</action_on_network_errors>
+          <record_errors>True</record_errors>
+          <record_on_errors>False</record_on_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="webservice_call" id="4">
+          <label>R&#233;servation des soldes</label>
+          <method>POST</method>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/reserved-balances</url>
+          <post>False</post>
+          <post_data>
+            <item>
+              <name>reserved_balances</name>
+              <value>{{ form_workflow_data_montant_response_post_payments_reserved_balances }}</value>
+            </item>
+          </post_data>
+          <response_type>json</response_type>
+          <varname>reserve_soldes</varname>
+          <store_all_responses>False</store_all_responses>
+          <attach_file_to_history>True</attach_file_to_history>
+          <action_on_app_error>13</action_on_app_error>
+          <action_on_4xx>13</action_on_4xx>
+          <action_on_5xx>13</action_on_5xx>
+          <action_on_bad_data>13</action_on_bad_data>
+          <action_on_network_errors>13</action_on_network_errors>
+          <record_errors>True</record_errors>
+          <record_on_errors>False</record_on_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="2">
+          <status>1</status>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+    <status>
+      <id>13</id>
+      <name>Erreur lors de la r&#233;ception du paiement</name>
+      <colour>#ff0000</colour>
+      <visibility />
+      <items>
+        <item type="sendmail" id="2">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to>
+          <subject>{{ form_name }} n&#176;{{ form_number }} - Erreur lors de la r&#233;ception du paiement</subject>
+          <body>Une erreur est survenue lors de la r&#233;ception du paiement sur le formulaire {{ form_name}}. Les inscriptions concern&#233;es ne sont donc pas dans iA.AES
+
+`Consulter la commande &lt;{{ form_url_backoffice }}&gt;`_
+
+`Consulter la documentation relative &#224; l'erreur &lt;https://docs.imio.be/portailparent/gestion-erreurs/&gt;`_
+
+`Envoyer un ticket au support &lt;https://support.imio.be&gt;`_</body>
+        </item>
+        <item type="choice" id="1">
+          <label>R&#233;encoder le paiement</label>
+          <by>
+            <item slug="agent-traitant-portail-parents" role_id="107f7d8c8b5d400696d2ecdd6c5ff363">Agent traitant - Portail Parents</item>
+            <item role_id="_support-imio">_support-imio</item>
+          </by>
+          <status>12</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+    <status>
+      <id>1</id>
+      <name>Enregistrement pr&#233;sences</name>
+      <colour>#8ff0a4</colour>
+      <visibility />
+      <items>
+        <item type="webservice_call" id="1">
+          <label>Inscriptions</label>
+          <method>POST</method>
+          <url>{{passerelle_url}}passerelle-imio-ia-aes/aes/generic-activities/create-registrations/</url>
+          <post>False</post>
+          <post_data>
+            <item>
+              <name>registrations</name>
+              <value>{{form_var_inscriptions_structured}}</value>
+            </item>
+            <item>
+              <name>child_id</name>
+              <value>{{form_var_enfant_id}}</value>
+            </item>
+            <item>
+              <name>parent_id</name>
+              <value>{{ form_user_var_aes_id }}</value>
+            </item>
+          </post_data>
+          <response_type>json</response_type>
+          <varname>inscription</varname>
+          <store_all_responses>False</store_all_responses>
+          <attach_file_to_history>True</attach_file_to_history>
+          <action_on_app_error>3</action_on_app_error>
+          <action_on_4xx>3</action_on_4xx>
+          <action_on_5xx>3</action_on_5xx>
+          <action_on_bad_data>3</action_on_bad_data>
+          <action_on_network_errors>3</action_on_network_errors>
+          <record_errors>False</record_errors>
+          <record_on_errors>True</record_on_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="2">
+          <status>2</status>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="choice" id="3">
+          <label>Signaler la situation comme r&#233;gularis&#233;e sans notifier l'usager</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by>
+          <status>18</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+    <status>
+      <id>2</id>
+      <name>Inscription enregistr&#233;e</name>
+      <colour>#66ff00</colour>
+      <visibility />
+      <items>
+        <item type="register-comment" id="1">
+          <comment>L'inscription a &#233;t&#233; prise en compte.</comment>
+          <level>success</level>
+        </item>
+        <item type="sendmail" id="2">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
+          <subject>{{form_name}} - Confirmation d'inscription</subject>
+          <body>Bonjour,
+
+Nous confirmons les inscriptions suivantes : 
+{% for child in form_var_inscriptions_structured %}
+{{child.text}} {{child.group_by|lower}}
+{% endfor %}
+
+Bien &#224; vous</body>
+        </item>
+      </items>
+    </status>
+    <status>
+      <id>3</id>
+      <name>Erreur lors de l'inscription</name>
+      <colour>#ff0000</colour>
+      <visibility />
+      <items>
+        <item type="sendmail" id="3">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to>
+          <subject>{{ form_name }} n&#176;{{ form_number }} - Erreur lors de l'inscription</subject>
+          <body>Une erreur est survenue lors de l'enregistrement d'une ou plusieurs inscriptions. Ces inscriptions ne se retrouvent donc pas dans iA.AES.
+
+`Consulter la commande &lt;{{ form_url_backoffice }}&gt;`_
+
+`Consulter la documentation relative &#224; l'erreur &lt;https://docs.imio.be/portailparent/gestion-erreurs/&gt;`_
+
+`Envoyer un ticket au support &lt;https://support.imio.be&gt;`_</body>
+        </item>
+        <item type="choice" id="1">
+          <label>Rejouer les inscriptions</label>
+          <by>
+            <item role_id="_support-imio">_support-imio</item>
+          </by>
+          <status>1</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="choice" id="2">
+          <label>Signaler la situation comme r&#233;gularis&#233;e sans notifier l'usager</label>
+          <by>
+            <item role_id="_support-imio">_support-imio</item>
+          </by>
+          <status>18</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Cette action permet de cl&amp;ocirc;turer la demande sans retenter d&amp;#39;enregistrer les inscriptions qui y ont &amp;eacute;t&amp;eacute; s&amp;eacute;lectionn&amp;eacute;s et donc d&amp;#39;&amp;eacute;viter d&amp;#39;&amp;eacute;craser d&amp;#39;&amp;eacute;ventuelles inscriptions r&amp;eacute;alis&amp;eacute;es directement dans iA.AES. De plus, cette action ne notifie pas l&amp;#39;usager.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+    <status>
+      <id>18</id>
+      <name>La situation est r&#233;gularis&#233;e</name>
+      <colour>#66ff00</colour>
+      <visibility />
+      <items />
+    </status>
+  </possible_status>
+  <global_actions>
+    <action>
+      <id>1</id>
+      <name>&#9940; Annulation</name>
+      <items>
+        <item type="set-backoffice-fields" id="2">
+          <fields>
+            <field>
+              <field_id>bo0e72ed35-607d-40ba-ace3-10011b81eaac</field_id>
+              <value>{{ caller_form_user_var_last_name|upper }} {{ caller_form_user_var_first_name }}</value>
+            </field>
+            <field>
+              <field_id>bo34495e24-19b2-4ea7-9a1c-b126f4cb22b7</field_id>
+              <value>{{ caller_form_backoffice_url }}</value>
+            </field>
+          </fields>
+        </item>
+        <item type="jump" id="1">
+          <status>11</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+      <triggers>
+        <trigger type="webservice" id="30928534-8e0d-4871-ad26-d36a9ca225d6">
+          <identifier>cancel</identifier>
+          <roles>
+            <item role_id="_signed_calls">_signed_calls</item>
+          </roles>
+        </trigger>
+      </triggers>
+    </action>
+    <action>
+      <id>2</id>
+      <name>Suppression</name>
+      <items>
+        <item type="remove" id="1" />
+      </items>
+      <triggers>
+        <trigger type="manual" id="a6869050-032a-463b-93eb-ceda436924b6">
+          <roles>
+            <item role_id="_support-imio">_support-imio</item>
+          </roles>
+          <allow_as_mass_action>True</allow_as_mass_action>
+          <require_confirmation>False</require_confirmation>
+        </trigger>
+      </triggers>
+    </action>
+  </global_actions>
+  <variables>
+    <formdef>
+      <name>-</name>
+      <fields>
+        <field>
+          <type>string</type>
+          <label type="str">D&#233;lai, en jours</label>
+          <required type="str">required</required>
+          <hint type="str">&lt;p&gt;Indiquez un chiffre &#233;gal ou sup&#233;rieur &#224; 1. Indiquez 0 pour le jour m&#234;me, 1 pour la veille, 2 pour l'avant-veille, etc.&lt;/p&gt;</hint>
+          <varname type="str">delai_en_jours</varname>
+          <display_locations />
+          <anonymise type="str">final</anonymise>
+          <validation>
+            <type>digits</type>
+          </validation>
+          <id type="str">11fc7834-3a20-492f-8740-cce70f479ab2</id>
+        </field>
+        <field>
+          <type>item</type>
+          <label type="str">Mode de paiement</label>
+          <required type="str">required</required>
+          <hint type="str">&lt;p&gt;Le paiement en ligne enverra la commande du parent dans un panier, en fonction de la r&#233;gie. L'option paiement diff&#233;r&#233; implique que la facture devra &#234;tre envoy&#233;e de iA.AES dans un second temps.&lt;/p&gt;</hint>
+          <varname type="str">mode_paiement</varname>
+          <display_locations />
+          <anonymise type="str">no</anonymise>
+          <display_mode type="str">radio</display_mode>
+          <items>
+            <item>Paiement en ligne</item>
+            <item>Paiement diff&#233;r&#233;</item>
+          </items>
+          <in_filters type="bool">False</in_filters>
+          <display_disabled_items type="bool">False</display_disabled_items>
+          <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
+          <image_desktop_size type="str">150</image_desktop_size>
+          <image_mobile_size type="str">75</image_mobile_size>
+          <id type="str">059686b7-5b18-4f55-b4cb-4352eb8cc8be</id>
+        </field>
+        <field>
+          <type>item</type>
+          <label type="str">R&#233;gie de paiement</label>
+          <required type="str">optional</required>
+          <hint type="str">&lt;p&gt;La r&#233;gie de paiement d&#233;termine le panier qui r&#233;ceptionnera les demandes.&lt;/p&gt;</hint>
+          <varname type="str">regie_de_paiement</varname>
+          <display_locations />
+          <anonymise type="str">no</anonymise>
+          <display_mode type="str">radio</display_mode>
+          <items />
+          <data_source>
+            <type>json</type>
+            <value>{{portal_url}}/api/lingo/regies</value>
+          </data_source>
+          <in_filters type="bool">False</in_filters>
+          <display_disabled_items type="bool">False</display_disabled_items>
+          <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
+          <image_desktop_size type="str">150</image_desktop_size>
+          <image_mobile_size type="str">75</image_mobile_size>
+          <id type="str">1e421170-b713-40a4-9868-b0d882847b46</id>
+        </field>
+      </fields>
+    </formdef>
+  </variables>
+  <backoffice-fields>
+    <formdef>
+      <name>-</name>
+      <fields>
+        <field>
+          <type>string</type>
+          <label type="str">Annul&#233; par</label>
+          <required type="str">required</required>
+          <varname type="str">annulateur</varname>
+          <display_locations>
+            <item>summary</item>
+          </display_locations>
+          <anonymise type="str">final</anonymise>
+          <id type="str">bo0e72ed35-607d-40ba-ace3-10011b81eaac</id>
+        </field>
+        <field>
+          <type>string</type>
+          <label type="str">Annul&#233; depuis</label>
+          <required type="str">required</required>
+          <varname type="str">source_annulation</varname>
+          <display_locations>
+            <item>summary</item>
+          </display_locations>
+          <anonymise type="str">final</anonymise>
+          <id type="str">bo34495e24-19b2-4ea7-9a1c-b126f4cb22b7</id>
+        </field>
+      </fields>
+    </formdef>
+  </backoffice-fields>
+</workflow>

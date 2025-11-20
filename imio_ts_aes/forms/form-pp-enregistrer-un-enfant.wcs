@@ -3,6 +3,7 @@
   <name>Enregistrer un enfant</name>
   <url_name>pp-enregistrer-un-enfant</url_name>
   <submission_user_association>any</submission_user_association>
+  <history_pane_default_mode>expanded</history_pane_default_mode>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
   <disabled>false</disabled>
@@ -12,7 +13,7 @@
   <always_advertise>false</always_advertise>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category slug="portail-parent" category_id="10">Portail Parents</category>
+  <category slug="portail-parent" category_id="5">Portail Parents</category>
   <workflow slug="portail-parent-enregistrement-enfant" workflow_id="2">Portail Parent - Enregistrement enfant</workflow>
   <fields>
     <field>
@@ -32,7 +33,7 @@
     <field>
       <type>string</type>
       <label type="str">Pr&#233;nom de l'enfant</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">enfant_prenom</varname>
       <display_locations>
         <item>validation</item>
@@ -49,7 +50,7 @@
     <field>
       <type>string</type>
       <label type="str">Nom de l'enfant</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">enfant_nom</varname>
       <display_locations>
         <item>validation</item>
@@ -66,7 +67,7 @@
     <field>
       <type>date</type>
       <label type="str">Date de naissance</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">enfant_date_naissance</varname>
       <display_locations>
         <item>validation</item>
@@ -86,7 +87,7 @@
     <field>
       <type>item</type>
       <label type="str">Mon enfant poss&#232;de un num&#233;ro de registre national belge ou bis.</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <hint type="str">Si votre enfant a la nationalit&#233; belge, son num&#233;ro de registre national se trouve sur sa carte d'identit&#233;, sa carte de mutuelle ou sur son acte de naissance. </hint>
       <varname type="str">a_un_rn</varname>
       <display_locations>
@@ -117,7 +118,7 @@
         <type>django</type>
         <value>form_var_a_un_rn|lower == "oui"</value>
       </condition>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <hint type="str">Vous trouverez cette information sur la carte d'identit&#233; &#233;lectronique de votre enfant. Si vous ne l'avez pas, vous pouvez la demander &#224; votre administration communale.</hint>
       <varname type="str">enfant_nrn</varname>
       <display_locations>
@@ -135,9 +136,21 @@
       <id type="str">20</id>
     </field>
     <field>
+      <type>comment</type>
+      <label type="str">&lt;p&gt;Sans num&amp;eacute;ro national de votre enfant, vous ne disposerez pas de l&amp;rsquo;attestation fiscale des d&amp;eacute;penses relatives &amp;agrave; votre enfant (plaines et accueil).&lt;/p&gt;
+</label>
+      <condition>
+        <type>django</type>
+        <value>form_var_a_un_rn|lower != "oui"</value>
+      </condition>
+      <extra_css_class type="str">pk-attention</extra_css_class>
+      <display_locations />
+      <id type="str">ffe38aa1-5425-4676-904a-d3ff180e7229</id>
+    </field>
+    <field>
       <type>item</type>
       <label type="str">Implantation scolaire</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <hint type="str">---</hint>
       <varname type="str">implantation_scolaire</varname>
       <display_locations>
@@ -165,7 +178,7 @@
     <field>
       <type>item</type>
       <label type="str">Ann&#233;e scolaire</label>
-      <required type="bool">True</required>
+      <required type="str">required</required>
       <varname type="str">annee_scolaire</varname>
       <display_locations>
         <item>validation</item>
@@ -212,4 +225,7 @@
   <management_sidebar_items>
     <item>__default__</item>
   </management_sidebar_items>
+  <submission_sidebar_items>
+    <item>__default__</item>
+  </submission_sidebar_items>
 </formdef>
