@@ -1,6 +1,14 @@
 Changelog
 =========
 
+3.0.0
+----------------
+
+- [PP-570] Add: wallets
+- [PP-577] Add: invoices
+- [PP-571] Add: pedagogical days
+- [PP-646] Add: wednesday afternoon
+
 2.2.12
 ----------------
 
