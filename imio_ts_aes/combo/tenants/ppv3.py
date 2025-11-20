@@ -77,18 +77,10 @@ JSON_CELL_TYPES.update(
             "cache_duration": 0,
             "url": "w",
             "form": [
-                {"varname": "doc1_nom", "type": "string", "label": "Nom du document 1"},
-                {"varname": "doc1_url", "type": "string", "label": "URL du document 1"},
-                {"varname": "doc2_nom", "type": "string", "label": "Nom du document 2"},
-                {"varname": "doc2_url", "type": "string", "label": "URL du document 2"},
-                {"varname": "doc3_nom", "type": "string", "label": "Nom du document 3"},
-                {"varname": "doc3_url", "type": "string", "label": "URL du document 3"},
-                {"varname": "doc4_nom", "type": "string", "label": "Nom du document 4"},
-                {"varname": "doc4_url", "type": "string", "label": "URL du document 4"},
-                {"varname": "doc5_nom", "type": "string", "label": "Nom du document 5"},
-                {"varname": "doc5_url", "type": "string", "label": "URL du document 5"},
-                {"varname": "doc6_nom", "type": "string", "label": "Nom du document 6"},
-                {"varname": "doc6_url", "type": "string", "label": "URL du document 6"},
+                {"varname": "titre", "type": "string", "label": "Titre", "required": False},
+                {"varname": "description", "type": "string", "label": "Libellé"},
+                {"varname": "doc1_nom", "type": "string", "label": "Nom du document"},
+                {"varname": "doc1_url", "type": "string", "label": "URL du document"},
             ]
         }
     }
