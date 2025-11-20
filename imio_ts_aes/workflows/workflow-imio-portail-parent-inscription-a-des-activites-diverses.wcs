@@ -332,7 +332,10 @@
       <visibility />
       <items>
         <item type="displaymsg" id="1">
-          <message>&lt;p&gt;Votre commande attend d'&#234;tre r&#233;gl&#233;e et se trouve dans votre panier.&lt;br&gt;&lt;br&gt;&lt;a href="{{portal_user_url}}panier" rel="nofollow"&gt;R&#233;gler ma commande&lt;/a&gt;&lt;/p&gt;</message>
+          <message>&lt;p&gt;Votre commande attend d&amp;#39;&amp;ecirc;tre r&amp;eacute;gl&amp;eacute;e et se trouve dans votre panier.&lt;br&gt;
+&lt;br&gt;
+&lt;a class="pk-button" href="{{portal_user_url}}panier" rel="nofollow"&gt;R&amp;eacute;gler ma commande&lt;/a&gt;&lt;/p&gt;
+</message>
           <level>info</level>
           <position>top</position>
         </item>

@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<formdef id="19" url="https://wcs.dev.publik.love/backoffice/forms/19/">
-  <name>D&#233;sinscription - Mercredi apr&#232;s-midi</name>
-  <url_name>pp-desinscription-mercredi-apres-midi</url_name>
-  <keywords>Accueil du mercredi apr&#232;s-midi, d&#233;sinscriptions</keywords>
+<formdef id="20" url="https://wcs.dev.publik.love/backoffice/forms/20/">
+  <name>D&#233;sinscription - Journ&#233;es p&#233;dagogiques</name>
+  <url_name>pp-desinscription-journees-pedagogiques</url_name>
+  <keywords>Journ&#233;es p&#233;dagogiques, d&#233;sinscriptions</keywords>
   <submission_user_association>any</submission_user_association>
   <history_pane_default_mode>expanded</history_pane_default_mode>
   <discussion>false</discussion>
@@ -26,9 +26,9 @@
       <type>computed</type>
       <label type="str">Nom de l'activit&#233; sur le Portail Parent</label>
       <varname type="str">activity_on_portal</varname>
-      <value_template type="str">wednesday_afternoon</value_template>
+      <value_template type="str">pedagogical_day</value_template>
       <freeze_on_initial_value type="bool">True</freeze_on_initial_value>
-      <id type="str">4aabb14b-ae29-4321-bc7b-63d87b2c3eac</id>
+      <id type="str">fd687f24-a8e6-46fc-8d4b-3065fd6bf16b</id>
     </field>
     <field>
       <type>items</type>

@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <formdef id="14" url="https://wcs.dev.publik.love/backoffice/forms/14/">
-  <name>Mercredis apr&#232;s-midi</name>
-  <url_name>pp-mercredis-apres-midi</url_name>
-  <keywords>mercredis, Inscriptions</keywords>
+  <name>Mercredi apr&#232;s-midi</name>
+  <url_name>pp-mercredi-apres-midi</url_name>
+  <keywords>Accueil du mercredi apr&#232;s-midi, Inscriptions</keywords>
   <drafts_lifespan>2</drafts_lifespan>
   <submission_user_association>any</submission_user_association>
   <history_pane_default_mode>expanded</history_pane_default_mode>
