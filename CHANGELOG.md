@@ -1,6 +1,11 @@
 Changelog
 =========
 
+3.0.1
+----------------
+
+- [PP-602] Removed: form-pp-desinscription-journee-pedagogique.wcs
+ 
 3.0.0
 ----------------
 
