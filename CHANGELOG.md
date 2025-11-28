@@ -1,6 +1,11 @@
 Changelog
 =========
 
+3.0.2
+----------------
+
+- [PP-661] Added: fetch form for pages construction
+
 3.0.1
 ----------------
 

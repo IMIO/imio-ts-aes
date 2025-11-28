@@ -66,7 +66,13 @@ JSON_CELL_TYPES.update(
       "pp_bienvenue_portail_parent": {
          "name": "Portail Parent - Bienvenue sur le Portail Parent",
          "cache_duration": 0,
-         "url": "{{ idp_url }}api/users/{{ user_nameid }}"
+         "url": "{{ idp_url }}api/users/{{ user_nameid }}",
+         "additional-data": [
+            {
+               "key": "pp_forms",
+               "url": "{{ passerelle_url }}passerelle-imio-ia-aes/aes/get-forms?as_slugs=True"
+            }
+         ]
       }
    }
 )
@@ -114,6 +120,10 @@ JSON_CELL_TYPES.update(
             {
                "key": "data",
                "url": "{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ json.aes_id }}/invoices/"
+            },
+            {
+               "key": "pp_forms",
+               "url": "{{ passerelle_url }}passerelle-imio-ia-aes/aes/get-forms?as_slugs=True"
             }
          ]
       }
