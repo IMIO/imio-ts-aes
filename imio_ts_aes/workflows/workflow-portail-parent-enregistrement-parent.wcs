@@ -26,6 +26,15 @@
             <value>form_var_telephone</value>
           </condition>
         </item>
+        <item type="set-backoffice-fields" id="3">
+          <label>Donn&#233;es parent TS</label>
+          <fields>
+            <field>
+              <field_id>boa7eff4b4-27ae-42c4-83e5-255178dc5a2d</field_id>
+              <value>{% block_value email=form_user_email locality=form_user_var_city|lower phone=form_user_var_phone street=form_user_var_address|default:form_user_var_street street_number=form_user_var_num_house|default:"" zipcode=form_user_var_zipcode %}</value>
+            </field>
+          </fields>
+        </item>
         <item type="jump" id="2">
           <status>1</status>
           <mode>immediate</mode>
@@ -78,7 +87,7 @@
           <set_marker_on_status>False</set_marker_on_status>
         </item>
         <item type="jump" id="3">
-          <status>4</status>
+          <status>8</status>
           <condition>
             <type>django</type>
             <value>form_workflow_data_recherche_response_parent_id</value>
@@ -226,6 +235,154 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
       </items>
     </status>
     <status>
+      <id>8</id>
+      <name>R&#233;cup&#233;ration du parent</name>
+      <colour>#ffffff</colour>
+      <visibility>
+        <role>__restricted__</role>
+      </visibility>
+      <items>
+        <item type="webservice_call" id="1">
+          <label>R&#233;cup&#233;ration du parent</label>
+          <method>GET</method>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ form_workflow_data_recherche_response_parent_id }}/</url>
+          <post>False</post>
+          <response_type>json</response_type>
+          <varname>recuperation_parent</varname>
+          <store_all_responses>False</store_all_responses>
+          <attach_file_to_history>True</attach_file_to_history>
+          <action_on_app_error>4</action_on_app_error>
+          <action_on_4xx>4</action_on_4xx>
+          <action_on_5xx>4</action_on_5xx>
+          <action_on_bad_data>4</action_on_bad_data>
+          <action_on_network_errors>4</action_on_network_errors>
+          <record_errors>True</record_errors>
+          <record_on_errors>False</record_on_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="set-backoffice-fields" id="2">
+          <label>Donn&#233;es parent AES</label>
+          <fields>
+            <field>
+              <field_id>bob812b7f1-c6b1-4d9a-aa5e-e02093c41ef9</field_id>
+              <value>{% block_value email=form_workflow_data_recuperation_parent_response_email locality=form_workflow_data_recuperation_parent_response_locality_id|get:1|split:" - "|get:1|default:form_workflow_data_recuperation_parent_response_city|lower phone=form_workflow_data_recuperation_parent_response_phone street=form_workflow_data_recuperation_parent_response_street street_number=form_workflow_data_recuperation_parent_response_street_number zipcode=form_workflow_data_recuperation_parent_response_locality_id|get:1|split:" - "|get:0|default:form_workflow_data_recuperation_parent_response_zip %}</value>
+            </field>
+          </fields>
+        </item>
+        <item type="jump" id="3">
+          <status>4</status>
+          <condition>
+            <type>django</type>
+            <value>form_var_donnees_parent_ts|get:"data" == form_var_donnees_parent_aes|get:"data"</value>
+          </condition>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="4">
+          <status>9</status>
+          <condition>
+            <type>django</type>
+            <value>form_var_donnees_parent_ts|get:"data" != form_var_donnees_parent_aes|get:"data"</value>
+          </condition>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+    <status>
+      <id>9</id>
+      <name>Mise a jour du parent</name>
+      <colour>#ffffff</colour>
+      <visibility>
+        <role>__restricted__</role>
+      </visibility>
+      <items>
+        <item type="webservice_call" id="1">
+          <label>Mise a jour du parent</label>
+          <method>PATCH</method>
+          <url>{{ passerelle_url}}passerelle-imio-ia-aes/aes/persons/{{ form_workflow_data_recherche_response_parent_id }}?partner_type=parent</url>
+          <post>False</post>
+          <post_data>
+            <item>
+              <name>locality_box</name>
+              <value>{{ form_user_var_num_box }}</value>
+            </item>
+            <item>
+              <name>municipality_zipcodes</name>
+              <value>{{ commune_cp }}</value>
+            </item>
+            <item>
+              <name>parent_city</name>
+              <value>{{ form_user_var_city }}</value>
+            </item>
+            <item>
+              <name>parent_country</name>
+              <value>{{ form_user_var_country }}</value>
+            </item>
+            <item>
+              <name>parent_country_id</name>
+              <value>{% for country in data_source.aes_countries %}{% if country.text|lower == form_user_var_country|lower %}{{ country.id }}{% endif %}{% endfor %}</value>
+            </item>
+            <item>
+              <name>parent_email</name>
+              <value>{{ form_user_email }}</value>
+            </item>
+            <item>
+              <name>parent_locality_id</name>
+              <value>{% for locality in data_source.portail_parent_localites %}{% if locality.name|lower == form_user_var_city|lower %}{{ locality.id }}{% endif %}{% endfor %}</value>
+            </item>
+            <item>
+              <name>parent_mobile_phone</name>
+              <value>{{ form_workflow_data_recuperation_parent_response_mobile|default:"" }}</value>
+            </item>
+            <item>
+              <name>parent_num_box</name>
+              <value>{{ form_user_var_num_box }}</value>
+            </item>
+            <item>
+              <name>parent_num_house</name>
+              <value>{{ form_user_var_num_house|default:"" }}</value>
+            </item>
+            <item>
+              <name>parent_phone</name>
+              <value>{{ form_user_var_phone }}</value>
+            </item>
+            <item>
+              <name>parent_professional_phone</name>
+              <value>{{ form_workflow_data_recuperation_parent_response_phone|default:"" }}</value>
+            </item>
+            <item>
+              <name>parent_street</name>
+              <value>{% firstof form_user_var_address form_user_var_street %}</value>
+            </item>
+            <item>
+              <name>parent_zipcode</name>
+              <value>{{ form_user_var_zipcode }}</value>
+            </item>
+          </post_data>
+          <response_type>json</response_type>
+          <varname>update_parent</varname>
+          <store_all_responses>False</store_all_responses>
+          <attach_file_to_history>True</attach_file_to_history>
+          <action_on_app_error>4</action_on_app_error>
+          <action_on_4xx>4</action_on_4xx>
+          <action_on_5xx>4</action_on_5xx>
+          <action_on_bad_data>4</action_on_bad_data>
+          <action_on_network_errors>4</action_on_network_errors>
+          <record_errors>True</record_errors>
+          <record_on_errors>False</record_on_errors>
+          <notify_on_errors>False</notify_on_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="2">
+          <status>4</status>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+    <status>
       <id>4</id>
       <name>Enregistrement valid&#233;</name>
       <colour>#FFFFFF</colour>
@@ -356,4 +513,43 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
       </triggers>
     </action>
   </global_actions>
+  <backoffice-fields>
+    <formdef>
+      <name>-</name>
+      <fields>
+        <field>
+          <type>block</type>
+          <label type="str">Donn&#233;es parent TS</label>
+          <required type="str">optional</required>
+          <varname type="str">donnees_parent_ts</varname>
+          <display_locations>
+            <item>summary</item>
+          </display_locations>
+          <anonymise type="str">final</anonymise>
+          <default_items_count type="str">1</default_items_count>
+          <max_items type="str">1</max_items>
+          <label_display type="str">normal</label_display>
+          <remove_button type="bool">False</remove_button>
+          <block_slug type="str">imio_portail_parent_m_enregistrer_en_tant_que_parent</block_slug>
+          <id type="str">boa7eff4b4-27ae-42c4-83e5-255178dc5a2d</id>
+        </field>
+        <field>
+          <type>block</type>
+          <label type="str">Donn&#233;es parent AES</label>
+          <required type="str">optional</required>
+          <varname type="str">donnees_parent_aes</varname>
+          <display_locations>
+            <item>summary</item>
+          </display_locations>
+          <anonymise type="str">final</anonymise>
+          <default_items_count type="str">1</default_items_count>
+          <max_items type="str">1</max_items>
+          <label_display type="str">normal</label_display>
+          <remove_button type="bool">False</remove_button>
+          <block_slug type="str">imio_portail_parent_m_enregistrer_en_tant_que_parent</block_slug>
+          <id type="str">bob812b7f1-c6b1-4d9a-aa5e-e02093c41ef9</id>
+        </field>
+      </fields>
+    </formdef>
+  </backoffice-fields>
 </workflow>

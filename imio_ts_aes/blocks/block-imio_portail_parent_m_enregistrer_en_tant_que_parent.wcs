@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<block id="28" url="https://ppv3-formulaires.guichet-citoyen.be/backoffice/forms/blocks/28/">
+  <name>iMio - Portail Parent - M'enregistrer en tant que parent</name>
+  <slug>imio_portail_parent_m_enregistrer_en_tant_que_parent</slug>
+  <fields>
+    <field>
+      <type>string</type>
+      <label type="str">email</label>
+      <required type="str">required</required>
+      <varname type="str">email</varname>
+      <display_locations>
+        <item>validation</item>
+        <item>summary</item>
+      </display_locations>
+      <anonymise type="str">final</anonymise>
+      <id type="str">bf64daf26e-41c7-4fb8-9a82-a2bcccfd7994</id>
+    </field>
+    <field>
+      <type>string</type>
+      <label type="str">locality</label>
+      <required type="str">required</required>
+      <varname type="str">locality</varname>
+      <display_locations>
+        <item>validation</item>
+        <item>summary</item>
+      </display_locations>
+      <anonymise type="str">final</anonymise>
+      <id type="str">bf391df7c7-842a-4c13-a786-67bdbdf33619</id>
+    </field>
+    <field>
+      <type>string</type>
+      <label type="str">phone</label>
+      <required type="str">required</required>
+      <varname type="str">phone</varname>
+      <display_locations>
+        <item>validation</item>
+        <item>summary</item>
+      </display_locations>
+      <anonymise type="str">final</anonymise>
+      <id type="str">bf5a0cc824-5be5-41f0-945d-8eadbc198d7d</id>
+    </field>
+    <field>
+      <type>string</type>
+      <label type="str">street</label>
+      <required type="str">required</required>
+      <varname type="str">street</varname>
+      <display_locations>
+        <item>validation</item>
+        <item>summary</item>
+      </display_locations>
+      <anonymise type="str">final</anonymise>
+      <id type="str">bf134da902-83ef-4990-9431-638d64ab86e8</id>
+    </field>
+    <field>
+      <type>string</type>
+      <label type="str">street number</label>
+      <required type="str">required</required>
+      <varname type="str">street_number</varname>
+      <display_locations>
+        <item>validation</item>
+        <item>summary</item>
+      </display_locations>
+      <anonymise type="str">final</anonymise>
+      <id type="str">bf9d89df59-8474-42cb-952c-a4b25474e9b0</id>
+    </field>
+    <field>
+      <type>string</type>
+      <label type="str">zipcode</label>
+      <required type="str">required</required>
+      <varname type="str">zipcode</varname>
+      <display_locations>
+        <item>validation</item>
+        <item>summary</item>
+      </display_locations>
+      <anonymise type="str">final</anonymise>
+      <id type="str">bfef3e78e9-97d5-4455-9ebe-5c9fc9f67706</id>
+    </field>
+  </fields>
+</block>

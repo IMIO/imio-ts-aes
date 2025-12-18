@@ -1,6 +1,12 @@
 Changelog
 =========
 
+3.1.0
+----------------
+
+- [PP-675] Changed: demarche Enregistrement parent - workflow
+add update parent in AES if TS informations are differents
+
 3.0.2
 ----------------
 
