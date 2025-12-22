@@ -317,7 +317,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
             </item>
             <item>
               <name>parent_locality_id</name>
-              <value>{% for locality in data_source.portail_parent_localites %}{% if locality.name|lower == form_user_var_city|lower %}{{ locality.id }}{% endif %}{% endfor %}</value>
+              <value>{% for locality in data_source.portail_parent_localites %}{% if locality.name|lower == form_user_var_city|lower and locality.zip == form_user_var_zipcode %}{{ locality.id }}{% endif %}{% endfor %}</value>
             </item>
             <item>
               <name>parent_mobile_phone</name>
