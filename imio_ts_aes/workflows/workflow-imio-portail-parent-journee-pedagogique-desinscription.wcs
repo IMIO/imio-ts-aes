@@ -56,7 +56,7 @@
           <to>
             <item role_id="_receiver">_receiver</item>
           </to>
-          <subject>{{ form_name }} : d&#233;sinscription des repas pour {{ form_var_enfant }}</subject>
+          <subject>{{ form_name }} : d&#233;sinscription pour {{ form_var_enfant }}</subject>
           <body>Bonjour,
 
 Le parent {{ form_user_display_name }} a d&#233;sinscrit son enfant, pour les dates suivantes :
@@ -78,7 +78,7 @@ Cordialement,</body>
           <subject>{{ form_name }} n&#176;{{ form_number }}</subject>
           <body>Bonjour,
 
-Nous avons bien re&#231;u votre demande de d&#233;sinscription pour les journ&#233;es p&#233;dagogiques.
+Nous avons bien re&#231;u votre demande de d&#233;sinscription.
 
 {% for r in form_var_inscriptions_structured %}
 * {{ r.text }}, le {{r.date|date:"l j F Y"}}
@@ -87,15 +87,11 @@ Nous avons bien re&#231;u votre demande de d&#233;sinscription pour les journ&#2
 Cordialement,</body>
         </item>
         <item type="displaymsg" id="3">
-          <message>&lt;p&gt;La d&amp;eacute;sinscription a bien &amp;eacute;t&amp;eacute; enregistr&amp;eacute;e pour les journ&amp;eacute;es p&amp;eacute;dagogiques.&lt;/p&gt;
+          <message>&lt;p&gt;Votre demande de d&amp;eacute;sinscription a bien &amp;eacute;t&amp;eacute; enregistr&amp;eacute;e.&lt;/p&gt;
 
-&lt;ul&gt;
-	&lt;li&gt;{% for child in form_var_inscriptions_structured %}&lt;br&gt;
-	{{child.text}} {{child.group_by|linebreaks}}&lt;br&gt;
-	{% endfor %}&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Bien &amp;agrave; vous&lt;/p&gt;
+&lt;div&gt;{% for child in form_var_inscriptions_structured %}
+&lt;p&gt;{{child.text}} {{child.group_by}}&lt;/p&gt;
+{% endfor %}&lt;/div&gt;
 </message>
           <level>success</level>
           <position>top</position>
@@ -113,7 +109,7 @@ Cordialement,</body>
             <item role_id="_receiver">_receiver</item>
           </to>
           <subject>Erreur Portail Parent :  {{ form_name }} n&#176;{{ form_number }}</subject>
-          <body>Une erreur est survenue lors de la d&#233;sinscription aux journ&#233;es p&#233;dagogiques.
+          <body>Une erreur est survenue lors du traitement du formulaire {{ form_name }}.
 
 Veuillez consulter la demande.
 
