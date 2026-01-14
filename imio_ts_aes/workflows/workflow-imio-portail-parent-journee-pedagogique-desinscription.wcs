@@ -17,7 +17,7 @@
         <item type="webservice_call" id="2">
           <label>D&#233;sinscription</label>
           <method>DELETE</method>
-          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/pedagogical-days/registrations/delete</url>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/generic-activities/registrations/delete</url>
           <post>False</post>
           <post_data>
             <item>
