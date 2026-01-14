@@ -1,6 +1,12 @@
 Changelog
 =========
 
+3.1.1
+----------------
+
+- [PP-688] Fixed: generic activities cancellation's feedbacks.
+- [PP-689] Fixed: generic activities cancellation's webservice url.
+
 3.1.0
 ----------------
 
