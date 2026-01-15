@@ -4,7 +4,7 @@
   <slug>imio_portail_parent_inscriptions_aux_activites_generiques</slug>
   <data_source>
     <type>json</type>
-    <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/generic-activities/registrations/?parent_id={{form_user_aes_id}}&amp;activity_on_portal={{form_var_activity_on_portal}}</value>
+    <value>{{ passerelle_url }}passerelle-imio-ia-aes/aes/generic-activities/registrations/?parent_id={{form_user_aes_id}}&amp;activity_on_portal={{form_var_activity_on_portal}}&amp;days_in_delay={{form_option_delai_en_jours|default:0}}&amp;no_later_than={{form_option_heure_limite|default:"00:00"}}</value>
   </data_source>
   <category slug="portail-parent" category_id="11">Portail Parent</category>
 </datasource>

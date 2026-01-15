@@ -6,6 +6,7 @@ Changelog
 
 - [PP-688] Fixed: generic activities cancellation's feedbacks.
 - [PP-689] Fixed: generic activities cancellation's webservice url.
+- [PP-690] Fixed: add missing filter parameters to get generic activities registrations
 
 3.1.0
 ----------------
