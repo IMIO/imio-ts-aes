@@ -4,7 +4,7 @@ Changelog
 3.1.2
 ----------------
 
-- [PP-700] Fixed: some feedback about balance in school meals registrations
+- [PP-700] Fixed: some informations and feedbacks about balance in school meals registrations
 
 3.1.1
 ----------------

@@ -99,7 +99,12 @@
     </field>
     <field>
       <type>comment</type>
-      <label type="str">&lt;div&gt;{% with amount=webservice.portail_parent_solde|get:"amount" already_reserved_amount=webservice.portail_parent_solde|get:"already_reserved_amount" %}{% if amount or already_reserved_amount %}&lt;div class="pk-information"&gt;&lt;p&gt;{% if amount|subtract:already_reserved_amount &gt; 0 %}Il reste {{ amount|subtract:already_reserved_amount|decimal:2 }}&#8364; dans votre solde. Ce montant sera d&#233;duit lors du paiement.{% endif %} {% if already_reserved_amount &gt; 0 %}Vous aviez d&#233;j&#224; command&#233; pour {{ already_reserved_amount|decimal:2 }}&#8364; pour cette enfant, pour ce mois. En cas de changement dans cette commande, ce montant sera d&#233;duit de votre panier.{% endif %}&lt;/p&gt;&lt;/div&gt;{% endif %}{% endwith %}&lt;/div&gt;</label>
+      <label type="str">&lt;div&gt;{% with amount=webservice.portail_parent_solde|get:"amount" already_reserved_amount=webservice.portail_parent_solde|get:"already_reserved_amount" %}{% if amount or already_reserved_amount %}
+&lt;div class="pk-information"&gt;
+&lt;p&gt;Montant encore disponible pour cet enfant : &lt;b&gt;{{ amount|decimal:2 }}&#8364;&lt;/b&gt;&lt;/p&gt;
+&lt;/div&gt;
+{% endif %}{% endwith %}&lt;/div&gt;
+</label>
       <condition>
         <type>django</type>
         <value>form_option_mode_paiement == "Paiement en ligne"</value>
@@ -170,8 +175,8 @@
     <option varname="mode_paiement">Paiement en ligne</option>
     <option varname="mode_paiement_display">Paiement en ligne</option>
     <option varname="mode_paiement_structured" />
-    <option varname="mois">1</option>
-    <option varname="mois_display">Mois prochain</option>
+    <option varname="mois">0</option>
+    <option varname="mois_display">Mois courant</option>
     <option varname="mois_structured" />
     <option varname="regie_de_paiement">portail_parents_repas_scolaires</option>
     <option varname="regie_de_paiement_display">Portail Parents - Repas scolaires</option>
