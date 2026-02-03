@@ -255,10 +255,10 @@
           <position>top</position>
         </item>
         <item type="register-comment" id="2">
-          <comment>{% if form_workflow_wscall_montant_response_initial_balance &gt; 0 %}&lt;p&gt;Le solde de &lt;b&gt;{{ form_workflow_data_montant_response_spent_balance|decimal:2 }}&#8364;&lt;/b&gt; a &#233;t&#233; utilis&#233; pour r&#233;gler une partie de votre panier. Il reste &#224; payer &lt;b&gt;{{ form_workflow_data_montant_response_due_amount|decimal:2 }}&#8364;&lt;/b&gt;.&lt;/p&gt;
+          <comment>{% if form_workflow_wscall_montant_response_initial_balance &gt; 0 %}&lt;p&gt;Le solde de &lt;b&gt;{{ form_workflow_data_montant_response_initial_balance|subtract:form_workflow_data_montant_response_remaining_balance|decimal:2 }}&#8364;&lt;/b&gt; a &#233;t&#233; utilis&#233; pour r&#233;gler une partie de votre panier. Il reste &#224; payer &lt;b&gt;{{ form_workflow_data_montant_response_due_amount|decimal:2 }}&#8364;&lt;/b&gt;.&lt;/p&gt;
 
 {% if form_workflow_wscall_montant_response_initial_balance|subtract:form_workflow_wscall_montant_response_spent_balance &gt; 0 %}&lt;p&gt;
-Il vous reste &lt;b&gt;{{ form_workflow_wscall_montant_response_initial_balance|subtract:form_workflow_wscall_montant_response_spent_balance|decimal:2 }}&#8364;&lt;/b&gt; dans votre solde.{% else %} Votre solde est vide.&lt;/p&gt;{% endif %}{% else %}&lt;p&gt;Le montant de votre commande s'&#233;l&#232;ve &#224; &lt;b&gt;{{ form_workflow_data_montant_response_due_amount|decimal:2 }}&#8364;&lt;/p&gt;{% endif %}
+Il vous reste &lt;b&gt;{{ form_workflow_data_montant_response_remaining_balance|decimal:2 }}&#8364;&lt;/b&gt; dans votre solde.{% else %} Votre solde est vide.&lt;/p&gt;{% endif %}{% else %}&lt;p&gt;Le montant de votre commande s'&#233;l&#232;ve &#224; &lt;b&gt;{{ form_workflow_data_montant_response_due_amount|decimal:2 }}&#8364;&lt;/p&gt;{% endif %}
 
 &lt;p&gt;&lt;a class="pk-button" href="{{ portal_url }}panier/"&gt;R&amp;eacute;gler mon panier&lt;/a&gt;&lt;/p&gt;</comment>
           <level>info</level>
@@ -720,10 +720,10 @@ Si vous avez pass&#233; d'autres commandes pour le m&#234;me enfant pour la m&#2
       <visibility />
       <items>
         <item type="register-comment" id="1">
-          <comment>Votre solde a &#233;t&#233; utilis&#233; &#224; hauteur de  {{ form_workflow_data_montant_response_spent_balance|decimal:2 }} &#8364; pour r&#233;gler votre commande. Vous n'avez donc rien &#224; payer.
+          <comment>Votre solde a &#233;t&#233; utilis&#233; &#224; hauteur de  {{ form_workflow_data_montant_response_initial_balance|subtract:form_workflow_data_montant_response_remaining_balance|decimal:2 }} &#8364; pour r&#233;gler votre commande. {% if form_workflow_data_montant_response_due_amount &lt;= 0 %}Vous n'avez donc rien &#224; payer.{% endif %}
 
-{% if form_workflow_wscall_montant_response_initial_balance|subtract:form_workflow_wscall_montant_response_spent_balance &gt; 0 %}
-Il vous reste {{ form_workflow_wscall_montant_response_initial_balance|subtract:form_workflow_wscall_montant_response_spent_balance|decimal:2 }}&#8364; dans votre solde.{% else %} Votre solde est vide.{% endif %}</comment>
+{% if form_workflow_data_montant_response_remaining_balance &gt; 0 %}
+Il vous reste {{ form_workflow_data_montant_response_remaining_balance|decimal:2 }}&#8364; dans votre solde.{% else %} Votre solde est vide.{% endif %}</comment>
           <level>info</level>
           <condition>
             <type>django</type>
