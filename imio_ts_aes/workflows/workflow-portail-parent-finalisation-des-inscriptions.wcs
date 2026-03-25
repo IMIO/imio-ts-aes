@@ -754,10 +754,10 @@ Cordialement,</body>
           <to>
             <item role_id="_submitter">_submitter</item>
           </to>
-          <subject>Instructions pour le paiement des plaines - n&#176;{{ form_number }}</subject>
-          <body>**Merci pour vos inscriptions !**
+          <subject>Vos inscriptions aux plaines sont presque termin&#233;es !</subject>
+          <body>**Plus qu'une &#233;tape pour garantir {% if "," in  form_var_inscriptions_concernees %}les places{% else %}la place{% endif %} de {% if "," in  form_var_enfants %}vos enfants{% else %}votre enfant{% endif %} : le paiement {% if "," in form_var_inscriptions_concernees %}des inscriptions{% else %}de l'inscription{% endif %}.**
 
-Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en mentionnant les instructions de paiement suivantes :
+Nous avons bien enregistr&#233; votre r&#233;servation pour les plaines. Pour que celle-ci soit d&#233;finitivement confirm&#233;e, nous vous invitons &#224; proc&#233;der au r&#232;glement dans les plus brefs d&#233;lais.
 
 * B&#233;n&#233;ficiaire : **Ville de {{ commune_name }} - {{ administration_adresse }}**
 * Num&#233;ro de compte b&#233;n&#233;ficiaire (IBAN) : **{{ form_option_iban }}**
@@ -771,9 +771,9 @@ Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en me
             <item role_id="_submitter">_submitter</item>
             <item role_id="_receiver">_receiver</item>
           </to>
-          <message>&lt;h3&gt;Merci pour vos inscriptions&lt;/h3&gt;
+          <message>&lt;h3&gt;Plus qu&amp;#39;une &amp;eacute;tape pour garantir {% if "," in &#160;form_var_inscriptions_concernees %}les places{% else %}la place{% endif %} de {% if "," in &#160;form_var_enfants %}vos enfants{% else %}votre enfant{% endif %} : le paiement {% if "," in form_var_inscriptions_concernees %}des inscriptions{% else %}de l&amp;#39;inscription{% endif %}.&lt;/h3&gt;
 
-&lt;p&gt;Nous vous invitons &amp;agrave; r&amp;eacute;gler votre commande par virement bancaire en mentionnant les instructions de paiement suivantes :&lt;/p&gt;
+&lt;p&gt;Nous avons bien enregistr&amp;eacute; votre r&amp;eacute;servation pour les plaines. Pour que celle-ci soit d&amp;eacute;finitivement confirm&amp;eacute;e, nous vous invitons &amp;agrave; proc&amp;eacute;der au r&amp;egrave;glement dans les plus brefs d&amp;eacute;lais.&lt;/p&gt;
 
 &lt;ul&gt;
 	&lt;li&gt;B&amp;eacute;n&amp;eacute;ficiaire : &lt;b&gt;Ville de {{ commune_name }} - {{ administration_adresse }} &lt;/b&gt;&lt;/li&gt;
