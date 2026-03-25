@@ -18,7 +18,7 @@
   <fields>
     <field>
       <type>title</type>
-      <label type="str">R&#233;capitulatif des inscriptions aux plaines de vos enfants</label>
+      <label type="str">R&#233;capitulatif des pr&#233;inscriptions aux plaines de vos enfants</label>
       <display_locations>
         <item>validation</item>
         <item>summary</item>
@@ -55,6 +55,7 @@
     <option varname="calcul_montant">Demander le montant &#224; AES</option>
     <option varname="calcul_montant_display">Demander le montant &#224; AES</option>
     <option varname="calcul_montant_structured" />
+    <option varname="communication_libre" type="bool">false</option>
     <option varname="iban">BE</option>
     <option varname="mode_paiement">Paiement en ligne</option>
     <option varname="mode_paiement_display">Paiement en ligne</option>

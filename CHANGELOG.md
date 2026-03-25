@@ -1,6 +1,11 @@
 Changelog
 =========
 
+3.2.0
+
+- [PPBDC-1146] Added: new plain's finalisation option to accept free communication
+- [PPBDC-1147] Changed: feedback test about preinscriptions
+
 3.1.2
 ----------------
 
