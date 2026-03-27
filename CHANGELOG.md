@@ -1,7 +1,14 @@
 Changelog
 =========
 
+3.2.1
+----------------
+
+- [PP-721] Add: send child_registration_line for school-meals payment endpoint.
+- [MISC] Fixed: change direct role reference to function inside school-meals WF.
+
 3.2.0
+----------------
 
 - [PPBDC-1146] Added: new plain's finalisation option to accept free communication
 - [PPBDC-1147] Changed: feedback test about preinscriptions
