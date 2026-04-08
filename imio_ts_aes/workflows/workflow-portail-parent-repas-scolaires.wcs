@@ -592,6 +592,10 @@ Si vous avez pass&#233; d'autres commandes pour le m&#234;me enfant pour la m&#2
               <name>child_id</name>
               <value>{{ form_var_enfant_id }}</value>
             </item>
+            <item>
+              <name>child_registration_line_id</name>
+              <value>{{ form_workflow_data_montant_response_child_registration_line_id }}</value>
+            </item>
           </post_data>
           <response_type>json</response_type>
           <varname>encodage_paiement</varname>
@@ -703,7 +707,8 @@ Si vous avez pass&#233; d'autres commandes pour le m&#234;me enfant pour la m&#2
         <item type="choice" id="2">
           <label>R&#233;encoder le paiement</label>
           <by>
-            <item slug="agents-traitants-portail-parent" role_id="c31622c806114a2797abae9d21c488c7">Agents traitants - Portail parent</item>
+            <item role_id="_support-imio">_support-imio</item>
+            <item role_id="_receiver">_receiver</item>
           </by>
           <status>16</status>
           <require_confirmation>False</require_confirmation>
