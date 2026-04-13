@@ -3,10 +3,11 @@
   <name>Portail Parent - Solde</name>
   <slug>portail_parent_solde</slug>
   <request>
-    <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ form_user_var_aes_id }}/balance/meal</url>
+    <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ form_user_var_aes_id }}/balance/{{ form_var_activity_category_id }}</url>
     <request_signature_key />
     <method>GET</method>
     <timeout />
+    <cache_key />
     <cache_duration />
     <qs_data>
       <param key="month">{{ form_option_mois_raw }}</param>

@@ -24,6 +24,22 @@
       <id type="str">47</id>
     </field>
     <field>
+      <type>computed</type>
+      <label type="str">activity_on_portal</label>
+      <varname type="str">activity_on_portal</varname>
+      <value_template type="str">wednesday_afternoon</value_template>
+      <freeze_on_initial_value type="bool">True</freeze_on_initial_value>
+      <id type="str">7a3bf286-17af-40d7-9339-a11fe1b94744</id>
+    </field>
+    <field>
+      <type>computed</type>
+      <label type="str">activity_category_id</label>
+      <varname type="str">activity_category_id</varname>
+      <value_template type="str">{{ webservice.portail_parent_activity_category_id_by_activity_on_portal }}</value_template>
+      <freeze_on_initial_value type="bool">True</freeze_on_initial_value>
+      <id type="str">85c73129-ec51-4196-af96-de00024015bd</id>
+    </field>
+    <field>
       <type>comment</type>
       <label type="str">&lt;p&gt;{% with amount=webservice.portail_parent_solde_accueil|get:"amount" already_reserved_amount=webservice.portail_parent_solde_accueil|get:"already_reserved_amount" %}{% if amount or already_reserved_amount %} {% if amount|subtract:already_reserved_amount &gt; 0 %}Il reste {{ amount|subtract:already_reserved_amount|decimal:2 }}&#8364; dans votre solde. Ce montant sera d&#233;duit lors du paiement.{% endif %}{% endif %}{% endwith %}&lt;/p&gt;
 </label>

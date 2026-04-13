@@ -41,6 +41,22 @@
     </field>
     <field>
       <type>computed</type>
+      <label type="str">activity_on_portal</label>
+      <varname type="str">activity_on_portal</varname>
+      <value_template type="str">meal</value_template>
+      <freeze_on_initial_value type="bool">True</freeze_on_initial_value>
+      <id type="str">3ccb64b0-b1e3-4c39-983c-1b35d5a4971f</id>
+    </field>
+    <field>
+      <type>computed</type>
+      <label type="str">activity_category_id</label>
+      <varname type="str">activity_category_id</varname>
+      <value_template type="str">{{ webservice.portail_parent_activity_category_id_by_activity_on_portal }}</value_template>
+      <freeze_on_initial_value type="bool">True</freeze_on_initial_value>
+      <id type="str">3e5699df-2646-4797-8070-7c4b37c7da79</id>
+    </field>
+    <field>
+      <type>computed</type>
       <label type="str">Identifiant de l'enfant</label>
       <varname type="str">id_enfant</varname>
       <value_template type="str">{{request.GET.enfant|default:""}}</value_template>

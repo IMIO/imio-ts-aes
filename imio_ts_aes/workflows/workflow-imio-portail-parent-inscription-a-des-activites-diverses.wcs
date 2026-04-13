@@ -65,7 +65,7 @@
         <item type="webservice_call" id="2">
           <label>Lecture du solde initial</label>
           <method>GET</method>
-          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{form_user_aes_id}}/balance/childcare</url>
+          <url>{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{form_user_aes_id}}/balance/{{ form_var_inscriptions_structured.0.activity_category_id }}</url>
           <post>False</post>
           <response_type>json</response_type>
           <varname>solde_initial</varname>
