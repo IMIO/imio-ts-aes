@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<wscall id="19" url="https://wcs.dev.publik.love/backoffice/settings/wscalls/19/">
+  <name>Portail Parent - Activity Category ID by Activity on Portal</name>
+  <slug>portail_parent_activity_category_id_by_activity_on_portal</slug>
+  <request>
+    <url>{{ passerelle_url }}/passerelle-imio-ia-aes/aes/activity_category_by_activity_on_portal</url>
+    <request_signature_key />
+    <method>GET</method>
+    <timeout />
+    <cache_key />
+    <cache_duration />
+    <qs_data>
+      <param key="activity_on_portal">{{ form_var_activity_on_portal }}</param>
+    </qs_data>
+    <post_data />
+  </request>
+  <record_on_errors>true</record_on_errors>
+</wscall>

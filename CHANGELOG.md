@@ -1,6 +1,13 @@
 Changelog
 =========
 
+3.2.2
+----------------
+
+- [PP-722] Add: WSCall to get activity category id by activity on portal.
+- [PP-722] Update: form to use new WSCall.
+- [PP-722] Update: workflow to use updated endpoint compute.
+
 3.2.1
 ----------------
 
