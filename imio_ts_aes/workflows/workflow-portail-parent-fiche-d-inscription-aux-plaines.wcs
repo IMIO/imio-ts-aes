@@ -60,7 +60,7 @@
     <status>
       <id>3</id>
       <name>En attente de paiement</name>
-      <colour>#99FF66</colour>
+      <colour>#ffa348</colour>
       <visibility />
       <items>
         <item type="choice" id="1">
