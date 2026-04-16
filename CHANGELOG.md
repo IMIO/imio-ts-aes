@@ -1,17 +1,24 @@
 Changelog
 =========
 
+3.3.0
+----------------
+- [SUP-52531] Changed: Waiting for payment's color in plain's registration card is set to yellow for consistency
+- [SUP-52532] Added: agent can now communicate through "En attente de virement" and "Inscription clôturée" status.
+- [SUP-52534] Added: user email is put into treatment data.
+
+
 3.2.2
 ----------------
 
-- [PP-722] Add: WSCall to get activity category id by activity on portal.
+- [PP-722] Added: WSCall to get activity category id by activity on portal.
 - [PP-722] Update: form to use new WSCall.
 - [PP-722] Update: workflow to use updated endpoint compute.
 
 3.2.1
 ----------------
 
-- [PP-721] Add: send child_registration_line for school-meals payment endpoint.
+- [PP-721] Added: send child_registration_line for school-meals payment endpoint.
 - [MISC] Fixed: change direct role reference to function inside school-meals WF.
 
 3.2.0
