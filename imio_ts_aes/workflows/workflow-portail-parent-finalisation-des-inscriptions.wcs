@@ -773,6 +773,10 @@ Nous avons bien enregistr&#233; votre r&#233;servation pour les plaines. Pour qu
 * Montant de la commande : **{% if form_workflow_form_calcul_var_montant %}{{ form_workflow_form_calcul_var_montant|decimal:2 }}{% else %}{{ form_workflow_data_montant_response_cost|decimal:2 }}{% endif %}  &#8364;**
 
 {% firstof form_workflow_form_calcul_var_info_complementaires form_option_preremplir_info_complementaires %}</body>
+          <condition>
+            <type>django</type>
+            <value>not form_workflow_form_echanges_attente_virement_var_message</value>
+          </condition>
         </item>
         <item type="displaymsg" id="2">
           <to>
@@ -805,6 +809,59 @@ Nous avons bien enregistr&#233; votre r&#233;servation pour les plaines. Pour qu
             <item role_id="_submitter">_submitter</item>
           </to>
           <comment>Vos inscriptions ont bien &#233;t&#233; enregistr&#233;es.</comment>
+          <level>success</level>
+          <condition>
+            <type>django</type>
+            <value>not form_workflow_form_echanges_attente_virement_var_message</value>
+          </condition>
+        </item>
+        <item type="set-backoffice-fields" id="6" />
+        <item type="register-comment" id="8">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+            <item role_id="_support-imio">_support-imio</item>
+          </to>
+          <comment>{{ form_workflow_form_echanges_attente_virement_var_message|linebreaks }}</comment>
+          <condition>
+            <type>django</type>
+            <value>form_workflow_form_echanges_attente_virement_var_message</value>
+          </condition>
+        </item>
+        <item type="form" id="7">
+          <by>
+            <item role_id="_receiver">_receiver</item>
+            <item role_id="_support-imio">_support-imio</item>
+          </by>
+          <varname>echanges_attente_virement</varname>
+          <hide_submit_button>True</hide_submit_button>
+          <include_in_form_history>False</include_in_form_history>
+          <formdef>
+            <name>-</name>
+            <fields>
+              <field>
+                <type>text</type>
+                <label type="str">Message</label>
+                <required type="str">optional</required>
+                <hint type="str">&lt;p&gt;Ce message ne sera pas visible par les usagers.&lt;/p&gt;</hint>
+                <varname type="str">message</varname>
+                <display_locations />
+                <display_mode type="str">plain</display_mode>
+                <id type="str">f178f1cf-98fe-486b-92f4-afb748f680e0</id>
+              </field>
+            </fields>
+          </formdef>
+        </item>
+        <item type="choice" id="9">
+          <label>Enregistrer le message</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by>
+          <status>9</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Enregistre un message pour usage interne, sans changer de statut.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
         </item>
         <item type="choice" id="4">
           <label>Valider le paiement</label>
@@ -922,11 +979,17 @@ Cordialement,</body>
     <status>
       <id>15</id>
       <name>Inscription cl&#244;tur&#233;e</name>
-      <colour>#00FF00</colour>
+      <colour>#00ff00</colour>
+      <forced_endpoint>true</forced_endpoint>
       <visibility />
       <items>
         <item type="register-comment" id="1">
           <comment>Vos inscriptions sont finalis&#233;es. Merci d'avoir utilis&#233; nos services.</comment>
+          <level>success</level>
+          <condition>
+            <type>django</type>
+            <value>not form_workflow_form_echanges_cloture_var_message</value>
+          </condition>
         </item>
         <item type="displaymsg" id="2">
           <to>
@@ -939,6 +1002,53 @@ Cordialement,</body>
             <type>django</type>
             <value>form_option_mode_paiement == "Paiement diff&#233;r&#233;"</value>
           </condition>
+        </item>
+        <item type="register-comment" id="3">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+            <item role_id="_support-imio">_support-imio</item>
+          </to>
+          <comment>{{ form_workflow_form_echanges_cloture_var_message|linebreaks }}</comment>
+          <condition>
+            <type>django</type>
+            <value>form_workflow_form_echanges_cloture_var_message</value>
+          </condition>
+        </item>
+        <item type="form" id="5">
+          <by>
+            <item role_id="_receiver">_receiver</item>
+            <item role_id="_support-imio">_support-imio</item>
+          </by>
+          <varname>echanges_cloture</varname>
+          <hide_submit_button>True</hide_submit_button>
+          <include_in_form_history>False</include_in_form_history>
+          <formdef>
+            <name>-</name>
+            <fields>
+              <field>
+                <type>text</type>
+                <label type="str">Message</label>
+                <required type="str">optional</required>
+                <hint type="str">&lt;p&gt;Ce message ne sera pas visible par les usagers.&lt;/p&gt;</hint>
+                <varname type="str">message</varname>
+                <display_locations />
+                <display_mode type="str">plain</display_mode>
+                <id type="str">1</id>
+              </field>
+            </fields>
+          </formdef>
+        </item>
+        <item type="choice" id="4">
+          <label>Enregistrer le message</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by>
+          <status>15</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Enregistre un message pour usage interne, sans changer de statut.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
     </status>
