@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<workflow id="6" url="https://wcs.dev.publik.love/backoffice/workflows/6/">
+<workflow id="26" url="https://wcs.dev.publik.love/backoffice/workflows/26/">
   <name>Portail Parent - Finalisation des inscriptions</name>
   <slug>portail-parent-finalisation-des-inscriptions</slug>
   <category slug="portail-parent" category_id="8">Portail parent</category>
@@ -42,6 +42,15 @@
           <trigger_id>action:demande_finalisation</trigger_id>
           <target_mode>manual</target_mode>
           <target_id>{{ forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de validation" }}</target_id>
+        </item>
+        <item type="set-backoffice-fields" id="5">
+          <label>Enregistrement du courriel</label>
+          <fields>
+            <field>
+              <field_id>bo2f823aae-acdd-4755-831b-a62db379df8a</field_id>
+              <value>{{ form_user_email }}</value>
+            </field>
+          </fields>
         </item>
         <item type="jump" id="3">
           <status>3</status>
@@ -206,11 +215,10 @@
                 <varname type="str">info_complementaires</varname>
                 <display_locations />
                 <prefill>
-                  <locked>False</locked>
-                  <locked-unless-empty>False</locked-unless-empty>
                   <type>string</type>
                   <value>{{ form_option_preremplir_info_complementaires|default:"" }}</value>
                 </prefill>
+                <anonymise type="str">final</anonymise>
                 <display_mode type="str">plain</display_mode>
                 <id type="str">4</id>
               </field>
@@ -765,6 +773,10 @@ Nous avons bien enregistr&#233; votre r&#233;servation pour les plaines. Pour qu
 * Montant de la commande : **{% if form_workflow_form_calcul_var_montant %}{{ form_workflow_form_calcul_var_montant|decimal:2 }}{% else %}{{ form_workflow_data_montant_response_cost|decimal:2 }}{% endif %}  &#8364;**
 
 {% firstof form_workflow_form_calcul_var_info_complementaires form_option_preremplir_info_complementaires %}</body>
+          <condition>
+            <type>django</type>
+            <value>not form_workflow_form_echanges_attente_virement_var_message</value>
+          </condition>
         </item>
         <item type="displaymsg" id="2">
           <to>
@@ -797,6 +809,59 @@ Nous avons bien enregistr&#233; votre r&#233;servation pour les plaines. Pour qu
             <item role_id="_submitter">_submitter</item>
           </to>
           <comment>Vos inscriptions ont bien &#233;t&#233; enregistr&#233;es.</comment>
+          <level>success</level>
+          <condition>
+            <type>django</type>
+            <value>not form_workflow_form_echanges_attente_virement_var_message</value>
+          </condition>
+        </item>
+        <item type="set-backoffice-fields" id="6" />
+        <item type="register-comment" id="8">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+            <item role_id="_support-imio">_support-imio</item>
+          </to>
+          <comment>{{ form_workflow_form_echanges_attente_virement_var_message|linebreaks }}</comment>
+          <condition>
+            <type>django</type>
+            <value>form_workflow_form_echanges_attente_virement_var_message</value>
+          </condition>
+        </item>
+        <item type="form" id="7">
+          <by>
+            <item role_id="_receiver">_receiver</item>
+            <item role_id="_support-imio">_support-imio</item>
+          </by>
+          <varname>echanges_attente_virement</varname>
+          <hide_submit_button>True</hide_submit_button>
+          <include_in_form_history>False</include_in_form_history>
+          <formdef>
+            <name>-</name>
+            <fields>
+              <field>
+                <type>text</type>
+                <label type="str">Message</label>
+                <required type="str">optional</required>
+                <hint type="str">&lt;p&gt;Ce message ne sera pas visible par les usagers.&lt;/p&gt;</hint>
+                <varname type="str">message</varname>
+                <display_locations />
+                <display_mode type="str">plain</display_mode>
+                <id type="str">f178f1cf-98fe-486b-92f4-afb748f680e0</id>
+              </field>
+            </fields>
+          </formdef>
+        </item>
+        <item type="choice" id="9">
+          <label>Enregistrer le message</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by>
+          <status>9</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Enregistre un message pour usage interne, sans changer de statut.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
         </item>
         <item type="choice" id="4">
           <label>Valider le paiement</label>
@@ -914,11 +979,17 @@ Cordialement,</body>
     <status>
       <id>15</id>
       <name>Inscription cl&#244;tur&#233;e</name>
-      <colour>#00FF00</colour>
+      <colour>#00ff00</colour>
+      <forced_endpoint>true</forced_endpoint>
       <visibility />
       <items>
         <item type="register-comment" id="1">
           <comment>Vos inscriptions sont finalis&#233;es. Merci d'avoir utilis&#233; nos services.</comment>
+          <level>success</level>
+          <condition>
+            <type>django</type>
+            <value>not form_workflow_form_echanges_cloture_var_message</value>
+          </condition>
         </item>
         <item type="displaymsg" id="2">
           <to>
@@ -931,6 +1002,53 @@ Cordialement,</body>
             <type>django</type>
             <value>form_option_mode_paiement == "Paiement diff&#233;r&#233;"</value>
           </condition>
+        </item>
+        <item type="register-comment" id="3">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+            <item role_id="_support-imio">_support-imio</item>
+          </to>
+          <comment>{{ form_workflow_form_echanges_cloture_var_message|linebreaks }}</comment>
+          <condition>
+            <type>django</type>
+            <value>form_workflow_form_echanges_cloture_var_message</value>
+          </condition>
+        </item>
+        <item type="form" id="5">
+          <by>
+            <item role_id="_receiver">_receiver</item>
+            <item role_id="_support-imio">_support-imio</item>
+          </by>
+          <varname>echanges_cloture</varname>
+          <hide_submit_button>True</hide_submit_button>
+          <include_in_form_history>False</include_in_form_history>
+          <formdef>
+            <name>-</name>
+            <fields>
+              <field>
+                <type>text</type>
+                <label type="str">Message</label>
+                <required type="str">optional</required>
+                <hint type="str">&lt;p&gt;Ce message ne sera pas visible par les usagers.&lt;/p&gt;</hint>
+                <varname type="str">message</varname>
+                <display_locations />
+                <display_mode type="str">plain</display_mode>
+                <id type="str">1</id>
+              </field>
+            </fields>
+          </formdef>
+        </item>
+        <item type="choice" id="4">
+          <label>Enregistrer le message</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by>
+          <status>15</status>
+          <require_confirmation>False</require_confirmation>
+          <backoffice_info_text>&lt;p&gt;Enregistre un message pour usage interne, sans changer de statut.&lt;/p&gt;
+</backoffice_info_text>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
     </status>
@@ -1101,6 +1219,7 @@ Cordialement,</body>
           <hint type="str">&lt;p&gt;Par d&#233;faut, le parent sera invit&#233; &#224; encoder sa communication structur&#233;e d'iA.AES. En cochant cette cas, vous lui proposer d'encoder une communication libre.&lt;/p&gt;</hint>
           <varname type="str">communication_libre</varname>
           <display_locations />
+          <anonymise type="str">no</anonymise>
           <id type="str">4797db94-7868-4307-a00d-74eb393d731a</id>
         </field>
         <field>
@@ -1163,6 +1282,17 @@ Cordialement,</body>
           <display_locations />
           <anonymise type="str">final</anonymise>
           <id type="str">bo05ae962d-cb56-4c1d-b44a-ccdefe25b71d</id>
+        </field>
+        <field>
+          <type>email</type>
+          <label type="str">E-mail du parent</label>
+          <required type="str">required</required>
+          <varname type="str">email</varname>
+          <display_locations>
+            <item>summary</item>
+          </display_locations>
+          <anonymise type="str">final</anonymise>
+          <id type="str">bo2f823aae-acdd-4755-831b-a62db379df8a</id>
         </field>
       </fields>
     </formdef>
