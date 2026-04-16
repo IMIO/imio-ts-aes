@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<workflow id="6" url="https://wcs.dev.publik.love/backoffice/workflows/6/">
+<workflow id="26" url="https://wcs.dev.publik.love/backoffice/workflows/26/">
   <name>Portail Parent - Finalisation des inscriptions</name>
   <slug>portail-parent-finalisation-des-inscriptions</slug>
   <category slug="portail-parent" category_id="8">Portail parent</category>
@@ -42,6 +42,15 @@
           <trigger_id>action:demande_finalisation</trigger_id>
           <target_mode>manual</target_mode>
           <target_id>{{ forms|objects:"pp-fiche-inscription-plaine"|filter_by_user:form_user|filter_by_status:"En attente de validation" }}</target_id>
+        </item>
+        <item type="set-backoffice-fields" id="5">
+          <label>Enregistrement du courriel</label>
+          <fields>
+            <field>
+              <field_id>bo2f823aae-acdd-4755-831b-a62db379df8a</field_id>
+              <value>{{ form_user_email }}</value>
+            </field>
+          </fields>
         </item>
         <item type="jump" id="3">
           <status>3</status>
@@ -206,11 +215,10 @@
                 <varname type="str">info_complementaires</varname>
                 <display_locations />
                 <prefill>
-                  <locked>False</locked>
-                  <locked-unless-empty>False</locked-unless-empty>
                   <type>string</type>
                   <value>{{ form_option_preremplir_info_complementaires|default:"" }}</value>
                 </prefill>
+                <anonymise type="str">final</anonymise>
                 <display_mode type="str">plain</display_mode>
                 <id type="str">4</id>
               </field>
@@ -1101,6 +1109,7 @@ Cordialement,</body>
           <hint type="str">&lt;p&gt;Par d&#233;faut, le parent sera invit&#233; &#224; encoder sa communication structur&#233;e d'iA.AES. En cochant cette cas, vous lui proposer d'encoder une communication libre.&lt;/p&gt;</hint>
           <varname type="str">communication_libre</varname>
           <display_locations />
+          <anonymise type="str">no</anonymise>
           <id type="str">4797db94-7868-4307-a00d-74eb393d731a</id>
         </field>
         <field>
@@ -1163,6 +1172,17 @@ Cordialement,</body>
           <display_locations />
           <anonymise type="str">final</anonymise>
           <id type="str">bo05ae962d-cb56-4c1d-b44a-ccdefe25b71d</id>
+        </field>
+        <field>
+          <type>email</type>
+          <label type="str">E-mail du parent</label>
+          <required type="str">required</required>
+          <varname type="str">email</varname>
+          <display_locations>
+            <item>summary</item>
+          </display_locations>
+          <anonymise type="str">final</anonymise>
+          <id type="str">bo2f823aae-acdd-4755-831b-a62db379df8a</id>
         </field>
       </fields>
     </formdef>
