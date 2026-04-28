@@ -499,7 +499,9 @@
       <visibility />
       <items>
         <item type="register-comment" id="1">
-          <comment>&lt;p&gt;&lt;a class="pk-button" href="{{ portal_url }}portail-parent/"&gt;Retourner sur le Portail Parent&lt;/a&gt;&lt;/p&gt;</comment>
+          <comment>&lt;p&gt;&lt;a class="pk-button" href="{{ portal_url }}portail-parent/"&gt;Retourner sur le Portail Parent&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a class="pk-button" href="{{ portal_url }}portail-parent/inscriptions"&gt;Retourner sur la page des inscriptions&lt;/a&gt;&lt;/p&gt;</comment>
         </item>
         <item type="choice" id="2">
           <label>Rejouer</label>

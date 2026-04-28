@@ -250,7 +250,14 @@
         <item type="displaymsg" id="1">
           <message>&lt;p&gt;Veuillez r&#233;gler &lt;a href="{{ portal_url }}panier/" rel="nofollow"&gt;votre panier&lt;/a&gt; afin de finaliser les inscriptions.&lt;/p&gt;
 
-&lt;p&gt;&lt;a class="pk-button" href="{{ portal_url }}panier/" rel="nofollow"&gt;R&#233;gler mon panier&lt;/a&gt;&lt;/p&gt;</message>
+&lt;p&gt;&lt;a class="pk-button" href="{{ portal_url }}panier/" rel="nofollow"&gt;R&amp;eacute;gler mon panier&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
+&lt;p&gt;Vous pouvez &amp;eacute;galement inscrire un autre enfant aux repas scolaires.&lt;br&gt;
+&lt;br&gt;
+&amp;lt;p&amp;gt;&amp;lt;a class=&amp;quot;pk-button&amp;quot; href=&amp;quot;{{ portal_url }}portail-parent/inscriptions&amp;quot;&amp;gt;Retourner sur la page des inscriptions&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;&lt;/p&gt;
+</message>
           <level>info</level>
           <position>top</position>
         </item>
@@ -340,7 +347,9 @@ Montant encore disponible pour cet enfant : &lt;b&gt;{{ form_workflow_data_monta
     &lt;li&gt;Le {{ repas.date|date:"j" }} : {{ repas.meals }}&lt;/li&gt;
 {% endif %}
 {% endfor %}
-&lt;/ul&gt;</comment>
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href="{{ portal_url }}portail-parent/inscriptions"&gt;Retourner sur la page des inscriptions&lt;/a&gt;&lt;/p&gt;</comment>
         </item>
         <item type="sendmail" id="2">
           <to>

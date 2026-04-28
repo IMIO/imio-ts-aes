@@ -257,9 +257,9 @@ Une fois que vous aurez pr&#233;inscrits tous vos enfants, vous pouvez `finalise
 	{% endfor %}
 &lt;/ul&gt;
 
-&lt;p&gt;Vous pouvez &lt;a href="{{ portal_url }}portail-parent/" rel="nofollow"&gt;pr&amp;eacute;inscrire un autre enfant&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Vous pouvez &lt;a href="{{ portal_url }}portail-parent/inscriptions" rel="nofollow"&gt;pr&amp;eacute;inscrire un autre enfant&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;a class="pk-button" href="{{ portal_url }}portail-parent/" rel="nofollow"&gt;Pr&amp;eacute;inscrire un autre enfant&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class="pk-button" href="{{ portal_url }}portail-parent/inscriptions" rel="nofollow"&gt;Pr&amp;eacute;inscrire un autre enfant&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Si vous avez inscrit tous vos enfants, vous pouvez &lt;a href="{{ eservices_url }}pp-finaliser-les-inscriptions-aux-plaines" rel="nofollow"&gt;finaliser vos inscriptions&lt;/a&gt;.&lt;/p&gt;
 
@@ -274,7 +274,7 @@ Une fois que vous aurez pr&#233;inscrits tous vos enfants, vous pouvez `finalise
           </to>
           <message>&lt;p&gt;Vous avez trois jours pour finaliser les pr&#233;inscriptions de vos enfants. Au-del&#224; de ce d&#233;lai, ils seront d&#233;sinscrits.&lt;/p&gt;</message>
           <level>error</level>
-          <position>bottom</position>
+          <position>top</position>
           <condition>
             <type>django</type>
             <value>form_option_mode_de_paiement == "Paiement en ligne" or form_option_mode_de_paiement == "Paiement par virement"</value>
