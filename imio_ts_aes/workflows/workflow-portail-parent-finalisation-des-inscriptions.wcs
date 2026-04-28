@@ -52,6 +52,15 @@
             </field>
           </fields>
         </item>
+        <item type="jump" id="6">
+          <status>23</status>
+          <condition>
+            <type>django</type>
+            <value>form_var_inscriptions_fratrie == "Non"</value>
+          </condition>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
         <item type="jump" id="3">
           <status>3</status>
           <condition>
@@ -1097,6 +1106,19 @@ Cordialement,</body>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
+        </item>
+      </items>
+    </status>
+    <status>
+      <id>23</id>
+      <name>Redirection vers la page des inscriptions</name>
+      <colour>#ffffff</colour>
+      <forced_endpoint>true</forced_endpoint>
+      <visibility />
+      <items>
+        <item type="redirect_to_url" id="1">
+          <url>{{portal_url}}portail-parent/inscriptions</url>
         </item>
       </items>
     </status>
@@ -1132,6 +1154,15 @@ Cordialement,</body>
             <item>summary</item>
           </display_locations>
           <id type="str">7</id>
+        </field>
+        <field>
+          <type>bool</type>
+          <label type="str">Tarif d&#233;gressif</label>
+          <required type="str">optional</required>
+          <hint type="str">&lt;p&gt;Activer la question relative &#224; la finalisation de toute la fraterie pour b&#233;n&#233;ficier du tarif d&#233;gressif&lt;/p&gt;</hint>
+          <varname type="str">tarif_degressif</varname>
+          <display_locations />
+          <id type="str">d2ef5f64-3a01-4e8c-a46e-aa603076e4bb</id>
         </field>
         <field>
           <type>item</type>
