@@ -1,6 +1,10 @@
 Changelog
 =========
 
+3.4.1
+----------------
+- [PP-730]: Fixed: typo.
+
 3.4.0
 ----------------
 - [PP-730] Added: field to declare all siblings registered in plains finalization form, conditioned on degressive pricing option.
