@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<workflow id="11" url="https://wcs.dev.publik.love/backoffice/workflows/11/">
+<workflow id="30" url="https://wcs.dev.publik.love/backoffice/workflows/30/">
   <name>Portail Parent - Repas scolaires</name>
   <slug>portail-parent-repas-scolaires</slug>
   <category slug="portail-parent" category_id="8">Portail parent</category>
@@ -248,15 +248,13 @@
       <visibility />
       <items>
         <item type="displaymsg" id="1">
-          <message>&lt;p&gt;Veuillez r&#233;gler &lt;a href="{{ portal_url }}panier/" rel="nofollow"&gt;votre panier&lt;/a&gt; afin de finaliser les inscriptions.&lt;/p&gt;
+          <message>&lt;p&gt;Veuillez r&amp;eacute;gler &lt;a href="{{ portal_url }}panier/" rel="nofollow"&gt;votre panier&lt;/a&gt; afin de finaliser les inscriptions.&lt;/p&gt;
 
 &lt;p&gt;&lt;a class="pk-button" href="{{ portal_url }}panier/" rel="nofollow"&gt;R&amp;eacute;gler mon panier&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;Vous pouvez &amp;eacute;galement inscrire un autre enfant aux repas scolaires.&lt;/p&gt;
 
-&lt;p&gt;Vous pouvez &amp;eacute;galement inscrire un autre enfant aux repas scolaires.&lt;br&gt;
-&lt;br&gt;
-&amp;lt;p&amp;gt;&amp;lt;a class=&amp;quot;pk-button&amp;quot; href=&amp;quot;{{ portal_url }}portail-parent/inscriptions&amp;quot;&amp;gt;Retourner sur la page des inscriptions&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class="pk-button" href="{{ portal_url }}portail-parent/inscriptions" rel="nofollow"&gt;Retourner sur la page des inscriptions&lt;/a&gt;&lt;/p&gt;
 </message>
           <level>info</level>
           <position>top</position>
