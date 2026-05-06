@@ -1,6 +1,13 @@
 Changelog
 =========
 
+3.4.0
+----------------
+- [PP-730] Added: field to declare all siblings registered in plains finalization form, conditioned on degressive pricing option.
+- [PP-723] Fixed: redirect links in inscriptions workflows (health sheet, plains, school meals).
+- [PP-723] Fixed: broken button and encoding in school meals waiting for payment message.
+- [PP-723] Fixed: empty bullets in plains registration confirmation listing.
+
 3.3.0
 ----------------
 - [SUP-52531] Changed: Waiting for payment's color in plain's registration card is set to yellow for consistency
