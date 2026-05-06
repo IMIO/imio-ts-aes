@@ -28,7 +28,7 @@
     </field>
     <field>
       <type>item</type>
-      <label type="str">Avez-vous r&#233;alis&#233; les inscriptions de tous vos enfants?</label>
+      <label type="str">Avez-vous r&#233;alis&#233; les inscriptions de tous vos enfants ?</label>
       <condition>
         <type>django</type>
         <value>form_option_tarif_degressif</value>
