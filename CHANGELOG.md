@@ -1,6 +1,12 @@
 Changelog
 =========
 
+3.4.2
+----------------
+- [PP-730] Chnaged: Improve display of finalisation form's alert messages.
+- [PPBDC-1151] Added: amount as treatment data in plains finalisation.
+- [PPBDC-1152] Added: mention of children names and firstnames in finalisation payment requests.
+
 3.4.1
 ----------------
 - [PP-730]: Fixed: typo.
