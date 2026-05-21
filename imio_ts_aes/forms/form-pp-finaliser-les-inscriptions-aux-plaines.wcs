@@ -7,15 +7,14 @@
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
   <disabled>false</disabled>
-  <hidden>false</hidden>
   <only_allow_one>false</only_allow_one>
   <enable_tracking_codes>false</enable_tracking_codes>
   <confirmation>false</confirmation>
   <always_advertise>false</always_advertise>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category slug="portail-parent" category_id="21">Portail Parents</category>
-  <workflow slug="portail-parent-finalisation-des-inscriptions" workflow_id="6">Portail Parent - Finalisation des inscriptions</workflow>
+  <category slug="portail-parent" category_id="5">Portail Parents</category>
+  <workflow slug="portail-parent-finalisation-des-inscriptions" workflow_id="31">Portail Parent - Finalisation des inscriptions</workflow>
   <fields>
     <field>
       <type>title</type>
@@ -40,7 +39,7 @@
         <item>validation</item>
         <item>summary</item>
       </display_locations>
-      <extra_css_class type="str">pk-important</extra_css_class>
+      <extra_css_class type="str">pk-important pk-attention</extra_css_class>
       <prefill>
         <locked>False</locked>
         <locked-unless-empty>False</locked-unless-empty>
@@ -58,7 +57,6 @@
       <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
       <image_desktop_size type="str">150</image_desktop_size>
       <image_mobile_size type="str">75</image_mobile_size>
-      <radio_orientation type="str">auto</radio_orientation>
       <id type="str">271ae99b-2459-413f-88ff-4dff44f62498</id>
     </field>
     <field>
@@ -75,6 +73,30 @@
 {% else %}&lt;p&gt;Pas d'utilisateur d&#233;tect&#233; - Peut-&#234;tre &#234;tes vous dans la fabrique de formulaires ?&lt;/p&gt;{% endif %}&lt;/div&gt;</label>
       <display_locations />
       <id type="str">2</id>
+    </field>
+    <field>
+      <type>comment</type>
+      <label type="str">&lt;p&gt;Vous allez &amp;ecirc;tre redirig&amp;eacute; &lt;strong&gt;vers la page des inscriptions&lt;/strong&gt; pour inscrire d&amp;#39;autres enfants. Vos inscriptions list&amp;eacute;es ci-dessus ne seront &lt;strong&gt;pas finalis&amp;eacute;es&lt;/strong&gt;.&lt;/p&gt;
+</label>
+      <condition>
+        <type>django</type>
+        <value>form_var_inscriptions_fratrie|lower == "non"</value>
+      </condition>
+      <extra_css_class type="str">pk-attention</extra_css_class>
+      <display_locations />
+      <id type="str">67046538-a1e6-43c1-92a7-b09459522e40</id>
+    </field>
+    <field>
+      <type>comment</type>
+      <label type="str">&lt;p&gt;Vos inscriptions seront &lt;strong&gt;finalis&amp;eacute;es&lt;/strong&gt;.&lt;/p&gt;
+</label>
+      <condition>
+        <type>django</type>
+        <value>form_var_inscriptions_fratrie|lower == "oui"</value>
+      </condition>
+      <extra_css_class type="str">pk-information</extra_css_class>
+      <display_locations />
+      <id type="str">b39325e1-cb64-4c22-8601-d8fb7e71d13e</id>
     </field>
   </fields>
   <user-roles>
