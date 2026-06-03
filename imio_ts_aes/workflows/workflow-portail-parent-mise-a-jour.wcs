@@ -326,6 +326,7 @@ Une erreur a &#233;t&#233; rencontr&#233;e pour une demande du formulaire {{ for
           <label>Enregistrer les donn&#233;es</label>
           <by>
             <item role_id="_receiver">_receiver</item>
+            <item role_id="_support-imio">_support-imio</item>
           </by>
           <status>1</status>
           <require_confirmation>False</require_confirmation>
@@ -423,9 +424,6 @@ Une erreur a &#233;t&#233; rencontr&#233;e pour une demande du formulaire {{ for
       </items>
       <triggers>
         <trigger type="manual" id="6d61f9f1-1742-47f9-b8f5-b0ba1af1d42d">
-          <roles>
-            <item role_id="_receiver">_receiver</item>
-          </roles>
           <allow_as_mass_action>True</allow_as_mass_action>
           <require_confirmation>False</require_confirmation>
         </trigger>

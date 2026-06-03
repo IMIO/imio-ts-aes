@@ -815,6 +815,7 @@ Bien &#224; vous</body>
           <label>Rejouer les inscriptions</label>
           <by>
             <item role_id="_support-imio">_support-imio</item>
+            <item role_id="_receiver">_receiver</item>
           </by>
           <status>1</status>
           <require_confirmation>False</require_confirmation>
@@ -882,9 +883,6 @@ Bien &#224; vous</body>
       </items>
       <triggers>
         <trigger type="manual" id="a6869050-032a-463b-93eb-ceda436924b6">
-          <roles>
-            <item role_id="_support-imio">_support-imio</item>
-          </roles>
           <allow_as_mass_action>True</allow_as_mass_action>
           <require_confirmation>False</require_confirmation>
         </trigger>

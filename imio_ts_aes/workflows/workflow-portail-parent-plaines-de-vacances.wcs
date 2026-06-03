@@ -403,9 +403,6 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
       </items>
       <triggers>
         <trigger type="manual" id="d169c805-50fd-441a-b4e0-439ee617deea">
-          <roles>
-            <item role_id="_support-imio">_support-imio</item>
-          </roles>
           <allow_as_mass_action>True</allow_as_mass_action>
           <require_confirmation>True</require_confirmation>
         </trigger>

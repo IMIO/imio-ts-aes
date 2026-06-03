@@ -820,6 +820,7 @@ Si vous avez pass&#233; d'autres commandes pour le m&#234;me enfant pour la m&#2
           <label>Retenter l'enregistrement</label>
           <by>
             <item role_id="_support-imio">_support-imio</item>
+            <item role_id="_receiver">_receiver</item>
           </by>
           <status>1</status>
           <require_confirmation>False</require_confirmation>
@@ -859,9 +860,6 @@ Si vous avez pass&#233; d'autres commandes pour le m&#234;me enfant pour la m&#2
       </items>
       <triggers>
         <trigger type="manual" id="10284ecc-faf1-46d3-a567-7748e0d799d0">
-          <roles>
-            <item role_id="_support-imio">_support-imio</item>
-          </roles>
           <allow_as_mass_action>True</allow_as_mass_action>
           <require_confirmation>False</require_confirmation>
         </trigger>

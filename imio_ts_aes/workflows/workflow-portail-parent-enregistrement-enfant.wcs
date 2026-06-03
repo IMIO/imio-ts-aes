@@ -437,9 +437,6 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
       </items>
       <triggers>
         <trigger type="manual" id="61aa72c2-a964-4143-9c95-a161e7ebba10">
-          <roles>
-            <item role_id="_debug">_debug</item>
-          </roles>
           <allow_as_mass_action>True</allow_as_mass_action>
           <require_confirmation>False</require_confirmation>
         </trigger>

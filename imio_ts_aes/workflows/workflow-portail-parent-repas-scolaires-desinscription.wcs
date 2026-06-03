@@ -139,8 +139,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <label>Relancer la d&#233;sinscription</label>
           <by>
             <item role_id="_receiver">_receiver</item>
-            <item role_id="_submitter">_submitter</item>
-            <item role_id="logged-users">logged-users</item>
+            <item role_id="_support-imio">_support-imio</item>
           </by>
           <status>1</status>
           <require_confirmation>False</require_confirmation>

@@ -121,6 +121,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <label>Rechercher le parent</label>
           <by>
             <item role_id="_receiver">_receiver</item>
+            <item role_id="_support-imio">_support-imio</item>
           </by>
           <status>1</status>
           <require_confirmation>False</require_confirmation>
@@ -441,6 +442,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <label>Cr&#233;er le parent</label>
           <by>
             <item role_id="_receiver">_receiver</item>
+            <item role_id="_support-imio">_support-imio</item>
           </by>
           <status>1</status>
           <require_confirmation>False</require_confirmation>
@@ -491,9 +493,6 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
       </items>
       <triggers>
         <trigger type="manual" id="2f8b47e3-0a7e-4ada-b6cc-1fd1748cddd6">
-          <roles>
-            <item role_id="_support-imio">_support-imio</item>
-          </roles>
           <allow_as_mass_action>True</allow_as_mass_action>
           <require_confirmation>False</require_confirmation>
         </trigger>

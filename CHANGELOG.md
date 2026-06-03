@@ -1,9 +1,12 @@
 Changelog
 =========
 
+- [PP-728] Changed: Remove access to global action "Suppression" in workflow".
+- [PP-728] Changed: add support-imio to debug actions.
+
 3.4.2
 ----------------
-- [PP-730] Chnaged: Improve display of finalisation form's alert messages.
+- [PP-730] Changed: Improve display of finalisation form's alert messages.
 - [PPBDC-1151] Added: amount as treatment data in plains finalisation.
 - [PPBDC-1152] Added: mention of children names and firstnames in finalisation payment requests.
 
