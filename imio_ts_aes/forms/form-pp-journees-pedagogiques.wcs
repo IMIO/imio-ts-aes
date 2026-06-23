@@ -73,6 +73,7 @@
       </display_locations>
       <extra_css_class type="str">pk-important</extra_css_class>
       <anonymise type="str">final</anonymise>
+      <items />
       <display_mode type="str">checkboxes</display_mode>
       <min_choices type="int">1</min_choices>
       <max_choices type="int">0</max_choices>
@@ -98,7 +99,10 @@
     <role slug="agent-traitant-portail-parents-accueil" role_id="06525384cfce4ba1b6972cd50ecee3aa" role_key="_receiver">Agent traitant - Portail Parents - Accueil</role>
   </roles>
   <options>
-    <option varname="delai_en_jours">1000</option>
+    <option varname="date_de_debut" type="date">2026-09-01</option>
+    <option varname="date_de_fin" type="date">2027-09-30</option>
+    <option varname="delai_en_jours">30</option>
+    <option varname="delai_minimal_en_jours" type="decimal">1</option>
     <option varname="heure_limite">12:00</option>
     <option varname="implantations_scolaires" type="list">
       <item>2</item>
@@ -117,6 +121,9 @@
         <text>Implantation scolaire n&#176;2</text>
       </item>
     </option>
+    <option varname="mode_de_selection">static</option>
+    <option varname="mode_de_selection_display">Statique</option>
+    <option varname="mode_de_selection_structured" />
     <option varname="mode_paiement">Paiement en ligne</option>
     <option varname="mode_paiement_display">Paiement en ligne</option>
     <option varname="mode_paiement_structured" />

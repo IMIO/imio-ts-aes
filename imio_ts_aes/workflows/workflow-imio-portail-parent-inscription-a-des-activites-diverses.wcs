@@ -894,17 +894,142 @@ Bien &#224; vous</body>
       <name>-</name>
       <fields>
         <field>
-          <type>string</type>
-          <label type="str">D&#233;lai, en jours</label>
+          <type>item</type>
+          <label type="str">Mode de s&#233;lection</label>
           <required type="str">required</required>
-          <hint type="str">&lt;p&gt;Indiquez un chiffre &#233;gal ou sup&#233;rieur &#224; 1. Indiquez 0 pour le jour m&#234;me, 1 pour la veille, 2 pour l'avant-veille, etc.&lt;/p&gt;</hint>
+          <hint type="str">&lt;p&gt;Dynamique : la p&#233;riode est calcul&#233;e automatiquement &#224; partir d'aujourd'hui. Statique : une p&#233;riode fixe est d&#233;finie &#224; l'avance.&lt;/p&gt;</hint>
+          <varname type="str">mode_de_selection</varname>
+          <display_locations />
+          <display_mode type="str">radio</display_mode>
+          <data_source>
+            <type>jsonvalue</type>
+            <value>[{"id": "dynamic", "text": "Dynamique"}, {"id": "static", "text": "Statique"}]</value>
+          </data_source>
+          <in_filters type="bool">False</in_filters>
+          <display_disabled_items type="bool">False</display_disabled_items>
+          <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
+          <image_desktop_size type="str">150</image_desktop_size>
+          <image_mobile_size type="str">75</image_mobile_size>
+          <id type="str">3ec90e42-5b3d-4478-b3fb-3f747a52cef4</id>
+        </field>
+        <field>
+          <type>subtitle</type>
+          <label type="str">S&#233;lection dynamique</label>
+          <display_locations>
+            <item>validation</item>
+            <item>summary</item>
+          </display_locations>
+          <id type="str">e48c8ea9-54ac-469c-adb5-bc0b34fc3daf</id>
+        </field>
+        <field>
+          <type>numeric</type>
+          <label type="str">D&#233;lai minimal, en jours</label>
+          <required type="str">optional</required>
+          <hint type="str">&lt;p&gt;Nombre de jours &#224; partir d'aujourd'hui avant lequel aucune activit&#233; n'est propos&#233;e. Mode dynamique uniquement.&lt;/p&gt;</hint>
+          <varname type="str">delai_minimal_en_jours</varname>
+          <display_locations />
+          <extra_css_class type="str">grid-1-2</extra_css_class>
+          <restrict_to_integers type="bool">True</restrict_to_integers>
+          <min_value type="decimal">0</min_value>
+          <default_value type="decimal">1</default_value>
+          <id type="str">fc8d9f5d-a340-4bb5-89ba-6c25d59ce56f</id>
+        </field>
+        <field>
+          <type>string</type>
+          <label type="str">D&#233;lai maximal, en jours</label>
+          <required type="str">optional</required>
+          <hint type="str">&lt;p&gt;Nombre de jours &#224; partir d'aujourd'hui au-del&#224; duquel les activit&#233;s ne sont plus affich&#233;es. Mode dynamique uniquement.&lt;/p&gt;</hint>
           <varname type="str">delai_en_jours</varname>
           <display_locations />
-          <anonymise type="str">final</anonymise>
+          <extra_css_class type="str">grid-1-2</extra_css_class>
           <validation>
             <type>digits</type>
           </validation>
+          <default_value type="str">30</default_value>
           <id type="str">11fc7834-3a20-492f-8740-cce70f479ab2</id>
+        </field>
+        <field>
+          <type>comment</type>
+          <label type="str">&lt;hr&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+</label>
+          <display_locations />
+          <id type="str">5a761381-d6ce-4c46-8a73-e71c640d27df</id>
+        </field>
+        <field>
+          <type>subtitle</type>
+          <label type="str">S&#233;lection statique</label>
+          <display_locations>
+            <item>validation</item>
+            <item>summary</item>
+          </display_locations>
+          <id type="str">0b49e7da-a43d-4b3f-b996-f90189f9429a</id>
+        </field>
+        <field>
+          <type>date</type>
+          <label type="str">Date de d&#233;but</label>
+          <required type="str">optional</required>
+          <hint type="str">&lt;p&gt;Premier jour de l'intervalle dans lequel les activit&#233;s sont r&#233;cup&#233;r&#233;es. Mode statique uniquement.&lt;/p&gt;</hint>
+          <varname type="str">date_de_debut</varname>
+          <display_locations />
+          <extra_css_class type="str">grid-1-2</extra_css_class>
+          <minimum_is_future type="bool">False</minimum_is_future>
+          <date_in_the_past type="bool">False</date_in_the_past>
+          <date_can_be_today type="bool">False</date_can_be_today>
+          <default_value type="str">01/09/2026</default_value>
+          <id type="str">c2d11c09-a259-4eb5-bb8b-18f6a16afa20</id>
+        </field>
+        <field>
+          <type>date</type>
+          <label type="str">Date de fin</label>
+          <required type="str">optional</required>
+          <hint type="str">&lt;p&gt;Dernier jour de l'intervalle dans lequel les activit&#233;s sont r&#233;cup&#233;r&#233;es. Mode statique uniquement.&lt;/p&gt;</hint>
+          <varname type="str">date_de_fin</varname>
+          <display_locations />
+          <extra_css_class type="str">grid-1-2</extra_css_class>
+          <minimum_is_future type="bool">False</minimum_is_future>
+          <date_in_the_past type="bool">False</date_in_the_past>
+          <date_can_be_today type="bool">False</date_can_be_today>
+          <default_value type="str">30/09/2026</default_value>
+          <id type="str">59c72d75-84f8-4ba9-9cef-0a5b0e228adf</id>
+        </field>
+        <field>
+          <type>comment</type>
+          <label type="str">&lt;hr&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+</label>
+          <display_locations />
+          <id type="str">c9ccf8a3-1899-4115-a619-4d15b4446db7</id>
+        </field>
+        <field>
+          <type>string</type>
+          <label type="str">Heure limite</label>
+          <required type="str">required</required>
+          <hint type="str">&lt;p&gt;Au-del&#224; de cette heure, le jour en cours est consid&#233;r&#233; comme pass&#233; et la premi&#232;re date propos&#233;e est avanc&#233;e au lendemain.&lt;/p&gt;</hint>
+          <varname type="str">heure_limite</varname>
+          <display_locations />
+          <extra_css_class type="str">grid-2-2</extra_css_class>
+          <validation>
+            <type>time</type>
+          </validation>
+          <id type="str">f1e0c210-10c0-4cc9-9be6-1dc2cf619d2b</id>
+        </field>
+        <field>
+          <type>comment</type>
+          <label type="str">&lt;hr&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+</label>
+          <display_locations />
+          <id type="str">14119ada-1af3-4126-8bba-58d0b70bcd9b</id>
+        </field>
+        <field>
+          <type>subtitle</type>
+          <label type="str">Paiement en ligne</label>
+          <display_locations>
+            <item>validation</item>
+            <item>summary</item>
+          </display_locations>
+          <id type="str">97ee4fe8-59b7-43ce-8953-7f5334289a6a</id>
         </field>
         <field>
           <type>item</type>

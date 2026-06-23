@@ -6,7 +6,7 @@
   <text_attribute>text</text_attribute>
   <data_source>
     <type>json</type>
-    <value>{{passerelle_url}}passerelle-imio-ia-aes/aes/wednesday-afternoon?parent_id={{ form_user_aes_id }}&amp;end_date={{ form_option_delai_en_jours }}</value>
+    <value>{{passerelle_url}}passerelle-imio-ia-aes/aes/wednesday-afternoon?parent_id={{ form_user_aes_id }}&amp;selection_mode={{ form_option_mode_de_selection_raw }}&amp;start_date={{ form_option_date_de_debut|date:"Y-m-d" }}&amp;end_date={{ form_option_date_de_fin|date:"Y-m-d" }}&amp;start_delay={{ form_option_delai_minimal_en_jours }}&amp;end_delay={{ form_option_delai_en_jours }}&amp;no_later_than={{ form_option_heure_limite }}</value>
   </data_source>
   <category slug="portail-parent" category_id="11">Portail Parent</category>
 </datasource>

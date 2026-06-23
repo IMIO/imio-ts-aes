@@ -1,6 +1,10 @@
 Changelog
 =========
 
+3.5.0
+----------------
+
+- [PP-704] Added: dynamic and static filters on dates for pedagogical days and wednesday afternoon
 - [PP-728] Changed: Remove access to global action "Suppression" in workflow".
 - [PP-728] Changed: add support-imio to debug actions.
 
