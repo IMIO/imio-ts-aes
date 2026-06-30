@@ -37,6 +37,10 @@ JSON_CELL_TYPES.update(
             {
                "key": "balances_data",
                "url": "{% if json.aes_id %}{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ json.aes_id }}/balances{% endif %}"
+            },
+            {
+               "key": "children",
+               "url": "{% if json.aes_id %}{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ json.aes_id }}/children/?is_invoiceable=false{% endif %}"
             }
          ]
       }
