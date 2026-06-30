@@ -120,7 +120,7 @@
           <fields>
             <field>
               <field_id>bo89a6c3b8-ed18-4f95-9eab-5cab22026241</field_id>
-              <value>{% for plaine in form_parent_form_var_activities_plaines_structured %}{% if plaine|get:"text" ==  form_var_plaine %}{{ plaine|get:"start_date" }}{% endif %}{% endfor %}</value>
+              <value>{% for plaine in form_parent_form_var_activities_plaines_structured %}{% if plaine.id|split:"_"|get:-1 == form_var_id_plaine %}{{ plaine|get:"start_date" }}{% endif %}{% endfor %}</value>
             </field>
           </fields>
           <condition>

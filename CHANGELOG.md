@@ -1,6 +1,11 @@
 Changelog
 =========
 
+3.5.1
+----------------
+
+- [PP-756] Changed: Manual cancellation for navette use id plaine instead of name
+
 3.5.0
 ----------------
 
