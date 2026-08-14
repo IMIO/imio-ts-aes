@@ -1,6 +1,13 @@
 Changelog
 =========
 
+3.7.0
+----------------
+
+- [PP-762] Added: push notifications for meals/plains payment reminders, cancellations, confirmations, invoice payment and registration finalization reminder.
+- [PP-748] Changed: use message_historique templates for parent-facing history comments.(See imio-teleservices-templatetags)
+- [PP-754] Changed: rework of "Portefeuille" page to show available/blocked balance. (See imio-publik-themes)
+
 3.6.0
 ----------------
 
