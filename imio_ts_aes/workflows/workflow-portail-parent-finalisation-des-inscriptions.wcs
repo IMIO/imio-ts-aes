@@ -314,6 +314,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
 </backoffice_info_text>
           <ignore_form_errors>True</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
         <item type="form" id="4">
           <by>
@@ -358,6 +359,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
       </items>
     </status>
@@ -423,6 +425,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
       </items>
     </status>
@@ -493,6 +496,16 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
       <colour>#FFFF99</colour>
       <visibility />
       <items>
+        <item type="notification" id="8">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
+          <title>Portail Parent - Paiement en attente</title>
+          <body>Pour finaliser vos inscriptions, r&#233;glez votre panier dans un d&#233;lai de trois jours.
+Pass&#233; ce d&#233;lai, les inscriptions seront annul&#233;es.</body>
+          <target_url>{{ portal_url }}panier</target_url>
+          <origin>{{global_title}}</origin>
+        </item>
         <item type="displaymsg" id="1">
           <message>&lt;p&gt;Veuillez r&#233;gler &lt;a href="{{ portal_url }}panier/"&gt;votre panier&lt;/a&gt; afin de finaliser les inscriptions end&#233;ans les 3 jours pour que celles-ci soient effectives..&lt;/p&gt;
 
@@ -561,6 +574,7 @@ Vous avez un d&#233;lai de trois jours pour r&#233;aliser ce paiement.
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
       </items>
     </status>
@@ -570,6 +584,15 @@ Vous avez un d&#233;lai de trois jours pour r&#233;aliser ce paiement.
       <colour>#FFFFFF</colour>
       <visibility />
       <items>
+        <item type="notification" id="3">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
+          <title>Portail Parent - Rappel de paiement</title>
+          <body>Attention, vos inscriptions seront annul&#233;es si vous ne r&#233;glez pas votre panier dans un d&#233;lai de 24 heures.</body>
+          <target_url>{{ portal_url }}panier</target_url>
+          <origin>{{global_title}}</origin>
+        </item>
         <item type="sendmail" id="1">
           <to>
             <item role_id="_submitter">_submitter</item>
@@ -630,6 +653,15 @@ Cordialement,</body>
           <record_on_errors>True</record_on_errors>
           <notify_on_errors>False</notify_on_errors>
           <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="notification" id="4">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
+          <title>Portail Parent - Annulation des inscriptions</title>
+          <body>Vous n'avez pas r&#233;alis&#233; le paiement dans le d&#233;lai accord&#233;.
+Vos inscriptions ont &#233;t&#233; annul&#233;es.</body>
+          <origin>{{global_title}}</origin>
         </item>
         <item type="sendmail" id="2">
           <to>
@@ -767,6 +799,7 @@ Cordialement,</body>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
       </items>
     </status>
@@ -884,6 +917,7 @@ Nous avons bien enregistr&#233; votre r&#233;servation pour les plaines. Pour qu
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
         <item type="choice" id="4">
           <label>Valider le paiement</label>
@@ -896,6 +930,7 @@ Nous avons bien enregistr&#233; votre r&#233;servation pour les plaines. Pour qu
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
         <item type="choice" id="5">
           <label>Annuler toutes les inscriptions</label>
@@ -909,6 +944,7 @@ Nous avons bien enregistr&#233; votre r&#233;servation pour les plaines. Pour qu
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
       </items>
     </status>
@@ -1005,6 +1041,15 @@ Cordialement,</body>
       <forced_endpoint>true</forced_endpoint>
       <visibility />
       <items>
+        <item type="notification" id="6">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
+          <title>Portail Parent - Inscriptions cl&#244;tur&#233;es</title>
+          <body>Vos inscriptions sont finalis&#233;es et pay&#233;es.
+Tout est en ordre ! </body>
+          <origin>{{global_title}}</origin>
+        </item>
         <item type="register-comment" id="1">
           <comment>Vos inscriptions sont finalis&#233;es. Merci d'avoir utilis&#233; nos services.</comment>
           <level>success</level>
@@ -1072,6 +1117,7 @@ Cordialement,</body>
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
       </items>
     </status>
@@ -1121,6 +1167,7 @@ Cordialement,</body>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
       </items>
     </status>
@@ -1194,6 +1241,7 @@ Cordialement,</body>
           <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
           <image_desktop_size type="int">150</image_desktop_size>
           <image_mobile_size type="int">75</image_mobile_size>
+          <radio_orientation type="str">auto</radio_orientation>
           <id type="str">1</id>
         </field>
         <field>
@@ -1224,6 +1272,7 @@ Cordialement,</body>
           <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
           <image_desktop_size type="int">150</image_desktop_size>
           <image_mobile_size type="int">75</image_mobile_size>
+          <radio_orientation type="str">auto</radio_orientation>
           <id type="str">3</id>
         </field>
         <field>
@@ -1284,6 +1333,7 @@ Cordialement,</body>
           <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
           <image_desktop_size type="int">150</image_desktop_size>
           <image_mobile_size type="int">75</image_mobile_size>
+          <radio_orientation type="str">auto</radio_orientation>
           <id type="str">4</id>
         </field>
         <field>

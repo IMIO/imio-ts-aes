@@ -129,6 +129,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
         <item type="choice" id="4">
           <label>Noter la demande comme r&#233;gularis&#233;e</label>
@@ -141,6 +142,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
       </items>
     </status>
@@ -450,6 +452,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
         <item type="choice" id="4">
           <label>Noter la demande comme r&#233;gularis&#233;e</label>
@@ -462,6 +465,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
         <item type="displaymsg" id="5">
           <message>&lt;p&gt;{{ form_workflow_data_creation_parent_error_response_err_desc }}&lt;/p&gt;

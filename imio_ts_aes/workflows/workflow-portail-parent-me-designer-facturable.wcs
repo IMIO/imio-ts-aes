@@ -80,6 +80,7 @@ Votre demande a bien &#233;t&#233; enregistr&#233;e et est en cours de traitemen
             <type>django</type>
             <value>form_var_enfant_invoiceable_parents|length &lt; 3</value>
           </condition>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
         <item type="choice" id="4">
           <label>Ajout manuel</label>
@@ -92,6 +93,7 @@ Votre demande a bien &#233;t&#233; enregistr&#233;e et est en cours de traitemen
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
         <item type="choice" id="5">
           <label>Refuser la demande</label>
@@ -104,6 +106,7 @@ Votre demande a bien &#233;t&#233; enregistr&#233;e et est en cours de traitemen
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
       </items>
     </status>
@@ -124,6 +127,7 @@ Votre demande a bien &#233;t&#233; enregistr&#233;e et est en cours de traitemen
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
       </items>
     </status>
@@ -229,6 +233,7 @@ Cordialement,</body>
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
       </items>
     </status>
@@ -277,6 +282,7 @@ Cordialement,</body>
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
       </items>
     </status>

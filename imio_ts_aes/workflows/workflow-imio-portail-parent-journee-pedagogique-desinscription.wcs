@@ -131,6 +131,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
         <item type="choice" id="4">
           <label>Signaler la d&#233;sincription comme effective</label>
@@ -144,6 +145,7 @@ Le parent sera notifi&amp;eacute; de la d&amp;eacute;sinscription.&lt;/p&gt;
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
       </items>
     </status>
@@ -170,6 +172,7 @@ Le parent sera notifi&amp;eacute; de la d&amp;eacute;sinscription.&lt;/p&gt;
           <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
           <image_desktop_size type="int">150</image_desktop_size>
           <image_mobile_size type="int">75</image_mobile_size>
+          <radio_orientation type="str">auto</radio_orientation>
           <id type="str">1</id>
         </field>
         <field>

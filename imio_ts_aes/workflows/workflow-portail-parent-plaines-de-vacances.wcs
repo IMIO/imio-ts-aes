@@ -106,6 +106,7 @@
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
       </items>
     </status>
@@ -202,6 +203,16 @@
             <type>django</type>
             <value>form_var_redirection_navette</value>
           </condition>
+        </item>
+        <item type="notification" id="9">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
+          <title>Portail Parent - Inscription &#224; finaliser</title>
+          <body>L'inscription de votre enfant est prise en compte, n'oubliez pas de finaliser toutes les inscriptions dans un d&#233;lai de trois jours.
+Pass&#233; ce d&#233;lai, les inscriptions seront annul&#233;es.</body>
+          <target_url>{{ portal_url }}portail-parent/inscriptions/</target_url>
+          <origin>{{global_title}}</origin>
         </item>
         <item type="sendmail" id="2">
           <to>
@@ -340,6 +351,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
       </items>
     </status>
@@ -362,6 +374,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
       </items>
     </status>
@@ -381,6 +394,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
         <item type="register-comment" id="2">
           <comment>&lt;div&gt;&lt;p&gt;Les inscriptions pour les semaines suivantes n'ont pu aboutir car l'enfant y est d&#233;j&#224; inscrit ou il n'y a plus de places :&lt;/p&gt;&lt;ul&gt; {% for error in form_workflow_data_registration_response_error %}
@@ -432,6 +446,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
           <image_desktop_size type="int">150</image_desktop_size>
           <image_mobile_size type="int">75</image_mobile_size>
+          <radio_orientation type="str">auto</radio_orientation>
           <id type="str">4</id>
         </field>
         <field>
@@ -451,6 +466,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
           <image_desktop_size type="int">150</image_desktop_size>
           <image_mobile_size type="int">75</image_mobile_size>
+          <radio_orientation type="str">auto</radio_orientation>
           <id type="str">5</id>
         </field>
         <field>

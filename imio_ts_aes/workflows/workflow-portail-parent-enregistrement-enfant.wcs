@@ -82,6 +82,7 @@
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
         <item type="choice" id="5">
           <label>Mettre en erreur - deux enfants trouv&#233;s</label>
@@ -94,6 +95,7 @@
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
       </items>
     </status>
@@ -114,6 +116,7 @@
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
       </items>
     </status>
@@ -298,6 +301,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
         <item type="choice" id="4">
           <label>Noter la demande comme r&#233;gularis&#233;e</label>
@@ -308,6 +312,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
       </items>
     </status>
@@ -365,6 +370,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
       </items>
     </status>
@@ -407,6 +413,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <require_confirmation>True</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
         <item type="choice" id="4">
           <label>Noter la demande comme r&#233;gularis&#233;e</label>
@@ -417,6 +424,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
       </items>
     </status>
@@ -466,6 +474,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
           <image_desktop_size type="int">150</image_desktop_size>
           <image_mobile_size type="int">75</image_mobile_size>
+          <radio_orientation type="str">auto</radio_orientation>
           <id type="str">3</id>
         </field>
         <field>
@@ -489,6 +498,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <use_hint_as_first_option type="bool">False</use_hint_as_first_option>
           <image_desktop_size type="int">150</image_desktop_size>
           <image_mobile_size type="int">75</image_mobile_size>
+          <radio_orientation type="str">auto</radio_orientation>
           <id type="str">2b59a3e5-facc-416f-aa03-6951cbcc6b03</id>
         </field>
       </fields>

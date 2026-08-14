@@ -212,6 +212,14 @@ Veuillez r&#233;gler votre commande.&lt;/p&gt;
       <forced_endpoint>true</forced_endpoint>
       <visibility />
       <items>
+        <item type="notification" id="3">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
+          <title>Portail Parent - Facture n&#176;{{form_var_facture}} pay&#233;e.</title>
+          <body>Nous vous confirmons que votre facture n&#176;{{form_var_facture}} a &#233;t&#233; pay&#233;e.</body>
+          <origin>{{global_title}}</origin>
+        </item>
         <item type="sendmail" id="1">
           <to>
             <item role_id="_submitter">_submitter</item>
@@ -298,6 +306,7 @@ Bien &#224; vous</body>
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
       </items>
     </status>
@@ -324,6 +333,7 @@ Bien &#224; vous</body>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
       </items>
     </status>

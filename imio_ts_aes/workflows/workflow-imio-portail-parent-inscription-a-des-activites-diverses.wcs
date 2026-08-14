@@ -161,6 +161,7 @@
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
         <item type="jump" id="7">
           <status>20</status>
@@ -207,6 +208,7 @@
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
       </items>
     </status>
@@ -322,6 +324,7 @@
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
       </items>
     </status>
@@ -331,6 +334,16 @@
       <colour>#f8e45c</colour>
       <visibility />
       <items>
+        <item type="notification" id="9">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
+          <title>Portail Parent - Paiement en attente</title>
+          <body>Pour cl&#244;turer vos inscriptions, r&#233;glez votre panier dans un d&#233;lai de trois jours.
+Pass&#233; ce d&#233;lai, les inscriptions seront annul&#233;es.</body>
+          <target_url>{{ portal_url }}panier</target_url>
+          <origin>{{global_title}}</origin>
+        </item>
         <item type="displaymsg" id="1">
           <message>&lt;p&gt;Votre commande attend d&amp;#39;&amp;ecirc;tre r&amp;eacute;gl&amp;eacute;e et se trouve dans votre panier.&lt;br&gt;
 &lt;br&gt;
@@ -388,6 +401,7 @@
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
         <item type="choice" id="8">
           <label>Annuler la commande, sans notifier le parent</label>
@@ -400,6 +414,7 @@
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
       </items>
     </status>
@@ -409,6 +424,15 @@
       <colour>#FFFFFF</colour>
       <visibility />
       <items>
+        <item type="notification" id="3">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
+          <title>Portail Parent - Rappel de paiement</title>
+          <body>Attention, vos inscriptions seront annul&#233;es si vous ne r&#233;glez pas votre panier dans un d&#233;lai de 36 heures.</body>
+          <target_url>{{ portal_url }}panier</target_url>
+          <origin>{{global_title}}</origin>
+        </item>
         <item type="sendmail" id="2">
           <to>
             <item role_id="_submitter">_submitter</item>
@@ -551,6 +575,7 @@ Bien &#224; vous</body>
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
       </items>
     </status>
@@ -592,6 +617,7 @@ Bien &#224; vous</body>
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
       </items>
     </status>
@@ -707,6 +733,7 @@ Bien &#224; vous</body>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
       </items>
     </status>
@@ -763,6 +790,7 @@ Bien &#224; vous</body>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
       </items>
     </status>
@@ -772,6 +800,15 @@ Bien &#224; vous</body>
       <colour>#66ff00</colour>
       <visibility />
       <items>
+        <item type="notification" id="3">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
+          <title>Portail Parent - Inscriptions cl&#244;tur&#233;es</title>
+          <body>Vos inscriptions sont finalis&#233;es et pay&#233;es.
+Tout est en ordre ! </body>
+          <origin>{{global_title}}</origin>
+        </item>
         <item type="register-comment" id="1">
           <comment>L'inscription a &#233;t&#233; prise en compte.</comment>
           <level>success</level>
@@ -821,6 +858,7 @@ Bien &#224; vous</body>
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
         <item type="choice" id="2">
           <label>Signaler la situation comme r&#233;gularis&#233;e sans notifier l'usager</label>
@@ -833,6 +871,7 @@ Bien &#224; vous</body>
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
       </items>
     </status>
@@ -900,7 +939,9 @@ Bien &#224; vous</body>
           <hint type="str">&lt;p&gt;Dynamique : la p&#233;riode est calcul&#233;e automatiquement &#224; partir d'aujourd'hui. Statique : une p&#233;riode fixe est d&#233;finie &#224; l'avance.&lt;/p&gt;</hint>
           <varname type="str">mode_de_selection</varname>
           <display_locations />
+          <anonymise type="str">no</anonymise>
           <display_mode type="str">radio</display_mode>
+          <items />
           <data_source>
             <type>jsonvalue</type>
             <value>[{"id": "dynamic", "text": "Dynamique"}, {"id": "static", "text": "Statique"}]</value>
@@ -910,6 +951,7 @@ Bien &#224; vous</body>
           <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
           <image_desktop_size type="str">150</image_desktop_size>
           <image_mobile_size type="str">75</image_mobile_size>
+          <radio_orientation type="str">auto</radio_orientation>
           <id type="str">3ec90e42-5b3d-4478-b3fb-3f747a52cef4</id>
         </field>
         <field>
@@ -929,6 +971,7 @@ Bien &#224; vous</body>
           <varname type="str">delai_minimal_en_jours</varname>
           <display_locations />
           <extra_css_class type="str">grid-1-2</extra_css_class>
+          <anonymise type="str">final</anonymise>
           <restrict_to_integers type="bool">True</restrict_to_integers>
           <min_value type="decimal">0</min_value>
           <default_value type="decimal">1</default_value>
@@ -942,6 +985,7 @@ Bien &#224; vous</body>
           <varname type="str">delai_en_jours</varname>
           <display_locations />
           <extra_css_class type="str">grid-1-2</extra_css_class>
+          <anonymise type="str">final</anonymise>
           <validation>
             <type>digits</type>
           </validation>
@@ -973,6 +1017,7 @@ Bien &#224; vous</body>
           <varname type="str">date_de_debut</varname>
           <display_locations />
           <extra_css_class type="str">grid-1-2</extra_css_class>
+          <anonymise type="str">final</anonymise>
           <minimum_is_future type="bool">False</minimum_is_future>
           <date_in_the_past type="bool">False</date_in_the_past>
           <date_can_be_today type="bool">False</date_can_be_today>
@@ -987,6 +1032,7 @@ Bien &#224; vous</body>
           <varname type="str">date_de_fin</varname>
           <display_locations />
           <extra_css_class type="str">grid-1-2</extra_css_class>
+          <anonymise type="str">final</anonymise>
           <minimum_is_future type="bool">False</minimum_is_future>
           <date_in_the_past type="bool">False</date_in_the_past>
           <date_can_be_today type="bool">False</date_can_be_today>
@@ -1009,6 +1055,7 @@ Bien &#224; vous</body>
           <varname type="str">heure_limite</varname>
           <display_locations />
           <extra_css_class type="str">grid-2-2</extra_css_class>
+          <anonymise type="str">final</anonymise>
           <validation>
             <type>time</type>
           </validation>
@@ -1049,6 +1096,7 @@ Bien &#224; vous</body>
           <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
           <image_desktop_size type="str">150</image_desktop_size>
           <image_mobile_size type="str">75</image_mobile_size>
+          <radio_orientation type="str">auto</radio_orientation>
           <id type="str">059686b7-5b18-4f55-b4cb-4352eb8cc8be</id>
         </field>
         <field>
@@ -1070,6 +1118,7 @@ Bien &#224; vous</body>
           <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
           <image_desktop_size type="str">150</image_desktop_size>
           <image_mobile_size type="str">75</image_mobile_size>
+          <radio_orientation type="str">auto</radio_orientation>
           <id type="str">1e421170-b713-40a4-9868-b0d882847b46</id>
         </field>
       </fields>

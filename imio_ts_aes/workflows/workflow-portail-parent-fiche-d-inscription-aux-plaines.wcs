@@ -23,6 +23,7 @@
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
         <item type="choice" id="2">
           <label>Annuler cette inscription</label>
@@ -34,6 +35,7 @@
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
         <item type="jump" id="3">
           <status>8</status>
@@ -72,6 +74,7 @@
           <require_confirmation>False</require_confirmation>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
       </items>
     </status>
@@ -120,7 +123,7 @@
           <fields>
             <field>
               <field_id>bo89a6c3b8-ed18-4f95-9eab-5cab22026241</field_id>
-              <value>{% for plaine in form_parent_form_var_activities_plaines_structured %}{% if plaine.id|split:"_"|get:-1 == form_var_id_plaine %}{{ plaine|get:"start_date" }}{% endif %}{% endfor %}</value>
+              <value>{% for plaine in form_parent_form_var_activities_plaines_structured %}{% if plaine|get:"text" ==  form_var_plaine %}{{ plaine|get:"start_date" }}{% endif %}{% endfor %}</value>
             </field>
           </fields>
           <condition>
@@ -192,6 +195,7 @@ Un parent a voulu annuler une inscription aux plaines, mais celle-ci est tomb&#2
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
         <item type="choice" id="5">
           <label>Noter cette inscription comme annul&#233;e</label>
@@ -204,6 +208,7 @@ Un parent a voulu annuler une inscription aux plaines, mais celle-ci est tomb&#2
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>True</allow_as_mass_action>
         </item>
       </items>
     </status>
@@ -373,6 +378,7 @@ Cordialement,</body>
           <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
           <image_desktop_size type="int">150</image_desktop_size>
           <image_mobile_size type="int">75</image_mobile_size>
+          <radio_orientation type="str">auto</radio_orientation>
           <id type="str">1</id>
         </field>
       </fields>
@@ -402,6 +408,7 @@ Cordialement,</body>
           <use_hint_as_first_option type="bool">True</use_hint_as_first_option>
           <image_desktop_size type="int">150</image_desktop_size>
           <image_mobile_size type="int">75</image_mobile_size>
+          <radio_orientation type="str">auto</radio_orientation>
           <id type="str">bo0a400754-416f-49bb-8c6d-50306a4e0240</id>
         </field>
         <field>
