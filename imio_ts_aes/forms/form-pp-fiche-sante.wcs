@@ -1347,23 +1347,6 @@
     </field>
     <field>
       <type>string</type>
-      <label type="str">Pr&#233;nom</label>
-      <required type="str">required</required>
-      <varname type="str">other_doctor_firstname</varname>
-      <display_locations>
-        <item>validation</item>
-        <item>summary</item>
-      </display_locations>
-      <extra_css_class type="str">grid-3-12</extra_css_class>
-      <prefill>
-        <type>string</type>
-        <value>{{ form_var_fiche_sante.doctor_id.firstname }}</value>
-      </prefill>
-      <anonymise type="str">final</anonymise>
-      <id type="str">642</id>
-    </field>
-    <field>
-      <type>string</type>
       <label type="str">Nom</label>
       <required type="str">required</required>
       <hint type="str">Nom du m&#233;decin traitant</hint>
@@ -1379,6 +1362,23 @@
       </prefill>
       <anonymise type="str">final</anonymise>
       <id type="str">557</id>
+    </field>
+    <field>
+      <type>string</type>
+      <label type="str">Pr&#233;nom</label>
+      <required type="str">required</required>
+      <varname type="str">other_doctor_firstname</varname>
+      <display_locations>
+        <item>validation</item>
+        <item>summary</item>
+      </display_locations>
+      <extra_css_class type="str">grid-3-12</extra_css_class>
+      <prefill>
+        <type>string</type>
+        <value>{{ form_var_fiche_sante.doctor_id.firstname }}</value>
+      </prefill>
+      <anonymise type="str">final</anonymise>
+      <id type="str">642</id>
     </field>
     <field>
       <type>string</type>
