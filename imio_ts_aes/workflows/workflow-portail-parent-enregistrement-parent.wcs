@@ -398,10 +398,10 @@ Vous avez bien &#233;t&#233; enregistr&#233; en tant que parent.
 Cordialement,</body>
         </item>
         <item type="redirect_to_url" id="3">
-          <url>{{ portal_url }}/portail_parent</url>
+          <url>{{ portal_url }}/portail-parent</url>
           <condition>
             <type>django</type>
-            <value>not form_submission_backoffice</value>
+            <value>not is_in_backoffice</value>
           </condition>
         </item>
         <item type="jump" id="4">

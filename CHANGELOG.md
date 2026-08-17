@@ -5,6 +5,7 @@ Changelog
 ----------------
 
 - [PP-763] Added: two redirects when the "Enregistrer un enfant" workflow is done.
+- [PP-764] Fixed: redirect url of the "M'enregister en tant que parent" workflow.
 
 3.7.0
 ----------------
