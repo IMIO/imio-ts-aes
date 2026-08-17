@@ -1,6 +1,11 @@
 Changelog
 =========
 
+3.7.1
+----------------
+
+- [PP-763] Added: two redirects when the "Enregistrer un enfant" workflow is done.
+
 3.7.0
 ----------------
 
