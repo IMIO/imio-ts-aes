@@ -27,6 +27,14 @@
     </field>
     <field>
       <type>computed</type>
+      <label type="str">Origine</label>
+      <varname type="str">origine</varname>
+      <value_template type="str">{{ request.GET.origine|default:"" }}</value_template>
+      <freeze_on_initial_value type="bool">True</freeze_on_initial_value>
+      <id type="str">731d1ce3-dc81-4741-988f-6814d442cbe2</id>
+    </field>
+    <field>
+      <type>computed</type>
       <label type="str">Enfant</label>
       <varname type="str">enfant_id</varname>
       <value_template type="str">{{request.GET.enfant|default:""}}</value_template>

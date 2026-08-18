@@ -7,6 +7,7 @@ Changelog
 - [PP-763] Added: two redirects when the "Enregistrer un enfant" workflow is done.
 - [PP-764] Fixed: redirect url of the "M'enregister en tant que parent" workflow.
 - [PP-765] Changed: interchange doctor first name and last name in the "Fiche santé" form.
+- [PP-766] Added: redicrect to origine when the "Fiche santé" workflow is done".
 
 3.7.0
 ----------------

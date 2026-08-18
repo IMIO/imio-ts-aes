@@ -506,6 +506,13 @@
 
 &lt;p&gt;&lt;a class="pk-button" href="{{ portal_url }}portail-parent/inscriptions"&gt;Retourner sur la page des inscriptions&lt;/a&gt;&lt;/p&gt;</comment>
         </item>
+        <item type="redirect_to_url" id="3">
+          <url>{{ portal_url }}portail-parent/{{ form_var_origine }}</url>
+          <condition>
+            <type>django</type>
+            <value>not is_in_backoffice</value>
+          </condition>
+        </item>
         <item type="choice" id="2">
           <label>Rejouer</label>
           <by>
