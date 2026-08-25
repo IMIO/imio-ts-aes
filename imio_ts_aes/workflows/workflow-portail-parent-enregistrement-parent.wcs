@@ -398,7 +398,7 @@ Vous avez bien &#233;t&#233; enregistr&#233; en tant que parent.
 Cordialement,</body>
         </item>
         <item type="redirect_to_url" id="3">
-          <url>{{ portal_url }}/portail-parent</url>
+          <url>{{ portal_url }}/portail-parent/enfants</url>
           <condition>
             <type>django</type>
             <value>not is_in_backoffice</value>
