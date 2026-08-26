@@ -1,6 +1,12 @@
 Changelog
 =========
 
+3.7.2
+----------------
+
+- [PP-781] Fixed: delete 2 old files wscall.
+
+
 3.7.1
 ----------------
 
