@@ -174,7 +174,7 @@ JSON_CELL_TYPES.update(
    {
       "pp_to_AES_connexion": {
          "name": "Portail Parent - Vérification de connexion à AES",
-         "url": "{{ passerelle_url }}passerelle-imio-ia-aes/aes/check-status",
+         "url": "{{ passerelle_url }}passerelle-imio-ia-aes/aes/check-connection",
          "cache_duration": 0,
       }
    }
