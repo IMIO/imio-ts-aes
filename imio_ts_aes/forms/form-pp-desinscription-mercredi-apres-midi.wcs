@@ -19,7 +19,7 @@
   <fields>
     <field>
       <type>page</type>
-      <label type="str">S&#233;lection des journ&#233;es p&#233;dagogiques</label>
+      <label type="str">S&#233;lection des mercredis apr&#232;s-midi</label>
       <id type="str">1</id>
     </field>
     <field>
@@ -32,7 +32,7 @@
     </field>
     <field>
       <type>items</type>
-      <label type="str">Cochez les dates desquelles vous souhaitez d&#233;sinscrire votre enfant des journ&#233;es p&#233;dagogiques :</label>
+      <label type="str">Cochez les dates desquelles vous souhaitez d&#233;sinscrire votre enfant des mercredis apr&#232;s-midi :</label>
       <required type="str">required</required>
       <varname type="str">inscriptions</varname>
       <display_locations>
