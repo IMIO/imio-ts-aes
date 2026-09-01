@@ -1,6 +1,13 @@
 Changelog
 =========
 
+3.7.2
+----------------
+
+- [PP-769] Added: check connection cell
+- [PP-780] Fixed: remove pedagogical days reference from wednesday afternoon unregistration form
+- [PP-776] Changed: parent registration form redirection to children page
+
 3.7.1
 ----------------
 
