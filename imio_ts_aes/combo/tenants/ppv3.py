@@ -169,3 +169,13 @@ JSON_CELL_TYPES.update(
       }
    }
 )
+
+JSON_CELL_TYPES.update(
+   {
+      "pp_check_apims_aes_connection": {
+         "name": "Portail Parent - Vérification de la connexion à AES via apims-aes",
+         "url": "{{ passerelle_url }}passerelle-imio-ia-aes/aes/check-connection",
+         "cache_duration": 0,
+      }
+   }
+)
