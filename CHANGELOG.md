@@ -4,6 +4,7 @@ Changelog
 3.7.3
 ----------------
 
+- [PP-793] Fixed: the "Documents à télécharger" cell no longer calls a dummy url, which logged two errors on every page load.
 - [PP-746] Added: start and end dates of plains registrations in feedbacks.
 
 3.7.2

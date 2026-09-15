@@ -85,7 +85,7 @@ JSON_CELL_TYPES.update(
         "pp_bienvenue_portail_parent_documents": {
             "name": "Portail Parent - Documents à télécharger",
             "cache_duration": 0,
-            "url": "w",
+            "url": "{% comment %}aucun service distant{% endcomment %}",
             "form": [
                 {"varname": "titre", "type": "string", "label": "Titre", "required": False},
                 {"varname": "description", "type": "string", "label": "Libellé"},
