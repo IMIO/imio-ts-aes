@@ -92,7 +92,7 @@
         <item type="register-comment" id="2">
           <comment>&lt;div&gt;Les inscriptions suivantes seront valid&#233;es :
 &lt;ul&gt;{% for registration in forms|objects:"pp-fiche-inscription-plaine"|filter_by:"demande_finalisation"|filter_value:form_internal_id %}
-    &lt;li&gt;{{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }}&lt;/li&gt;
+    &lt;li&gt;{{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }} du {{ registration|get:"form_var_date_de_debut_de_la_plaine"|date }} au {{ registration|get:"form_var_date_de_fin_de_la_plaine"|date }}&lt;/li&gt;
 {% endfor %}&lt;/ul&gt;&lt;/div&gt;</comment>
         </item>
         <item type="jump" id="3">
@@ -520,7 +520,7 @@ Pass&#233; ce d&#233;lai, les inscriptions seront annul&#233;es.</body>
           <subject>{{ form_name }} n&#176;{{ form_number }} en attente de paiement</subject>
           <body>La finalisation de ces inscriptions est en attente de paiement :
 {% for registration in forms|objects:"pp-fiche-inscription-plaine"|filter_by:"demande_finalisation"|filter_value:form_internal_id %}
- * {{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }}
+ * {{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }} du {{registration|get:"form_var_date_de_debut_de_la_plaine"|date }} au {{registration|get:"form_var_date_de_fin_de_la_plaine"|date }}
 {% endfor %}
 
 Vous avez un d&#233;lai de trois jours pour r&#233;aliser ce paiement.
@@ -603,7 +603,7 @@ Vous avez un d&#233;lai de trois jours pour r&#233;aliser ce paiement.
 Nous vous informons que nous n'avons pas re&#231;u le paiement pour valider les inscriptions aux plaines suivantes :
 
 {% for registration in forms|objects:"pp-fiche-inscription-plaine"|filter_by:"demande_finalisation"|filter_value:form_internal_id %}
-* {{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }}, num&#233;ro d'inscription {{ registration|get:"form_var_inscription" }}
+* {{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }} du {{registration|get:"form_var_date_de_debut_de_la_plaine"|date }} au {{registration|get:"form_var_date_de_fin_de_la_plaine"|date }}, num&#233;ro d'inscription {{ registration|get:"form_var_inscription" }}
 {% endfor %}
 
 Merci de r&#233;gler votre panier avant le {{ form_last_update_datetime|add_hours:24|date:"d/m/Y &#224; H:i" }}. Pass&#233; ce d&#233;lai, les inscriptions seront annul&#233;es.
@@ -673,7 +673,7 @@ Vos inscriptions ont &#233;t&#233; annul&#233;es.</body>
 Nous vous informons que les r&#233;servations pour les plaines suivantes ont &#233;t&#233; annul&#233;es :
 
 {% for registration in forms|objects:"pp-fiche-inscription-plaine"|filter_by:"demande_finalisation"|filter_value:form_internal_id %}
-* {{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }}
+* {{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }} du {{registration|get:"form_var_date_de_debut_de_la_plaine"|date }} au {{registration|get:"form_var_date_de_fin_de_la_plaine"|date }}
 {% endfor %}
 
 S'il s'agit d'une erreur car vous aviez bien effectu&#233; le paiement de ces plaines, merci de contacter le service ATL de votre administration communale.
@@ -1006,7 +1006,7 @@ Cordialement,</body>
 
 Nous vous confirmons la bonne r&#233;ception de votre paiement. Les inscriptions suivantes sont d&#233;sormais cl&#244;tur&#233;es :
 {% for registration in forms|objects:"pp-fiche-inscription-plaine"|filter_by:"demande_finalisation"|filter_value:form_internal_id %}
- * {{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }}
+ * {{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }} du {{registration|get:"form_var_date_de_debut_de_la_plaine"|date }} au {{registration|get:"form_var_date_de_fin_de_la_plaine"|date }}
 {% endfor %}
 
 Cordialement,</body>
@@ -1018,7 +1018,7 @@ Cordialement,</body>
         <item type="register-comment" id="2">
           <comment>&lt;div&gt;Les inscriptions suivantes sont d&#233;sormais cl&#244;tur&#233;es :
 &lt;ul&gt;{% for registration in forms|objects:"pp-fiche-inscription-plaine"|filter_by:"demande_finalisation"|filter_value:form_internal_id %}
-    &lt;li&gt;{{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }}&lt;/li&gt;
+    &lt;li&gt;{{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }} du {{ registration|get:"form_var_date_de_debut_de_la_plaine"|date }} au {{ registration|get:"form_var_date_de_fin_de_la_plaine"|date }}&lt;/li&gt;
 {% endfor %}&lt;/ul&gt;&lt;/div&gt;</comment>
         </item>
         <item type="external_workflow_global_action" id="3">
