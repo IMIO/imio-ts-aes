@@ -1,6 +1,11 @@
 Changelog
 =========
 
+3.7.3
+----------------
+
+- [PP-746] Added: start and end dates of plains registrations in feedbacks.
+
 3.7.2
 ----------------
 
