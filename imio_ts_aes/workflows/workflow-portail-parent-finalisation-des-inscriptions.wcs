@@ -1018,7 +1018,7 @@ Cordialement,</body>
         <item type="register-comment" id="2">
           <comment>&lt;div&gt;Les inscriptions suivantes sont d&#233;sormais cl&#244;tur&#233;es :
 &lt;ul&gt;{% for registration in forms|objects:"pp-fiche-inscription-plaine"|filter_by:"demande_finalisation"|filter_value:form_internal_id %}
-    &lt;li&gt;{{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }}&lt;/li&gt;
+    &lt;li&gt;{{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }} du {{ registration|get:"form_var_date_de_debut_de_la_plaine"|date }} au {{ registration|get:"form_var_date_de_fin_de_la_plaine"|date }}&lt;/li&gt;
 {% endfor %}&lt;/ul&gt;&lt;/div&gt;</comment>
         </item>
         <item type="external_workflow_global_action" id="3">
