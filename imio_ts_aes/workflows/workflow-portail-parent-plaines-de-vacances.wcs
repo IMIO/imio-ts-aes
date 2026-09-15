@@ -126,6 +126,8 @@
             <mapping field_id="8">{{ form_workflow_data_registration_response_success|get:form_var_fiches_creees|get:"theme" }}</mapping>
             <mapping field_id="6">{{ form_workflow_data_registration_response_success|get:form_var_fiches_creees|get:"registration_id" }}</mapping>
             <mapping field_id="7">{{ form_workflow_data_registration_response_success|get:form_var_fiches_creees|get:"activity_id" }}</mapping>
+            <mapping field_id="87a499b1-0325-4bdd-a64b-727a7abd8af2">{{ form_workflow_data_registration_response_success|get:form_var_fiches_creees|get:"start_date" }}</mapping>
+            <mapping field_id="2c775fef-9035-4215-be24-4a3d37cbf9e9">{{ form_workflow_data_registration_response_success|get:form_var_fiches_creees|get:"end_date" }}</mapping>
           </mappings>
           <backoffice_submission>False</backoffice_submission>
           <draft>False</draft>

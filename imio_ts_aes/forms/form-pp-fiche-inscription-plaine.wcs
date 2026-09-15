@@ -92,6 +92,30 @@
       <anonymise type="str">final</anonymise>
       <id type="str">7</id>
     </field>
+    <field>
+      <type>string</type>
+      <label type="str">Date de d&#233;but de la plaine</label>
+      <required type="str">required</required>
+      <varname type="str">date_de_debut_de_la_plaine</varname>
+      <display_locations>
+        <item>validation</item>
+        <item>summary</item>
+      </display_locations>
+      <anonymise type="str">final</anonymise>
+      <id type="str">87a499b1-0325-4bdd-a64b-727a7abd8af2</id>
+    </field>
+    <field>
+      <type>string</type>
+      <label type="str">Date de fin de la plaine</label>
+      <required type="str">required</required>
+      <varname type="str">date_de_fin_de_la_plaine</varname>
+      <display_locations>
+        <item>validation</item>
+        <item>summary</item>
+      </display_locations>
+      <anonymise type="str">final</anonymise>
+      <id type="str">2c775fef-9035-4215-be24-4a3d37cbf9e9</id>
+    </field>
   </fields>
   <user-roles>
     <role role_id="logged-users">logged-users</role>
