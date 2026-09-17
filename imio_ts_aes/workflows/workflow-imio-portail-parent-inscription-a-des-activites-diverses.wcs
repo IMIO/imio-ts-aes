@@ -726,7 +726,7 @@ Bien &#224; vous</body>
         <item type="choice" id="1">
           <label>R&#233;encoder le paiement</label>
           <by>
-            <item slug="agent-traitant-portail-parents" role_id="107f7d8c8b5d400696d2ecdd6c5ff363">Agent traitant - Portail Parents</item>
+            <item role_id="_receiver">_receiver</item>
             <item role_id="_support-imio">_support-imio</item>
           </by>
           <status>12</status>

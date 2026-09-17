@@ -1,6 +1,11 @@
 Changelog
 =========
 
+3.7.4
+----------------
+
+- [PP-794] Fixed: Use receiver function instead of hard-declared role.
+
 3.7.3
 ----------------
 
