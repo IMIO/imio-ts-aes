@@ -452,6 +452,25 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <id type="str">4</id>
         </field>
         <field>
+          <type>items</type>
+          <label type="str">Implantations scolaires</label>
+          <required type="str">optional</required>
+          <hint type="str">&lt;p&gt;Filtrer les enfants en fonction des &#233;coles coch&#233;es. Si aucune &#233;cole n'est coch&#233;e, les enfants ne sont pas filtr&#233;s.&lt;/p&gt;</hint>
+          <varname type="str">implantations_scolaires</varname>
+          <display_locations />
+          <display_mode type="str">checkboxes</display_mode>
+          <min_choices type="int">0</min_choices>
+          <max_choices type="int">0</max_choices>
+          <data_source>
+            <type>portail-parent-implantations_scolaires</type>
+          </data_source>
+          <in_filters type="bool">False</in_filters>
+          <display_disabled_items type="bool">False</display_disabled_items>
+          <image_desktop_size type="str">150</image_desktop_size>
+          <image_mobile_size type="str">75</image_mobile_size>
+          <id type="str">d97bb475-4306-405f-a009-3d90363cfe2a</id>
+        </field>
+        <field>
           <type>item</type>
           <label type="str">N'ouvrir les plaines de vacances qu'aux habitants de la commune.</label>
           <required type="str">required</required>
