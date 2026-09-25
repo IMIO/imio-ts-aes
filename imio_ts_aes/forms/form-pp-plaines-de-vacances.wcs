@@ -23,13 +23,13 @@
       <label type="str">Inscription r&#233;serv&#233;e aux habitants</label>
       <condition>
         <type>django</type>
-        <value>form_user_var_zipcode not in commune_cp and form_option_ouvertes_aux_habitants == "Oui"</value>
+        <value>form_user_var_zipcode not in commune_cp and form_option_ouvertes_aux_habitants == "Oui" or form_option_implantations_scolaires_raw and request.GET.school not in form_option_implantations_scolaires_raw</value>
       </condition>
       <post_conditions>
         <post_condition>
           <condition>
             <type>django</type>
-            <value>form_user_var_zipcode in commune_cp and form_option_ouvertes_aux_habitants != "Oui"</value>
+            <value>form_user_var_zipcode in commune_cp and form_option_ouvertes_aux_habitants != "Oui" or form_option_implantations_scolaires_raw and request.GET.school in form_option_implantations_scolaires_raw</value>
           </condition>
           <error_message>Veuillez attendre l'ouverture des inscriptions &#224; tous.</error_message>
         </post_condition>
