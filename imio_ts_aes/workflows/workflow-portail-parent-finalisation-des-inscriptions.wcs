@@ -736,6 +736,19 @@ Cordialement,</body>
       <colour>#FFFFFF</colour>
       <visibility />
       <items>
+        <item type="set-backoffice-fields" id="4">
+          <label>Affichage des identifiants de transaction et de paiement</label>
+          <fields>
+            <field>
+              <field_id>bof58079b6-daee-415e-9ba5-34608dbaa642</field_id>
+              <value>{{ form_workflow_data_bank_transaction_id }}</value>
+            </field>
+            <field>
+              <field_id>bo10023559-ae1d-49e8-9e5f-fba88e02f161</field_id>
+              <value />
+            </field>
+          </fields>
+        </item>
         <item type="webservice_call" id="1">
           <label>Encoder le paiement dans AES</label>
           <method>POST</method>
@@ -1400,6 +1413,28 @@ Tout est en ordre ! </body>
           <restrict_to_integers type="bool">True</restrict_to_integers>
           <min_value type="decimal">0</min_value>
           <id type="str">bo3660d5ea-fbcc-4d2e-af7c-bf55ab0594b6</id>
+        </field>
+        <field>
+          <type>string</type>
+          <label type="str">Identifiant de transaction</label>
+          <required type="str">required</required>
+          <varname type="str">identifiant_de_transaction</varname>
+          <display_locations>
+            <item>summary</item>
+          </display_locations>
+          <anonymise type="str">final</anonymise>
+          <id type="str">bof58079b6-daee-415e-9ba5-34608dbaa642</id>
+        </field>
+        <field>
+          <type>string</type>
+          <label type="str">Identifiant de paiement</label>
+          <required type="str">required</required>
+          <varname type="str">identifiant_de_paiement</varname>
+          <display_locations>
+            <item>summary</item>
+          </display_locations>
+          <anonymise type="str">final</anonymise>
+          <id type="str">bo10023559-ae1d-49e8-9e5f-fba88e02f161</id>
         </field>
       </fields>
     </formdef>
