@@ -505,7 +505,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
             </item>
             <item>
               <name>amount</name>
-              <value>{% if form_previous_status == "Erreur lors du calcul du montant" %}{{ form_workflow_form_erreur_calcul_var_montant|decimal:2 }}{% else %}{{ form_workflow_data_montant_response_cost|decimal:2 }}{% endif %}</value>
+              <value>{{ form_var_montant_a_payer }}</value>
             </item>
           </post_data>
           <response_type>json</response_type>
