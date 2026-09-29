@@ -149,6 +149,15 @@
           <notify_on_errors>False</notify_on_errors>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
+        <item type="set-backoffice-fields" id="8">
+          <label>Affichage du montant &#224; payer (en ligne)</label>
+          <fields>
+            <field>
+              <field_id>boa4ed3740-b944-4f4e-b31f-b09cf8ee7f78</field_id>
+              <value>{{ form_workflow_data_montant_response_due_amount }}</value>
+            </field>
+          </fields>
+        </item>
         <item type="choice" id="4">
           <label>Mettre en erreur</label>
           <by>
@@ -627,6 +636,19 @@ Bien &#224; vous</body>
       <colour>#8ff0a4</colour>
       <visibility />
       <items>
+        <item type="set-backoffice-fields" id="5">
+          <label>Affichage des identifiants de transaction et de paiement</label>
+          <fields>
+            <field>
+              <field_id>bo3731add6-900b-4ce6-956e-0180a43c0b93</field_id>
+              <value>{{ form_workflow_data_bank_transaction_id }}</value>
+            </field>
+            <field>
+              <field_id>bo03e549d0-f002-491d-bbc7-6e316eec7ad1</field_id>
+              <value />
+            </field>
+          </fields>
+        </item>
         <item type="webservice_call" id="1">
           <label>Encodage du paiement</label>
           <method>POST</method>
@@ -1149,6 +1171,44 @@ Bien &#224; vous</body>
           </display_locations>
           <anonymise type="str">final</anonymise>
           <id type="str">bo34495e24-19b2-4ea7-9a1c-b126f4cb22b7</id>
+        </field>
+        <field>
+          <type>numeric</type>
+          <label type="str">Montant &#224; payer</label>
+          <required type="str">required</required>
+          <varname type="str">montant_a_payer</varname>
+          <display_locations>
+            <item>summary</item>
+            <item>listings</item>
+          </display_locations>
+          <anonymise type="str">final</anonymise>
+          <restrict_to_integers type="bool">True</restrict_to_integers>
+          <min_value type="decimal">0</min_value>
+          <id type="str">boa4ed3740-b944-4f4e-b31f-b09cf8ee7f78</id>
+        </field>
+        <field>
+          <type>string</type>
+          <label type="str">Identifiant de transaction</label>
+          <required type="str">required</required>
+          <varname type="str">identifiant_de_transaction</varname>
+          <display_locations>
+            <item>validation</item>
+            <item>summary</item>
+          </display_locations>
+          <anonymise type="str">final</anonymise>
+          <id type="str">bo3731add6-900b-4ce6-956e-0180a43c0b93</id>
+        </field>
+        <field>
+          <type>string</type>
+          <label type="str">Identifiant de paiement</label>
+          <required type="str">required</required>
+          <varname type="str">identifiant_de_paiement</varname>
+          <display_locations>
+            <item>validation</item>
+            <item>summary</item>
+          </display_locations>
+          <anonymise type="str">final</anonymise>
+          <id type="str">bo03e549d0-f002-491d-bbc7-6e316eec7ad1</id>
         </field>
       </fields>
     </formdef>
