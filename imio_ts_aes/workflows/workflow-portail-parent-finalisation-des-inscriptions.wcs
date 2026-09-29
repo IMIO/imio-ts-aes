@@ -244,7 +244,7 @@
           <set_marker_on_status>False</set_marker_on_status>
         </item>
         <item type="jump" id="5">
-          <status>2</status>
+          <status>24</status>
           <condition>
             <type>django</type>
             <value>form_option_mode_paiement == "Paiement en ligne"</value>
@@ -430,6 +430,54 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
       </items>
     </status>
     <status>
+      <id>24</id>
+      <name>Assigne montant</name>
+      <colour>#FFFFFF</colour>
+      <visibility />
+      <items>
+        <item type="set-backoffice-fields" id="1">
+          <label>Affichage du montant &#224; payer (en ligne)</label>
+          <fields>
+            <field>
+              <field_id>bo3660d5ea-fbcc-4d2e-af7c-bf55ab0594b6</field_id>
+              <value>{% if form_previous_status == "Erreur lors du calcul du montant" %}{{ form_workflow_form_erreur_calcul_var_montant|decimal:2 }}{% else %}{{ form_workflow_data_montant_response_cost|decimal:2 }}{% endif %}</value>
+            </field>
+          </fields>
+        </item>
+        <item type="register-comment" id="4">
+          <label>Gratuit&#233; de l'inscription</label>
+          <to>
+            <item role_id="_submitter">_submitter</item>
+            <item role_id="_receiver">_receiver</item>
+            <item role_id="_support-imio">_support-imio</item>
+          </to>
+          <comment>Les inscriptions r&#233;alis&#233;es sont gratuites, aucun paiement n'est donc &#224; r&#233;aliser.</comment>
+          <condition>
+            <type>django</type>
+            <value>form_var_montant_a_payer &lt;= 0</value>
+          </condition>
+        </item>
+        <item type="jump" id="2">
+          <status>5</status>
+          <condition>
+            <type>django</type>
+            <value>form_var_montant_a_payer &lt;= 0</value>
+          </condition>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="3">
+          <status>2</status>
+          <condition>
+            <type>django</type>
+            <value>form_var_montant_a_payer &gt; 0</value>
+          </condition>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+    <status>
       <id>2</id>
       <name>Ajout au panier</name>
       <colour>#FFFFFF</colour>
@@ -473,15 +521,6 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <record_on_errors>True</record_on_errors>
           <notify_on_errors>False</notify_on_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item>
-        <item type="set-backoffice-fields" id="3">
-          <label>Affichage du montant &#224; payer (en ligne)</label>
-          <fields>
-            <field>
-              <field_id>bo3660d5ea-fbcc-4d2e-af7c-bf55ab0594b6</field_id>
-              <value>{% if form_previous_status == "Erreur lors du calcul du montant" %}{{ form_workflow_form_erreur_calcul_var_montant|decimal:2 }}{% else %}{{ form_workflow_data_montant_response_cost|decimal:2 }}{% endif %}</value>
-            </field>
-          </fields>
         </item>
         <item type="jump" id="2">
           <status>4</status>
