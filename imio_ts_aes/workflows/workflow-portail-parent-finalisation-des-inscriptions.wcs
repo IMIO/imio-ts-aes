@@ -353,7 +353,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <by>
             <item role_id="_support-imio">_support-imio</item>
           </by>
-          <status>2</status>
+          <status>24</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Encodez d&amp;#39;abord un montant ci-dessus, puis s&amp;eacute;lectionnez ce bouton pour l&amp;#39;envoyer dans le panier du parent.&lt;/p&gt;
 </backoffice_info_text>
