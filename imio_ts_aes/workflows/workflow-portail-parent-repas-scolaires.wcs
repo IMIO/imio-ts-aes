@@ -872,6 +872,27 @@ Si vous avez pass&#233; d'autres commandes pour le m&#234;me enfant pour la m&#2
       <visibility />
       <items />
     </status>
+    <status>
+      <id>20</id>
+      <name>Archiv&#233;</name>
+      <colour>#9a9996</colour>
+      <forced_endpoint>true</forced_endpoint>
+      <visibility />
+      <items>
+        <item type="choice" id="1">
+          <label>Revenir au statut pr&#233;c&#233;dent</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+            <item role_id="_support-imio">_support-imio</item>
+          </by>
+          <status>_previous</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>False</allow_as_mass_action>
+        </item>
+      </items>
+    </status>
   </possible_status>
   <global_actions>
     <action>
@@ -944,6 +965,33 @@ Si vous avez pass&#233; d'autres commandes pour le m&#234;me enfant pour la m&#2
           <allow_as_mass_action>True</allow_as_mass_action>
           <require_confirmation>True</require_confirmation>
           <confirmation_text>Souhaitez-vous vraiment annuler les commandes s&#233;lectionn&#233;es ? Les auteurs de ces commandes en seront notifi&#233;s, leur panier sera vid&#233; et leur &#233;ventuel solde sera lib&#233;r&#233;.</confirmation_text>
+        </trigger>
+      </triggers>
+    </action>
+    <action>
+      <id>4</id>
+      <name>Archivage</name>
+      <items>
+        <item type="jump" id="1">
+          <status>20</status>
+          <set_marker_on_status>True</set_marker_on_status>
+        </item>
+      </items>
+      <triggers>
+        <trigger type="manual" id="ac03cab5-a856-4ef2-91ef-c7f8b9e4336d">
+          <roles>
+            <item role_id="_receiver">_receiver</item>
+            <item role_id="_support-imio">_support-imio</item>
+          </roles>
+          <statuses>
+            <statuse>11</statuse>
+            <statuse>14</statuse>
+            <statuse>2</statuse>
+            <statuse>17</statuse>
+          </statuses>
+          <allow_as_mass_action>True</allow_as_mass_action>
+          <require_confirmation>True</require_confirmation>
+          <confirmation_text>Voulez-vous archiver d&#233;finitivement cette demande ?</confirmation_text>
         </trigger>
       </triggers>
     </action>

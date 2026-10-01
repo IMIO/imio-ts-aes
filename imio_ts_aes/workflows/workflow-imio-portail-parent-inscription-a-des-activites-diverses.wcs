@@ -882,6 +882,27 @@ Bien &#224; vous</body>
       <visibility />
       <items />
     </status>
+    <status>
+      <id>22</id>
+      <name>Archiv&#233;</name>
+      <colour>#9a9996</colour>
+      <forced_endpoint>true</forced_endpoint>
+      <visibility />
+      <items>
+        <item type="choice" id="1">
+          <label>Revenir au statut pr&#233;c&#233;dent</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+            <item role_id="_support-imio">_support-imio</item>
+          </by>
+          <status>_previous</status>
+          <require_confirmation>False</require_confirmation>
+          <ignore_form_errors>False</ignore_form_errors>
+          <set_marker_on_status>False</set_marker_on_status>
+          <allow_as_mass_action>False</allow_as_mass_action>
+        </item>
+      </items>
+    </status>
   </possible_status>
   <global_actions>
     <action>
@@ -924,6 +945,33 @@ Bien &#224; vous</body>
         <trigger type="manual" id="a6869050-032a-463b-93eb-ceda436924b6">
           <allow_as_mass_action>True</allow_as_mass_action>
           <require_confirmation>False</require_confirmation>
+        </trigger>
+      </triggers>
+    </action>
+    <action>
+      <id>3</id>
+      <name>Archivage</name>
+      <items>
+        <item type="jump" id="1">
+          <status>22</status>
+          <set_marker_on_status>True</set_marker_on_status>
+        </item>
+      </items>
+      <triggers>
+        <trigger type="manual" id="e783bd2d-b800-4fb2-a9c1-bdc06170a6c3">
+          <roles>
+            <item role_id="_support-imio">_support-imio</item>
+            <item role_id="_receiver">_receiver</item>
+          </roles>
+          <statuses>
+            <statuse>6</statuse>
+            <statuse>15</statuse>
+            <statuse>13</statuse>
+            <statuse>3</statuse>
+          </statuses>
+          <allow_as_mass_action>True</allow_as_mass_action>
+          <require_confirmation>True</require_confirmation>
+          <confirmation_text>Voulez-vous archiver d&#233;finitivement cette demande ?</confirmation_text>
         </trigger>
       </triggers>
     </action>
