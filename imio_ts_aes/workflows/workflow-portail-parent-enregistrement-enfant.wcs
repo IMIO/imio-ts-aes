@@ -102,7 +102,7 @@
     <status>
       <id>11</id>
       <name>Erreur - deux enfants trouv&#233;s</name>
-      <colour>#FFFFFF</colour>
+      <colour>#ff0000</colour>
       <visibility />
       <items>
         <item type="choice" id="1">
