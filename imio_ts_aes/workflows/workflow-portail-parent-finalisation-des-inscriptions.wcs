@@ -1038,7 +1038,7 @@ Cordialement,</body>
           <subject>{{ form_name }} n&#176;{{ form_number }}</subject>
           <body>Bonjour,
 
-Nous vous confirmons la bonne r&#233;ception de votre paiement. Les inscriptions suivantes sont d&#233;sormais cl&#244;tur&#233;es :
+{% if form_var_montant_a_payer &lt;= 0 %}Aucun paiement n'est demand&#233; pour ces inscriptions.{% else %}Nous vous confirmons la bonne r&#233;ception de votre paiement.{% endif %} Les inscriptions suivantes sont d&#233;sormais cl&#244;tur&#233;es :
 {% for registration in forms|objects:"pp-fiche-inscription-plaine"|filter_by:"demande_finalisation"|filter_value:form_internal_id %}
  * {{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }} du {{registration|get:"form_var_date_de_debut_de_la_plaine"|date }} au {{registration|get:"form_var_date_de_fin_de_la_plaine"|date }}
 {% endfor %}
