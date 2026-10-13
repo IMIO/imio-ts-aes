@@ -32,7 +32,7 @@
         <post_condition>
           <condition>
             <type>django</type>
-            <value>form_var_activities_plaines</value>
+            <value>not form_var_acces_autorise or form_var_activities_plaines</value>
           </condition>
           <error_message>Aucune plaine n'a &#233;t&#233; choisie.</error_message>
         </post_condition>
@@ -51,7 +51,7 @@
       <type>computed</type>
       <label type="str">Implantation scolaire</label>
       <varname type="str">implantation_scolaire</varname>
-      <value_template type="str">{{ request.GET.ecole|default:"" }}</value_template>
+      <value_template type="str">{% for child in data_source.portail_parent_enfants %}{% if child.id|stringformat:"s" == form_var_id_enfant %}{{ child.school_implantation|get:0|stringformat:"s" }}{% endif %}{% endfor %}</value_template>
       <freeze_on_initial_value type="bool">True</freeze_on_initial_value>
       <id type="str">05b61824-5bea-430a-946c-07b396bb74f4</id>
     </field>
