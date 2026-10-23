@@ -456,7 +456,7 @@ Une erreur a &#233;t&#233; rencontr&#233;e pour une demande du formulaire {{ for
     </action>
     <action>
       <id>2</id>
-      <name>Archivage</name>
+      <name>Archiver</name>
       <items>
         <item type="jump" id="1">
           <status>8</status>

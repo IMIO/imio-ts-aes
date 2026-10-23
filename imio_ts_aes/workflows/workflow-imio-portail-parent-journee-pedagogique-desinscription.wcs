@@ -174,7 +174,7 @@ Le parent sera notifi&amp;eacute; de la d&amp;eacute;sinscription.&lt;/p&gt;
   <global_actions>
     <action>
       <id>1</id>
-      <name>Archivage</name>
+      <name>Archiver</name>
       <items>
         <item type="jump" id="1">
           <status>4</status>

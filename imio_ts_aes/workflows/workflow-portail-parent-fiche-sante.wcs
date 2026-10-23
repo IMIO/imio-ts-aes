@@ -567,7 +567,7 @@
     </action>
     <action>
       <id>2</id>
-      <name>Archivage</name>
+      <name>Archiver</name>
       <items>
         <item type="jump" id="1">
           <status>10</status>

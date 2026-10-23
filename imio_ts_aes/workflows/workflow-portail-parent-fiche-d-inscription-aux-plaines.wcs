@@ -378,7 +378,7 @@ Cordialement,</body>
     </action>
     <action>
       <id>6</id>
-      <name>Archivage</name>
+      <name>Archiver</name>
       <items>
         <item type="jump" id="1">
           <status>9</status>

@@ -345,7 +345,7 @@ Bien &#224; vous</body>
     </action>
     <action>
       <id>2</id>
-      <name>Archivage</name>
+      <name>Archiver</name>
       <items>
         <item type="jump" id="1">
           <status>16</status>

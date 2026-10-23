@@ -197,7 +197,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
   <global_actions>
     <action>
       <id>1</id>
-      <name>Archivage</name>
+      <name>Archiver</name>
       <items>
         <item type="jump" id="1">
           <status>4</status>

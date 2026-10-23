@@ -970,7 +970,7 @@ Si vous avez pass&#233; d'autres commandes pour le m&#234;me enfant pour la m&#2
     </action>
     <action>
       <id>4</id>
-      <name>Archivage</name>
+      <name>Archiver</name>
       <items>
         <item type="jump" id="1">
           <status>20</status>
