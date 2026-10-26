@@ -1499,7 +1499,7 @@ Tout est en ordre ! </body>
             <item>listings</item>
           </display_locations>
           <anonymise type="str">final</anonymise>
-          <restrict_to_integers type="bool">True</restrict_to_integers>
+          <restrict_to_integers type="bool">False</restrict_to_integers>
           <min_value type="decimal">0</min_value>
           <id type="str">bo3660d5ea-fbcc-4d2e-af7c-bf55ab0594b6</id>
         </field>
@@ -1509,6 +1509,7 @@ Tout est en ordre ! </body>
           <required type="str">required</required>
           <varname type="str">identifiant_de_transaction</varname>
           <display_locations>
+            <item>validation</item>
             <item>summary</item>
           </display_locations>
           <anonymise type="str">final</anonymise>
@@ -1520,6 +1521,7 @@ Tout est en ordre ! </body>
           <required type="str">required</required>
           <varname type="str">identifiant_de_paiement</varname>
           <display_locations>
+            <item>validation</item>
             <item>summary</item>
           </display_locations>
           <anonymise type="str">final</anonymise>
