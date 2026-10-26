@@ -788,7 +788,7 @@ Cordialement,</body>
             </field>
             <field>
               <field_id>bo10023559-ae1d-49e8-9e5f-fba88e02f161</field_id>
-              <value />
+              <value>{{ form_workflow_data_order_id }}</value>
             </field>
           </fields>
         </item>
@@ -813,6 +813,10 @@ Cordialement,</body>
             <item>
               <name>transaction_id</name>
               <value>{{ form_workflow_data_bank_transaction_id }}</value>
+            </item>
+            <item>
+              <name>payment_id</name>
+              <value>{{ form_workflow_data_order_id }}</value>
             </item>
             <item>
               <name>date</name>
