@@ -1234,7 +1234,7 @@ Bien &#224; vous</body>
             <item>listings</item>
           </display_locations>
           <anonymise type="str">final</anonymise>
-          <restrict_to_integers type="bool">True</restrict_to_integers>
+          <restrict_to_integers type="bool">False</restrict_to_integers>
           <min_value type="decimal">0</min_value>
           <id type="str">boa4ed3740-b944-4f4e-b31f-b09cf8ee7f78</id>
         </field>
