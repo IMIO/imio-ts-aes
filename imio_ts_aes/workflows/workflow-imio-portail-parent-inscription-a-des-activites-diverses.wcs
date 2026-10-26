@@ -645,7 +645,7 @@ Bien &#224; vous</body>
             </field>
             <field>
               <field_id>bo03e549d0-f002-491d-bbc7-6e316eec7ad1</field_id>
-              <value />
+              <value>{{ form_workflow_data_order_id }}</value>
             </field>
           </fields>
         </item>
@@ -658,6 +658,10 @@ Bien &#224; vous</body>
             <item>
               <name>transaction_id</name>
               <value>{{form_workflow_data_bank_transaction_id}}</value>
+            </item>
+            <item>
+              <name>payment_id</name>
+              <value>{{ form_workflow_data_order_id }}</value>
             </item>
             <item>
               <name>date</name>
