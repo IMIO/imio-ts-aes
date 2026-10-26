@@ -1203,7 +1203,7 @@ Si vous avez pass&#233; d'autres commandes pour le m&#234;me enfant pour la m&#2
             <item>listings</item>
           </display_locations>
           <anonymise type="str">final</anonymise>
-          <restrict_to_integers type="bool">True</restrict_to_integers>
+          <restrict_to_integers type="bool">False</restrict_to_integers>
           <min_value type="decimal">0</min_value>
           <id type="str">boa080e6e2-d199-4def-93eb-617f18219782</id>
         </field>
