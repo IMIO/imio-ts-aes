@@ -20,33 +20,23 @@
   <fields>
     <field>
       <type>page</type>
-      <label type="str">Inscription r&#233;serv&#233;e aux habitants</label>
-      <condition>
-        <type>django</type>
-        <value>form_user_var_zipcode not in commune_cp and form_option_ouvertes_aux_habitants == "Oui"</value>
-      </condition>
+      <label type="str">Inscription</label>
       <post_conditions>
         <post_condition>
           <condition>
             <type>django</type>
-            <value>form_user_var_zipcode in commune_cp and form_option_ouvertes_aux_habitants != "Oui"</value>
+            <value>form_var_acces_autorise</value>
           </condition>
-          <error_message>Veuillez attendre l'ouverture des inscriptions &#224; tous.</error_message>
+          <error_message>Les conditions d'inscription ne sont pas remplies. Si votre situation vient d'&#234;tre corrig&#233;e, cliquez &#224; nouveau sur le bouton de validation.</error_message>
+        </post_condition>
+        <post_condition>
+          <condition>
+            <type>django</type>
+            <value>not form_var_acces_autorise or form_var_activities_plaines</value>
+          </condition>
+          <error_message>Aucune plaine n'a &#233;t&#233; choisie.</error_message>
         </post_condition>
       </post_conditions>
-      <id type="str">65</id>
-    </field>
-    <field>
-      <type>comment</type>
-      <label type="str">&lt;p&gt;{{ form_option_message_aux_non_residents|default:"Veuillez attendre l'ouverture des plaines &#224; tous" }}&lt;/p&gt;
-</label>
-      <extra_css_class type="str">pk-attention</extra_css_class>
-      <display_locations />
-      <id type="str">66</id>
-    </field>
-    <field>
-      <type>page</type>
-      <label type="str">Inscription</label>
       <id type="str">64</id>
     </field>
     <field>
@@ -56,6 +46,22 @@
       <value_template type="str">{{request.GET.enfant|default:""}}</value_template>
       <freeze_on_initial_value type="bool">True</freeze_on_initial_value>
       <id type="str">61</id>
+    </field>
+    <field>
+      <type>computed</type>
+      <label type="str">Implantation scolaire</label>
+      <varname type="str">implantation_scolaire</varname>
+      <value_template type="str">{% for child in data_source.portail_parent_enfants %}{% if child.id|stringformat:"s" == form_var_id_enfant %}{{ child.school_implantation|get:0|stringformat:"s" }}{% endif %}{% endfor %}</value_template>
+      <freeze_on_initial_value type="bool">True</freeze_on_initial_value>
+      <id type="str">05b61824-5bea-430a-946c-07b396bb74f4</id>
+    </field>
+    <field>
+      <type>computed</type>
+      <label type="str">Acc&#232;s autoris&#233;</label>
+      <varname type="str">acces_autorise</varname>
+      <value_template type="str">{% if not "Habitant dans la commune" in form_option_priorites and not "Enfants scolaris&#233;s dans la commune" in form_option_priorites or not "Habitant dans la commune" in form_option_priorites and not form_option_implantations_scolaires_raw or "Habitant dans la commune" in form_option_priorites and not "Enfants scolaris&#233;s dans la commune" in form_option_priorites and form_user_var_zipcode in commune_cp or "Habitant dans la commune" in form_option_priorites and not form_option_implantations_scolaires_raw and form_user_var_zipcode in commune_cp or not "Habitant dans la commune" in form_option_priorites and "Enfants scolaris&#233;s dans la commune" in form_option_priorites and form_option_implantations_scolaires_raw and form_var_implantation_scolaire in form_option_implantations_scolaires_raw or "Habitant dans la commune" in form_option_priorites and "Enfants scolaris&#233;s dans la commune" in form_option_priorites and form_option_implantations_scolaires_raw and form_user_var_zipcode in commune_cp or "Habitant dans la commune" in form_option_priorites and "Enfants scolaris&#233;s dans la commune" in form_option_priorites and form_option_implantations_scolaires_raw and form_var_implantation_scolaire in form_option_implantations_scolaires_raw %}1{% endif %}</value_template>
+      <freeze_on_initial_value type="bool">False</freeze_on_initial_value>
+      <id type="str">03bb74ec-d43c-4861-933d-5529430620dc</id>
     </field>
     <field>
       <type>item</type>
@@ -93,15 +99,36 @@
 </label>
       <condition>
         <type>django</type>
-        <value>form_var_enfant</value>
+        <value>form_var_enfant and form_var_acces_autorise</value>
       </condition>
       <extra_css_class type="str">pk-information</extra_css_class>
       <display_locations />
       <id type="str">55</id>
     </field>
     <field>
+      <type>comment</type>
+      <label type="str">&lt;p&gt;{{ form_option_message_aux_non_prioritaires|default:"Veuillez attendre l'ouverture des plaines &#224; tous" }}&lt;/p&gt;
+&lt;p&gt;Les inscriptions sont actuellement r&#233;serv&#233;es :&lt;/p&gt;
+&lt;ul&gt;
+{% if "Habitant dans la commune" in form_option_priorites %}&lt;li&gt;aux habitants de la commune&lt;/li&gt;{% endif %}
+{% if "Enfants scolaris&#233;s dans la commune" in form_option_priorites and form_option_implantations_scolaires_raw %}&lt;li&gt;aux enfants scolaris&#233;s dans : {% for i in form_option_implantations_scolaires_structured %}{{ i.text }}{% if not forloop.last %}, {% endif %}{% endfor %}&lt;/li&gt;{% endif %}
+&lt;/ul&gt;
+</label>
+      <condition>
+        <type>django</type>
+        <value>not form_var_acces_autorise</value>
+      </condition>
+      <extra_css_class type="str">pk-attention</extra_css_class>
+      <display_locations />
+      <id type="str">66</id>
+    </field>
+    <field>
       <type>items</type>
       <label type="str">Plaines</label>
+      <condition>
+        <type>django</type>
+        <value>form_var_acces_autorise</value>
+      </condition>
       <required type="str">required</required>
       <hint type="str">Choisissez vos plaines</hint>
       <varname type="str">activities_plaines</varname>
@@ -128,6 +155,10 @@
       <type>comment</type>
       <label type="str">&lt;p&gt;Plaines&lt;/p&gt;
 </label>
+      <condition>
+        <type>django</type>
+        <value>form_var_acces_autorise</value>
+      </condition>
       <extra_css_class type="str">template-portail_parent_plaines</extra_css_class>
       <display_locations />
       <id type="str">54</id>
@@ -138,7 +169,7 @@
 </label>
       <condition>
         <type>django</type>
-        <value>pp_redirection_navette</value>
+        <value>pp_redirection_navette and form_var_acces_autorise</value>
       </condition>
       <display_locations />
       <id type="str">24474e7a-b5c3-40fe-bbdb-9fa9e303dc7f</id>
@@ -148,7 +179,7 @@
       <label type="str">R&#233;server des navettes pour cet enfant et ces plaines</label>
       <condition>
         <type>django</type>
-        <value>pp_redirection_navette</value>
+        <value>pp_redirection_navette and form_var_acces_autorise</value>
       </condition>
       <required type="str">optional</required>
       <hint type="str">Vous serez redirig&#233;s vers un formulaire pour la r&#233;servation de navette.</hint>
