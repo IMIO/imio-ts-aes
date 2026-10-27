@@ -474,7 +474,7 @@ Une erreur a &#233;t&#233; rencontr&#233;e pour une demande du formulaire {{ for
           </statuses>
           <allow_as_mass_action>True</allow_as_mass_action>
           <require_confirmation>True</require_confirmation>
-          <confirmation_text>Voulez-vous archiver d&#233;finitivement cette demande ?</confirmation_text>
+          <confirmation_text>Voulez-vous archiver cette demande ?</confirmation_text>
         </trigger>
       </triggers>
     </action>

@@ -991,7 +991,7 @@ Si vous avez pass&#233; d'autres commandes pour le m&#234;me enfant pour la m&#2
           </statuses>
           <allow_as_mass_action>True</allow_as_mass_action>
           <require_confirmation>True</require_confirmation>
-          <confirmation_text>Voulez-vous archiver d&#233;finitivement cette demande ?</confirmation_text>
+          <confirmation_text>Voulez-vous archiver cette demande ?</confirmation_text>
         </trigger>
       </triggers>
     </action>
