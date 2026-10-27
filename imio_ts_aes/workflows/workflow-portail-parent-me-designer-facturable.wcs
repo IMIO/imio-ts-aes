@@ -351,7 +351,6 @@ Cordialement,</body>
           </roles>
           <statuses>
             <statuse>6</statuse>
-            <statuse>9</statuse>
           </statuses>
           <allow_as_mass_action>True</allow_as_mass_action>
           <require_confirmation>True</require_confirmation>

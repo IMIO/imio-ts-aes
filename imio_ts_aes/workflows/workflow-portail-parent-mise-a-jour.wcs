@@ -471,7 +471,6 @@ Une erreur a &#233;t&#233; rencontr&#233;e pour une demande du formulaire {{ for
           </roles>
           <statuses>
             <statuse>3</statuse>
-            <statuse>6</statuse>
           </statuses>
           <allow_as_mass_action>True</allow_as_mass_action>
           <require_confirmation>True</require_confirmation>
