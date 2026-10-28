@@ -154,7 +154,7 @@
           <fields>
             <field>
               <field_id>boa4ed3740-b944-4f4e-b31f-b09cf8ee7f78</field_id>
-              <value>{{ form_workflow_data_montant_response_due_amount }}</value>
+              <value>{{ form_workflow_data_montant_response_due_amount|decimal:2 }}</value>
             </field>
           </fields>
         </item>
