@@ -184,7 +184,7 @@
             <name>-</name>
             <fields>
               <field>
-                <type>string</type>
+                <type>numeric</type>
                 <label type="str">Montant</label>
                 <required type="str">required</required>
                 <hint type="str">Indiquez le montant &#224; payer, en euros. Ne pr&#233;cisez pas la monnaie.</hint>
@@ -195,11 +195,8 @@
                   <value>{% if form_option_calcul_montant == "Demander le montant &#224; AES avec validation" %}{{ form_workflow_data_montant_response_cost|decimal:2 }}{% endif %}</value>
                 </prefill>
                 <anonymise type="str">final</anonymise>
-                <validation>
-                  <error_message>Ne pr&#233;cisez pas la monnaie.</error_message>
-                  <type>django</type>
-                  <value>"&#8364;" not in value</value>
-                </validation>
+                <restrict_to_integers type="bool">False</restrict_to_integers>
+                <min_value type="decimal">0</min_value>
                 <id type="str">1</id>
               </field>
               <field>
@@ -235,7 +232,7 @@
           </formdef>
         </item>
         <item type="jump" id="4">
-          <status>9</status>
+          <status>24</status>
           <condition>
             <type>django</type>
             <value>form_option_calcul_montant == "Demander le montant &#224; AES" and form_option_mode_paiement == "Paiement par virement"</value>
@@ -244,7 +241,7 @@
           <set_marker_on_status>False</set_marker_on_status>
         </item>
         <item type="jump" id="5">
-          <status>2</status>
+          <status>24</status>
           <condition>
             <type>django</type>
             <value>form_option_mode_paiement == "Paiement en ligne"</value>
@@ -253,7 +250,7 @@
           <set_marker_on_status>False</set_marker_on_status>
         </item>
         <item type="jumponsubmit" id="6">
-          <status>9</status>
+          <status>24</status>
           <set_marker_on_status>False</set_marker_on_status>
           <condition>
             <type>django</type>
@@ -353,13 +350,17 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <by>
             <item role_id="_support-imio">_support-imio</item>
           </by>
-          <status>2</status>
+          <status>24</status>
           <require_confirmation>False</require_confirmation>
           <backoffice_info_text>&lt;p&gt;Encodez d&amp;#39;abord un montant ci-dessus, puis s&amp;eacute;lectionnez ce bouton pour l&amp;#39;envoyer dans le panier du parent.&lt;/p&gt;
 </backoffice_info_text>
           <ignore_form_errors>False</ignore_form_errors>
           <set_marker_on_status>False</set_marker_on_status>
           <allow_as_mass_action>True</allow_as_mass_action>
+          <condition>
+            <type>django</type>
+            <value>form_option_mode_paiement == "Paiement en ligne"</value>
+          </condition>
         </item>
       </items>
     </status>
@@ -430,6 +431,57 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
       </items>
     </status>
     <status>
+      <id>24</id>
+      <colour>#FFFFFF</colour>
+      <name>Assignation montant</name>
+      <visibility>
+        <role>__restricted__</role>
+      </visibility>
+      <items>
+        <item type="set-backoffice-fields" id="1">
+          <label>Affichage du montant &#224; payer</label>
+          <fields>
+            <field>
+              <field_id>bo3660d5ea-fbcc-4d2e-af7c-bf55ab0594b6</field_id>
+              <value>{% if form_previous_status == "Erreur lors du calcul du montant" %}{% if form_workflow_form_erreur_calcul_var_montant %}{{ form_workflow_form_erreur_calcul_var_montant|decimal:2 }}{% endif %}{% elif form_option_mode_paiement == "Paiement par virement" and form_workflow_form_calcul_var_montant or form_option_mode_paiement == "Paiement par virement" and form_workflow_form_calcul_var_montant == 0 %}{{ form_workflow_form_calcul_var_montant|decimal:2 }}{% elif form_workflow_data_montant_response_cost or form_workflow_data_montant_response_cost == 0 %}{{ form_workflow_data_montant_response_cost|decimal:2 }}{% endif %}</value>
+            </field>
+          </fields>
+        </item>
+        <item type="jump" id="2">
+          <status>5</status>
+          <condition>
+            <type>django</type>
+            <value>form_var_montant_a_payer &lt;= 0</value>
+          </condition>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="3">
+          <status>2</status>
+          <condition>
+            <type>django</type>
+            <value>form_var_montant_a_payer and form_var_montant_a_payer &gt; 0 and form_option_mode_paiement == "Paiement en ligne"</value>
+          </condition>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="4">
+          <status>9</status>
+          <condition>
+            <type>django</type>
+            <value>form_var_montant_a_payer and form_var_montant_a_payer &gt; 0 and form_option_mode_paiement == "Paiement par virement"</value>
+          </condition>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+        <item type="jump" id="5">
+          <status>8</status>
+          <mode>immediate</mode>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+    <status>
       <id>2</id>
       <name>Ajout au panier</name>
       <colour>#FFFFFF</colour>
@@ -457,7 +509,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
             </item>
             <item>
               <name>amount</name>
-              <value>{% if form_previous_status == "Erreur lors du calcul du montant" %}{{ form_workflow_form_erreur_calcul_var_montant|decimal:2 }}{% else %}{{ form_workflow_data_montant_response_cost|decimal:2 }}{% endif %}</value>
+              <value>{{ form_var_montant_a_payer|decimal:2 }}</value>
             </item>
           </post_data>
           <response_type>json</response_type>
@@ -473,15 +525,6 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <record_on_errors>True</record_on_errors>
           <notify_on_errors>False</notify_on_errors>
           <set_marker_on_status>False</set_marker_on_status>
-        </item>
-        <item type="set-backoffice-fields" id="3">
-          <label>Affichage du montant &#224; payer (en ligne)</label>
-          <fields>
-            <field>
-              <field_id>bo3660d5ea-fbcc-4d2e-af7c-bf55ab0594b6</field_id>
-              <value>{% if form_previous_status == "Erreur lors du calcul du montant" %}{{ form_workflow_form_erreur_calcul_var_montant|decimal:2 }}{% else %}{{ form_workflow_data_montant_response_cost|decimal:2 }}{% endif %}</value>
-            </field>
-          </fields>
         </item>
         <item type="jump" id="2">
           <status>4</status>
@@ -748,7 +791,7 @@ Cordialement,</body>
             </item>
             <item>
               <name>amount</name>
-              <value>{{ form_workflow_data_montant_response_cost|decimal:2 }}</value>
+              <value>{% firstof form_var_montant_a_payer form_workflow_data_montant_response_cost %}</value>
             </item>
             <item>
               <name>comment</name>
@@ -784,6 +827,10 @@ Cordialement,</body>
           <record_on_errors>True</record_on_errors>
           <notify_on_errors>False</notify_on_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <condition>
+            <type>django</type>
+            <value>not form_var_montant_a_payer &lt;= 0</value>
+          </condition>
         </item>
         <item type="jump" id="2">
           <status>5</status>
@@ -809,15 +856,6 @@ Cordialement,</body>
       <colour>#FFFF00</colour>
       <visibility />
       <items>
-        <item type="set-backoffice-fields" id="10">
-          <label>Affichage du montant &#224; payer (virement)</label>
-          <fields>
-            <field>
-              <field_id>bo3660d5ea-fbcc-4d2e-af7c-bf55ab0594b6</field_id>
-              <value>{% if form_workflow_form_calcul_var_montant %}{{ form_workflow_form_calcul_var_montant|decimal:2 }}{% else %}{{ form_workflow_data_montant_response_cost|decimal:2 }}{% endif %}</value>
-            </field>
-          </fields>
-        </item>
         <item type="sendmail" id="1">
           <to>
             <item role_id="_submitter">_submitter</item>
@@ -830,7 +868,7 @@ Nous avons bien enregistr&#233; votre r&#233;servation pour les plaines. Pour qu
 * B&#233;n&#233;ficiaire : **Ville de {{ commune_name }} - {{ administration_adresse }}**
 * Num&#233;ro de compte b&#233;n&#233;ficiaire (IBAN) : **{{ form_option_iban }}**
 {% if form_workflow_data_communication_structuree_response %}* R&#233;f&#233;rence **obligatoire** de la commande (communication structur&#233;e) : **{% firstof form_workflow_form_calcul_var_communication form_workflow_data_communication_structuree_response %}**{% else %}* R&#233;f&#233;rence **obligatoire** de la commande (communication libre) : **{% if form_workflow_form_calcul_var_communication %}{{ form_workflow_form_calcul_var_communication }}{% else %}Nom(s) et pr&#233;nom(s) enfant(s) {{ form_number }}{% endif %}**{% endif %}
-* Montant de la commande : **{% if form_workflow_form_calcul_var_montant %}{{ form_workflow_form_calcul_var_montant|decimal:2 }}{% else %}{{ form_workflow_data_montant_response_cost|decimal:2 }}{% endif %}  &#8364;**
+* Montant de la commande : **{{ form_var_montant_a_payer|decimal:2 }}  &#8364;**
 
 {% firstof form_workflow_form_calcul_var_info_complementaires form_option_preremplir_info_complementaires %}</body>
           <condition>
@@ -851,7 +889,7 @@ Nous avons bien enregistr&#233; votre r&#233;servation pour les plaines. Pour qu
 	&lt;li&gt;B&amp;eacute;n&amp;eacute;ficiaire : &lt;strong&gt;Ville de {{ commune_name }} - {{ administration_adresse }}&lt;/strong&gt;&lt;/li&gt;
 	&lt;li&gt;Num&amp;eacute;ro de compte b&amp;eacute;n&amp;eacute;ficiaire (IBAN) : &lt;strong&gt;{{ form_option_iban }}&lt;/strong&gt;&lt;/li&gt;
 	&lt;li&gt;{% if form_workflow_data_communication_structuree_response %}R&amp;eacute;f&amp;eacute;rence &lt;strong&gt;obligatoire&lt;/strong&gt; de la commande (communication structur&amp;eacute;e) : &lt;strong&gt;{% firstof form_workflow_form_calcul_var_communication form_workflow_data_communication_structuree_response %}&lt;/strong&gt;{% else %}R&amp;eacute;f&amp;eacute;rence &lt;strong&gt;obligatoire&lt;/strong&gt; de la commande (communication libre) : &lt;strong&gt;{% if form_workflow_form_calcul_var_communication %}{{form_workflow_form_calcul_var_communication}}{% else %}Nom(s) et pr&amp;eacute;nom(s) enfant(s) {{ form_number }}{% endif %}&lt;/strong&gt;{% endif %}&lt;/li&gt;
-	&lt;li&gt;Montant de la commande : &lt;strong&gt;{% if form_workflow_form_calcul_var_montant %}{{ form_workflow_form_calcul_var_montant|decimal:2 }}{% else %}{{ form_workflow_data_montant_response_cost|decimal:2 }}{% endif %} &amp;euro;&lt;/strong&gt;&lt;/li&gt;
+	&lt;li&gt;Montant de la commande : &lt;strong&gt;{{ form_var_montant_a_payer|decimal:2 }} &amp;euro;&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;{% firstof form_workflow_form_calcul_var_info_complementaires form_option_preremplir_info_complementaires %}&lt;/p&gt;
@@ -1004,7 +1042,7 @@ Cordialement,</body>
           <subject>{{ form_name }} n&#176;{{ form_number }}</subject>
           <body>Bonjour,
 
-Nous vous confirmons la bonne r&#233;ception de votre paiement. Les inscriptions suivantes sont d&#233;sormais cl&#244;tur&#233;es :
+{% if form_var_montant_a_payer &lt;= 0 %}Aucun paiement n'est demand&#233; pour ces inscriptions.{% else %}Nous vous confirmons la bonne r&#233;ception de votre paiement.{% endif %} Les inscriptions suivantes sont d&#233;sormais cl&#244;tur&#233;es :
 {% for registration in forms|objects:"pp-fiche-inscription-plaine"|filter_by:"demande_finalisation"|filter_value:form_internal_id %}
  * {{ registration|get:"form_var_enfant" }} &#224; {{ registration|get:"form_var_plaine" }} du {{registration|get:"form_var_date_de_debut_de_la_plaine"|date }} au {{registration|get:"form_var_date_de_fin_de_la_plaine"|date }}
 {% endfor %}
