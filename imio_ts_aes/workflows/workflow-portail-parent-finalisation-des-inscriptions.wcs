@@ -791,7 +791,7 @@ Cordialement,</body>
             </item>
             <item>
               <name>amount</name>
-              <value>{{ form_var_montant_a_payer|decimal:2 }}</value>
+              <value>{% firstof form_var_montant_a_payer form_workflow_data_montant_response_cost %}</value>
             </item>
             <item>
               <name>comment</name>
@@ -827,6 +827,10 @@ Cordialement,</body>
           <record_on_errors>True</record_on_errors>
           <notify_on_errors>False</notify_on_errors>
           <set_marker_on_status>False</set_marker_on_status>
+          <condition>
+            <type>django</type>
+            <value>not form_var_montant_a_payer &lt;= 0</value>
+          </condition>
         </item>
         <item type="jump" id="2">
           <status>5</status>
