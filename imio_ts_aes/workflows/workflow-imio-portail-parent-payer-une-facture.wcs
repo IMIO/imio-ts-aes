@@ -145,6 +145,19 @@ Veuillez r&#233;gler votre commande.&lt;/p&gt;
       <colour>#00FF66</colour>
       <visibility />
       <items>
+        <item type="set-backoffice-fields" id="5">
+          <label>Affichage des identifiants de transaction et de paiement</label>
+          <fields>
+            <field>
+              <field_id>bo2b813b25-8e73-40de-a3b8-ed7dd25c76e6</field_id>
+              <value>{{ form_workflow_data_bank_transaction_id }}</value>
+            </field>
+            <field>
+              <field_id>bofe489926-830f-4cbf-8992-d07db108be52</field_id>
+              <value>{{ form_workflow_data_order_id }}</value>
+            </field>
+          </fields>
+        </item>
         <item type="webservice_call" id="4">
           <label>Encodage du paiement</label>
           <method>POST</method>
@@ -170,6 +183,10 @@ Veuillez r&#233;gler votre commande.&lt;/p&gt;
             <item>
               <name>transaction_id</name>
               <value>{{form_workflow_data_bank_transaction_id}}</value>
+            </item>
+            <item>
+              <name>payment_id</name>
+              <value>{{ form_workflow_data_order_id }}</value>
             </item>
             <item>
               <name>date</name>
@@ -419,11 +436,12 @@ Bien &#224; vous</body>
       <fields>
         <field>
           <type>string</type>
-          <label type="str">total</label>
+          <label type="str">Montant &#224; payer</label>
           <required type="str">required</required>
           <varname type="str">wf_total</varname>
           <display_locations>
             <item>summary</item>
+            <item>listings</item>
           </display_locations>
           <anonymise type="str">final</anonymise>
           <id type="str">bo4413471e-d2b0-4d57-8ac8-c42a5a5ecc7b</id>
@@ -451,6 +469,30 @@ Bien &#224; vous</body>
           </display_locations>
           <anonymise type="str">final</anonymise>
           <id type="str">bob9f56be7-ffcd-438e-9309-96e2c5f6f909</id>
+        </field>
+        <field>
+          <type>string</type>
+          <label type="str">Identifiant de transaction</label>
+          <required type="str">required</required>
+          <varname type="str">identifiant_de_transaction</varname>
+          <display_locations>
+            <item>validation</item>
+            <item>summary</item>
+          </display_locations>
+          <anonymise type="str">final</anonymise>
+          <id type="str">bo2b813b25-8e73-40de-a3b8-ed7dd25c76e6</id>
+        </field>
+        <field>
+          <type>string</type>
+          <label type="str">Identifiant de paiement</label>
+          <required type="str">required</required>
+          <varname type="str">identifiant_de_paiement</varname>
+          <display_locations>
+            <item>validation</item>
+            <item>summary</item>
+          </display_locations>
+          <anonymise type="str">final</anonymise>
+          <id type="str">bofe489926-830f-4cbf-8992-d07db108be52</id>
         </field>
       </fields>
     </formdef>
