@@ -57,9 +57,25 @@
     </field>
     <field>
       <type>computed</type>
+      <label type="str">Priorit&#233; aux habitants</label>
+      <varname type="str">priorite_habitant</varname>
+      <value_template type="str">{% if "Habitant dans la commune" in form_option_priorites %}oui{% endif %}</value_template>
+      <freeze_on_initial_value type="bool">False</freeze_on_initial_value>
+      <id type="str">9555d523-e7db-45a7-a095-8a03e80664db</id>
+    </field>
+    <field>
+      <type>computed</type>
+      <label type="str">Priorit&#233; aux enfants scolaris&#233;s</label>
+      <varname type="str">priorite_ecole</varname>
+      <value_template type="str">{% if "Enfants scolaris&#233;s dans la commune" in form_option_priorites and form_option_implantations_scolaires_raw %}oui{% endif %}</value_template>
+      <freeze_on_initial_value type="bool">False</freeze_on_initial_value>
+      <id type="str">6f21a42d-ec77-4c2d-ab76-9edee25ecd53</id>
+    </field>
+    <field>
+      <type>computed</type>
       <label type="str">Acc&#232;s autoris&#233;</label>
       <varname type="str">acces_autorise</varname>
-      <value_template type="str">{% if not "Habitant dans la commune" in form_option_priorites and not "Enfants scolaris&#233;s dans la commune" in form_option_priorites or not "Habitant dans la commune" in form_option_priorites and not form_option_implantations_scolaires_raw or "Habitant dans la commune" in form_option_priorites and not "Enfants scolaris&#233;s dans la commune" in form_option_priorites and form_user_var_zipcode in commune_cp or "Habitant dans la commune" in form_option_priorites and not form_option_implantations_scolaires_raw and form_user_var_zipcode in commune_cp or not "Habitant dans la commune" in form_option_priorites and "Enfants scolaris&#233;s dans la commune" in form_option_priorites and form_option_implantations_scolaires_raw and form_var_implantation_scolaire in form_option_implantations_scolaires_raw or "Habitant dans la commune" in form_option_priorites and "Enfants scolaris&#233;s dans la commune" in form_option_priorites and form_option_implantations_scolaires_raw and form_user_var_zipcode in commune_cp or "Habitant dans la commune" in form_option_priorites and "Enfants scolaris&#233;s dans la commune" in form_option_priorites and form_option_implantations_scolaires_raw and form_var_implantation_scolaire in form_option_implantations_scolaires_raw %}1{% endif %}</value_template>
+      <value_template type="str">{% if not form_var_priorite_habitant and not form_var_priorite_ecole or form_var_priorite_habitant and form_user_var_zipcode in commune_cp or form_var_priorite_ecole and form_var_implantation_scolaire in form_option_implantations_scolaires_raw %}oui{% endif %}</value_template>
       <freeze_on_initial_value type="bool">False</freeze_on_initial_value>
       <id type="str">03bb74ec-d43c-4861-933d-5529430620dc</id>
     </field>
@@ -110,8 +126,8 @@
       <label type="str">&lt;p&gt;{{ form_option_message_aux_non_prioritaires|default:"Veuillez attendre l'ouverture des plaines &#224; tous" }}&lt;/p&gt;
 &lt;p&gt;Les inscriptions sont actuellement r&#233;serv&#233;es :&lt;/p&gt;
 &lt;ul&gt;
-{% if "Habitant dans la commune" in form_option_priorites %}&lt;li&gt;aux habitants de la commune&lt;/li&gt;{% endif %}
-{% if "Enfants scolaris&#233;s dans la commune" in form_option_priorites and form_option_implantations_scolaires_raw %}&lt;li&gt;aux enfants scolaris&#233;s dans : {% for i in form_option_implantations_scolaires_structured %}{{ i.text }}{% if not forloop.last %}, {% endif %}{% endfor %}&lt;/li&gt;{% endif %}
+{% if form_var_priorite_habitant %}&lt;li&gt;aux habitants de la commune&lt;/li&gt;{% endif %}
+{% if form_var_priorite_ecole %}&lt;li&gt;aux enfants scolaris&#233;s dans : {% for i in form_option_implantations_scolaires_structured %}{{ i.text }}{% if not forloop.last %}, {% endif %}{% endfor %}&lt;/li&gt;{% endif %}
 &lt;/ul&gt;
 </label>
       <condition>
