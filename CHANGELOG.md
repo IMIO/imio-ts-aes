@@ -1,6 +1,19 @@
 Changelog
 =========
 
+3.8.0
+----------------
+
+- [PP-706] Added: registration priorities and school options in plains workflow.
+- [PP-706] Changed: plains registration is conditioned on priorities and the child's school (named computed fields for the access rule).
+- [PP-744] Added: "Archivé" status and "Archiver" global action on error statuses (not offered from end-of-processing statuses).
+- [PP-744] Changed: "Erreur - deux enfants trouvés" status colour is now red.
+- [PP-792] Added: "Assignation montant" status (back-office only) with automatic jumps to cart addition or registrations closing; bank transfer and "Valider le montant" choice go through it.
+- [PP-792] Changed: use montant_a_payer as amount in the add-to-basket webservice call and in the AES payment, with a guard on empty amount.
+- [PP-792] Changed: explicit closing email when no payment is required; requests already waiting or in error keep working when encoding the payment.
+- [PP-796] Added: transaction and payment ids fields, displayed and sent to AES, in finalisation, school meals, miscellaneous activities, "Portefeuille" and "Payer une facture" workflows.
+- [PP-796] Changed: decimal amount to pay allowed (displayed with decimal:2) in finalisation, school meals and miscellaneous activities workflows.
+
 3.7.4
 ----------------
 
