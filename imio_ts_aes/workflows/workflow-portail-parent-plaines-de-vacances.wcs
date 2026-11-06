@@ -284,7 +284,7 @@ Une fois que vous aurez pr&#233;inscrits tous vos enfants, vous pouvez `finalise
             <item role_id="_submitter">_submitter</item>
           </to>
           <message>&lt;p&gt;Vous avez trois jours pour finaliser les pr&#233;inscriptions de vos enfants. Au-del&#224; de ce d&#233;lai, ils seront d&#233;sinscrits.&lt;/p&gt;</message>
-          <level>error</level>
+          <level>warning</level>
           <position>top</position>
           <condition>
             <type>django</type>
