@@ -321,7 +321,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <hide_submit_button>True</hide_submit_button>
           <condition>
             <type>django</type>
-            <value>form_option_mode_paiement == "Paiement en ligne"</value>
+            <value>form_option_mode_paiement == "Paiement en ligne" and False</value>
           </condition>
           <include_in_form_history>False</include_in_form_history>
           <formdef>
@@ -359,7 +359,7 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <allow_as_mass_action>True</allow_as_mass_action>
           <condition>
             <type>django</type>
-            <value>form_option_mode_paiement == "Paiement en ligne"</value>
+            <value>form_option_mode_paiement == "Paiement en ligne" and False</value>
           </condition>
         </item>
       </items>
