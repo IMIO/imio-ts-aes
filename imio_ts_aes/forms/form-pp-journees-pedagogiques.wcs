@@ -21,6 +21,15 @@
     <field>
       <type>page</type>
       <label type="str">S&#233;lection des journ&#233;es p&#233;dagogiques</label>
+      <post_conditions>
+        <post_condition>
+          <condition>
+            <type>django</type>
+            <value>form_var_pedagogical_days_available</value>
+          </condition>
+          <error_message>Vous ne pouvez pas valider ce formulaire : aucune journ&#233;e p&#233;dagogique n&#8217;est propos&#233;e pour le moment.</error_message>
+        </post_condition>
+      </post_conditions>
       <id type="str">47</id>
     </field>
     <field>
@@ -40,10 +49,28 @@
       <id type="str">32ecd884-53f0-49ba-b82a-925c2b37a5f0</id>
     </field>
     <field>
+      <type>computed</type>
+      <label type="str">Pedagogical days available</label>
+      <varname type="str">pedagogical_days_available</varname>
+      <value_template type="str">{% if data_source.pp_pedagogical_days|length %}oui{% endif %}</value_template>
+      <freeze_on_initial_value type="bool">False</freeze_on_initial_value>
+      <id type="str">7b3e9c10-2d4a-4f68-8e15-672c1a9d0f34</id>
+    </field>
+    <field>
       <type>comment</type>
       <label type="str">&lt;p&gt;{% with amount=webservice.portail_parent_solde_accueil|get:"amount" already_reserved_amount=webservice.portail_parent_solde_accueil|get:"already_reserved_amount" %}{% if amount|subtract:already_reserved_amount &gt; 0 %}&lt;span class="pk-information"&gt;Il reste {{ amount|subtract:already_reserved_amount|decimal:2 }}&#8364; dans votre solde. Ce montant sera d&#233;duit lors du paiement.&lt;/span&gt;{% endif %}{% endwith %}&lt;/p&gt;</label>
       <display_locations />
       <id type="str">1fa06dbf-7db4-48ef-af4f-6ac3a4374a03</id>
+    </field>
+    <field>
+      <type>comment</type>
+      <label type="str">&lt;div class="pk-information"&gt;&lt;p&gt;Il n&#8217;y a pas de dates de journ&#233;es p&#233;dagogiques auxquelles inscrire votre/vos enfant(s) pour le moment.&lt;/p&gt;&lt;/div&gt;</label>
+      <condition>
+        <type>django</type>
+        <value>not form_var_pedagogical_days_available</value>
+      </condition>
+      <display_locations />
+      <id type="str">c0d4b1a2-6e57-4f0e-9a41-672a0b5d1e90</id>
     </field>
     <field>
       <type>comment</type>
@@ -59,12 +86,20 @@
 &lt;/div&gt;
 &lt;/div&gt;
 </label>
+      <condition>
+        <type>django</type>
+        <value>form_var_pedagogical_days_available</value>
+      </condition>
       <display_locations />
       <id type="str">488591d8-187b-4a6a-ab17-72505c94841a</id>
     </field>
     <field>
       <type>items</type>
       <label type="str">Journ&#233;es p&#233;dagogiques</label>
+      <condition>
+        <type>django</type>
+        <value>form_var_pedagogical_days_available</value>
+      </condition>
       <required type="str">required</required>
       <varname type="str">inscriptions</varname>
       <display_locations>
