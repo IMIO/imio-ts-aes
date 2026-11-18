@@ -7,6 +7,7 @@ Changelog
 - [PP-672] Added: message and blocked submission in the "Journées pédagogiques" form when no pedagogical day is offered.
 - [PP-809] Changed: the manual amount form and button are hidden in the finalisation workflow when the amount calculation fails.
 - [PP-810] Changed: the three days deadline alert of the plains workflow is displayed as a warning instead of an error.
+- [PP-820] Changed: increase homepage_data timeout and add force async on pp_acitivites.
 
 3.8.0
 ----------------

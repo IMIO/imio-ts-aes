@@ -4,6 +4,7 @@ JSON_CELL_TYPES.update(
          "name": "Portail Parent - Activités",
          "url": "{{ idp_url }}api/users/{{ user_nameid }}",
          "cache_duration": 0,
+         "force_async": True,
          "additional-data": [
             {
                "key": "formulaires",
@@ -19,7 +20,8 @@ JSON_CELL_TYPES.update(
             },
             {
                "key": "homepage_data",
-               "url": "{% if json.aes_id %}{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ json.aes_id }}/homepage?parent_uuid={{ user_nameid }}{% endif %}"
+               "url": "{% if json.aes_id %}{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ json.aes_id }}/homepage?parent_uuid={{ user_nameid }}{% endif %}",
+               "timeout": 10
             }
 
          ]
@@ -106,7 +108,8 @@ JSON_CELL_TYPES.update(
          "additional-data": [
             {
                "key": "homepage_data",
-               "url": "{% if json.aes_id %}{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ json.aes_id }}/homepage?parent_uuid={{ user_nameid }}{% endif %}"
+               "url": "{% if json.aes_id %}{{ passerelle_url }}passerelle-imio-ia-aes/aes/parents/{{ json.aes_id }}/homepage?parent_uuid={{ user_nameid }}{% endif %}",
+               "timeout": 10
             }
          ]
       }
