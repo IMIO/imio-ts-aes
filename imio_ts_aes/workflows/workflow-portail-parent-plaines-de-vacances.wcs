@@ -546,6 +546,17 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
           <extra_css_class type="str">grid-1-1</extra_css_class>
           <id type="str">6</id>
         </field>
+        <field>
+          <type>text</type>
+          <label type="str">Commentaire affich&#233; en premi&#232;re page</label>
+          <required type="str">optional</required>
+          <hint type="str">&lt;p&gt;Texte affich&#233; dans un encadr&#233; en haut de la premi&#232;re page. Commencez par un sous-titre, utilisez des phrases courtes et des puces. Laissez vide pour ne rien afficher.&lt;/p&gt;</hint>
+          <varname type="str">commentaire</varname>
+          <display_locations />
+          <anonymise type="str">no</anonymise>
+          <display_mode type="str">rich</display_mode>
+          <id type="str">c6f1d2a4-5b3e-4a7d-9e08-645a1b2c3d4e</id>
+        </field>
       </fields>
     </formdef>
   </variables>

@@ -40,6 +40,17 @@
       <id type="str">47</id>
     </field>
     <field>
+      <type>comment</type>
+      <label type="str">&lt;div&gt;{{ form_option_commentaire|safe }}&lt;/div&gt;</label>
+      <condition>
+        <type>django</type>
+        <value>form_option_commentaire</value>
+      </condition>
+      <extra_css_class type="str">pk-information</extra_css_class>
+      <display_locations />
+      <id type="str">d7a2e3b5-6c4f-4b8e-8f19-645b2c3d4e5f</id>
+    </field>
+    <field>
       <type>computed</type>
       <label type="str">activity_on_portal</label>
       <varname type="str">activity_on_portal</varname>
@@ -129,17 +140,6 @@
       <id type="str">1fa06dbf-7db4-48ef-af4f-6ac3a4374a03</id>
     </field>
     <field>
-      <type>comment</type>
-      <label type="str">&lt;p&gt;Pour inscrire votre enfant, cliquez sur le type de repas de votre choix. Ne cochez rien s&amp;#39;il ne doit pas &amp;ecirc;tre inscrit pour une ou plusieurs dates. Vous pourrez encore modifier votre choix jusqu&amp;#39;&amp;agrave; la fin des inscriptions de ce mois-ci.&lt;/p&gt;
-</label>
-      <condition>
-        <type>django</type>
-        <value>form_var_enfant</value>
-      </condition>
-      <display_locations />
-      <id type="str">488591d8-187b-4a6a-ab17-72505c94841a</id>
-    </field>
-    <field>
       <type>items</type>
       <label type="str">Menu</label>
       <required type="str">required</required>
@@ -185,6 +185,7 @@
     <role slug="agent-imio-portail-parents" role_id="17ebb1be538243ae90fd1f40f240c120" role_key="_support-imio">Agent iMio - Portail Parents</role>
   </roles>
   <options>
+    <option varname="commentaire">&lt;p&gt;Pour inscrire votre enfant, cliquez sur le type de repas de votre choix. Ne cochez rien s'il ne doit pas &#234;tre inscrit pour une ou plusieurs dates. Vous pourrez encore modifier votre choix jusqu'&#224; la fin des inscriptions de ce mois-ci.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;</option>
     <option varname="implantations_scolaires" />
     <option varname="implantations_scolaires_display" />
     <option varname="implantations_scolaires_structured" />
