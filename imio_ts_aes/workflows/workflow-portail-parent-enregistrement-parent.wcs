@@ -37,7 +37,9 @@
       <id>1</id>
       <name>Recherche du parent</name>
       <colour>#FFFFFF</colour>
-      <visibility />
+      <visibility>
+        <role>__restricted__</role>
+      </visibility>
       <items>
         <item type="webservice_call" id="1">
           <label>Recherche du parent</label>
@@ -150,7 +152,9 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
       <id>2</id>
       <name>Cr&#233;ation du parent</name>
       <colour>#FFFFFF</colour>
-      <visibility />
+      <visibility>
+        <role>__restricted__</role>
+      </visibility>
       <items>
         <item type="webservice_call" id="1">
           <label>Cr&#233;ation du parent</label>
@@ -376,7 +380,9 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
       <id>4</id>
       <name>Enregistrement valid&#233;</name>
       <colour>#FFFFFF</colour>
-      <visibility />
+      <visibility>
+        <role>__restricted__</role>
+      </visibility>
       <items>
         <item type="update_user_profile" id="1">
           <fields>
@@ -396,13 +402,6 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
 Vous avez bien &#233;t&#233; enregistr&#233; en tant que parent.
 
 Cordialement,</body>
-        </item>
-        <item type="redirect_to_url" id="3">
-          <url>{{ portal_url }}/portail-parent/enfants</url>
-          <condition>
-            <type>django</type>
-            <value>not is_in_backoffice</value>
-          </condition>
         </item>
         <item type="jump" id="4">
           <status>7</status>
@@ -485,7 +484,19 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
       <name>Enregistrement termin&#233;</name>
       <colour>#00FF00</colour>
       <visibility />
-      <items />
+      <items>
+        <item type="displaymsg" id="1">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
+          <message>&lt;p&gt;Vous &amp;ecirc;tes bien enregistr&amp;eacute; en tant que parent.&lt;/p&gt;
+
+&lt;p&gt;&lt;a class="pk-button" href="{{ portal_url }}portail-parent/enfants" rel="nofollow"&gt;Voir mes enfants&lt;/a&gt;&lt;/p&gt;
+</message>
+          <level>success</level>
+          <position>top</position>
+        </item>
+      </items>
     </status>
     <status>
       <id>10</id>
