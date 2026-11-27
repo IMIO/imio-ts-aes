@@ -37,7 +37,9 @@
       <id>1</id>
       <name>Recherche du parent</name>
       <colour>#FFFFFF</colour>
-      <visibility />
+      <visibility>
+        <role>__restricted__</role>
+      </visibility>
       <items>
         <item type="webservice_call" id="1">
           <label>Recherche du parent</label>
@@ -150,7 +152,9 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
       <id>2</id>
       <name>Cr&#233;ation du parent</name>
       <colour>#FFFFFF</colour>
-      <visibility />
+      <visibility>
+        <role>__restricted__</role>
+      </visibility>
       <items>
         <item type="webservice_call" id="1">
           <label>Cr&#233;ation du parent</label>
@@ -376,7 +380,9 @@ Si vous ne trouvez pas la source du probl&#232;me, vous pouvez contacter le supp
       <id>4</id>
       <name>Enregistrement valid&#233;</name>
       <colour>#FFFFFF</colour>
-      <visibility />
+      <visibility>
+        <role>__restricted__</role>
+      </visibility>
       <items>
         <item type="update_user_profile" id="1">
           <fields>
